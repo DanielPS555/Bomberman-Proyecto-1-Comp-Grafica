@@ -13,6 +13,7 @@ enum tipoMapaItem {
 
 struct mapaItem {
 	tipoMapaItem tipo;
+	retangulo3d figura;
 	//Aca va a haber un puntero cuando hay mas datos del elemento
 };
 
@@ -23,10 +24,11 @@ private:
 	int cant_filas;
 	int cant_columnas;
 
-	mapaItem** estructuraMapa;
+	mapaItem*** estructuraMapa;
 
 	retangulo2d pisoShape;
 	retangulo3d bordesShape[4];
+
 
 	//vector<retangulo3d> bordesShapes;
 

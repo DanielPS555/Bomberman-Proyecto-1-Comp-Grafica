@@ -1,7 +1,4 @@
 ﻿  main.cpp
-  mapa.cpp
-D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\mapa.cpp(12,26): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\mapa.cpp(13,28): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-  shapes.cpp
-  Generando código...
-  OpenGL-basico.vcxproj -> D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\Debug\Bomberman.exe
+C:\Users\Steven\Desktop\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\main.cpp(73,20): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\Steven\Desktop\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\main.cpp(77,20): warning C4305: '-=': truncation from 'double' to 'float'
+  OpenGL-basico.vcxproj -> C:\Users\Steven\Desktop\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\Debug\Bomberman.exe

@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
 	float color = 0;
 	glClearColor(color, color, color, 1);
 
-	gluPerspective(45, 1600 / 900.f, 0.1, 300);
+	gluPerspective(45, 1600 / 900.f, 0.1, 500);
 	glEnable(GL_DEPTH_TEST);
 	glMatrixMode(GL_MODELVIEW);
 	
@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
 	
 
 	// --------- Manejo y carga del mapa
-	mapa* map = new mapa(10, 10);
+	mapa* map = new mapa(11, 11);
 
 
 	// --------- Configuracion de la camara
@@ -49,7 +49,7 @@ int main(int argc, char *argv[]) {
 	float x, y, z;
 	x = 0;
 	y = 0;
-	z = 10;
+	z = 100;
 
 
 	// --------- Flags para el manejo de movimiento y Manejo de eventos
@@ -79,8 +79,8 @@ int main(int argc, char *argv[]) {
 		
 
 		
-		gluLookAt(x, y, z, 1, 1, 10, 0, 0, 1);
-
+		//gluLookAt(x, y, z, 1, 1, 10, 0, 0, 1);
+		gluLookAt(x, y, z, 0, 0, 0, 0, 1, 0);
 		if (rotate) {
 			degrees = degrees + 0.01f;
 		}

@@ -70,10 +70,39 @@ mapa::mapa(int cant_filas, int cant_columnas) {
 	bordesShape[3] = createRetangulo3d(verticesBordeSuperior);
 
 
-	this->estructuraMapa = new mapaItem * [this->cant_filas];
+
+	this->estructuraMapa = new mapaItem ** [this->cant_filas];
 	for (int i = 0; i < this->cant_filas; i++) {
-		this->estructuraMapa[i] = new mapaItem[this->cant_columnas];
+		this->estructuraMapa[i] = new mapaItem * [this->cant_columnas];
 	}
+
+	for (int i = 0; i < this->cant_filas; i++) {
+		for (int j = 0; j < this->cant_columnas; j++) {
+			if (i >= 1 && j >= 1 && i < cant_filas - 1 && j < cant_filas - 1  && i % 2 == 1 && j % 2 == 1) {
+				this->estructuraMapa[i][j] = new mapaItem;
+				this->estructuraMapa[i][j]->tipo = PARED_INDESTRUCTIBLE;
+
+				vertice verticesCubo[8] = {
+					{{j * LARGO_UNIDAD			, i * LARGO_UNIDAD					, 0			    }, {1,1,0}},
+					{{(j + 1) * LARGO_UNIDAD	, i * LARGO_UNIDAD					, 0			    }, {1,0,0}},
+					{{(j + 1) * LARGO_UNIDAD	, i * LARGO_UNIDAD					, ALTURA_PARED  }, {1,0,0}},
+					{{j * LARGO_UNIDAD	        , i * LARGO_UNIDAD					, ALTURA_PARED  }, {1,1,0}},
+					{{j * LARGO_UNIDAD	        , (i + 1 ) * LARGO_UNIDAD		    , ALTURA_PARED	}, {1,0,0}},
+					{{j  * LARGO_UNIDAD	        , (i + 1) * LARGO_UNIDAD			, 0			    }, {1,0,0}},
+					{{ (j + 1) * LARGO_UNIDAD	, (i + 1) * LARGO_UNIDAD			, 0				}, {1,1,0}},
+					{{ (j + 1) * LARGO_UNIDAD	, (i + 1) * LARGO_UNIDAD			, ALTURA_PARED	}, {1,0,0}}
+				};
+
+				this->estructuraMapa[i][j]->figura = createRetangulo3d(verticesCubo);
+			}else {
+				this->estructuraMapa[i][j] = nullptr;
+			}
+		}
+	}
+
+	
+
+
 }
 
 float mapa::getAlturaVistaPanoramica() {
@@ -92,6 +121,14 @@ void mapa::render() {
 
 	for (int i = 0; i < 4; i++) {
 		renderRectangulo3d(bordesShape[i]);
+	}
+
+	for (int i = 0; i < this->cant_filas; i++) {
+		for (int j = 0; j < this->cant_columnas; j++) {
+			if (this->estructuraMapa[i][j] != nullptr) {
+				renderRectangulo3d(this->estructuraMapa[i][j]->figura);
+			}
+		}
 	}
 	
 	finalizarRenderVertexArray();
