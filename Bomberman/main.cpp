@@ -6,6 +6,8 @@
 #include <conio.h>
 #include <GL/glu.h>
 #include "OpenGL-basico/mapa.h"
+#include "OpenGL-basico/jugador.h"
+#include <chrono>
 using namespace std;
 
 bool fin = false;
@@ -13,6 +15,7 @@ bool fin = false;
 
 
 int main(int argc, char *argv[]) {
+
 
 	
 	if (SDL_Init(SDL_INIT_VIDEO)<0) {
@@ -32,15 +35,20 @@ int main(int argc, char *argv[]) {
 	float color = 0;
 	glClearColor(color, color, color, 1);
 
-	gluPerspective(45, 1600 / 900.f, 0.1, 500);
+	gluPerspective(45, 1600 / 900.f, 0.1, 1000);
 	glEnable(GL_DEPTH_TEST);
 	glMatrixMode(GL_MODELVIEW);
 	
 	
+
+	//FIN TEXTURA
 	
+	//----DECLARACION DE OBJETOS CREADOS------------
 
 	// --------- Manejo y carga del mapa
 	mapa* map = new mapa(11, 11);
+
+	jugador * player = new jugador(0, 0, 10, 0);
 
 
 	// --------- Configuracion de la camara
@@ -49,7 +57,7 @@ int main(int argc, char *argv[]) {
 	float x, y, z;
 	x = 0;
 	y = 0;
-	z = 300;
+	z = 500;
 
 
 	// --------- Flags para el manejo de movimiento y Manejo de eventos
@@ -64,17 +72,23 @@ int main(int argc, char *argv[]) {
 	float degrees = 0;
 	
 
-
+	auto start = std::chrono::steady_clock::now();
+	float t;
 	do {
+
+		auto now = std::chrono::steady_clock::now();
+		t = std::chrono::duration<float>(now - start).count();
+
+
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
 		
 		if (isAdelanto) {
-			adelanto += 0.01;
+			adelanto += 0.1;
 		}
 
 		if (isRetroseso) {
-			adelanto -= 0.01;
+			adelanto -= 0.1;
 		}
 		
 
@@ -82,14 +96,22 @@ int main(int argc, char *argv[]) {
 		//gluLookAt(x, y, z, 1, 1, 10, 0, 0, 1);
 		gluLookAt(x, y, z, 0, 0, 0, 0, 1, 0);
 		if (rotate) {
-			degrees = degrees + 0.01f;
+			degrees = degrees + 0.1f;
 		}
 		glRotatef(degrees, 0.0, 0.0, 1.0);
 
 		glTranslated(-adelanto, -adelanto, 0.0);
 
 		glTranslatef(-25., -25.0, 0.);
-		map->render();		
+		
+		//player->render();
+
+
+		map->render();
+
+
+
+
 
 	
 		//MANEJO DE EVENTOS

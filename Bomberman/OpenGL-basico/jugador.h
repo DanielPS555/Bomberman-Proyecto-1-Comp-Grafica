@@ -1,3 +1,11 @@
+#include "SDL.h"
+#include "SDL_opengl.h"
+#include <iostream>
+#include "FreeImage.h"
+#include <stdio.h>
+#include <conio.h>
+#include <GL/glu.h>
+
 class jugador{
 private:
 	float posXEnMapa, posYEnMapa, posZEnMapa;
@@ -12,7 +20,9 @@ public:
 		bool isMoviendoAbajo,
 		bool isMoviendoIsquierda,
 		float deltaAngulo);
+		GLuint textura;
 
+	void render();
 
 	float getPosicionXEnMapa();
 
@@ -21,6 +31,8 @@ public:
 	float getPosicionZEnMapa();
 
 	float getAnguloActualEnMapa();
+
+	
 
 };
 

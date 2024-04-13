@@ -31,6 +31,11 @@ private:
 	retangulo2d pisoShape;
 	retangulo3d bordesShape[4];
 	std::vector<std::tuple<int, int>> destructibles;
+	
+	GLuint textura;
+	GLuint texturaPared;
+	GLuint texturapiso;
+	GLuint texturaIndestructibles;
 	//vector<retangulo3d> bordesShapes;
 
 
