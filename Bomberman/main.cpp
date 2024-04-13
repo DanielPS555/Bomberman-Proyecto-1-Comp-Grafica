@@ -49,7 +49,7 @@ int main(int argc, char *argv[]) {
 	float x, y, z;
 	x = 0;
 	y = 0;
-	z = 100;
+	z = 300;
 
 
 	// --------- Flags para el manejo de movimiento y Manejo de eventos

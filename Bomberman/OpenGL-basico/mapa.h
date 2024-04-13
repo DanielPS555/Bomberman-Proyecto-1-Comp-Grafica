@@ -1,5 +1,6 @@
 #include <vector>
 #include "renderUtils.h"
+#include <tuple>
 
 #define LARGO_UNIDAD 25  // tamaño de cada item (casilero) del mapa
 #define ALTURA_PARED 30 // Altura de los cubos y paredes
@@ -18,6 +19,7 @@ struct mapaItem {
 };
 
 
+
 class mapa {
 
 private:
@@ -28,8 +30,7 @@ private:
 
 	retangulo2d pisoShape;
 	retangulo3d bordesShape[4];
-
-
+	std::vector<std::tuple<int, int>> destructibles;
 	//vector<retangulo3d> bordesShapes;
 
 

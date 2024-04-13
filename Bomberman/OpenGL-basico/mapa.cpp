@@ -78,7 +78,7 @@ mapa::mapa(int cant_filas, int cant_columnas) {
 
 	for (int i = 0; i < this->cant_filas; i++) {
 		for (int j = 0; j < this->cant_columnas; j++) {
-			if (i >= 1 && j >= 1 && i < cant_filas - 1 && j < cant_filas - 1  && i % 2 == 1 && j % 2 == 1) {
+			if (i >= 1 && j >= 1 && i < cant_filas - 1 && j < cant_filas - 1 && i % 2 == 1 && j % 2 == 1) {
 				this->estructuraMapa[i][j] = new mapaItem;
 				this->estructuraMapa[i][j]->tipo = PARED_INDESTRUCTIBLE;
 
@@ -98,6 +98,37 @@ mapa::mapa(int cant_filas, int cant_columnas) {
 				this->estructuraMapa[i][j] = nullptr;
 			}
 		}
+	}
+
+	destructibles.push_back(std::make_tuple(1, 2));
+	destructibles.push_back(std::make_tuple(3, 4));
+	destructibles.push_back(std::make_tuple(7, 8));
+	destructibles.push_back(std::make_tuple(3,2));
+	destructibles.push_back(std::make_tuple(5, 4));
+	destructibles.push_back(std::make_tuple(6, 5));
+	destructibles.push_back(std::make_tuple(8,6));
+
+
+	for (const auto& par : this->destructibles) {
+		int i = std::get<0>(par);
+		int j = std::get<1>(par);
+
+		this->estructuraMapa[i][j] = new mapaItem;
+		this->estructuraMapa[i][j]->tipo = PARED_DESTRUCTIBLE;
+
+		vertice verticesCubo[8] = {
+			{{j * LARGO_UNIDAD			, i * LARGO_UNIDAD					, 0			    }, {0,1,0}},
+			{{(j + 1) * LARGO_UNIDAD	, i * LARGO_UNIDAD					, 0			    }, {0,0,1}},
+			{{(j + 1) * LARGO_UNIDAD	, i * LARGO_UNIDAD					, ALTURA_PARED  }, {0.1,0,1}},
+			{{j * LARGO_UNIDAD	        , i * LARGO_UNIDAD					, ALTURA_PARED  }, {0,0,1}},
+			{{j * LARGO_UNIDAD	        , (i + 1) * LARGO_UNIDAD		    , ALTURA_PARED	}, {1,1,0}},
+			{{j * LARGO_UNIDAD	        , (i + 1) * LARGO_UNIDAD			, 0			    }, {0,1,0}},
+			{{ (j + 1) * LARGO_UNIDAD	, (i + 1) * LARGO_UNIDAD			, 0				}, {0,1,1}},
+			{{ (j + 1) * LARGO_UNIDAD	, (i + 1) * LARGO_UNIDAD			, ALTURA_PARED	}, {1,0,1}}
+		};
+
+		this->estructuraMapa[i][j]->figura = createRetangulo3d(verticesCubo);
+
 	}
 
 	
