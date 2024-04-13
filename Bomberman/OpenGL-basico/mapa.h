@@ -5,10 +5,10 @@
 #include <stdio.h>
 #include <GL/glu.h>
 #include <vector>
-#include "shapesUtils.h"
+#include "shapes.h"
 
 #define LARGO_UNIDAD 5  // tamaño de cada item (casilero) del mapa
-#define ALTURA_PARED 10 // Altura de los cubos y paredes
+#define ALTURA_PARED 5 // Altura de los cubos y paredes
 
 enum tipoMapaItem {
 	CAMINO,
@@ -23,7 +23,7 @@ struct mapaItem {
 };
 
 
-class mapa{
+class mapa {
 
 private:
 	int cant_filas;
@@ -33,9 +33,9 @@ private:
 
 	retangulo2d pisoShape;
 	retangulo3d bordesShape[4];
-	
+
 	//vector<retangulo3d> bordesShapes;
-	
+
 
 	//Variuables redundantes (optimizacion)
 	float alturaReal; // cant_filas * LARGO_UNIDAD
@@ -51,7 +51,4 @@ public:
 	void render();
 
 	~mapa();
-	
-
 };
-

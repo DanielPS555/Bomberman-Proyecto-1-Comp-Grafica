@@ -21,12 +21,15 @@
     <ClCompile Include="mapa.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="shapes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mapa.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="shapesUtils.h">
+    <ClInclude Include="shapes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -82,10 +82,11 @@
   <ItemGroup>
     <ClCompile Include="..\main.cpp" />
     <ClCompile Include="mapa.cpp" />
+    <ClCompile Include="shapes.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mapa.h" />
-    <ClInclude Include="shapesUtils.h" />
+    <ClInclude Include="shapes.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

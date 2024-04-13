@@ -30,11 +30,11 @@ int main(int argc, char *argv[]) {
 	float color = 0;
 	glClearColor(color, color, color, 1);
 
-	gluPerspective(45, 1600 / 900.f, 0.1, 150);
+	gluPerspective(45, 1600 / 900.f, 0.1, 300);
 	glEnable(GL_DEPTH_TEST);
 	glMatrixMode(GL_MODELVIEW);
 	
-
+	bool rotate = false;
 	SDL_Event evento;
 
 	mapa* map = new mapa(10, 10);
@@ -43,7 +43,7 @@ int main(int argc, char *argv[]) {
 
 	x = 0;
 	y = 0;
-	z = map->getAlturaVistaPanoramica();
+	z = 200;
 
 
 	float degrees = 0;
@@ -52,7 +52,14 @@ int main(int argc, char *argv[]) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
 		glTranslatef(-25., -25., 0.);
+		//glRotatef(45, 0, 1, 0);
+		
 		gluLookAt(x, y, z, 0, 0, 0, 0, 1, 0);
+
+		if (rotate) {
+			degrees = degrees + 0.1f;
+		}
+		glRotatef(degrees, 0.0, 1.0, 0.0);
 
 		map->render();
 
@@ -60,8 +67,10 @@ int main(int argc, char *argv[]) {
 		while (SDL_PollEvent(&evento)){
 			switch (evento.type) {
 			case SDL_MOUSEBUTTONDOWN:
+				rotate = true;
 				break;
 			case SDL_MOUSEBUTTONUP:
+				rotate = false;
 				break;
 			case SDL_QUIT:
 				fin = true;
