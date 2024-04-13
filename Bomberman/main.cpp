@@ -6,7 +6,17 @@
 #include <conio.h>
 #include <GL/glu.h>
 #include "OpenGL-basico/mapa.h"
+#include "OpenGL-basico/jugador.h"
+#include "chrono"
+#include <thread> //ToDo Eliminar
+
 using namespace std;
+
+using Clock = std::chrono::steady_clock;
+using this_thread::sleep_for; //ToDo Eliminar
+using chrono::time_point;
+using chrono::duration_cast;
+using chrono::milliseconds;
 
 bool fin = false;
 
@@ -60,35 +70,39 @@ int main(int argc, char *argv[]) {
 	bool isAdelanto = false;
 	bool isRetroseso = false;
 
-	float adelanto = 0.0;
-	float degrees = 0;
 	
+	
+	// -------- Jugador
+	
+	jugador* player = new jugador(
+		map->obtenerPosicionXInicialJugador(), 
+		map->obtenerPosicionYInicialJugador(), 
+		map->obtenerPosicionZInicialJugador(), 
+		map->anguloInicialJugador()); //ToDo: Esta informacion debe ser obtenida del mapa
 
 
+	// -------- Manejo del tiempo
+
+	time_point<Clock> beginLastFrame = Clock::now();
+	milliseconds tiempoTranscurridoUltimoFrame;
 	do {
+		tiempoTranscurridoUltimoFrame = duration_cast<milliseconds>(Clock::now() - beginLastFrame);
+		std::cout << tiempoTranscurridoUltimoFrame.count() << "ms" << std::endl;
+		beginLastFrame = Clock::now();
+		//sleep_for(500ms);
+
+		
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
-		
-		if (isAdelanto) {
-			adelanto += 0.01;
-		}
-
-		if (isRetroseso) {
-			adelanto -= 0.01;
-		}
-		
-
+	
 		
 		gluLookAt(x, y, z, 1, 1, 10, 0, 0, 1);
 
-		if (rotate) {
-			degrees = degrees + 0.01f;
-		}
-		glRotatef(degrees, 0.0, 0.0, 1.0);
+		
+		glRotatef(player->getAnguloActualEnMapa(), 0.0, 0.0, 1.0);
 
-		glTranslated(-adelanto, -adelanto, 0.0);
+		glTranslated(-player->getPosicionXEnMapa(), -player->getPosicionYEnMapa(), -player->getPosicionZEnMapa());
 
-		glTranslatef(-25., -25.0, 0.);
 		map->render();		
 
 	
@@ -136,12 +150,18 @@ int main(int argc, char *argv[]) {
 		}
 		
 
+		milliseconds tiempoDuranteFrame = duration_cast<milliseconds>(Clock::now() - beginLastFrame);
+		if (tiempoDuranteFrame < milliseconds(2)){
+			sleep_for(2ms);
+		}
+
 		SDL_GL_SwapWindow(win);
 	} while (!fin);
 	//FIN LOOP PRINCIPAL
 	// LIMPIEZA
 
 	free(map);
+	free(player);
 
 	SDL_GL_DeleteContext(context);
 	SDL_DestroyWindow(win);

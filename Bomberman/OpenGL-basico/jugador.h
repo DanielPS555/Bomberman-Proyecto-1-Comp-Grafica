@@ -5,6 +5,8 @@ private:
 public:
 	jugador(float posXEnMapaInicial, float posYEnMapaInicial, float posZEnMapaInicial, float anguloInicial);
 
+	~jugador();
+
 	// ToDo queda refactoriacion por realizar
 	void trasladar(float deltaTiempo,
 		bool isMoviendoArriba,

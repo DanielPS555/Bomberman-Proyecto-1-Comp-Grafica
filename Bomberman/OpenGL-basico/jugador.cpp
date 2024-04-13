@@ -40,3 +40,8 @@ void jugador::trasladar(float deltaTiempo,
 
 
 }
+
+
+jugador::~jugador() {
+
+}

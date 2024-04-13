@@ -46,5 +46,11 @@ public:
 
 	void render();
 
+
+	float obtenerPosicionXInicialJugador();
+	float obtenerPosicionYInicialJugador();
+	float obtenerPosicionZInicialJugador();
+	float anguloInicialJugador();
+
 	~mapa();
 };
