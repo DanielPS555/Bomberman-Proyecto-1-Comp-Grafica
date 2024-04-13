@@ -81,11 +81,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\main.cpp" />
+    <ClCompile Include="jugador.cpp" />
     <ClCompile Include="mapa.cpp" />
+    <ClCompile Include="renderUtils.cpp" />
     <ClCompile Include="shapes.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="jugador.h" />
     <ClInclude Include="mapa.h" />
+    <ClInclude Include="renderUtils.h" />
     <ClInclude Include="shapes.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

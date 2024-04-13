@@ -1,11 +1,5 @@
-#pragma once
-#include "SDL.h"
-#include "SDL_opengl.h"
-#include <iostream>
-#include <stdio.h>
-#include <GL/glu.h>
 #include <vector>
-#include "shapes.h"
+#include "renderUtils.h"
 
 #define LARGO_UNIDAD 25  // tamaño de cada item (casilero) del mapa
 #define ALTURA_PARED 30 // Altura de los cubos y paredes
