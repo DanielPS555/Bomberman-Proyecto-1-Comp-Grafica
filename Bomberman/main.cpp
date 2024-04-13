@@ -10,10 +10,11 @@ using namespace std;
 
 bool fin = false;
 
+
+
 int main(int argc, char *argv[]) {
 
 	
-
 	if (SDL_Init(SDL_INIT_VIDEO)<0) {
 		cerr << "No se pudo iniciar SDL: " << SDL_GetError() << endl;
 		exit(1);
@@ -25,6 +26,7 @@ int main(int argc, char *argv[]) {
 		1600, 900 , SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
 	SDL_GLContext context = SDL_GL_CreateContext(win);
 
+
 	glMatrixMode(GL_PROJECTION);
 
 	float color = 0;
@@ -34,25 +36,35 @@ int main(int argc, char *argv[]) {
 	glEnable(GL_DEPTH_TEST);
 	glMatrixMode(GL_MODELVIEW);
 	
-	bool rotate = false;
-	SDL_Event evento;
+	
+	
 
+	// --------- Manejo y carga del mapa
 	mapa* map = new mapa(10, 10);
 
-	float x, y, z;
 
+	// --------- Configuracion de la camara
+	//ToDo: Poner en una clase propia, de forma que hay se puedan tener los modos de vista aparte 
+
+	float x, y, z;
 	x = 0;
 	y = 0;
 	z = 10;
 
+
+	// --------- Flags para el manejo de movimiento y Manejo de eventos
+
+	SDL_Event evento;
+
+	bool rotate = false;
 	bool isAdelanto = false;
 	bool isRetroseso = false;
 
 	float adelanto = 0.0;
-
-
 	float degrees = 0;
 	
+
+
 	do {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
@@ -65,8 +77,6 @@ int main(int argc, char *argv[]) {
 			adelanto -= 0.01;
 		}
 		
-
-		//cout << isAdelanto << " " << isRetroseso << "\n";
 
 		
 		gluLookAt(x, y, z, 1, 1, 10, 0, 0, 1);
