@@ -1,10 +1,2 @@
 ﻿  main.cpp
-  jugador.cpp
-  mapa.cpp
-D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\mapa.cpp(12,26): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\mapa.cpp(13,28): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-  mathVector.cpp
-  renderUtils.cpp
-  shapes.cpp
-  Generando código...
   OpenGL-basico.vcxproj -> D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\Debug\Bomberman.exe

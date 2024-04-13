@@ -5,7 +5,7 @@
 
 
 
-#define AVANCE_POR_SEGUNDO 10.0f
+#define AVANCE_POR_SEGUNDO 50.0f
 
 class jugador{
 private:
@@ -13,10 +13,10 @@ private:
 	float anguloActualEnMapa; //Angulo con respecto al eje x
 
 	// Vectores de avance por segundo (1000 ms)
-	mathVector DIRRECION_SUPERIOR  = { 0.0f					,  AVANCE_POR_SEGUNDO	, 0.0f };
-	mathVector DIRRECION_INFERIOR  = { 0.0f					, -AVANCE_POR_SEGUNDO	, 0.0f };
-	mathVector DIRRECION_DERECHA   = { AVANCE_POR_SEGUNDO		, 0.0f					, 0.0f };
-	mathVector DIRRECION_ISQUIERDA = { -AVANCE_POR_SEGUNDO	, 0.0f					, 0.0f };
+	const mathVector DIRRECION_SUPERIOR  = {  0.0f,  1.0f, 0.0f };
+	const mathVector DIRRECION_INFERIOR  = {  0.0f, -1.0f, 0.0f };
+	const mathVector DIRRECION_DERECHA   = {  1.0f,  0.0f, 0.0f };
+	const mathVector DIRRECION_ISQUIERDA = { -1.0f,  0.0f, 0.0f };
 public:
 	jugador(mathVector posicionInicial, float anguloInicial);
 

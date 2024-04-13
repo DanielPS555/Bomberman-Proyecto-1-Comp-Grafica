@@ -3,8 +3,6 @@
 #include <iostream>
 #include <math.h>
 
-/*
-
 void print(mathVector vector) {
 	std::cout << vector.x << "|" << vector.y << "|" << vector.z << std::endl;
 }
@@ -34,7 +32,7 @@ mathVector multiplicarPorEscalar(mathVector vec1, float escalar) {
 }
 
 float productoEscalar(mathVector vec1, mathVector vec2) {
-	return vec1.x * vec2.x + vec1.y * vec2.y * vec1.z * vec2.z;
+	return vec1.x * vec2.x + vec1.y * vec2.y + vec1.z * vec2.z;
 }
 
 mathVector productoVectorial(mathVector vec1, mathVector vec2) {
@@ -60,4 +58,7 @@ mathVector normalizar(mathVector vec) {
 	float invertidoNorma = 1 / norma(vec);
 	return multiplicarPorEscalar(vec, invertidoNorma);
 }
-*/
+
+bool isNulo(mathVector vec) {
+	return vec.x == 0 && vec.y == 0 && vec.z == 0;
+}

@@ -23,6 +23,8 @@ float norma(mathVector);
 
 mathVector normalizar(mathVector);
 
+bool isNulo(mathVector);
+
 void print(mathVector);
 
 #endif 

@@ -89,7 +89,7 @@ int main(int argc, char *argv[]) {
 		//Medir tiempo desde el ultimo frame hasta este
 		tiempoTranscurridoUltimoFrame = duration_cast<milliseconds>(Clock::now() - beginLastFrame);
 		float deltaTiempo = (float)tiempoTranscurridoUltimoFrame.count();
-		std::cout << deltaTiempo << "ms" << std::endl;
+		//std::cout << deltaTiempo << "ms " << isMoviendoArriba << " " << isMoviendoAbajo << " " << isMoviendoIsquierda << " " << isMoviendoDerecha << std::endl;
 		beginLastFrame = Clock::now();
 		
 		//Inicializar el frame
@@ -97,7 +97,7 @@ int main(int argc, char *argv[]) {
 		glLoadIdentity();
 
 		//Preparar la camara
-		gluLookAt(x, y, z, 1, 1, 10, 0, 0, 1);
+		gluLookAt(x, y, z, 0, 1, 10, 0, 0, 1);
 
 
 		// Realizar movimiendos por el ultimo frame y trasladar en el mapa

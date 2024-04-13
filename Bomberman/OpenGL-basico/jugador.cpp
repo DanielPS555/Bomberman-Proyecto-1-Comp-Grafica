@@ -1,4 +1,5 @@
 #include "jugador.h"
+#include <iostream>
 
 jugador::jugador(mathVector posicionInicial, float anguloInicial) {
 
@@ -22,9 +23,9 @@ void jugador::trasladar(float deltaTiempoMs,
 	bool isMoviendoAbajo,
 	bool isMoviendoIsquierda) {
 
-	/*
+	
 	mathVector resultante = { 0.f, 0.f, 0.f };
-
+	
 	if (isMoviendoArriba) {
 		resultante = sumar(resultante, DIRRECION_SUPERIOR);
 	}
@@ -40,14 +41,17 @@ void jugador::trasladar(float deltaTiempoMs,
 	if (isMoviendoIsquierda) {
 		resultante = sumar(resultante, DIRRECION_ISQUIERDA);
 	}
+	
+	if (!isNulo(resultante)) {
+		std::cout << "movimiento " << deltaTiempoMs <<  std::endl;
 
-	resultante = normalizar(resultante);
+		resultante = normalizar(resultante);
 
-	resultante = multiplicarPorEscalar(resultante, deltaTiempoMs / (1000.f) );
+		resultante = multiplicarPorEscalar(resultante,  AVANCE_POR_SEGUNDO *  deltaTiempoMs / (1000));
 
-	posicionEnMapa = sumar(posicionEnMapa, resultante);
-
-	*/
+		posicionEnMapa = sumar(posicionEnMapa, resultante);
+	}
+	
 }
 
 
