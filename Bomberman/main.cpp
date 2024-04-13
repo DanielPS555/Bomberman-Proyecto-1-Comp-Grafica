@@ -43,7 +43,12 @@ int main(int argc, char *argv[]) {
 
 	x = 0;
 	y = 0;
-	z = 200;
+	z = 10;
+
+	bool isAdelanto = false;
+	bool isRetroseso = false;
+
+	float adelanto = 0.0;
 
 
 	float degrees = 0;
@@ -51,18 +56,32 @@ int main(int argc, char *argv[]) {
 	do {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
-		glTranslatef(-25., -25., 0.);
-		//glRotatef(45, 0, 1, 0);
 		
-		gluLookAt(x, y, z, 0, 0, 0, 0, 1, 0);
+		if (isAdelanto) {
+			adelanto += 0.01;
+		}
+
+		if (isRetroseso) {
+			adelanto -= 0.01;
+		}
+		
+
+		//cout << isAdelanto << " " << isRetroseso << "\n";
+
+		
+		gluLookAt(x, y, z, 1, 1, 10, 0, 0, 1);
 
 		if (rotate) {
-			degrees = degrees + 0.1f;
+			degrees = degrees + 0.01f;
 		}
-		glRotatef(degrees, 0.0, 1.0, 0.0);
+		glRotatef(degrees, 0.0, 0.0, 1.0);
 
-		map->render();
+		glTranslated(-adelanto, -adelanto, 0.0);
 
+		glTranslatef(-25., -25.0, 0.);
+		map->render();		
+
+	
 		//MANEJO DE EVENTOS
 		while (SDL_PollEvent(&evento)){
 			switch (evento.type) {
@@ -75,16 +94,38 @@ int main(int argc, char *argv[]) {
 			case SDL_QUIT:
 				fin = true;
 				break;
-			case SDL_KEYUP:
+			case SDL_KEYDOWN:
 				switch (evento.key.keysym.sym) {
 				case SDLK_ESCAPE:
 					fin = true;
 					break;
 				case SDLK_RIGHT:
 					break;
+				case SDLK_UP:
+				case SDLK_w:
+					isAdelanto = true;
+					break;
+				case SDLK_DOWN:
+				case SDLK_s:
+					isRetroseso = true;
+					break;
+				}
+				break;
+			case SDL_KEYUP:
+				switch (evento.key.keysym.sym) {
+				case SDLK_UP:
+				case SDLK_w:
+					isAdelanto = false;
+					break;
+				case SDLK_DOWN:
+				case SDLK_s:
+					isRetroseso = false;
+					break;
 				}
 			}
 		}
+		
+
 		SDL_GL_SwapWindow(win);
 	} while (!fin);
 	//FIN LOOP PRINCIPAL

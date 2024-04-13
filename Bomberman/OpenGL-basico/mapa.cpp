@@ -99,6 +99,9 @@ void renderRectangulo2d(retangulo2d rec) {
 	glColorPointer(3, GL_FLOAT, 0, rec.coloresVertices);
 	glVertexPointer(3, GL_FLOAT, 0, rec.cordeneasVertices);
 	glDrawElements(GL_QUADS, 4, GL_UNSIGNED_BYTE, rec.indices);
+
+
+
 }
 
 void renderRectangulo3d(retangulo3d rec) {

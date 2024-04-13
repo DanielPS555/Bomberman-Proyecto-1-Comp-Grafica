@@ -7,8 +7,8 @@
 #include <vector>
 #include "shapes.h"
 
-#define LARGO_UNIDAD 5  // tamaño de cada item (casilero) del mapa
-#define ALTURA_PARED 5 // Altura de los cubos y paredes
+#define LARGO_UNIDAD 25  // tamaño de cada item (casilero) del mapa
+#define ALTURA_PARED 30 // Altura de los cubos y paredes
 
 enum tipoMapaItem {
 	CAMINO,
@@ -47,6 +47,8 @@ public:
 
 	// Retorna la altura en el eje z donde debe estar la camara para que se pueda ver todo el mapa
 	float getAlturaVistaPanoramica();
+
+	vertice getCentro();
 
 	void render();
 
