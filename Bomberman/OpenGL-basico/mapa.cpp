@@ -100,26 +100,15 @@ void mapa::render() {
 }
 
 //ToDo implementar en base a la configuracion del mapa
-float mapa::obtenerPosicionXInicialJugador() {
-	return 0.0f;
+mathVector mapa::obtenerPosicionInicialJugador() {
+	return { 0.f, 0.f, 0.f };
 }
 
-//ToDo implementar en base a la configuracion del mapa
-float mapa::obtenerPosicionYInicialJugador() {
-	return 0.0f;
-}
-
-//ToDo implementar en base a la configuracion del mapa
-float mapa::obtenerPosicionZInicialJugador() {
-	return 0.0f;
-}
 
 //ToDo implementar en base a la configuracion del mapa
 float mapa::anguloInicialJugador() {
 	return 0.0f;
 }
-
-
 
 mapa::~mapa() {
 	for (int i = 0; i < this->cant_filas ;i++){

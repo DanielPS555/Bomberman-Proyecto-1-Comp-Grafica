@@ -1,5 +1,6 @@
 #include <vector>
 #include "renderUtils.h"
+#include "mathVector.h"
 
 #define LARGO_UNIDAD 25  // tamaño de cada item (casilero) del mapa
 #define ALTURA_PARED 30 // Altura de los cubos y paredes
@@ -42,14 +43,10 @@ public:
 	// Retorna la altura en el eje z donde debe estar la camara para que se pueda ver todo el mapa
 	float getAlturaVistaPanoramica();
 
-	vertice getCentro();
-
 	void render();
 
 
-	float obtenerPosicionXInicialJugador();
-	float obtenerPosicionYInicialJugador();
-	float obtenerPosicionZInicialJugador();
+	mathVector obtenerPosicionInicialJugador();
 	float anguloInicialJugador();
 
 	~mapa();

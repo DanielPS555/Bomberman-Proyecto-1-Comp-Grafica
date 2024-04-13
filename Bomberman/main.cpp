@@ -67,18 +67,17 @@ int main(int argc, char *argv[]) {
 	SDL_Event evento;
 
 	bool rotate = false;
-	bool isAdelanto = false;
-	bool isRetroseso = false;
 
+	bool isMoviendoArriba = false;
+	bool isMoviendoAbajo = false;
+	bool isMoviendoIsquierda = false;
+	bool isMoviendoDerecha= false;
 	
 	
 	// -------- Jugador
 	
-	jugador* player = new jugador(
-		map->obtenerPosicionXInicialJugador(), 
-		map->obtenerPosicionYInicialJugador(), 
-		map->obtenerPosicionZInicialJugador(), 
-		map->anguloInicialJugador()); //ToDo: Esta informacion debe ser obtenida del mapa
+	
+	jugador* player = new jugador(map->obtenerPosicionInicialJugador(),map->anguloInicialJugador());
 
 
 	// -------- Manejo del tiempo
@@ -86,22 +85,28 @@ int main(int argc, char *argv[]) {
 	time_point<Clock> beginLastFrame = Clock::now();
 	milliseconds tiempoTranscurridoUltimoFrame;
 	do {
-		tiempoTranscurridoUltimoFrame = duration_cast<milliseconds>(Clock::now() - beginLastFrame);
-		std::cout << tiempoTranscurridoUltimoFrame.count() << "ms" << std::endl;
-		beginLastFrame = Clock::now();
-		//sleep_for(500ms);
 
+		//Medir tiempo desde el ultimo frame hasta este
+		tiempoTranscurridoUltimoFrame = duration_cast<milliseconds>(Clock::now() - beginLastFrame);
+		float deltaTiempo = (float)tiempoTranscurridoUltimoFrame.count();
+		std::cout << deltaTiempo << "ms" << std::endl;
+		beginLastFrame = Clock::now();
 		
+		//Inicializar el frame
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
-	
-		
+
+		//Preparar la camara
 		gluLookAt(x, y, z, 1, 1, 10, 0, 0, 1);
+
+
+		// Realizar movimiendos por el ultimo frame y trasladar en el mapa
+		player->trasladar(deltaTiempo, isMoviendoArriba, isMoviendoDerecha, isMoviendoAbajo, isMoviendoIsquierda);
 
 		
 		glRotatef(player->getAnguloActualEnMapa(), 0.0, 0.0, 1.0);
-
-		glTranslated(-player->getPosicionXEnMapa(), -player->getPosicionYEnMapa(), -player->getPosicionZEnMapa());
+		mathVector posicionEnMapaJugador = player->getPosicionEnMapa();
+		glTranslatef(-posicionEnMapaJugador.x, -posicionEnMapaJugador.y, -posicionEnMapaJugador.z);
 
 		map->render();		
 
@@ -123,15 +128,25 @@ int main(int argc, char *argv[]) {
 				case SDLK_ESCAPE:
 					fin = true;
 					break;
-				case SDLK_RIGHT:
-					break;
+
 				case SDLK_UP:
 				case SDLK_w:
-					isAdelanto = true;
+					isMoviendoArriba = true;
 					break;
+
 				case SDLK_DOWN:
 				case SDLK_s:
-					isRetroseso = true;
+					isMoviendoAbajo = true;
+					break;
+
+				case SDLK_RIGHT:
+				case SDLK_d:
+					isMoviendoDerecha = true;
+					break;
+
+				case SDLK_LEFT:
+				case SDLK_a:
+					isMoviendoIsquierda = true;
 					break;
 				}
 				break;
@@ -139,11 +154,22 @@ int main(int argc, char *argv[]) {
 				switch (evento.key.keysym.sym) {
 				case SDLK_UP:
 				case SDLK_w:
-					isAdelanto = false;
+					isMoviendoArriba = false;
 					break;
+
 				case SDLK_DOWN:
 				case SDLK_s:
-					isRetroseso = false;
+					isMoviendoAbajo = false;
+					break;
+
+				case SDLK_RIGHT:
+				case SDLK_d:
+					isMoviendoDerecha = false;
+					break;
+
+				case SDLK_LEFT:
+				case SDLK_a:
+					isMoviendoIsquierda = false;
 					break;
 				}
 			}

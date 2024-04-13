@@ -1,44 +1,51 @@
 #include "jugador.h"
 
-jugador::jugador(float posXEnMapaInicial, 
-	float posYEnMapaInicial, 
-	float posZEnMapaInicial, 
-	float anguloInicial) {
+jugador::jugador(mathVector posicionInicial, float anguloInicial) {
 
-	posXEnMapa = posXEnMapaInicial;
-	posYEnMapa = posYEnMapaInicial;
-	posZEnMapa = posZEnMapaInicial;
+	posicionEnMapa = posicionInicial;
 	anguloActualEnMapa = anguloInicial;
 
 }
 
 
-float jugador::getPosicionXEnMapa() {
-	return posXEnMapa;
-}
-
-float jugador::getPosicionYEnMapa() {
-	return posYEnMapa;
-}
-
-float jugador::getPosicionZEnMapa() {
-	return posZEnMapa;
+mathVector jugador::getPosicionEnMapa() {
+	return posicionEnMapa;
 }
 
 float jugador::getAnguloActualEnMapa() {
 	return anguloActualEnMapa;
 }
 
-void jugador::trasladar(float deltaTiempo,
+void jugador::trasladar(float deltaTiempoMs,
 	bool isMoviendoArriba,
 	bool isMoviendoDerecha,
 	bool isMoviendoAbajo,
-	bool isMoviendoIsquierda,
-	float deltaAngulo) {
+	bool isMoviendoIsquierda) {
 
-	//e
+	
+	mathVector resultante = { 0.f, 0.f, 0.f };
 
+	if (isMoviendoArriba) {
+		resultante = sumar(resultante, DIRRECION_SUPERIOR);
+	}
 
+	if (isMoviendoAbajo) {
+		resultante = sumar(resultante, DIRRECION_INFERIOR);
+	}
+
+	if (isMoviendoDerecha) {
+		resultante = sumar(resultante, DIRRECION_DERECHA);
+	}
+
+	if (isMoviendoIsquierda) {
+		resultante = sumar(resultante, DIRRECION_ISQUIERDA);
+	}
+
+	resultante = normalizar(resultante);
+
+	resultante = multiplicarPorEscalar(resultante, deltaTiempoMs / (1000.f) );
+
+	posicionEnMapa = sumar(posicionEnMapa, resultante);
 }
 
 

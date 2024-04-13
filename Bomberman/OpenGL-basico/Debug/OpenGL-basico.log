@@ -1,7 +1,100 @@
 ﻿  main.cpp
+D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\mathVector.h(1,19): error C2011: 'mathVector': nueva definición del tipo 'struct'
+  (compilando archivo de origen "../main.cpp")
+  D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\mathVector.h(1,8):
+  vea la declaración de 'mathVector'
+  
+D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\jugador.h(7,13): error C2079: 'jugador::posicionEnMapa' utiliza struct 'mathVector' sin definir
+  (compilando archivo de origen "../main.cpp")
+  
+D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\jugador.h(11,13): error C2079: 'jugador::DIRRECION_SUPERIOR' utiliza struct 'mathVector' sin definir
+  (compilando archivo de origen "../main.cpp")
+  
+D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\jugador.h(12,13): error C2079: 'jugador::DIRRECION_INFERIOR' utiliza struct 'mathVector' sin definir
+  (compilando archivo de origen "../main.cpp")
+  
+D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\jugador.h(13,13): error C2079: 'jugador::DIRRECION_DERECHA' utiliza struct 'mathVector' sin definir
+  (compilando archivo de origen "../main.cpp")
+  
+D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\jugador.h(14,13): error C2079: 'jugador::DIRRECION_ISQUIERDA' utiliza struct 'mathVector' sin definir
+  (compilando archivo de origen "../main.cpp")
+  
+D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\jugador.h(11,35): error C2440: 'inicializando': no se puede realizar la conversión de 'initializer list' a 'int'
+  (compilando archivo de origen "../main.cpp")
+  D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\jugador.h(11,35):
+  El inicializador contiene demasiados elementos
+  
+D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\jugador.h(11,76): error C2439: 'jugador::DIRRECION_SUPERIOR': no se pudo inicializar el miembro
+  (compilando archivo de origen "../main.cpp")
+  D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\jugador.h(11,13):
+  vea la declaración de 'jugador::DIRRECION_SUPERIOR'
+  
+D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\jugador.h(12,35): error C2440: 'inicializando': no se puede realizar la conversión de 'initializer list' a 'int'
+  (compilando archivo de origen "../main.cpp")
+  D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\jugador.h(12,35):
+  El inicializador contiene demasiados elementos
+  
+D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\jugador.h(12,76): error C2439: 'jugador::DIRRECION_INFERIOR': no se pudo inicializar el miembro
+  (compilando archivo de origen "../main.cpp")
+  D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\jugador.h(12,13):
+  vea la declaración de 'jugador::DIRRECION_INFERIOR'
+  
+D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\jugador.h(13,35): error C2440: 'inicializando': no se puede realizar la conversión de 'initializer list' a 'int'
+  (compilando archivo de origen "../main.cpp")
+  D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\jugador.h(13,35):
+  El inicializador contiene demasiados elementos
+  
+D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\jugador.h(13,76): error C2439: 'jugador::DIRRECION_DERECHA': no se pudo inicializar el miembro
+  (compilando archivo de origen "../main.cpp")
+  D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\jugador.h(13,13):
+  vea la declaración de 'jugador::DIRRECION_DERECHA'
+  
+D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\jugador.h(14,35): error C2440: 'inicializando': no se puede realizar la conversión de 'initializer list' a 'int'
+  (compilando archivo de origen "../main.cpp")
+  D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\jugador.h(14,35):
+  El inicializador contiene demasiados elementos
+  
+D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\jugador.h(14,76): error C2439: 'jugador::DIRRECION_ISQUIERDA': no se pudo inicializar el miembro
+  (compilando archivo de origen "../main.cpp")
+  D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\jugador.h(14,13):
+  vea la declaración de 'jugador::DIRRECION_ISQUIERDA'
+  
+D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\main.cpp(80,35): error C2027: uso del tipo 'mathVector' sin definir
+  D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\mathVector.h(1,8):
+  vea la declaración de 'mathVector'
+  
+D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\main.cpp(80,31): error C2665: 'jugador::jugador':ninguna función sobrecargada pudo convertir todos los tipos de argumento
+  D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\jugador.h(16,2):
+  puede ser 'jugador::jugador(mathVector,float)'
+  	D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\main.cpp(80,31):
+  	'jugador::jugador(mathVector,float)': el argumento 1 no puede convertirse de 'mathVector' a 'mathVector'
+  		D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\main.cpp(80,66):
+  		Uso del tipo no definido 'mathVector'
+  		D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\mathVector.h(1,8):
+  		vea la declaración de 'mathVector'
+  D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\main.cpp(80,31):
+  al hacer coincidir la lista de argumentos '(mathVector, float)'
+  
+D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\main.cpp(108,14): error C2079: 'posicionEnMapaJugador' utiliza struct 'mathVector' sin definir
+D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\main.cpp(108,44): error C2027: uso del tipo 'mathVector' sin definir
+  D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\mathVector.h(1,8):
+  vea la declaración de 'mathVector'
+  
+D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\main.cpp(108,36): error C2027: uso del tipo 'mathVector' sin definir
+  D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\mathVector.h(1,8):
+  vea la declaración de 'mathVector'
+  
+D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\main.cpp(109,3): error C2660: 'glTranslatef': la función no acepta 1 argumentos
+  D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\SDL2-2.0.12\include\SDL_opengl.h(955,23):
+  vea la declaración de 'glTranslatef'
+  D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\main.cpp(109,3):
+  al hacer coincidir la lista de argumentos '()'
+  
+  jugador.cpp
   mapa.cpp
 D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\mapa.cpp(12,26): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
 D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\mapa.cpp(13,28): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+  mathVector.cpp
+  renderUtils.cpp
   shapes.cpp
   Generando código...
-  OpenGL-basico.vcxproj -> D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\Debug\Bomberman.exe

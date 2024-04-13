@@ -1,27 +1,31 @@
+#include "mathVector.h"
+
+#define AVANCE_POR_SEGUNDO 10.0f
+
 class jugador{
 private:
-	float posXEnMapa, posYEnMapa, posZEnMapa;
+	mathVector posicionEnMapa;
 	float anguloActualEnMapa; //Angulo con respecto al eje x
+
+	// Vectores de avance por segundo (1000 ms)
+	mathVector DIRRECION_SUPERIOR  = { 0.0f					,  AVANCE_POR_SEGUNDO	, 0.0f };
+	mathVector DIRRECION_INFERIOR  = { 0.0f					, -AVANCE_POR_SEGUNDO	, 0.0f };
+	mathVector DIRRECION_DERECHA   = { AVANCE_POR_SEGUNDO		, 0.0f					, 0.0f };
+	mathVector DIRRECION_ISQUIERDA = { -AVANCE_POR_SEGUNDO	, 0.0f					, 0.0f };
 public:
-	jugador(float posXEnMapaInicial, float posYEnMapaInicial, float posZEnMapaInicial, float anguloInicial);
+	jugador(mathVector posicionInicial, float anguloInicial);
 
 	~jugador();
 
 	// ToDo queda refactoriacion por realizar
-	void trasladar(float deltaTiempo,
+	void trasladar(float deltaTiempoMs ,
 		bool isMoviendoArriba,
 		bool isMoviendoDerecha,
 		bool isMoviendoAbajo,
-		bool isMoviendoIsquierda,
-		float deltaAngulo);
+		bool isMoviendoIsquierda);
 
 
-	float getPosicionXEnMapa();
-
-	float getPosicionYEnMapa();
-
-	float getPosicionZEnMapa();
-
+	mathVector getPosicionEnMapa();
 	float getAnguloActualEnMapa();
 
 };

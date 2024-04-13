@@ -83,12 +83,14 @@
     <ClCompile Include="..\main.cpp" />
     <ClCompile Include="jugador.cpp" />
     <ClCompile Include="mapa.cpp" />
+    <ClCompile Include="mathVector.cpp" />
     <ClCompile Include="renderUtils.cpp" />
     <ClCompile Include="shapes.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="jugador.h" />
     <ClInclude Include="mapa.h" />
+    <ClInclude Include="mathVector.h" />
     <ClInclude Include="renderUtils.h" />
     <ClInclude Include="shapes.h" />
   </ItemGroup>
