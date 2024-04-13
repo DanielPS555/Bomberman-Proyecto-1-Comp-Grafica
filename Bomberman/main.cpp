@@ -77,7 +77,7 @@ int main(int argc, char *argv[]) {
 	// -------- Jugador
 	
 	
-	jugador* player = new jugador(map->obtenerPosicionInicialJugador(),map->anguloInicialJugador());
+	jugador* player = new jugador(map->obtenerPosicionInicialJugador(), map->anguloInicialJugador());
 
 
 	// -------- Manejo del tiempo

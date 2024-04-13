@@ -22,7 +22,7 @@ void jugador::trasladar(float deltaTiempoMs,
 	bool isMoviendoAbajo,
 	bool isMoviendoIsquierda) {
 
-	
+	/*
 	mathVector resultante = { 0.f, 0.f, 0.f };
 
 	if (isMoviendoArriba) {
@@ -46,6 +46,8 @@ void jugador::trasladar(float deltaTiempoMs,
 	resultante = multiplicarPorEscalar(resultante, deltaTiempoMs / (1000.f) );
 
 	posicionEnMapa = sumar(posicionEnMapa, resultante);
+
+	*/
 }
 
 

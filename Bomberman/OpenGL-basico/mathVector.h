@@ -1,8 +1,14 @@
+#ifndef MATH_VECTOR
+#define MATH_VECTOR
+
 struct mathVector {
-	float x;
-	float y;
-	float z;
+		float x;
+		float y;
+		float z;
 };
+
+
+
 
 mathVector sumar(mathVector, mathVector);
 mathVector restar(mathVector, mathVector);
@@ -19,6 +25,6 @@ mathVector normalizar(mathVector);
 
 void print(mathVector);
 
-
+#endif 
 
 

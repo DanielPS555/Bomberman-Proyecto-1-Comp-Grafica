@@ -1,5 +1,10 @@
 #include "mathVector.h"
 
+#ifndef JUGADOR
+#define JUGADOR
+
+
+
 #define AVANCE_POR_SEGUNDO 10.0f
 
 class jugador{
@@ -30,3 +35,5 @@ public:
 
 };
 
+
+#endif

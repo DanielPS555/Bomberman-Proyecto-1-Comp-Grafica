@@ -2,6 +2,11 @@
 #include "renderUtils.h"
 #include "mathVector.h"
 
+
+#ifndef MAPA
+#define MAPA
+
+
 #define LARGO_UNIDAD 25  // tamaño de cada item (casilero) del mapa
 #define ALTURA_PARED 30 // Altura de los cubos y paredes
 
@@ -51,3 +56,6 @@ public:
 
 	~mapa();
 };
+
+
+#endif
