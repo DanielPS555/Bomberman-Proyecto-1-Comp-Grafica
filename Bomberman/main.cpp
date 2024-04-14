@@ -62,7 +62,7 @@ int main(int argc, char *argv[]) {
 	float x, y, z;
 	x =  0;
 	y = -2;
-	z = 5;
+	z = 13;
 
 
 	// --------- Flags para el manejo de movimiento y Manejo de eventos
@@ -92,7 +92,6 @@ int main(int argc, char *argv[]) {
 		//Medir tiempo desde el ultimo frame hasta este
 		tiempoTranscurridoUltimoFrame = duration_cast<milliseconds>(Clock::now() - beginLastFrame);
 		float deltaTiempo = (float)tiempoTranscurridoUltimoFrame.count();
-		std::cout << rotateLeft << " " << rotateRight  << std::endl;
 		beginLastFrame = Clock::now();
 		
 		//Inicializar el frame
@@ -100,7 +99,7 @@ int main(int argc, char *argv[]) {
 		glLoadIdentity();
 
 		//Preparar la camara
-		gluLookAt(x, y, z, 0, 0, 5, 0, 0, 1);
+		gluLookAt(x, y, z, 0, 0, 13, 0, 0, 1);
 
 
 		// Realizar movimiendos por el ultimo frame y trasladar en el mapa
@@ -108,11 +107,11 @@ int main(int argc, char *argv[]) {
 		//Este tipo de movimiento de angulo de camara es completamente temporal
 		float deltaAngulo = 0.00f;
 		if (rotateLeft) {
-			deltaAngulo += 0.25f;
+			deltaAngulo += 0.30f;
 		}
 
 		if (rotateRight) {
-			deltaAngulo -= 0.25f;
+			deltaAngulo -= 0.30f;
 		}
 
 
