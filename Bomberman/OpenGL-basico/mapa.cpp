@@ -143,9 +143,9 @@ mapa::mapa(int cant_filas, int cant_columnas) {
 
 }
 
+//ToDo implementar segun el numero de min{filas, columnas, CONSTANTE}
 float mapa::getAlturaVistaPanoramica() {
-	//ToDo implementar segun el numero de min{filas, columnas, CONSTANTE}
-	return 100.;
+	return 100.0f;
 }
 
 
@@ -185,10 +185,16 @@ void mapa::render() {
 	glPopMatrix();
 }
 
+//ToDo implementar en base a la configuracion del mapa
+mathVector mapa::obtenerPosicionInicialJugador() {
+	return { 0.f, 0.f, 0.f };
+}
 
 
-
-
+//ToDo implementar en base a la configuracion del mapa
+float mapa::anguloInicialJugador() {
+	return 90.0f;
+}
 
 mapa::~mapa() {
 	for (int i = 0; i < this->cant_filas ;i++){

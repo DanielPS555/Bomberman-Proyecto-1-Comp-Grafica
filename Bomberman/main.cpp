@@ -7,8 +7,15 @@
 #include <GL/glu.h>
 #include "OpenGL-basico/mapa.h"
 #include "OpenGL-basico/jugador.h"
-#include <chrono>
+#include "chrono"
+#include <thread> //ToDo Eliminar
 using namespace std;
+
+using Clock = std::chrono::steady_clock;
+using this_thread::sleep_for; //ToDo Eliminar
+using chrono::time_point;
+using chrono::duration_cast;
+using chrono::milliseconds;
 
 bool fin = false;
 
@@ -48,63 +55,77 @@ int main(int argc, char *argv[]) {
 	// --------- Manejo y carga del mapa
 	mapa* map = new mapa(11, 11);
 
-	jugador * player = new jugador(0, 0, 10, 0);
-
 
 	// --------- Configuracion de la camara
 	//ToDo: Poner en una clase propia, de forma que hay se puedan tener los modos de vista aparte 
 
 	float x, y, z;
-	x = 0;
-	y = 0;
-	z = 500;
+	x =  0;
+	y = -2;
+	z = 5;
 
 
 	// --------- Flags para el manejo de movimiento y Manejo de eventos
 
 	SDL_Event evento;
 
-	bool rotate = false;
-	bool isAdelanto = false;
-	bool isRetroseso = false;
+	bool rotateLeft = false;
+	bool rotateRight = false;
 
-	float adelanto = 0.0;
-	float degrees = 0;
+	bool isMoviendoArriba = false;
+	bool isMoviendoAbajo = false;
+	bool isMoviendoIsquierda = false;
+	bool isMoviendoDerecha= false;
 	
+	
+	// -------- Jugador
+	
+	
+	jugador* player = new jugador(map->obtenerPosicionInicialJugador(), map->anguloInicialJugador());
 
-	auto start = std::chrono::steady_clock::now();
-	float t;
+	// -------- Manejo del tiempo
+
+	time_point<Clock> beginLastFrame = Clock::now();
+	milliseconds tiempoTranscurridoUltimoFrame;
 	do {
 
-		auto now = std::chrono::steady_clock::now();
-		t = std::chrono::duration<float>(now - start).count();
-
-
+		//Medir tiempo desde el ultimo frame hasta este
+		tiempoTranscurridoUltimoFrame = duration_cast<milliseconds>(Clock::now() - beginLastFrame);
+		float deltaTiempo = (float)tiempoTranscurridoUltimoFrame.count();
+		std::cout << rotateLeft << " " << rotateRight  << std::endl;
+		beginLastFrame = Clock::now();
+		
+		//Inicializar el frame
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
-		
-		if (isAdelanto) {
-			adelanto += 0.1;
+
+		//Preparar la camara
+		gluLookAt(x, y, z, 0, 0, 5, 0, 0, 1);
+
+
+		// Realizar movimiendos por el ultimo frame y trasladar en el mapa
+
+		//Este tipo de movimiento de angulo de camara es completamente temporal
+		float deltaAngulo = 0.00f;
+		if (rotateLeft) {
+			deltaAngulo += 0.25f;
 		}
 
-		if (isRetroseso) {
-			adelanto -= 0.1;
+		if (rotateRight) {
+			deltaAngulo -= 0.25f;
 		}
-		
+
+
+		player->rotarJugador(deltaAngulo);
+
+		player->trasladar(deltaTiempo, isMoviendoArriba, isMoviendoDerecha, isMoviendoAbajo, isMoviendoIsquierda);
 
 		
-		//gluLookAt(x, y, z, 1, 1, 10, 0, 0, 1);
-		gluLookAt(x, y, z, 0, 0, 0, 0, 1, 0);
-		if (rotate) {
-			degrees = degrees + 0.1f;
-		}
-		glRotatef(degrees, 0.0, 0.0, 1.0);
+		glRotatef(-player->getAnguloActualEnMapa(), 0.0, 0.0, 1.0);
+		mathVector posicionEnMapaJugador = player->getPosicionEnMapa();
+		glTranslatef(-posicionEnMapaJugador.x, -posicionEnMapaJugador.y, -posicionEnMapaJugador.z);
 
-		glTranslated(-adelanto, -adelanto, 0.0);
-
-		glTranslatef(-25., -25.0, 0.);
-		
-		//player->render();
+		map->render();		
 
 
 		map->render();
@@ -118,10 +139,25 @@ int main(int argc, char *argv[]) {
 		while (SDL_PollEvent(&evento)){
 			switch (evento.type) {
 			case SDL_MOUSEBUTTONDOWN:
-				rotate = true;
+
+				switch (evento.button.button) {
+				case SDL_BUTTON_LEFT:
+					rotateLeft = true;
+					break;
+				case SDL_BUTTON_RIGHT:
+					rotateRight = true;
+					break;
+				}
 				break;
 			case SDL_MOUSEBUTTONUP:
-				rotate = false;
+				switch (evento.button.button) {
+				case SDL_BUTTON_LEFT:
+					rotateLeft = false;
+					break;
+				case SDL_BUTTON_RIGHT:
+					rotateRight = false;
+					break;
+				}
 				break;
 			case SDL_QUIT:
 				fin = true;
@@ -131,15 +167,25 @@ int main(int argc, char *argv[]) {
 				case SDLK_ESCAPE:
 					fin = true;
 					break;
-				case SDLK_RIGHT:
-					break;
+
 				case SDLK_UP:
 				case SDLK_w:
-					isAdelanto = true;
+					isMoviendoArriba = true;
 					break;
+
 				case SDLK_DOWN:
 				case SDLK_s:
-					isRetroseso = true;
+					isMoviendoAbajo = true;
+					break;
+
+				case SDLK_RIGHT:
+				case SDLK_d:
+					isMoviendoDerecha = true;
+					break;
+
+				case SDLK_LEFT:
+				case SDLK_a:
+					isMoviendoIsquierda = true;
 					break;
 				}
 				break;
@@ -147,16 +193,32 @@ int main(int argc, char *argv[]) {
 				switch (evento.key.keysym.sym) {
 				case SDLK_UP:
 				case SDLK_w:
-					isAdelanto = false;
+					isMoviendoArriba = false;
 					break;
+
 				case SDLK_DOWN:
 				case SDLK_s:
-					isRetroseso = false;
+					isMoviendoAbajo = false;
+					break;
+
+				case SDLK_RIGHT:
+				case SDLK_d:
+					isMoviendoDerecha = false;
+					break;
+
+				case SDLK_LEFT:
+				case SDLK_a:
+					isMoviendoIsquierda = false;
 					break;
 				}
 			}
 		}
 		
+
+		milliseconds tiempoDuranteFrame = duration_cast<milliseconds>(Clock::now() - beginLastFrame);
+		if (tiempoDuranteFrame < milliseconds(2)){
+			sleep_for(2ms);
+		}
 
 		SDL_GL_SwapWindow(win);
 	} while (!fin);
@@ -164,6 +226,7 @@ int main(int argc, char *argv[]) {
 	// LIMPIEZA
 
 	free(map);
+	free(player);
 
 	SDL_GL_DeleteContext(context);
 	SDL_DestroyWindow(win);

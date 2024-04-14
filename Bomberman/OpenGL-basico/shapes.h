@@ -5,6 +5,9 @@
 #include <GL/glu.h>
 
 
+#ifndef SHAPES
+#define SHAPES
+
 //  v3------v2
 //  |        |
 //  |        |
@@ -43,3 +46,6 @@ struct vertice {
 
 
 retangulo3d createRetangulo3d(vertice vertices[8]);
+
+
+#endif

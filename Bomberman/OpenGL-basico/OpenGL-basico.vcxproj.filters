@@ -30,7 +30,11 @@
     <ClCompile Include="renderUtils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
+    <ClCompile Include="mathVector.cpp">
+=======
     <ClCompile Include="util.cpp">
+>>>>>>> main
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -47,7 +51,11 @@
     <ClInclude Include="renderUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
+    <ClInclude Include="mathVector.h">
+=======
     <ClInclude Include="util.h">
+>>>>>>> main
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

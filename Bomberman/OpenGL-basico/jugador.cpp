@@ -7,14 +7,10 @@
 #include <conio.h>
 #include <GL/glu.h>
 #include "util.h"
-jugador::jugador(float posXEnMapaInicial, 
-	float posYEnMapaInicial, 
-	float posZEnMapaInicial, 
-	float anguloInicial) {
+#include <iostream>
+jugador::jugador(mathVector posicionInicial, float anguloInicial) {
 
-	posXEnMapa = posXEnMapaInicial;
-	posYEnMapa = posYEnMapaInicial;
-	posZEnMapa = posZEnMapaInicial;
+	posicionEnMapa = posicionInicial;
 	anguloActualEnMapa = anguloInicial;
 
 	this->textura = inicializarTextura("assets/ladrillo.jpg");
@@ -22,32 +18,55 @@ jugador::jugador(float posXEnMapaInicial,
 }
 
 
-float jugador::getPosicionXEnMapa() {
-	return posXEnMapa;
-}
-
-float jugador::getPosicionYEnMapa() {
-	return posYEnMapa;
-}
-
-float jugador::getPosicionZEnMapa() {
-	return posZEnMapa;
+mathVector jugador::getPosicionEnMapa() {
+	return posicionEnMapa;
 }
 
 float jugador::getAnguloActualEnMapa() {
 	return anguloActualEnMapa;
 }
 
-void jugador::trasladar(float deltaTiempo,
+void jugador::trasladar(float deltaTiempoMs,
 	bool isMoviendoArriba,
 	bool isMoviendoDerecha,
 	bool isMoviendoAbajo,
-	bool isMoviendoIsquierda,
-	float deltaAngulo) {
+	bool isMoviendoIsquierda) {
 
-	//e
+	
+	mathVector resultante = { 0.f, 0.f, 0.f };
+	
+	if (isMoviendoArriba) {
+		resultante = sumar(resultante, DIRRECION_SUPERIOR);
+	}
 
+	if (isMoviendoAbajo) {
+		resultante = sumar(resultante, DIRRECION_INFERIOR);
+	}
 
+	if (isMoviendoDerecha) {
+		resultante = sumar(resultante, DIRRECION_DERECHA);
+	}
+
+	if (isMoviendoIsquierda) {
+		resultante = sumar(resultante, DIRRECION_ISQUIERDA);
+	}
+	
+	if (!isNulo(resultante)) {
+		std::cout << "movimiento " << deltaTiempoMs <<  std::endl;
+
+		resultante = normalizar(resultante);
+
+		resultante = rotar(resultante, anguloActualEnMapa);
+
+		resultante = multiplicarPorEscalar(resultante,  AVANCE_POR_SEGUNDO *  deltaTiempoMs / (1000));
+
+		posicionEnMapa = sumar(posicionEnMapa, resultante);
+	}
+	
+}
+
+void jugador::rotarJugador(float deltaRotacion) {
+	anguloActualEnMapa += deltaRotacion;
 }
 
 void jugador::render() {
@@ -66,4 +85,9 @@ void jugador::render() {
 		glDisable(GL_TEXTURE_2D);
 
 	glPopMatrix();
+}
+
+
+jugador::~jugador() {
+
 }
