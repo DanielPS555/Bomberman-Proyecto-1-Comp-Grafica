@@ -196,6 +196,60 @@ float mapa::anguloInicialJugador() {
 	return 90.0f;
 }
 
+bool mapa::agregarBomba(float posEnXMapa, float posEnYMapa)
+{	
+	int i = posEnXMapa;
+	int j = posEnYMapa;
+
+	this->estructuraMapa[i][j] = new mapaItem;
+	this->estructuraMapa[i][j]->tipo = BOMBA;
+
+	vertice verticesCuboBom[8] = {
+					{{j * LARGO_UNIDAD			, i * LARGO_UNIDAD					, 0			    }, {1,1,1} },
+					{{(j + 1) * LARGO_UNIDAD	, i * LARGO_UNIDAD					, 0			    }, {1,1,1} },
+					{{(j + 1) * LARGO_UNIDAD	, i * LARGO_UNIDAD					, ALTURA_PARED  }, {1,1,1} },
+					{{j * LARGO_UNIDAD	        , i * LARGO_UNIDAD					, ALTURA_PARED  }, {1,1,1} },
+					{{j * LARGO_UNIDAD	        , (i + 1) * LARGO_UNIDAD		    , ALTURA_PARED	}, {1,1,1} },
+					{{j * LARGO_UNIDAD	        , (i + 1) * LARGO_UNIDAD			, 0			    }, {1,1,1} },
+					{{ (j + 1) * LARGO_UNIDAD	, (i + 1) * LARGO_UNIDAD			, 0				}, {1,1,1} },
+					{{ (j + 1) * LARGO_UNIDAD	, (i + 1) * LARGO_UNIDAD			, ALTURA_PARED	}, {1,1,1} },
+
+	};
+
+	destructibles.push_back(std::make_tuple(posEnXMapa, posEnYMapa));
+	this->estructuraMapa[i][j]->figura = createRetangulo3d(verticesCuboBom);
+
+	return true;
+}
+
+void mapa::eliminarDestructibles(float** destruir, int alcanze)
+{
+	std::tuple<int, int> temp;
+	if (destruir != nullptr) {
+		for (int i = 0; i <= alcanze * 4; i++) {
+			int x = destruir[i][0];
+			int y = destruir[i][1];
+			int s = 0;
+			auto it = destructibles.begin();
+			while (it != destructibles.end()) {
+				temp = destructibles[s];
+				int r = std::get<0>(temp);
+				int f = std::get<1>(temp);
+				if (x == r && y == f) {
+					delete this->estructuraMapa[r][f];
+					this->estructuraMapa[r][f] = nullptr;
+					destructibles.erase(it);
+					it = destructibles.end();
+				}
+				else {
+					s++;
+					++it;
+				}
+			}
+		}
+	}
+}
+
 mapa::~mapa() {
 	for (int i = 0; i < this->cant_filas ;i++){
 		free(this->estructuraMapa[i]);

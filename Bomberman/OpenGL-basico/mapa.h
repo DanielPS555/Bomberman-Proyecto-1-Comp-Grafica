@@ -14,7 +14,8 @@
 enum tipoMapaItem {
 	CAMINO,
 	PARED_INDESTRUCTIBLE,
-	PARED_DESTRUCTIBLE
+	PARED_DESTRUCTIBLE,
+	BOMBA
 };
 
 
@@ -61,6 +62,9 @@ public:
 
 	mathVector obtenerPosicionInicialJugador();
 	float anguloInicialJugador();
+
+	bool agregarBomba(float posEnXMapa, float posEnYMapa);
+	void eliminarDestructibles(float** destructibles, int alcanze);
 
 	~mapa();
 };

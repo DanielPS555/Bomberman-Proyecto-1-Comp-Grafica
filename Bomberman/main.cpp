@@ -9,6 +9,7 @@
 #include "OpenGL-basico/jugador.h"
 #include "chrono"
 #include <thread> //ToDo Eliminar
+#include "OpenGL-basico/bomb.h"
 using namespace std;
 
 using Clock = std::chrono::steady_clock;
@@ -16,6 +17,7 @@ using this_thread::sleep_for; //ToDo Eliminar
 using chrono::time_point;
 using chrono::duration_cast;
 using chrono::milliseconds;
+using chrono::seconds;
 
 bool fin = false;
 
@@ -76,7 +78,18 @@ int main(int argc, char *argv[]) {
 	bool isMoviendoAbajo = false;
 	bool isMoviendoIsquierda = false;
 	bool isMoviendoDerecha= false;
+
+	// -------- Flags para manejo de la bomba
+
+	bool ponerBomba = false;
+	bool explotarBomba = false;
+	bool hayBomba = false;
+	bool timer = false;
 	
+	// -------- Bombas
+	time_point<Clock> bombTime = Clock::now();
+	bomba* bomb = nullptr;
+	float** victimas = nullptr;
 	
 	// -------- Jugador
 	
@@ -123,6 +136,38 @@ int main(int argc, char *argv[]) {
 		glRotatef(-player->getAnguloActualEnMapa(), 0.0, 0.0, 1.0);
 		mathVector posicionEnMapaJugador = player->getPosicionEnMapa();
 		glTranslatef(-posicionEnMapaJugador.x, -posicionEnMapaJugador.y, -posicionEnMapaJugador.z);
+
+
+		//Manejo de la coloccacion de bombas
+		if (ponerBomba) {
+			bomb = new bomba(4.0, 4.0, 1);
+			hayBomba = map->agregarBomba(4.0, 4.0);
+			bombTime = Clock::now() += seconds(5);
+			ponerBomba = false;
+		}
+
+		if (hayBomba && timer && bombTime <= Clock::now()) {
+			victimas = bomb->explosion_trigg(victimas);
+			if (victimas != nullptr) {
+				map->eliminarDestructibles(victimas, 1);
+				delete victimas;
+				victimas = nullptr;
+				delete bomb;
+				bomb = nullptr;
+				hayBomba = false;
+			}
+		}
+		if (hayBomba && explotarBomba) {
+			victimas = bomb->explosion_trigg(victimas);
+			map->eliminarDestructibles(victimas, 1);
+			delete victimas;
+			victimas = nullptr;
+			delete bomb;
+			bomb = nullptr;
+			hayBomba = false;
+			explotarBomba = false;
+		}
+		
 
 		map->render();		
 
@@ -185,6 +230,14 @@ int main(int argc, char *argv[]) {
 				case SDLK_LEFT:
 				case SDLK_a:
 					isMoviendoIsquierda = true;
+					break;
+
+				case SDLK_b:
+					ponerBomba  = true;
+					break;
+
+				case SDLK_n:
+					explotarBomba = true;
 					break;
 				}
 				break;
