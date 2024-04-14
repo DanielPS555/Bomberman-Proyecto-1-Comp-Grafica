@@ -55,23 +55,22 @@ int main(int argc, char *argv[]) {
 	// --------- Manejo y carga del mapa
 	mapa* map = new mapa(11, 11);
 
-	jugador * player = new jugador(0, 0, 10, 0);
-
 
 	// --------- Configuracion de la camara
 	//ToDo: Poner en una clase propia, de forma que hay se puedan tener los modos de vista aparte 
 
 	float x, y, z;
-	x = 0;
-	y = 0;
-	z = 500;
+	x =  0;
+	y = -2;
+	z = 5;
 
 
 	// --------- Flags para el manejo de movimiento y Manejo de eventos
 
 	SDL_Event evento;
 
-	bool rotate = false;
+	bool rotateLeft = false;
+	bool rotateRight = false;
 
 	bool isMoviendoArriba = false;
 	bool isMoviendoAbajo = false;
@@ -84,10 +83,6 @@ int main(int argc, char *argv[]) {
 	
 	jugador* player = new jugador(map->obtenerPosicionInicialJugador(), map->anguloInicialJugador());
 
-	auto start = std::chrono::steady_clock::now();
-	float t;
-	do {
-
 	// -------- Manejo del tiempo
 
 	time_point<Clock> beginLastFrame = Clock::now();
@@ -97,7 +92,7 @@ int main(int argc, char *argv[]) {
 		//Medir tiempo desde el ultimo frame hasta este
 		tiempoTranscurridoUltimoFrame = duration_cast<milliseconds>(Clock::now() - beginLastFrame);
 		float deltaTiempo = (float)tiempoTranscurridoUltimoFrame.count();
-		//std::cout << deltaTiempo << "ms " << isMoviendoArriba << " " << isMoviendoAbajo << " " << isMoviendoIsquierda << " " << isMoviendoDerecha << std::endl;
+		std::cout << rotateLeft << " " << rotateRight  << std::endl;
 		beginLastFrame = Clock::now();
 		
 		//Inicializar el frame
@@ -105,14 +100,28 @@ int main(int argc, char *argv[]) {
 		glLoadIdentity();
 
 		//Preparar la camara
-		gluLookAt(x, y, z, 0, 1, 10, 0, 0, 1);
+		gluLookAt(x, y, z, 0, 0, 5, 0, 0, 1);
 
 
 		// Realizar movimiendos por el ultimo frame y trasladar en el mapa
+
+		//Este tipo de movimiento de angulo de camara es completamente temporal
+		float deltaAngulo = 0.00f;
+		if (rotateLeft) {
+			deltaAngulo += 0.25f;
+		}
+
+		if (rotateRight) {
+			deltaAngulo -= 0.25f;
+		}
+
+
+		player->rotarJugador(deltaAngulo);
+
 		player->trasladar(deltaTiempo, isMoviendoArriba, isMoviendoDerecha, isMoviendoAbajo, isMoviendoIsquierda);
 
 		
-		glRotatef(player->getAnguloActualEnMapa(), 0.0, 0.0, 1.0);
+		glRotatef(-player->getAnguloActualEnMapa(), 0.0, 0.0, 1.0);
 		mathVector posicionEnMapaJugador = player->getPosicionEnMapa();
 		glTranslatef(-posicionEnMapaJugador.x, -posicionEnMapaJugador.y, -posicionEnMapaJugador.z);
 
@@ -130,10 +139,25 @@ int main(int argc, char *argv[]) {
 		while (SDL_PollEvent(&evento)){
 			switch (evento.type) {
 			case SDL_MOUSEBUTTONDOWN:
-				rotate = true;
+
+				switch (evento.button.button) {
+				case SDL_BUTTON_LEFT:
+					rotateLeft = true;
+					break;
+				case SDL_BUTTON_RIGHT:
+					rotateRight = true;
+					break;
+				}
 				break;
 			case SDL_MOUSEBUTTONUP:
-				rotate = false;
+				switch (evento.button.button) {
+				case SDL_BUTTON_LEFT:
+					rotateLeft = false;
+					break;
+				case SDL_BUTTON_RIGHT:
+					rotateRight = false;
+					break;
+				}
 				break;
 			case SDL_QUIT:
 				fin = true;

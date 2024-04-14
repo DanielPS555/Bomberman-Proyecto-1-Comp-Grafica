@@ -14,7 +14,7 @@
 class jugador{
 private:
 	mathVector posicionEnMapa;
-	float anguloActualEnMapa; //Angulo con respecto al eje x
+	float anguloActualEnMapa; //Angulo con respecto al eje y
 
 	// Vectores de avance por segundo (1000 ms)
 	const mathVector DIRRECION_SUPERIOR  = {  0.0f,  1.0f, 0.0f };
@@ -24,6 +24,8 @@ private:
 public:
 	jugador(mathVector posicionInicial, float anguloInicial);
 
+	GLuint textura;
+
 	~jugador();
 
 	// ToDo queda refactoriacion por realizar
@@ -32,7 +34,8 @@ public:
 		bool isMoviendoDerecha,
 		bool isMoviendoAbajo,
 		bool isMoviendoIsquierda);
-		GLuint textura;
+		
+	void rotarJugador(float deltaRotacion);
 
 	void render();
 

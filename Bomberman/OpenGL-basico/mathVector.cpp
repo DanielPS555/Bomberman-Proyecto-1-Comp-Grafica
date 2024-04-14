@@ -1,7 +1,13 @@
 #include "mathVector.h"
 
 #include <iostream>
+
+#ifndef _USE_MATH_DEFINES
+#define _USE_MATH_DEFINES  // for C
+#endif 
 #include <math.h>
+
+
 
 void print(mathVector vector) {
 	std::cout << vector.x << "|" << vector.y << "|" << vector.z << std::endl;
@@ -61,4 +67,13 @@ mathVector normalizar(mathVector vec) {
 
 bool isNulo(mathVector vec) {
 	return vec.x == 0 && vec.y == 0 && vec.z == 0;
+}
+
+mathVector rotar(mathVector vec, float anguloEnGrado) {
+	float rad = (anguloEnGrado * M_PI) / 180.0f;
+	return {
+		cos(rad) * vec.x - sin(rad) * vec.y,
+		sin(rad) * vec.x + cos(rad) * vec.y,
+		vec.z
+	};
 }

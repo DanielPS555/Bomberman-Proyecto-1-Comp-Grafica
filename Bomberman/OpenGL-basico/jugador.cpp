@@ -56,11 +56,17 @@ void jugador::trasladar(float deltaTiempoMs,
 
 		resultante = normalizar(resultante);
 
+		resultante = rotar(resultante, anguloActualEnMapa);
+
 		resultante = multiplicarPorEscalar(resultante,  AVANCE_POR_SEGUNDO *  deltaTiempoMs / (1000));
 
 		posicionEnMapa = sumar(posicionEnMapa, resultante);
 	}
 	
+}
+
+void jugador::rotarJugador(float deltaRotacion) {
+	anguloActualEnMapa += deltaRotacion;
 }
 
 void jugador::render() {

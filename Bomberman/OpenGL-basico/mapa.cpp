@@ -193,7 +193,7 @@ mathVector mapa::obtenerPosicionInicialJugador() {
 
 //ToDo implementar en base a la configuracion del mapa
 float mapa::anguloInicialJugador() {
-	return 0.0f;
+	return 90.0f;
 }
 
 mapa::~mapa() {

@@ -1,8 +1,2 @@
 ﻿  main.cpp
-<<<<<<< HEAD
   OpenGL-basico.vcxproj -> D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\Debug\Bomberman.exe
-=======
-C:\Users\Steven\Desktop\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\main.cpp(87,19): warning C4305: '+=': truncation from 'double' to 'float'
-C:\Users\Steven\Desktop\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\main.cpp(91,19): warning C4305: '-=': truncation from 'double' to 'float'
-  OpenGL-basico.vcxproj -> C:\Users\Steven\Desktop\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\Debug\Bomberman.exe
->>>>>>> main

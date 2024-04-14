@@ -27,6 +27,8 @@ bool isNulo(mathVector);
 
 void print(mathVector);
 
+mathVector rotar(mathVector, float anguloEnGrado);
+
 #endif 
 
 
