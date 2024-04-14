@@ -9,7 +9,6 @@
 #include "OpenGL-basico/jugador.h"
 #include "chrono"
 #include <thread> //ToDo Eliminar
-
 using namespace std;
 
 using Clock = std::chrono::steady_clock;
@@ -23,6 +22,7 @@ bool fin = false;
 
 
 int main(int argc, char *argv[]) {
+
 
 	
 	if (SDL_Init(SDL_INIT_VIDEO)<0) {
@@ -42,15 +42,20 @@ int main(int argc, char *argv[]) {
 	float color = 0;
 	glClearColor(color, color, color, 1);
 
-	gluPerspective(45, 1600 / 900.f, 0.1, 300);
+	gluPerspective(45, 1600 / 900.f, 0.1, 1000);
 	glEnable(GL_DEPTH_TEST);
 	glMatrixMode(GL_MODELVIEW);
 	
 	
+
+	//FIN TEXTURA
 	
+	//----DECLARACION DE OBJETOS CREADOS------------
 
 	// --------- Manejo y carga del mapa
-	mapa* map = new mapa(10, 10);
+	mapa* map = new mapa(11, 11);
+
+	jugador * player = new jugador(0, 0, 10, 0);
 
 
 	// --------- Configuracion de la camara
@@ -59,7 +64,7 @@ int main(int argc, char *argv[]) {
 	float x, y, z;
 	x = 0;
 	y = 0;
-	z = 10;
+	z = 500;
 
 
 	// --------- Flags para el manejo de movimiento y Manejo de eventos
@@ -79,6 +84,9 @@ int main(int argc, char *argv[]) {
 	
 	jugador* player = new jugador(map->obtenerPosicionInicialJugador(), map->anguloInicialJugador());
 
+	auto start = std::chrono::steady_clock::now();
+	float t;
+	do {
 
 	// -------- Manejo del tiempo
 
@@ -109,6 +117,13 @@ int main(int argc, char *argv[]) {
 		glTranslatef(-posicionEnMapaJugador.x, -posicionEnMapaJugador.y, -posicionEnMapaJugador.z);
 
 		map->render();		
+
+
+		map->render();
+
+
+
+
 
 	
 		//MANEJO DE EVENTOS

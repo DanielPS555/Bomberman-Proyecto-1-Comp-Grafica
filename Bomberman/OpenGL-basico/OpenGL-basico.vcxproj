@@ -86,6 +86,7 @@
     <ClCompile Include="mathVector.cpp" />
     <ClCompile Include="renderUtils.cpp" />
     <ClCompile Include="shapes.cpp" />
+    <ClCompile Include="util.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="jugador.h" />
@@ -93,6 +94,7 @@
     <ClInclude Include="mathVector.h" />
     <ClInclude Include="renderUtils.h" />
     <ClInclude Include="shapes.h" />
+    <ClInclude Include="util.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

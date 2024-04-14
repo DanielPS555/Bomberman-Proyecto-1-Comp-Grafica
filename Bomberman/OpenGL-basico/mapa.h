@@ -1,5 +1,6 @@
 #include <vector>
 #include "renderUtils.h"
+#include <tuple>
 #include "mathVector.h"
 
 
@@ -7,7 +8,7 @@
 #define MAPA
 
 
-#define LARGO_UNIDAD 25  // tamaño de cada item (casilero) del mapa
+#define LARGO_UNIDAD 25  // tamaï¿½o de cada item (casilero) del mapa
 #define ALTURA_PARED 30 // Altura de los cubos y paredes
 
 enum tipoMapaItem {
@@ -19,8 +20,10 @@ enum tipoMapaItem {
 
 struct mapaItem {
 	tipoMapaItem tipo;
+	retangulo3d figura;
 	//Aca va a haber un puntero cuando hay mas datos del elemento
 };
+
 
 
 class mapa {
@@ -29,11 +32,16 @@ private:
 	int cant_filas;
 	int cant_columnas;
 
-	mapaItem** estructuraMapa;
+	mapaItem*** estructuraMapa;
 
 	retangulo2d pisoShape;
 	retangulo3d bordesShape[4];
-
+	std::vector<std::tuple<int, int>> destructibles;
+	
+	GLuint textura;
+	GLuint texturaPared;
+	GLuint texturapiso;
+	GLuint texturaIndestructibles;
 	//vector<retangulo3d> bordesShapes;
 
 

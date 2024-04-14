@@ -1,10 +1,19 @@
 #include "jugador.h"
+#include "SDL.h"
+#include "SDL_opengl.h"
 #include <iostream>
-
+#include "FreeImage.h"
+#include <stdio.h>
+#include <conio.h>
+#include <GL/glu.h>
+#include "util.h"
+#include <iostream>
 jugador::jugador(mathVector posicionInicial, float anguloInicial) {
 
 	posicionEnMapa = posicionInicial;
 	anguloActualEnMapa = anguloInicial;
+
+	this->textura = inicializarTextura("assets/ladrillo.jpg");
 
 }
 
@@ -52,6 +61,24 @@ void jugador::trasladar(float deltaTiempoMs,
 		posicionEnMapa = sumar(posicionEnMapa, resultante);
 	}
 	
+}
+
+void jugador::render() {
+	glPushMatrix();
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, textura);
+		glBegin(GL_TRIANGLES);
+		glColor3f(1.0, 1.0, 1.0);
+		glTexCoord2f(0, 0);
+		glVertex3f(0., 0., 0.);
+		glTexCoord2f(0, 1);
+		glVertex3f(25., 0., 0.);
+		glTexCoord2f(1, 0);
+		glVertex3f(25., 25., 0.);
+		glEnd();
+		glDisable(GL_TEXTURE_2D);
+
+	glPopMatrix();
 }
 
 

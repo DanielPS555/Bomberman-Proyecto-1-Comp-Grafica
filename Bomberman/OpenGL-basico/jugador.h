@@ -1,12 +1,16 @@
+#include "SDL_opengl.h"
+#include <iostream>
+#include "FreeImage.h"
+#include <stdio.h>
+#include <conio.h>
+#include <GL/glu.h>
+#include "SDL.h"
 #include "mathVector.h"
 
 #ifndef JUGADOR
 #define JUGADOR
 
-
-
 #define AVANCE_POR_SEGUNDO 50.0f
-
 class jugador{
 private:
 	mathVector posicionEnMapa;
@@ -28,10 +32,14 @@ public:
 		bool isMoviendoDerecha,
 		bool isMoviendoAbajo,
 		bool isMoviendoIsquierda);
+		GLuint textura;
 
+	void render();
 
 	mathVector getPosicionEnMapa();
 	float getAnguloActualEnMapa();
+
+	
 
 };
 
