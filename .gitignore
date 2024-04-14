@@ -1,2 +1,5 @@
 .vs/
 **/Debug/
+**.exe
+**.pdb
+*.tlog
