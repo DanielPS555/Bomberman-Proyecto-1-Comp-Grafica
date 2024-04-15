@@ -36,7 +36,7 @@ retangulo3d createRetangulo3d(vertice vertices[8])
 			vertices[5].cordenadas[0], vertices[5].cordenadas[1], vertices[5].cordenadas[2],
 			vertices[4].cordenadas[0], vertices[4].cordenadas[1], vertices[4].cordenadas[2],
 			vertices[7].cordenadas[0], vertices[7].cordenadas[1], vertices[7].cordenadas[2],
-			vertices[3].cordenadas[0], vertices[3].cordenadas[1], vertices[3].cordenadas[2], //Cara norte
+			vertices[6].cordenadas[0], vertices[6].cordenadas[1], vertices[6].cordenadas[2], //Cara norte
 
 
 
