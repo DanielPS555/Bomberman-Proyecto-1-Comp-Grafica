@@ -1,4 +1,5 @@
 #include "util.h"
+#include "renderUtils.h"
 
 GLuint inicializarTextura(char * archivo){
 	//char* archivo = new char[20];
@@ -24,3 +25,20 @@ GLuint inicializarTextura(char * archivo){
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 	return textura;
 };
+
+
+enum tipoMapaItem {
+	CAMINO,
+	PARED_INDESTRUCTIBLE,
+	PARED_DESTRUCTIBLE,
+	BOMBA,
+	ENEMY
+};
+
+
+struct mapaItem {
+	tipoMapaItem tipo;
+	retangulo3d figura;
+	//Aca va a haber un puntero cuando hay mas datos del elemento
+};
+

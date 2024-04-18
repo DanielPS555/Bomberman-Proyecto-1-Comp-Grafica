@@ -10,6 +10,12 @@
 #include "chrono"
 #include <thread> //ToDo Eliminar
 #include "OpenGL-basico/bomb.h"
+#include "OpenGL-basico/enemigo.h"
+//carga obj
+#include <Assimp/scene.h>
+#include <Assimp/Importer.hpp>
+#include <Assimp/postprocess.h>
+
 using namespace std;
 
 using Clock = std::chrono::steady_clock;
@@ -24,9 +30,6 @@ bool fin = false;
 
 
 int main(int argc, char *argv[]) {
-
-
-	
 	if (SDL_Init(SDL_INIT_VIDEO)<0) {
 		cerr << "No se pudo iniciar SDL: " << SDL_GetError() << endl;
 		exit(1);
@@ -98,6 +101,12 @@ int main(int argc, char *argv[]) {
 
 	// -------- Manejo del tiempo
 
+	//enemigo e = enemigo({ 0.f, 0.f, 0.f }, DERECHA, 2, 2, "assets/enemy2.jpg");
+	//enemigo e2 = enemigo({ 0.f, 0.f, 0.f }, DERECHA, 4, 4, "assets/enemy.jpg");
+	//enemigo e3 = enemigo({ 0.f, 0.f, 0.f }, DERECHA, 6, 6, "assets/enemy4.jpg");
+	//enemigo e4 = enemigo({ 0.f, 0.f, 0.f }, DERECHA, 8, 8, "assets/enemigo3.jpg");
+
+
 	time_point<Clock> beginLastFrame = Clock::now();
 	milliseconds tiempoTranscurridoUltimoFrame;
 	do {
@@ -133,9 +142,12 @@ int main(int argc, char *argv[]) {
 		player->trasladar(deltaTiempo, isMoviendoArriba, isMoviendoDerecha, isMoviendoAbajo, isMoviendoIsquierda);
 
 		
+
 		glRotatef(-player->getAnguloActualEnMapa(), 0.0, 0.0, 1.0);
 		mathVector posicionEnMapaJugador = player->getPosicionEnMapa();
 		glTranslatef(-posicionEnMapaJugador.x, -posicionEnMapaJugador.y, -posicionEnMapaJugador.z);
+
+
 
 
 		//Manejo de la coloccacion de bombas
@@ -169,11 +181,9 @@ int main(int argc, char *argv[]) {
 		}
 		
 
-		map->render();		
-
-
+	
 		map->render();
-
+		map->renderEnemigos(deltaTiempo,map);
 
 
 
