@@ -174,7 +174,7 @@ int main(int argc, char *argv[]) {
 			posAct = player->getPosicionEnMapa();
 			dirAct = round(player->getAnguloActualEnMapa());
 			dirAct = dirAct % 360;
-			bomb = new bomba(posAct.y, posAct.x, 1);
+			bomb = new bomba(posAct.y, posAct.x, 1, dirAct);
 			hayBomba = map->agregarBomba(bomb->getXenMapa(), bomb->getYenMapa());
 			ponerBomba = false;
 		}
