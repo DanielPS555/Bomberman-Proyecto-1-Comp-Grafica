@@ -70,10 +70,9 @@ int main(int argc, char *argv[]) {
 	// --------- Configuracion de la camara
 	//ToDo: Poner en una clase propia, de forma que hay se puedan tener los modos de vista aparte 
 
-	float x, y, z;
-	x =  0;
-	y = -2;
-	z = 13;
+	float posicion_camara_x = 0; 
+	float posicion_camara_y = -2;
+	float posicion_camara_z = 13;
 
 
 	// --------- Flags para el manejo de movimiento y Manejo de eventos
@@ -128,12 +127,25 @@ int main(int argc, char *argv[]) {
 		glLoadIdentity();
 
 		//Preparar la camara
-		gluLookAt(x, y, z, 0, 0, 13, 0, 0, 1);
+		gluLookAt(0, 0, 0, 0, 2, 0, 0, 0, 1);
 
 
-		// Realizar movimiendos por el ultimo frame y trasladar en el mapa
+		
 
-		//Este tipo de movimiento de angulo de camara es completamente temporal
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		// -- Sistema de movimiento, debe ser lo ultimo que se haga
 
 		if (isRotando) {
 			player->rotarVerticalJugador(deltaRotacionY);
@@ -145,8 +157,12 @@ int main(int argc, char *argv[]) {
 
 		glRotatef(-player->getAnguloActualVertical(), 1.0, 0.0, 0.0);
 		glRotatef(-player->getAnguloActualEnMapa(), 0.0, 0.0, 1.0);
+
 		mathVector posicionEnMapaJugador = player->getPosicionEnMapa();
-		glTranslatef(-posicionEnMapaJugador.x, -posicionEnMapaJugador.y, -posicionEnMapaJugador.z);
+		glTranslatef(-posicionEnMapaJugador.x, -posicionEnMapaJugador.y, -posicionEnMapaJugador.z);	
+		//En la vista primera persona, es importante que cuando la camara rota, lo haga teniendo el que centro de rotacion
+		// Es la propia camara, es por eso que se coloca el mapa y resto de las cosas en la dirrecion contraria de donde deberia estar la camara
+		glTranslatef(-posicion_camara_x, -posicion_camara_y, -posicion_camara_z);
 
 
 
