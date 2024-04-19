@@ -8,8 +8,15 @@
 #include "OpenGL-basico/mapa.h"
 #include "OpenGL-basico/jugador.h"
 #include "chrono"
-#include <thread> //ToDo Eliminar
+#include <thread>
 #include "OpenGL-basico/bomb.h"
+#include "OpenGL-basico/enemigo.h"
+#include "OpenGL-basico/configuraciones.h"
+//carga obj
+#include <Assimp/scene.h>
+#include <Assimp/Importer.hpp>
+#include <Assimp/postprocess.h>
+
 using namespace std;
 
 using Clock = std::chrono::steady_clock;
@@ -23,11 +30,9 @@ bool fin = false;
 
 
 
-int main(int argc, char* argv[]) {
 
-
-
-	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+int main(int argc, char *argv[]) {
+	if (SDL_Init(SDL_INIT_VIDEO)<0) {
 		cerr << "No se pudo iniciar SDL: " << SDL_GetError() << endl;
 		exit(1);
 	}
@@ -54,25 +59,31 @@ int main(int argc, char* argv[]) {
 
 	//----DECLARACION DE OBJETOS CREADOS------------
 
+	
+	
 	// --------- Manejo y carga del mapa
 	mapa* map = new mapa(11, 11);
+
+	// --------- Datos Configuracion
+	configuraciones* conf = configuraciones::getInstancia();
 
 
 	// --------- Configuracion de la camara
 	//ToDo: Poner en una clase propia, de forma que hay se puedan tener los modos de vista aparte 
 
-	float x, y, z;
-	x = 0;
-	y = -2;
-	z = 13;
+
+	float posicion_camara_x = 0; 
+	float posicion_camara_y = -2;
+	float posicion_camara_z = 13;
 
 
 	// --------- Flags para el manejo de movimiento y Manejo de eventos
 
 	SDL_Event evento;
 
-	bool rotateLeft = false;
-	bool rotateRight = false;
+	float deltaRotacionX = 0;
+	float deltaRotacionY = 0;
+	bool isRotando = false;
 
 	bool isMoviendoArriba = false;
 	bool isMoviendoAbajo = false;
@@ -98,6 +109,12 @@ int main(int argc, char* argv[]) {
 
 	// -------- Manejo del tiempo
 
+	//enemigo e = enemigo({ 0.f, 0.f, 0.f }, DERECHA, 2, 2, "assets/enemy2.jpg");
+	//enemigo e2 = enemigo({ 0.f, 0.f, 0.f }, DERECHA, 4, 4, "assets/enemy.jpg");
+	//enemigo e3 = enemigo({ 0.f, 0.f, 0.f }, DERECHA, 6, 6, "assets/enemy4.jpg");
+	//enemigo e4 = enemigo({ 0.f, 0.f, 0.f }, DERECHA, 8, 8, "assets/enemigo3.jpg");
+
+
 	time_point<Clock> beginLastFrame = Clock::now();
 	milliseconds tiempoTranscurridoUltimoFrame;
 	do {
@@ -112,30 +129,44 @@ int main(int argc, char* argv[]) {
 		glLoadIdentity();
 
 		//Preparar la camara
-		gluLookAt(x, y, z, 0, 0, 13, 0, 0, 1);
+		gluLookAt(0, 0, 0, 0, 2, 0, 0, 0, 1);
 
 
-		// Realizar movimiendos por el ultimo frame y trasladar en el mapa
+		
 
-		//Este tipo de movimiento de angulo de camara es completamente temporal
-		float deltaAngulo = 0.00f;
-		if (rotateLeft) {
-			deltaAngulo += 0.30f;
-		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		// -- Sistema de movimiento, debe ser lo ultimo que se haga
 
-		if (rotateRight) {
-			deltaAngulo -= 0.30f;
-		}
-
-
-		player->rotarJugador(deltaAngulo);
+		if (isRotando) {
+			player->rotarVerticalJugador(deltaRotacionY);
+			player->rotarJugador(deltaRotacionX);
+		}		
 
 		player->trasladar(deltaTiempo, isMoviendoArriba, isMoviendoDerecha, isMoviendoAbajo, isMoviendoIsquierda);
 
-		
+
+		glRotatef(-player->getAnguloActualVertical(), 1.0, 0.0, 0.0);
 		glRotatef(-player->getAnguloActualEnMapa(), 0.0, 0.0, 1.0);
+
 		mathVector posicionEnMapaJugador = player->getPosicionEnMapa();
-		glTranslatef(-posicionEnMapaJugador.x, -posicionEnMapaJugador.y, -posicionEnMapaJugador.z);
+		glTranslatef(-posicionEnMapaJugador.x, -posicionEnMapaJugador.y, -posicionEnMapaJugador.z);	
+		//En la vista primera persona, es importante que cuando la camara rota, lo haga teniendo el que centro de rotacion
+		// Es la propia camara, es por eso que se coloca el mapa y resto de las cosas en la dirrecion contraria de donde deberia estar la camara
+		glTranslatef(-posicion_camara_x, -posicion_camara_y, -posicion_camara_z);
+
+
 
 
 		//Manejo de la coloccacion de bombas
@@ -171,37 +202,35 @@ int main(int argc, char* argv[]) {
 		}
 		
 
-		map->render();		
-
-
+	
 		map->render();
+		map->renderEnemigos(deltaTiempo,map);
 
 
 
-
-
+		deltaRotacionX = 0.0f;
+		deltaRotacionY = 0.0f;
 	
 		//MANEJO DE EVENTOS
 		while (SDL_PollEvent(&evento)){
 			switch (evento.type) {
+
+			case SDL_MOUSEMOTION:
+				deltaRotacionX = (-1.0f) * evento.motion.xrel + 0.0f;
+				deltaRotacionY = (-1.0f) * evento.motion.yrel + 0.0f;
+
 			case SDL_MOUSEBUTTONDOWN:
 
 				switch (evento.button.button) {
 				case SDL_BUTTON_LEFT:
-					rotateLeft = true;
-					break;
-				case SDL_BUTTON_RIGHT:
-					rotateRight = true;
+					isRotando= true;
 					break;
 				}
 				break;
 			case SDL_MOUSEBUTTONUP:
 				switch (evento.button.button) {
 				case SDL_BUTTON_LEFT:
-					rotateLeft = false;
-					break;
-				case SDL_BUTTON_RIGHT:
-					rotateRight = false;
+					isRotando = false;
 					break;
 				}
 				break;
@@ -281,6 +310,7 @@ int main(int argc, char* argv[]) {
 
 	free(map);
 	free(player);
+	free(conf);
 
 	SDL_GL_DeleteContext(context);
 	SDL_DestroyWindow(win);

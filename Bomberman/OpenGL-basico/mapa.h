@@ -2,11 +2,11 @@
 #include "renderUtils.h"
 #include <tuple>
 #include "mathVector.h"
-
-
+#include "enemigo.h"
 #ifndef MAPA
 #define MAPA
 
+class enemigo;
 
 #define LARGO_UNIDAD 25  // tama�o de cada item (casilero) del mapa
 #define ALTURA_PARED 30 // Altura de los cubos y paredes
@@ -15,7 +15,8 @@ enum tipoMapaItem {
 	CAMINO,
 	PARED_INDESTRUCTIBLE,
 	PARED_DESTRUCTIBLE,
-	BOMBA
+	BOMBA,
+	ENEMY
 };
 
 
@@ -35,6 +36,7 @@ private:
 
 	mapaItem*** estructuraMapa;
 
+	retangulo2d techoShape;
 	retangulo2d pisoShape;
 	retangulo3d bordesShape[4];
 	std::vector<std::tuple<int, int>> destructibles;
@@ -43,6 +45,8 @@ private:
 	GLuint texturaPared;
 	GLuint texturapiso;
 	GLuint texturaIndestructibles;
+	GLuint texturaTecho;
+	enemigo ** enemigos;
 	//vector<retangulo3d> bordesShapes;
 
 
@@ -65,7 +69,10 @@ public:
 
 	bool agregarBomba(float posEnXMapa, float posEnYMapa);
 	void eliminarDestructibles(float** destructibles, int alcanze);
-
+	mapaItem*** getEstructuraMapa();
+	int getCantFilas();
+	int getCantColumnas();
+	void renderEnemigos(float deltaTiempo, mapa * map);
 	~mapa();
 };
 

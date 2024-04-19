@@ -6,6 +6,7 @@
 #include <GL/glu.h>
 #include "SDL.h"
 #include "mathVector.h"
+#include "configuraciones.h"
 
 #ifndef JUGADOR
 #define JUGADOR
@@ -15,6 +16,9 @@ class jugador{
 private:
 	mathVector posicionEnMapa;
 	float anguloActualEnMapa; //Angulo con respecto al eje y
+	float anguloActualVertical;
+
+	configuraciones* conf;
 
 	// Vectores de avance por segundo (1000 ms)
 	const mathVector DIRRECION_SUPERIOR  = {  0.0f,  1.0f, 0.0f };
@@ -37,10 +41,13 @@ public:
 		
 	void rotarJugador(float deltaRotacion);
 
+	void rotarVerticalJugador(float deltaVerticalRotacion);
+
 	void render();
 
 	mathVector getPosicionEnMapa();
 	float getAnguloActualEnMapa();
+	float getAnguloActualVertical();
 
 	
 
