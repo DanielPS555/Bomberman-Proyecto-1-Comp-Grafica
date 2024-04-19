@@ -200,25 +200,25 @@ bool mapa::agregarBomba(float posEnXMapa, float posEnYMapa)
 {	
 	int i = posEnXMapa;
 	int j = posEnYMapa;
+	if ((i % 2 == 0 || j % 2 == 0 ) && this->estructuraMapa[i][j] == nullptr) {
+		this->estructuraMapa[i][j] = new mapaItem;
+		this->estructuraMapa[i][j]->tipo = BOMBA;
 
-	this->estructuraMapa[i][j] = new mapaItem;
-	this->estructuraMapa[i][j]->tipo = BOMBA;
+		vertice verticesCuboBom[8] = {
+						{{j * LARGO_UNIDAD			, i * LARGO_UNIDAD					, 0			    }, {1,1,1} },
+						{{(j + 1) * LARGO_UNIDAD	, i * LARGO_UNIDAD					, 0			    }, {1,1,1} },
+						{{(j + 1) * LARGO_UNIDAD	, i * LARGO_UNIDAD					, ALTURA_PARED  }, {1,1,1} },
+						{{j * LARGO_UNIDAD	        , i * LARGO_UNIDAD					, ALTURA_PARED  }, {1,1,1} },
+						{{j * LARGO_UNIDAD	        , (i + 1) * LARGO_UNIDAD		    , ALTURA_PARED	}, {1,1,1} },
+						{{j * LARGO_UNIDAD	        , (i + 1) * LARGO_UNIDAD			, 0			    }, {1,1,1} },
+						{{ (j + 1) * LARGO_UNIDAD	, (i + 1) * LARGO_UNIDAD			, 0				}, {1,1,1} },
+						{{ (j + 1) * LARGO_UNIDAD	, (i + 1) * LARGO_UNIDAD			, ALTURA_PARED	}, {1,1,1} },
 
-	vertice verticesCuboBom[8] = {
-					{{j * LARGO_UNIDAD			, i * LARGO_UNIDAD					, 0			    }, {1,1,1} },
-					{{(j + 1) * LARGO_UNIDAD	, i * LARGO_UNIDAD					, 0			    }, {1,1,1} },
-					{{(j + 1) * LARGO_UNIDAD	, i * LARGO_UNIDAD					, ALTURA_PARED  }, {1,1,1} },
-					{{j * LARGO_UNIDAD	        , i * LARGO_UNIDAD					, ALTURA_PARED  }, {1,1,1} },
-					{{j * LARGO_UNIDAD	        , (i + 1) * LARGO_UNIDAD		    , ALTURA_PARED	}, {1,1,1} },
-					{{j * LARGO_UNIDAD	        , (i + 1) * LARGO_UNIDAD			, 0			    }, {1,1,1} },
-					{{ (j + 1) * LARGO_UNIDAD	, (i + 1) * LARGO_UNIDAD			, 0				}, {1,1,1} },
-					{{ (j + 1) * LARGO_UNIDAD	, (i + 1) * LARGO_UNIDAD			, ALTURA_PARED	}, {1,1,1} },
+		};
 
-	};
-
-	destructibles.push_back(std::make_tuple(posEnXMapa, posEnYMapa));
-	this->estructuraMapa[i][j]->figura = createRetangulo3d(verticesCuboBom);
-
+		destructibles.push_back(std::make_tuple(posEnXMapa, posEnYMapa));
+		this->estructuraMapa[i][j]->figura = createRetangulo3d(verticesCuboBom);
+	}
 	return true;
 }
 

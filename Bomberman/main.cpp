@@ -87,14 +87,12 @@ int main(int argc, char* argv[]) {
 	bool timer = false;
 
 	// -------- Bombas
-	time_point<Clock> bombTime = Clock::now();
 	bomba* bomb = nullptr;
 	float** victimas = nullptr;
-	float bx = 0, by = 0;
 
 	// -------- Jugador
 	mathVector posAct = {0, 0, 0};
-	float dirAct = 0;
+	int dirAct = 0;
 	
 	jugador* player = new jugador(map->obtenerPosicionInicialJugador(), map->anguloInicialJugador());
 
@@ -143,38 +141,15 @@ int main(int argc, char* argv[]) {
 		//Manejo de la coloccacion de bombas
 		if (ponerBomba) {
 			posAct = player->getPosicionEnMapa();
-			dirAct = player->getAnguloActualEnMapa();
-			if (45 <= dirAct < 135) {
-			// sumar x
-				bx = round(posAct.x / 25) + 1;
-				by = round(posAct.y / 25);
-			}
-			else {
-				if (135 <= dirAct < 225) {
-					// restar y 
-					bx = round(posAct.x / 25);
-					by = round(posAct.y / 25) - 1;
-				}
-				else {
-					if (225 <= dirAct < 315) {
-						// restar x
-						bx = round(posAct.x / 25) - 1;
-						by = round(posAct.y / 25);
-					} else {
-						// sumar y
-						bx = round(posAct.x / 25);
-						by = round(posAct.y / 25) + 1;
-					}
-				}
-			}
-			bomb = new bomba(bx, by, 1);
-			hayBomba = map->agregarBomba(bx, by);
-			bombTime = Clock::now() += seconds(5);
+			dirAct = round(player->getAnguloActualEnMapa());
+			dirAct = dirAct % 360;
+			bomb = new bomba(posAct.y, posAct.x, 1);
+			hayBomba = map->agregarBomba(bomb->getXenMapa(), bomb->getYenMapa());
 			ponerBomba = false;
 		}
 
-		if (hayBomba && timer && bombTime <= Clock::now()) {
-			victimas = bomb->explosion_trigg(victimas);
+		/*if (hayBomba && timer) {
+			victimas = bomb->explosion_trigg(victimas, tiempoTranscurridoUltimoFrame);
 			if (victimas != nullptr) {
 				map->eliminarDestructibles(victimas, 1);
 				delete victimas;
@@ -183,7 +158,7 @@ int main(int argc, char* argv[]) {
 				bomb = nullptr;
 				hayBomba = false;
 			}
-		}
+		}*/
 		if (hayBomba && explotarBomba) {
 			victimas = bomb->explosion_trigg(victimas);
 			map->eliminarDestructibles(victimas, 1);
