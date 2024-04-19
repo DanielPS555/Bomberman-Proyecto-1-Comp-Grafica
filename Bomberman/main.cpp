@@ -8,9 +8,10 @@
 #include "OpenGL-basico/mapa.h"
 #include "OpenGL-basico/jugador.h"
 #include "chrono"
-#include <thread> //ToDo Eliminar
+#include <thread>
 #include "OpenGL-basico/bomb.h"
 #include "OpenGL-basico/enemigo.h"
+#include "OpenGL-basico/configuraciones.h"
 //carga obj
 #include <Assimp/scene.h>
 #include <Assimp/Importer.hpp>
@@ -57,8 +58,13 @@ int main(int argc, char *argv[]) {
 	
 	//----DECLARACION DE OBJETOS CREADOS------------
 
+	
+	
 	// --------- Manejo y carga del mapa
 	mapa* map = new mapa(11, 11);
+
+	// --------- Datos Configuracion
+	configuraciones* conf = configuraciones::getInstancia();
 
 
 	// --------- Configuracion de la camara
@@ -74,8 +80,9 @@ int main(int argc, char *argv[]) {
 
 	SDL_Event evento;
 
-	bool rotateLeft = false;
-	bool rotateRight = false;
+	float deltaRotacionX = 0;
+	float deltaRotacionY = 0;
+	bool isRotando = false;
 
 	bool isMoviendoArriba = false;
 	bool isMoviendoAbajo = false;
@@ -127,22 +134,16 @@ int main(int argc, char *argv[]) {
 		// Realizar movimiendos por el ultimo frame y trasladar en el mapa
 
 		//Este tipo de movimiento de angulo de camara es completamente temporal
-		float deltaAngulo = 0.00f;
-		if (rotateLeft) {
-			deltaAngulo += 0.30f;
-		}
 
-		if (rotateRight) {
-			deltaAngulo -= 0.30f;
-		}
-
-
-		player->rotarJugador(deltaAngulo);
+		if (isRotando) {
+			player->rotarVerticalJugador(deltaRotacionY);
+			player->rotarJugador(deltaRotacionX);
+		}		
 
 		player->trasladar(deltaTiempo, isMoviendoArriba, isMoviendoDerecha, isMoviendoAbajo, isMoviendoIsquierda);
 
-		
 
+		glRotatef(-player->getAnguloActualVertical(), 1.0, 0.0, 0.0);
 		glRotatef(-player->getAnguloActualEnMapa(), 0.0, 0.0, 1.0);
 		mathVector posicionEnMapaJugador = player->getPosicionEnMapa();
 		glTranslatef(-posicionEnMapaJugador.x, -posicionEnMapaJugador.y, -posicionEnMapaJugador.z);
@@ -187,29 +188,29 @@ int main(int argc, char *argv[]) {
 
 
 
-
+		deltaRotacionX = 0.0f;
+		deltaRotacionY = 0.0f;
 	
 		//MANEJO DE EVENTOS
 		while (SDL_PollEvent(&evento)){
 			switch (evento.type) {
+
+			case SDL_MOUSEMOTION:
+				deltaRotacionX = (-1.0f) * evento.motion.xrel + 0.0f;
+				deltaRotacionY = (-1.0f) * evento.motion.yrel + 0.0f;
+
 			case SDL_MOUSEBUTTONDOWN:
 
 				switch (evento.button.button) {
 				case SDL_BUTTON_LEFT:
-					rotateLeft = true;
-					break;
-				case SDL_BUTTON_RIGHT:
-					rotateRight = true;
+					isRotando= true;
 					break;
 				}
 				break;
 			case SDL_MOUSEBUTTONUP:
 				switch (evento.button.button) {
 				case SDL_BUTTON_LEFT:
-					rotateLeft = false;
-					break;
-				case SDL_BUTTON_RIGHT:
-					rotateRight = false;
+					isRotando = false;
 					break;
 				}
 				break;
@@ -289,6 +290,7 @@ int main(int argc, char *argv[]) {
 
 	free(map);
 	free(player);
+	free(conf);
 
 	SDL_GL_DeleteContext(context);
 	SDL_DestroyWindow(win);
