@@ -30,6 +30,7 @@ bool fin = false;
 
 
 
+
 int main(int argc, char *argv[]) {
 	if (SDL_Init(SDL_INIT_VIDEO)<0) {
 		cerr << "No se pudo iniciar SDL: " << SDL_GetError() << endl;
@@ -39,7 +40,7 @@ int main(int argc, char *argv[]) {
 	SDL_Window* win = SDL_CreateWindow("Bomberman - Obligatorio 1 - Comp Graf ",
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
-		1600, 900 , SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
+		1600, 900, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
 	SDL_GLContext context = SDL_GL_CreateContext(win);
 
 
@@ -51,11 +52,11 @@ int main(int argc, char *argv[]) {
 	gluPerspective(45, 1600 / 900.f, 0.1, 1000);
 	glEnable(GL_DEPTH_TEST);
 	glMatrixMode(GL_MODELVIEW);
-	
-	
+
+
 
 	//FIN TEXTURA
-	
+
 	//----DECLARACION DE OBJETOS CREADOS------------
 
 	
@@ -69,6 +70,7 @@ int main(int argc, char *argv[]) {
 
 	// --------- Configuracion de la camara
 	//ToDo: Poner en una clase propia, de forma que hay se puedan tener los modos de vista aparte 
+
 
 	float posicion_camara_x = 0; 
 	float posicion_camara_y = -2;
@@ -86,7 +88,7 @@ int main(int argc, char *argv[]) {
 	bool isMoviendoArriba = false;
 	bool isMoviendoAbajo = false;
 	bool isMoviendoIsquierda = false;
-	bool isMoviendoDerecha= false;
+	bool isMoviendoDerecha = false;
 
 	// -------- Flags para manejo de la bomba
 
@@ -94,14 +96,14 @@ int main(int argc, char *argv[]) {
 	bool explotarBomba = false;
 	bool hayBomba = false;
 	bool timer = false;
-	
+
 	// -------- Bombas
-	time_point<Clock> bombTime = Clock::now();
 	bomba* bomb = nullptr;
 	float** victimas = nullptr;
-	
+
 	// -------- Jugador
-	
+	mathVector posAct = {0, 0, 0};
+	int dirAct = 0;
 	
 	jugador* player = new jugador(map->obtenerPosicionInicialJugador(), map->anguloInicialJugador());
 
@@ -169,14 +171,16 @@ int main(int argc, char *argv[]) {
 
 		//Manejo de la coloccacion de bombas
 		if (ponerBomba) {
-			bomb = new bomba(4.0, 4.0, 1);
-			hayBomba = map->agregarBomba(4.0, 4.0);
-			bombTime = Clock::now() += seconds(5);
+			posAct = player->getPosicionEnMapa();
+			dirAct = round(player->getAnguloActualEnMapa());
+			dirAct = dirAct % 360;
+			bomb = new bomba(posAct.y, posAct.x, 1);
+			hayBomba = map->agregarBomba(bomb->getXenMapa(), bomb->getYenMapa());
 			ponerBomba = false;
 		}
 
-		if (hayBomba && timer && bombTime <= Clock::now()) {
-			victimas = bomb->explosion_trigg(victimas);
+		/*if (hayBomba && timer) {
+			victimas = bomb->explosion_trigg(victimas, tiempoTranscurridoUltimoFrame);
 			if (victimas != nullptr) {
 				map->eliminarDestructibles(victimas, 1);
 				delete victimas;
@@ -185,7 +189,7 @@ int main(int argc, char *argv[]) {
 				bomb = nullptr;
 				hayBomba = false;
 			}
-		}
+		}*/
 		if (hayBomba && explotarBomba) {
 			victimas = bomb->explosion_trigg(victimas);
 			map->eliminarDestructibles(victimas, 1);

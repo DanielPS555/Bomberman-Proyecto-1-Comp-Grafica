@@ -12,13 +12,16 @@
 
 class bomba {
 	private:
-		float posXEnMapa, posYEnMapa;
+		int posXEnMapa, posYEnMapa;
 		float alcanze; //tamaño de la explocion
 
 	public:
-		bomba(float posXEnMapa, float posYEnMapa, float alcanze);
+		bomba(float posXEnMapa, float posYEnMapa, float alcanze, float dirAct);
 
 		float** explosion_trigg(float** destruct);
+
+		int getYenMapa();
+		int getXenMapa();
 };
 
 #endif
