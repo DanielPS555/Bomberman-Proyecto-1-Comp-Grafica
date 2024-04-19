@@ -2,7 +2,8 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include "util.h"
-
+#include "renderUtils.h"
+#include "enemigo.h"
 using namespace std;
 
 
@@ -19,6 +20,14 @@ mapa::mapa(int cant_filas, int cant_columnas) {
 		,{ 1.,1.,1.,		 1.,1.,1.,              1.,1.,1.,					    1.,1.,1.         }	  // colores	
 		,{0,1,2,3}																						  // indices
 		,{0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.0}
+	};
+
+	techoShape = {
+	 { 0.,0.,ALTURA_PARED		,anchoReal,0.,ALTURA_PARED,		anchoReal,alturaReal,ALTURA_PARED,		0.,alturaReal,ALTURA_PARED }    // vertices
+	,{0,0,1}																						  //Norma
+	,{ 1.,1.,1.,		 1.,1.,1.,              1.,1.,1.,					    1.,1.,1.         }	  // colores	
+	,{0,1,2,3}																						  // indices
+	,{0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.0}
 	};
 
 
@@ -76,6 +85,7 @@ mapa::mapa(int cant_filas, int cant_columnas) {
 	this->texturaPared = inicializarTextura("assets/pared.jpg");
 	this->texturapiso = inicializarTextura("assets/piso2.jpg");
 	this->texturaIndestructibles = inicializarTextura("assets/pared.jpg");
+	this->texturaTecho = inicializarTextura("assets/nube.jpg");
 
 	this->estructuraMapa = new mapaItem ** [this->cant_filas];
 	for (int i = 0; i < this->cant_filas; i++) {
@@ -108,9 +118,11 @@ mapa::mapa(int cant_filas, int cant_columnas) {
 	}
 
 	destructibles.push_back(std::make_tuple(1, 2));
+	destructibles.push_back(std::make_tuple(2, 5));
 	destructibles.push_back(std::make_tuple(3, 4));
 	destructibles.push_back(std::make_tuple(7, 8));
 	destructibles.push_back(std::make_tuple(3,2));
+	destructibles.push_back(std::make_tuple(3, 2));
 	destructibles.push_back(std::make_tuple(5, 4));
 	destructibles.push_back(std::make_tuple(6, 5));
 	destructibles.push_back(std::make_tuple(8,6));
@@ -138,8 +150,12 @@ mapa::mapa(int cant_filas, int cant_columnas) {
 
 	}
 
-	
+	this->enemigos  = new enemigo * [4];
 
+	this->enemigos[0] = new enemigo({ 0.f, 0.f, 0.f }, DERECHA, 2, 2, "assets/enemy.jpg");
+	this->enemigos[1] = new enemigo({ 0.f, 0.f, 0.f }, DERECHA, 4, 4, "assets/enemy2.jpg");
+	this->enemigos[2] = new enemigo({ 0.f, 0.f, 0.f }, DERECHA, 4, 4, "assets/enemigo3.jpg");
+	this->enemigos[3] = new enemigo({ 0.f, 0.f, 0.f }, DERECHA, 4, 4, "assets/enemy4.jpg");
 
 }
 
@@ -159,6 +175,7 @@ void mapa::render() {
 	//cargarTextura(this->textura);
 
 	renderRectangulo2d(pisoShape,this->texturapiso);
+	renderRectangulo2d(techoShape, this->texturaTecho);
 
 	for (int i = 0; i < 4; i++) {
 		renderRectangulo3d(bordesShape[i],this->texturaPared);
@@ -184,6 +201,8 @@ void mapa::render() {
 
 	glPopMatrix();
 }
+
+
 
 //ToDo implementar en base a la configuracion del mapa
 mathVector mapa::obtenerPosicionInicialJugador() {
@@ -248,6 +267,27 @@ void mapa::eliminarDestructibles(float** destruir, int alcanze)
 			}
 		}
 	}
+}
+
+void mapa::renderEnemigos(float deltatiempo, mapa * map) {
+	for (int i = 0; i < 4;i++) {
+		if (enemigos[i] != nullptr) {
+			enemigos[i]->trasladar(deltatiempo, map);
+			enemigos[i]->render();
+		}
+	}
+}
+
+
+mapaItem*** mapa::getEstructuraMapa() {
+	return this->estructuraMapa;
+}
+
+int mapa::getCantFilas(){
+	return this->cant_filas;
+}
+int mapa::getCantColumnas() {
+	return this->cant_columnas;
 }
 
 mapa::~mapa() {

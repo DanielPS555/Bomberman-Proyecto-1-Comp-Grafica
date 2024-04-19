@@ -10,8 +10,12 @@
 #include <iostream>
 jugador::jugador(mathVector posicionInicial, float anguloInicial) {
 
+	conf = configuraciones::getInstancia();
+
 	posicionEnMapa = posicionInicial;
 	anguloActualEnMapa = anguloInicial;
+
+	anguloActualVertical = 0.0f;
 
 	this->textura = inicializarTextura("assets/ladrillo.jpg");
 
@@ -52,7 +56,6 @@ void jugador::trasladar(float deltaTiempoMs,
 	}
 	
 	if (!isNulo(resultante)) {
-		std::cout << "movimiento " << deltaTiempoMs <<  std::endl;
 
 		resultante = normalizar(resultante);
 
@@ -66,7 +69,20 @@ void jugador::trasladar(float deltaTiempoMs,
 }
 
 void jugador::rotarJugador(float deltaRotacion) {
-	anguloActualEnMapa += deltaRotacion;
+	if (conf->getIsCamaraHorizontalInvertida()) {
+		deltaRotacion *= -1;
+	}
+	anguloActualEnMapa += deltaRotacion * conf->getSensibilidadCamara();
+}
+
+void jugador::rotarVerticalJugador(float deltaVerticalRotacion) {
+	anguloActualVertical += deltaVerticalRotacion * conf->getSensibilidadCamara();
+	if (anguloActualVertical > 90.0f) {
+		anguloActualVertical = 90.0f;
+	}
+	else if (anguloActualVertical < -90.0f) {
+		anguloActualVertical = -90.0f;
+	}
 }
 
 void jugador::render() {
@@ -87,7 +103,11 @@ void jugador::render() {
 	glPopMatrix();
 }
 
+float jugador::getAnguloActualVertical() {
+	return anguloActualVertical;
+}
+
 
 jugador::~jugador() {
-
+	free(conf);
 }
