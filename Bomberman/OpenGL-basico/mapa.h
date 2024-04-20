@@ -63,16 +63,33 @@ public:
 
 	void render();
 
-
 	mathVector obtenerPosicionInicialJugador();
 	float anguloInicialJugador();
 
 	bool agregarBomba(float posEnXMapa, float posEnYMapa);
+
 	void eliminarDestructibles(float** destructibles, int alcanze);
+
 	mapaItem*** getEstructuraMapa();
+
 	int getCantFilas();
+
 	int getCantColumnas();
+
 	void renderEnemigos(float deltaTiempo, mapa * map);
+
+	void getCordenadasCelda(mathVector posicion,
+		mathVector& verticeInferiorIsquierdo,
+		float& anchoCelda,
+		float& altoCelda);
+
+	void isColicion(mathVector posicionActual,
+		mathVector nuevaPosicion,
+		bool& colicionSuperior,
+		bool& colicionDerecha,
+		bool& colicionAbajo,
+		bool& colicionIsquierda);
+
 	~mapa();
 };
 

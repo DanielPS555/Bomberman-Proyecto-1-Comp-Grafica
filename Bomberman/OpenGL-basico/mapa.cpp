@@ -206,13 +206,13 @@ void mapa::render() {
 
 //ToDo implementar en base a la configuracion del mapa
 mathVector mapa::obtenerPosicionInicialJugador() {
-	return { 0.f, 0.f, 0.f };
+	return { LARGO_UNIDAD/2, LARGO_UNIDAD / 2, 0.f };
 }
 
 
 //ToDo implementar en base a la configuracion del mapa
 float mapa::anguloInicialJugador() {
-	return 90.0f;
+	return 0.0f;
 }
 
 bool mapa::agregarBomba(float posEnXMapa, float posEnYMapa)
@@ -276,6 +276,71 @@ void mapa::renderEnemigos(float deltatiempo, mapa * map) {
 			enemigos[i]->render();
 		}
 	}
+}
+
+
+
+void mapa::isColicion(mathVector posicionActual,
+					  mathVector nuevaPosicion,
+					  bool& colicionSuperior,
+					  bool& colicionDerecha,
+					  bool& colicionInferior,
+					  bool& colicionIsquierda) {
+
+	int casilleroActualMapaX = floor(posicionActual.x / LARGO_UNIDAD);
+	int casilleroActualMapaY = floor(posicionActual.y / LARGO_UNIDAD);
+
+	int casilleroNuevolMapaX = floor(nuevaPosicion.x / LARGO_UNIDAD);
+	int casilleroNuevolMapaY = floor(nuevaPosicion.y / LARGO_UNIDAD);
+
+
+	if (casilleroNuevolMapaX < 0 ) {
+		colicionIsquierda = true;
+		
+	}
+
+	if (casilleroNuevolMapaX >= cant_columnas) {
+		colicionDerecha = true;
+		
+	}
+
+	if (casilleroNuevolMapaY < 0) {
+		colicionInferior = true; 
+		
+	}
+
+	if (casilleroNuevolMapaY >= cant_filas) {
+		colicionSuperior = true;
+		
+	}
+
+	if (colicionIsquierda || colicionDerecha || colicionInferior || colicionSuperior) {
+		return;
+	}
+
+	mapaItem* ptrLugarMap = estructuraMapa[casilleroNuevolMapaY][casilleroNuevolMapaX];
+	if (ptrLugarMap != nullptr && (ptrLugarMap->tipo == PARED_DESTRUCTIBLE || ptrLugarMap->tipo == PARED_INDESTRUCTIBLE)) {
+		colicionIsquierda = casilleroNuevolMapaX < casilleroActualMapaX;
+		colicionInferior  = casilleroNuevolMapaY < casilleroActualMapaY;
+
+		colicionDerecha = casilleroNuevolMapaX > casilleroActualMapaX;
+		colicionSuperior = casilleroNuevolMapaY > casilleroActualMapaY;
+	}
+	
+		
+}
+
+void mapa::getCordenadasCelda(mathVector posicion,
+							  mathVector& verticeInferiorIsquierdo,
+							  float& anchoCelda,
+							  float& altoCelda) {
+
+	int casilleroActualMapaX = floor(posicion.x / LARGO_UNIDAD);
+	int casilleroActualMapaY = floor(posicion.y / LARGO_UNIDAD);
+
+	verticeInferiorIsquierdo = { (float)casilleroActualMapaX * LARGO_UNIDAD, (float)casilleroActualMapaY * LARGO_UNIDAD, 0.0f };
+	anchoCelda = LARGO_UNIDAD;
+	altoCelda = LARGO_UNIDAD;
 }
 
 
