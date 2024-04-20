@@ -206,13 +206,13 @@ void mapa::render() {
 
 //ToDo implementar en base a la configuracion del mapa
 mathVector mapa::obtenerPosicionInicialJugador() {
-	return { 0.f, 0.f, 0.f };
+	return { LARGO_UNIDAD/2, LARGO_UNIDAD / 2, 0.f };
 }
 
 
 //ToDo implementar en base a la configuracion del mapa
 float mapa::anguloInicialJugador() {
-	return 90.0f;
+	return 0.0f;
 }
 
 bool mapa::agregarBomba(float posEnXMapa, float posEnYMapa)
@@ -276,6 +276,61 @@ void mapa::renderEnemigos(float deltatiempo, mapa * map) {
 			enemigos[i]->render();
 		}
 	}
+}
+
+bool mapa::isPosicionValida(mathVector pos) {
+
+	int casilleroActualMapaX = floor(pos.x / LARGO_UNIDAD);
+	int casilleroActualMapaY = floor(pos.y / LARGO_UNIDAD);
+
+
+	if (casilleroActualMapaX < 0 || casilleroActualMapaX >= cant_columnas) {
+		return false;
+	}
+
+	if (casilleroActualMapaY < 0 || casilleroActualMapaY >= cant_filas) {
+		return false;
+	}
+
+	if (casilleroActualMapaX < 0 || casilleroActualMapaX >= cant_columnas) {
+		return false;
+	}
+
+	if (casilleroActualMapaY < 0 || casilleroActualMapaY >= cant_filas) {
+		return false;
+	}
+
+	mapaItem* ptrLugarMap = estructuraMapa[casilleroActualMapaY][casilleroActualMapaX];
+	if (ptrLugarMap != nullptr && (ptrLugarMap->tipo == PARED_DESTRUCTIBLE || ptrLugarMap->tipo == PARED_INDESTRUCTIBLE)) {
+		return false;
+	}
+
+	return true;
+}
+
+bool mapa::isTraslacionValida(mathVector posicionActual, mathVector posicionNueva) {
+
+	
+
+	if (!isPosicionValida(sumar(posicionNueva, { 5.0f ,5.0f ,0.0f }))) {
+		return false;
+	}
+
+	if (!isPosicionValida(sumar(posicionNueva, { -5.0f ,5.0f ,0.0f }))) {
+		return false;
+	}
+
+	if (!isPosicionValida(sumar(posicionNueva, { -5.0f ,-5.0f ,0.0f }))) {
+		return false;
+	}
+
+	if (!isPosicionValida(sumar(posicionNueva, { 5.0f ,-5.0f ,0.0f }))) {
+		return false;
+	}
+
+	return true;
+
+	
 }
 
 

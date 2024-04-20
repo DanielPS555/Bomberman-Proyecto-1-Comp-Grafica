@@ -8,11 +8,14 @@
 #include <GL/glu.h>
 #include "util.h"
 #include <iostream>
-jugador::jugador(mathVector posicionInicial, float anguloInicial) {
+jugador::jugador(mathVector posicionInicial, float anguloInicial, mapa* m) {
 
 	conf = configuraciones::getInstancia();
 
+	map = m;
+
 	posicionEnMapa = posicionInicial;
+
 	anguloActualEnMapa = anguloInicial;
 
 	anguloActualVertical = 0.0f;
@@ -56,14 +59,18 @@ void jugador::trasladar(float deltaTiempoMs,
 	}
 	
 	if (!isNulo(resultante)) {
-
 		resultante = normalizar(resultante);
-
 		resultante = rotar(resultante, anguloActualEnMapa);
-
 		resultante = multiplicarPorEscalar(resultante,  AVANCE_POR_SEGUNDO *  deltaTiempoMs / (1000));
+		resultante = sumar(posicionEnMapa, resultante);
 
-		posicionEnMapa = sumar(posicionEnMapa, resultante);
+		
+
+		if ( map->isTraslacionValida(posicionEnMapa, resultante) ) {
+			posicionEnMapa = resultante;
+		}
+
+		
 	}
 	
 }
@@ -73,6 +80,16 @@ void jugador::rotarJugador(float deltaRotacion) {
 		deltaRotacion *= -1;
 	}
 	anguloActualEnMapa += deltaRotacion * conf->getSensibilidadCamara();
+
+	if (anguloActualEnMapa > 360) {
+		anguloActualEnMapa -= 360;
+	}
+
+	if (anguloActualEnMapa < 0) {
+		anguloActualEnMapa += 360;
+	}
+
+	std::cout << anguloActualEnMapa << std::endl;
 }
 
 void jugador::rotarVerticalJugador(float deltaVerticalRotacion) {
@@ -84,6 +101,7 @@ void jugador::rotarVerticalJugador(float deltaVerticalRotacion) {
 		anguloActualVertical = -90.0f;
 	}
 }
+
 
 void jugador::render() {
 	glPushMatrix();

@@ -103,7 +103,7 @@ int main(int argc, char *argv[]) {
 	// -------- Jugador
 	
 	
-	jugador* player = new jugador(map->obtenerPosicionInicialJugador(), map->anguloInicialJugador());
+	jugador* player = new jugador(map->obtenerPosicionInicialJugador(), map->anguloInicialJugador(), map);
 
 	// -------- Manejo del tiempo
 
@@ -129,23 +129,8 @@ int main(int argc, char *argv[]) {
 		//Preparar la camara
 		gluLookAt(0, 0, 0, 0, 2, 0, 0, 0, 1);
 
-
 		
-
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		// -- Sistema de movimiento, debe ser lo ultimo que se haga
+		// ---- Sistema de movimiento, debe ser lo ultimo que se haga
 
 		if (isRotando) {
 			player->rotarVerticalJugador(deltaRotacionY);
@@ -153,7 +138,6 @@ int main(int argc, char *argv[]) {
 		}		
 
 		player->trasladar(deltaTiempo, isMoviendoArriba, isMoviendoDerecha, isMoviendoAbajo, isMoviendoIsquierda);
-
 
 		glRotatef(-player->getAnguloActualVertical(), 1.0, 0.0, 0.0);
 		glRotatef(-player->getAnguloActualEnMapa(), 0.0, 0.0, 1.0);

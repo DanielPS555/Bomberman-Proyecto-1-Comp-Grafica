@@ -54,6 +54,9 @@ private:
 	float alturaReal; // cant_filas * LARGO_UNIDAD
 	float anchoReal; // cant_columnas * LARGO_UNIDAD
 
+
+	bool isPosicionValida(mathVector pos);
+
 public:
 	mapa(int cant_filas, int cant_columnas);
 	//para el futuro: mapa(XMLFile configuracion)
@@ -73,6 +76,9 @@ public:
 	int getCantFilas();
 	int getCantColumnas();
 	void renderEnemigos(float deltaTiempo, mapa * map);
+
+	bool isTraslacionValida(mathVector posicionActual, mathVector posicionNueva);
+
 	~mapa();
 };
 

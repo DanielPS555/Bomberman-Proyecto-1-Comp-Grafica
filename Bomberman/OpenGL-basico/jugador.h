@@ -7,14 +7,19 @@
 #include "SDL.h"
 #include "mathVector.h"
 #include "configuraciones.h"
+#include "mapa.h"
 
 #ifndef JUGADOR
 #define JUGADOR
 
 #define AVANCE_POR_SEGUNDO 50.0f
+#define MARGEN_SEGURIDAD_COLICION 3.0f //Distancia minima que puede tener el jugador y el objeto con el coliciona
 class jugador{
 private:
 	mathVector posicionEnMapa;
+
+	mapa* map;
+
 	float anguloActualEnMapa; //Angulo con respecto al eje y
 	float anguloActualVertical;
 
@@ -26,7 +31,7 @@ private:
 	const mathVector DIRRECION_DERECHA   = {  1.0f,  0.0f, 0.0f };
 	const mathVector DIRRECION_ISQUIERDA = { -1.0f,  0.0f, 0.0f };
 public:
-	jugador(mathVector posicionInicial, float anguloInicial);
+	jugador(mathVector posicionInicial, float anguloInicial, mapa* m);
 
 	GLuint textura;
 
