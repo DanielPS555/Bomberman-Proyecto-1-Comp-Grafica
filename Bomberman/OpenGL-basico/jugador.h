@@ -30,6 +30,9 @@ private:
 	const mathVector DIRRECION_INFERIOR  = {  0.0f, -1.0f, 0.0f };
 	const mathVector DIRRECION_DERECHA   = {  1.0f,  0.0f, 0.0f };
 	const mathVector DIRRECION_ISQUIERDA = { -1.0f,  0.0f, 0.0f };
+
+
+	mathVector corregirNuevaPosicionPorColicion(mathVector posicionActual, mathVector posicionNueva);
 public:
 	jugador(mathVector posicionInicial, float anguloInicial, mapa* m);
 

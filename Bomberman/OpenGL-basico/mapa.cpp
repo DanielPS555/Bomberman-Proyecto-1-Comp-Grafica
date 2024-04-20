@@ -278,59 +278,65 @@ void mapa::renderEnemigos(float deltatiempo, mapa * map) {
 	}
 }
 
-bool mapa::isPosicionValida(mathVector pos) {
-
-	int casilleroActualMapaX = floor(pos.x / LARGO_UNIDAD);
-	int casilleroActualMapaY = floor(pos.y / LARGO_UNIDAD);
 
 
-	if (casilleroActualMapaX < 0 || casilleroActualMapaX >= cant_columnas) {
-		return false;
+void mapa::isColicion(mathVector posicionActual,
+					  mathVector nuevaPosicion,
+					  bool& colicionSuperior,
+					  bool& colicionDerecha,
+					  bool& colicionInferior,
+					  bool& colicionIsquierda) {
+
+	int casilleroActualMapaX = floor(posicionActual.x / LARGO_UNIDAD);
+	int casilleroActualMapaY = floor(posicionActual.y / LARGO_UNIDAD);
+
+	int casilleroNuevolMapaX = floor(nuevaPosicion.x / LARGO_UNIDAD);
+	int casilleroNuevolMapaY = floor(nuevaPosicion.y / LARGO_UNIDAD);
+
+
+	if (casilleroNuevolMapaX < 0 ) {
+		colicionIsquierda = true;
 	}
 
-	if (casilleroActualMapaY < 0 || casilleroActualMapaY >= cant_filas) {
-		return false;
+	if (casilleroNuevolMapaX >= cant_columnas) {
+		colicionDerecha = true;
 	}
 
-	if (casilleroActualMapaX < 0 || casilleroActualMapaX >= cant_columnas) {
-		return false;
+	if (casilleroNuevolMapaY < 0) {
+		colicionInferior = true;
 	}
 
-	if (casilleroActualMapaY < 0 || casilleroActualMapaY >= cant_filas) {
-		return false;
+	if (casilleroNuevolMapaY >= cant_filas) {
+		colicionSuperior = true;
 	}
 
-	mapaItem* ptrLugarMap = estructuraMapa[casilleroActualMapaY][casilleroActualMapaX];
+	if (colicionIsquierda || colicionDerecha || colicionInferior || colicionSuperior) {
+		return;
+	}
+
+	mapaItem* ptrLugarMap = estructuraMapa[casilleroNuevolMapaY][casilleroNuevolMapaX];
 	if (ptrLugarMap != nullptr && (ptrLugarMap->tipo == PARED_DESTRUCTIBLE || ptrLugarMap->tipo == PARED_INDESTRUCTIBLE)) {
-		return false;
-	}
+		colicionIsquierda = casilleroNuevolMapaX < casilleroActualMapaX;
+		colicionInferior  = casilleroNuevolMapaY < casilleroActualMapaY;
 
-	return true;
+		colicionDerecha = casilleroNuevolMapaX > casilleroActualMapaX;
+		colicionSuperior = casilleroNuevolMapaY > casilleroActualMapaY;
+	}
+	
+		
 }
 
-bool mapa::isTraslacionValida(mathVector posicionActual, mathVector posicionNueva) {
+void mapa::getCordenadasCelda(mathVector posicion,
+							  mathVector& verticeInferiorIsquierdo,
+							  float& anchoCelda,
+							  float& altoCelda) {
 
-	
+	int casilleroActualMapaX = floor(posicion.x / LARGO_UNIDAD);
+	int casilleroActualMapaY = floor(posicion.y / LARGO_UNIDAD);
 
-	if (!isPosicionValida(sumar(posicionNueva, { 5.0f ,5.0f ,0.0f }))) {
-		return false;
-	}
-
-	if (!isPosicionValida(sumar(posicionNueva, { -5.0f ,5.0f ,0.0f }))) {
-		return false;
-	}
-
-	if (!isPosicionValida(sumar(posicionNueva, { -5.0f ,-5.0f ,0.0f }))) {
-		return false;
-	}
-
-	if (!isPosicionValida(sumar(posicionNueva, { 5.0f ,-5.0f ,0.0f }))) {
-		return false;
-	}
-
-	return true;
-
-	
+	verticeInferiorIsquierdo = { (float)casilleroActualMapaX * LARGO_UNIDAD, (float)casilleroActualMapaY * LARGO_UNIDAD, 0.0f };
+	anchoCelda = LARGO_UNIDAD;
+	altoCelda = LARGO_UNIDAD;
 }
 
 

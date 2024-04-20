@@ -54,9 +54,6 @@ private:
 	float alturaReal; // cant_filas * LARGO_UNIDAD
 	float anchoReal; // cant_columnas * LARGO_UNIDAD
 
-
-	bool isPosicionValida(mathVector pos);
-
 public:
 	mapa(int cant_filas, int cant_columnas);
 	//para el futuro: mapa(XMLFile configuracion)
@@ -66,18 +63,32 @@ public:
 
 	void render();
 
-
 	mathVector obtenerPosicionInicialJugador();
 	float anguloInicialJugador();
 
 	bool agregarBomba(float posEnXMapa, float posEnYMapa);
+
 	void eliminarDestructibles(float** destructibles, int alcanze);
+
 	mapaItem*** getEstructuraMapa();
+
 	int getCantFilas();
+
 	int getCantColumnas();
+
 	void renderEnemigos(float deltaTiempo, mapa * map);
 
-	bool isTraslacionValida(mathVector posicionActual, mathVector posicionNueva);
+	void getCordenadasCelda(mathVector posicion,
+		mathVector& verticeInferiorIsquierdo,
+		float& anchoCelda,
+		float& altoCelda);
+
+	void isColicion(mathVector posicionActual,
+		mathVector nuevaPosicion,
+		bool& colicionSuperior,
+		bool& colicionDerecha,
+		bool& colicionAbajo,
+		bool& colicionIsquierda);
 
 	~mapa();
 };

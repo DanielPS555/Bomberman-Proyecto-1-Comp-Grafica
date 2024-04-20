@@ -127,7 +127,7 @@ int main(int argc, char *argv[]) {
 		glLoadIdentity();
 
 		//Preparar la camara
-		gluLookAt(0, 0, 0, 0, 2, 0, 0, 0, 1);
+		gluLookAt(0, 0, 0, 0, 0.1f, 0, 0, 0, 1);
 
 		
 		// ---- Sistema de movimiento, debe ser lo ultimo que se haga
