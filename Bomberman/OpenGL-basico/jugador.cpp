@@ -8,11 +8,14 @@
 #include <GL/glu.h>
 #include "util.h"
 #include <iostream>
-jugador::jugador(mathVector posicionInicial, float anguloInicial) {
+jugador::jugador(mathVector posicionInicial, float anguloInicial, mapa* m) {
 
 	conf = configuraciones::getInstancia();
 
+	map = m;
+
 	posicionEnMapa = posicionInicial;
+
 	anguloActualEnMapa = anguloInicial;
 
 	anguloActualVertical = 0.0f;
@@ -28,6 +31,54 @@ mathVector jugador::getPosicionEnMapa() {
 
 float jugador::getAnguloActualEnMapa() {
 	return anguloActualEnMapa;
+}
+
+mathVector jugador::corregirNuevaPosicionPorColicion(mathVector posicionActual, mathVector posicionNueva) {
+
+	bool colicionSuperior = false;
+	bool colicionInferior = false;
+	bool colicionDerecha = false;
+	bool colicionIsquierda = false;
+
+	// Rodeo a la nueva posicion de un cuadrado de centro "Nueva posicion" y largo MARGEN_SEGURIDAD_COLICION, en base a eso busco si hay colicion teniendo un marge de seguridad para no llegar a atrabezar las paredes
+	map->isColicion(posicionActual, sumar(posicionNueva, {  MARGEN_SEGURIDAD_COLICION,  MARGEN_SEGURIDAD_COLICION ,0.0f })
+		, colicionSuperior, colicionDerecha, colicionInferior, colicionIsquierda);
+	map->isColicion(posicionActual, sumar(posicionNueva, { -MARGEN_SEGURIDAD_COLICION,  MARGEN_SEGURIDAD_COLICION ,0.0f })
+		, colicionSuperior, colicionDerecha, colicionInferior, colicionIsquierda);
+	map->isColicion(posicionActual, sumar(posicionNueva, {  MARGEN_SEGURIDAD_COLICION, -MARGEN_SEGURIDAD_COLICION ,0.0f })
+		, colicionSuperior, colicionDerecha, colicionInferior, colicionIsquierda);
+	map->isColicion(posicionActual, sumar(posicionNueva, { -MARGEN_SEGURIDAD_COLICION, -MARGEN_SEGURIDAD_COLICION ,0.0f })
+		, colicionSuperior, colicionDerecha, colicionInferior, colicionIsquierda);
+
+	
+	 
+	mathVector verticeInferiorIsquierdoCelda = {0.0f, 0.0f, 0.0f};
+	float ancho, altura;
+
+	mathVector posicionCorregida = posicionNueva;
+
+	map->getCordenadasCelda(posicionActual, verticeInferiorIsquierdoCelda, ancho, altura);
+
+	if (colicionSuperior) {
+		posicionCorregida.y = verticeInferiorIsquierdoCelda.y + altura - MARGEN_SEGURIDAD_COLICION;
+	}
+
+	if (colicionInferior) {
+		posicionCorregida.y = verticeInferiorIsquierdoCelda.y + MARGEN_SEGURIDAD_COLICION;
+	}
+
+	if (colicionDerecha) {
+		posicionCorregida.x = verticeInferiorIsquierdoCelda.x + ancho -  MARGEN_SEGURIDAD_COLICION;
+	}
+
+	if (colicionIsquierda) {
+		posicionCorregida.x = verticeInferiorIsquierdoCelda.x + MARGEN_SEGURIDAD_COLICION;
+	}
+
+	return posicionCorregida;
+
+
+
 }
 
 void jugador::trasladar(float deltaTiempoMs,
@@ -56,14 +107,14 @@ void jugador::trasladar(float deltaTiempoMs,
 	}
 	
 	if (!isNulo(resultante)) {
-
 		resultante = normalizar(resultante);
-
 		resultante = rotar(resultante, anguloActualEnMapa);
-
 		resultante = multiplicarPorEscalar(resultante,  AVANCE_POR_SEGUNDO *  deltaTiempoMs / (1000));
+		
+		resultante = sumar(posicionEnMapa, resultante);
 
-		posicionEnMapa = sumar(posicionEnMapa, resultante);
+		posicionEnMapa = corregirNuevaPosicionPorColicion(posicionEnMapa, resultante);
+		
 	}
 	
 }
@@ -73,6 +124,14 @@ void jugador::rotarJugador(float deltaRotacion) {
 		deltaRotacion *= -1;
 	}
 	anguloActualEnMapa += deltaRotacion * conf->getSensibilidadCamara();
+
+	if (anguloActualEnMapa > 360) {
+		anguloActualEnMapa -= 360;
+	}
+
+	if (anguloActualEnMapa < 0) {
+		anguloActualEnMapa += 360;
+	}
 }
 
 void jugador::rotarVerticalJugador(float deltaVerticalRotacion) {
@@ -84,6 +143,7 @@ void jugador::rotarVerticalJugador(float deltaVerticalRotacion) {
 		anguloActualVertical = -90.0f;
 	}
 }
+
 
 void jugador::render() {
 	glPushMatrix();
