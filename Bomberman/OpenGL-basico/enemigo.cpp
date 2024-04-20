@@ -25,8 +25,6 @@ enemigo::enemigo(mathVector posicionInicial,direccion actual, int i, int j, char
 	float jj = j;
 	float ii = i;
 	this->posicion = { ii * LARGO_UNIDAD + LARGO_UNIDAD/2, jj * LARGO_UNIDAD + LARGO_UNIDAD/2,0 };
-	std::cout << "x " << posicion.x << std::endl;
-	std::cout << "y " << posicion.y << std::endl;
 	
 	vertice verticesEnemigo[8] = {
 
