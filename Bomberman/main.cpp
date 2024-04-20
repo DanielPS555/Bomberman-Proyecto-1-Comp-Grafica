@@ -71,7 +71,7 @@ int main(int argc, char *argv[]) {
 	//ToDo: Poner en una clase propia, de forma que hay se puedan tener los modos de vista aparte 
 
 	float posicion_camara_x = 0; 
-	float posicion_camara_y = -2;
+	float posicion_camara_y = 0;
 	float posicion_camara_z = 13;
 
 

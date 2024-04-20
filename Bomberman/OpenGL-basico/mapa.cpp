@@ -296,18 +296,22 @@ void mapa::isColicion(mathVector posicionActual,
 
 	if (casilleroNuevolMapaX < 0 ) {
 		colicionIsquierda = true;
+		
 	}
 
 	if (casilleroNuevolMapaX >= cant_columnas) {
 		colicionDerecha = true;
+		
 	}
 
 	if (casilleroNuevolMapaY < 0) {
-		colicionInferior = true;
+		colicionInferior = true; 
+		
 	}
 
 	if (casilleroNuevolMapaY >= cant_filas) {
 		colicionSuperior = true;
+		
 	}
 
 	if (colicionIsquierda || colicionDerecha || colicionInferior || colicionSuperior) {
