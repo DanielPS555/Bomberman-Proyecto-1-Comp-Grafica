@@ -32,8 +32,9 @@ public:
 	void trasladar(float t, mapa * map);
 	void render();
 	direccion siguienteDireccion(mapa *  map);
+	int getXEnemy();
+	int getYEnemy();
 	mathVector getPosicion();
-	
 };
 
 #endif

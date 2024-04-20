@@ -162,6 +162,16 @@ direccion enemigo::siguienteDireccion(mapa * map) {
 	
 }
 
+int enemigo::getXEnemy()
+{
+	return this->x;
+}
+
+int enemigo::getYEnemy()
+{
+	return this->y;
+}
+
 mathVector enemigo::getPosicion()
 {
 	return this->posicion;

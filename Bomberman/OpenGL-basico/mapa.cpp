@@ -219,26 +219,32 @@ bool mapa::agregarBomba(float posEnXMapa, float posEnYMapa)
 {	
 	int i = posEnXMapa;
 	int j = posEnYMapa;
-	if (this->estructuraMapa[i][j] == nullptr) {
-		this->estructuraMapa[i][j] = new mapaItem;
-		this->estructuraMapa[i][j]->tipo = BOMBA;
+	if (i < this->cant_columnas && i >= 0 && j < this->cant_filas && j >= 0) {
+		if (this->estructuraMapa[i][j] == nullptr) {
+			this->estructuraMapa[i][j] = new mapaItem;
+			this->estructuraMapa[i][j]->tipo = PARED_DESTRUCTIBLE;
 
-		vertice verticesCuboBom[8] = {
-						{{j * LARGO_UNIDAD			, i * LARGO_UNIDAD					, 0			    }, {1,1,1} },
-						{{(j + 1) * LARGO_UNIDAD	, i * LARGO_UNIDAD					, 0			    }, {1,1,1} },
-						{{(j + 1) * LARGO_UNIDAD	, i * LARGO_UNIDAD					, ALTURA_PARED  }, {1,1,1} },
-						{{j * LARGO_UNIDAD	        , i * LARGO_UNIDAD					, ALTURA_PARED  }, {1,1,1} },
-						{{j * LARGO_UNIDAD	        , (i + 1) * LARGO_UNIDAD		    , ALTURA_PARED	}, {1,1,1} },
-						{{j * LARGO_UNIDAD	        , (i + 1) * LARGO_UNIDAD			, 0			    }, {1,1,1} },
-						{{ (j + 1) * LARGO_UNIDAD	, (i + 1) * LARGO_UNIDAD			, 0				}, {1,1,1} },
-						{{ (j + 1) * LARGO_UNIDAD	, (i + 1) * LARGO_UNIDAD			, ALTURA_PARED	}, {1,1,1} },
+			vertice verticesCuboBom[8] = {
+							{{j * (LARGO_UNIDAD)			, i * LARGO_UNIDAD					, 0			    }, {1,1,1} },
+							{{(j + 1) * LARGO_UNIDAD	, i * LARGO_UNIDAD					, 0			    }, {1,1,1} },
+							{{(j + 1) * LARGO_UNIDAD	, i * LARGO_UNIDAD					, ALTURA_PARED  }, {1,1,1} },
+							{{j * LARGO_UNIDAD	        , i * LARGO_UNIDAD					, ALTURA_PARED  }, {1,1,1} },
+							{{j * LARGO_UNIDAD	        , (i + 1) * LARGO_UNIDAD		    , ALTURA_PARED	}, {1,1,1} },
+							{{j * LARGO_UNIDAD	        , (i + 1) * LARGO_UNIDAD			, 0			    }, {1,1,1} },
+							{{ (j + 1) * LARGO_UNIDAD	, (i + 1) * LARGO_UNIDAD			, 0				}, {1,1,1} },
+							{{ (j + 1) * LARGO_UNIDAD	, (i + 1) * LARGO_UNIDAD			, ALTURA_PARED	}, {1,1,1} },
 
-		};
+			};
 
-		destructibles.push_back(std::make_tuple(posEnXMapa, posEnYMapa));
-		this->estructuraMapa[i][j]->figura = createRetangulo3d(verticesCuboBom);
+			destructibles.push_back(std::make_tuple(posEnXMapa, posEnYMapa));
+			this->estructuraMapa[i][j]->figura = createRetangulo3d(verticesCuboBom);
+			return true;
+		}
+		return false;
 	}
-	return true;
+	else {
+		return false;
+	}
 }
 
 void mapa::eliminarDestructibles(float** destruir, int alcanze)
@@ -267,15 +273,24 @@ void mapa::eliminarDestructibles(float** destruir, int alcanze)
 			}
 			for (int p = 0; p < 4; p++) {
 				if (enemigos[p] != nullptr) {
-					int enx = floor(this->enemigos[p]->getPosicion().x / LARGO_UNIDAD);
-					int eny = floor(this->enemigos[p]->getPosicion().y / LARGO_UNIDAD);
-					if (x == eny && y == enx) {
-						if (this->estructuraMapa[eny][enx]->tipo = ENEMY) {
-							delete this->estructuraMapa[eny][enx];
-							this->estructuraMapa[eny][enx] = nullptr;
-							delete this->enemigos[p];
-							this->enemigos[p] == nullptr;
-
+					int enx = this->enemigos[p]->getXEnemy();
+					int eny = this->enemigos[p]->getYEnemy();
+					int posy = floor(this->enemigos[p]->getPosicion().y /LARGO_UNIDAD);
+					int posx = floor(this->enemigos[p]->getPosicion().x / LARGO_UNIDAD);
+					if (x == enx && y == eny) {
+sw						delete this->estructuraMapa[eny][enx];
+						this->estructuraMapa[eny][enx] = nullptr;
+						enemigo* en = this->enemigos[p];
+						this->enemigos[p] = nullptr; 
+						delete en;
+					}
+					else {
+						if (x == posx && y == posy) {
+							delete this->estructuraMapa[posy][posx];
+							this->estructuraMapa[posy][posx] = nullptr;
+							enemigo* en = this->enemigos[p];
+							this->enemigos[p] = nullptr;
+							delete en;
 						}
 					}
 				}
