@@ -219,7 +219,7 @@ bool mapa::agregarBomba(float posEnXMapa, float posEnYMapa)
 {	
 	int i = posEnXMapa;
 	int j = posEnYMapa;
-	if ((i % 2 == 0 || j % 2 == 0 ) && this->estructuraMapa[i][j] == nullptr) {
+	if (this->estructuraMapa[i][j] == nullptr) {
 		this->estructuraMapa[i][j] = new mapaItem;
 		this->estructuraMapa[i][j]->tipo = BOMBA;
 
@@ -263,6 +263,21 @@ void mapa::eliminarDestructibles(float** destruir, int alcanze)
 				else {
 					s++;
 					++it;
+				}
+			}
+			for (int p = 0; p < 4; p++) {
+				if (enemigos[p] != nullptr) {
+					int enx = floor(this->enemigos[p]->getPosicion().x / LARGO_UNIDAD);
+					int eny = floor(this->enemigos[p]->getPosicion().y / LARGO_UNIDAD);
+					if (x == eny && y == enx) {
+						if (this->estructuraMapa[eny][enx]->tipo = ENEMY) {
+							delete this->estructuraMapa[eny][enx];
+							this->estructuraMapa[eny][enx] = nullptr;
+							delete this->enemigos[p];
+							this->enemigos[p] == nullptr;
+
+						}
+					}
 				}
 			}
 		}

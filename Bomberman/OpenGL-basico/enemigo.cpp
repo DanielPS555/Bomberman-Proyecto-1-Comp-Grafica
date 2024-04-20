@@ -161,3 +161,8 @@ direccion enemigo::siguienteDireccion(mapa * map) {
 	return direccionesValidas[indiceAleatorio];
 	
 }
+
+mathVector enemigo::getPosicion()
+{
+	return this->posicion;
+}

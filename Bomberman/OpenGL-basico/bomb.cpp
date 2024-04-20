@@ -16,35 +16,29 @@ bomba::bomba(float posXEnMapa, float posYEnMapa, float alcanze, float dirAct)
 	int bx, by;
 	if ((45 <= dirAct && dirAct < 135) || (-315 <= dirAct && dirAct < -225)) {
 		// sumar x
-		bx = round(posXEnMapa / 25);
-		by = round(posYEnMapa / 25) - 1;
+		bx = floor(posXEnMapa / 25);
+		by = floor(posYEnMapa / 25) - 1;
 	}
 	else {
 		if ((135 <= dirAct && dirAct < 225) || (-225 <= dirAct && dirAct < -135)) {
 			// restar y 
-			bx = round(posXEnMapa / 25) - 1;
-			by = round(posYEnMapa / 25);
+			bx = floor(posXEnMapa / 25) - 1;
+			by = floor(posYEnMapa / 25);
 		}
 		else {
 			if ((225 <= dirAct && dirAct < 315) || (-135 <= dirAct && dirAct < -45)) {
 				// restar x
-				bx = round(posXEnMapa / 25);
-				by = round(posYEnMapa / 25) + 1;
+				bx = floor(posXEnMapa / 25);
+				by = floor(posYEnMapa / 25) + 1;
 			}
 			else {
 				if ((315 <= dirAct && dirAct <= 360) || (0 <= dirAct && dirAct < 45) || (-360 <= dirAct && dirAct <= -315) || (-45 <= dirAct && dirAct < 0)) {
 					// sumar y
-					bx = round(posXEnMapa / 25) + 1;
-					by = round(posYEnMapa / 25);
+					bx = floor(posXEnMapa / 25) + 1;
+					by = floor(posYEnMapa / 25);
 				}
 			}
 		}
-	}
-	if (round(posXEnMapa / 25) != floor(posXEnMapa / 25)) {
-		bx = bx - 1;
-	}
-	if (round(posYEnMapa / 25) != floor(posYEnMapa / 25)) {
-		by = by - 1;
 	}
 	this->posXEnMapa = bx;
 	this->posYEnMapa = by;
