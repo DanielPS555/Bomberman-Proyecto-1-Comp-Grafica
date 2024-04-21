@@ -78,6 +78,8 @@ public:
 
 	void renderEnemigos(float deltaTiempo, mapa * map);
 
+	bool isCeldaPared(int corrX, int coorY);
+
 	void getCordenadasCelda(mathVector posicion,
 		mathVector& verticeInferiorIsquierdo,
 		float& anchoCelda,
