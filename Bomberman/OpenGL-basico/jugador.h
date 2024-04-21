@@ -12,7 +12,7 @@
 #ifndef JUGADOR
 #define JUGADOR
 
-#define AVANCE_POR_SEGUNDO 50.0f
+#define AVANCE_POR_SEGUNDO 30.0f
 #define MARGEN_SEGURIDAD_COLICION 0.5f //Distancia minima que puede tener el jugador y el objeto con el coliciona
 class jugador{
 private:

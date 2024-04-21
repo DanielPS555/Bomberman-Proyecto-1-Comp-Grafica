@@ -50,7 +50,6 @@ mathVector jugador::corregirNuevaPosicionPorColicion(mathVector posicionActual, 
 	map->isColicion(posicionActual, sumar(posicionNueva, { -MARGEN_SEGURIDAD_COLICION, -MARGEN_SEGURIDAD_COLICION ,0.0f })
 		, colicionSuperior, colicionDerecha, colicionInferior, colicionIsquierda);
 
-	
 	 
 	mathVector verticeInferiorIsquierdoCelda = {0.0f, 0.0f, 0.0f};
 	float ancho, altura;

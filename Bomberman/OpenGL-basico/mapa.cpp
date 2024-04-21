@@ -175,7 +175,7 @@ void mapa::render() {
 	//cargarTextura(this->textura);
 
 	renderRectangulo2d(pisoShape,this->texturapiso);
-	renderRectangulo2d(techoShape, this->texturaTecho);
+	//renderRectangulo2d(techoShape, this->texturaTecho);
 
 	for (int i = 0; i < 4; i++) {
 		renderRectangulo3d(bordesShape[i],this->texturaPared);
@@ -324,49 +324,115 @@ void mapa::isColicion(mathVector posicionActual,
 					  bool& colicionDerecha,
 					  bool& colicionInferior,
 					  bool& colicionIsquierda) {
-
-	int casilleroActualMapaX = floor(posicionActual.x / LARGO_UNIDAD);
-	int casilleroActualMapaY = floor(posicionActual.y / LARGO_UNIDAD);
-
+	// ---- Etapa 1: ¿Choque contra las paredes del mapa?
 	int casilleroNuevolMapaX = floor(nuevaPosicion.x / LARGO_UNIDAD);
 	int casilleroNuevolMapaY = floor(nuevaPosicion.y / LARGO_UNIDAD);
 
+	bool cSup = false;
+	bool cDer = false; 
+	bool cIsq = false;
+	bool cInf = false;
+
 
 	if (casilleroNuevolMapaX < 0 ) {
-		colicionIsquierda = true;
+		cIsq = true;
 		
 	}
 
 	if (casilleroNuevolMapaX >= cant_columnas) {
-		colicionDerecha = true;
+		cDer = true;
 		
 	}
 
 	if (casilleroNuevolMapaY < 0) {
-		colicionInferior = true; 
+		cInf = true;
 		
 	}
 
 	if (casilleroNuevolMapaY >= cant_filas) {
-		colicionSuperior = true;
+		cSup = true;
 		
 	}
 
-	if (colicionIsquierda || colicionDerecha || colicionInferior || colicionSuperior) {
+	if (cIsq || cDer || cInf || cSup) {
+		colicionIsquierda = cIsq || colicionIsquierda;
+		colicionDerecha = cDer || colicionDerecha;
+		colicionSuperior = cSup || colicionSuperior;
+		colicionInferior = cInf || colicionInferior;
 		return;
 	}
 
-	mapaItem* ptrLugarMap = estructuraMapa[casilleroNuevolMapaY][casilleroNuevolMapaX];
-	if (ptrLugarMap != nullptr && (ptrLugarMap->tipo == PARED_DESTRUCTIBLE || ptrLugarMap->tipo == PARED_INDESTRUCTIBLE)) {
-		colicionIsquierda = casilleroNuevolMapaX < casilleroActualMapaX;
-		colicionInferior  = casilleroNuevolMapaY < casilleroActualMapaY;
+	// ---- Etapa 2: ¿Choque diagonal?
 
-		colicionDerecha = casilleroNuevolMapaX > casilleroActualMapaX;
-		colicionSuperior = casilleroNuevolMapaY > casilleroActualMapaY;
+	int casilleroActualMapaX = floor(posicionActual.x / LARGO_UNIDAD);
+	int casilleroActualMapaY = floor(posicionActual.y / LARGO_UNIDAD);
+
+	int deltaCasillerosX = casilleroNuevolMapaX - casilleroActualMapaX;
+	int deltaCasillerosY = casilleroNuevolMapaY - casilleroActualMapaY;
+
+
+	if (deltaCasillerosX != 0 && deltaCasillerosY != 0) {
+
+		if (isCeldaPared(casilleroActualMapaX + deltaCasillerosX, casilleroActualMapaY) 
+			&& isCeldaPared(casilleroActualMapaX, casilleroActualMapaY + deltaCasillerosY)) {
+
+			if (deltaCasillerosX < 0) {
+				cIsq = true;
+
+			}
+
+			if (deltaCasillerosX > 0) {
+				cDer = true;
+
+			}
+
+			if (deltaCasillerosY < 0) {
+				cInf = true;
+
+			}
+
+			if (deltaCasillerosY > 0) {
+				cSup = true;
+
+			}
+
+		}
+
+		
+	}
+
+	if (cIsq || cDer || cInf || cSup) {
+		colicionIsquierda = cIsq || colicionIsquierda;
+		colicionDerecha = cDer || colicionDerecha;
+		colicionSuperior = cSup || colicionSuperior;
+		colicionInferior = cInf || colicionInferior;
+		return;
+	}
+
+	//Etapa 3
+
+	mapaItem* ptrLugarMap = estructuraMapa[casilleroNuevolMapaY][casilleroNuevolMapaX];
+	if (isCeldaPared(casilleroNuevolMapaX, casilleroNuevolMapaY)) {
+		colicionIsquierda = colicionIsquierda || casilleroNuevolMapaX < casilleroActualMapaX;
+		colicionInferior  = colicionInferior || casilleroNuevolMapaY < casilleroActualMapaY;
+
+		colicionDerecha = colicionDerecha || casilleroNuevolMapaX > casilleroActualMapaX;
+		colicionSuperior = colicionSuperior || casilleroNuevolMapaY > casilleroActualMapaY;
 	}
 	
 		
 }
+
+bool mapa::isCeldaPared(int corrX, int coorY) {
+
+	if (corrX < 0 || corrX >= cant_columnas || coorY < 0 || coorY >= cant_filas) {
+		return true;
+	}
+
+	mapaItem* ptrLugarMap = estructuraMapa[coorY][corrX];
+	return ptrLugarMap != nullptr && (ptrLugarMap->tipo == PARED_DESTRUCTIBLE || ptrLugarMap->tipo == PARED_INDESTRUCTIBLE);
+}
+
 
 void mapa::getCordenadasCelda(mathVector posicion,
 							  mathVector& verticeInferiorIsquierdo,
