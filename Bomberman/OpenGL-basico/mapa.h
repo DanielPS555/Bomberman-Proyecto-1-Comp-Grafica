@@ -3,6 +3,7 @@
 #include <tuple>
 #include "mathVector.h"
 #include "enemigo.h"
+#include "bomb.h"
 #ifndef MAPA
 #define MAPA
 
@@ -15,7 +16,7 @@ enum tipoMapaItem {
 	CAMINO,
 	PARED_INDESTRUCTIBLE,
 	PARED_DESTRUCTIBLE,
-	BOMBA,
+	BOMB,
 	ENEMY
 };
 
@@ -77,6 +78,8 @@ public:
 	int getCantColumnas();
 
 	void renderEnemigos(float deltaTiempo, mapa * map);
+
+	void renderBombas(bomba** bombs);
 
 	void getCordenadasCelda(mathVector posicion,
 		mathVector& verticeInferiorIsquierdo,

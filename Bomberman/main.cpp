@@ -159,7 +159,7 @@ int main(int argc, char *argv[]) {
 		//Manejo de la coloccacion de bombas
 		if (ponerBomba) {
 			int n = 0;
-			while ( n < 4 && ponerBomba) {
+			while (n < 4 && ponerBomba) {
 				if (bombs[n] == nullptr && ponerBomba) {
 					posAct = player->getPosicionEnMapa();
 					dirAct = round(player->getAnguloActualEnMapa());
@@ -194,7 +194,7 @@ int main(int argc, char *argv[]) {
 		}*/
 		if (explotarBomba) {
 			int i = 0;
-			while (i<4 && explotarBomba) {
+			while (i < 4 && explotarBomba) {
 				if (bombs[i] != nullptr) {
 					victimas = bombs[i]->explosion_trigg(victimas);
 					map->eliminarDestructibles(victimas, 1);
@@ -202,6 +202,7 @@ int main(int argc, char *argv[]) {
 					victimas = nullptr;
 					delete bombs[i];
 					bombs[i] = nullptr;
+					explotarBomba = false;
 				}
 				i++;
 			}
@@ -211,6 +212,7 @@ int main(int argc, char *argv[]) {
 
 	
 		map->render();
+		map->renderBombas(bombs);
 		map->renderEnemigos(deltaTiempo,map);
 
 

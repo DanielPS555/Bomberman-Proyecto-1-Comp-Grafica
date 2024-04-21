@@ -9,6 +9,7 @@
 #include <conio.h>
 #include <GL/glu.h>
 #include "util.h"
+#include "mapa.h"
 
 
 bomba::bomba(float posXEnMapa, float posYEnMapa, float alcanze, float dirAct)
@@ -42,7 +43,21 @@ bomba::bomba(float posXEnMapa, float posYEnMapa, float alcanze, float dirAct)
 	}
 	this->posXEnMapa = bx;
 	this->posYEnMapa = by;
+
 	this->alcanze = alcanze;
+
+	vertice verticesBomba[8] = {
+			{{by * LARGO_UNIDAD	+ (LARGO_UNIDAD / 3)		, bx * LARGO_UNIDAD + (LARGO_UNIDAD / 3)		, 0}			   , {1,1,1}},
+			{{(by + 1) * LARGO_UNIDAD - (LARGO_UNIDAD / 3)	, bx * LARGO_UNIDAD + (LARGO_UNIDAD / 3)		, 0			    }  , {1,1,1}},
+			{{(by + 1) * LARGO_UNIDAD - (LARGO_UNIDAD / 3)	, bx * LARGO_UNIDAD + (LARGO_UNIDAD / 3)		, ALTURA_PARED / 3}, {1.1,1,1}},
+			{{by * LARGO_UNIDAD + (LARGO_UNIDAD / 3)		, bx * LARGO_UNIDAD + (LARGO_UNIDAD / 3)		, ALTURA_PARED / 3}, {1,1,1}},
+			{{by * LARGO_UNIDAD + (LARGO_UNIDAD / 3)		, (bx + 1) * LARGO_UNIDAD - (LARGO_UNIDAD / 3)	, ALTURA_PARED / 3}, {1,1,1}},
+			{{by * LARGO_UNIDAD + (LARGO_UNIDAD / 3)		, (bx + 1) * LARGO_UNIDAD - (LARGO_UNIDAD / 3)	, 0			    }  , {1,1,1}},
+			{{(by + 1) * LARGO_UNIDAD - (LARGO_UNIDAD / 3)	, (bx + 1) * LARGO_UNIDAD - (LARGO_UNIDAD / 3)	, 0				}  , {1,1,1}},
+			{{(by + 1) * LARGO_UNIDAD - (LARGO_UNIDAD / 3)	, (bx + 1) * LARGO_UNIDAD - (LARGO_UNIDAD / 3)	, ALTURA_PARED / 3}, {1,1,1}}
+	};
+	this->textura = inicializarTextura("assets/canon.png");
+	this->vertices = createRetangulo3d(verticesBomba);
 }
 
 
@@ -70,6 +85,19 @@ float** bomba::explosion_trigg(float** destruct)
 	destruct[(alc * 4)][0] = this->posXEnMapa;
 	destruct[(alc * 4)][1] = this->posYEnMapa;
 	return destruct;
+}
+
+void bomba::render()
+{
+	glPushMatrix();
+
+	iniciliarRenderVertexArray();
+
+	renderRectangulo3d(this->vertices, this->textura);
+
+	finalizarRenderVertexArray();
+
+	glPopMatrix();
 }
 
 int bomba::getYenMapa()
