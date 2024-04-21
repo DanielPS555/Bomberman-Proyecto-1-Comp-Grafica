@@ -86,11 +86,14 @@ int main(int argc, char *argv[]) {
 
 	bool ponerBomba = false;
 	bool explotarBomba = false;
-	bool hayBomba = false;
 	bool timer = false;
+	bool sePuso = false;
 
 	// -------- Bombas
-	bomba* bomb = nullptr;
+	bomba** bombs = new bomba*[4];
+	for (int b = 0; b < 4; b++) {
+		bombs[b] = nullptr;
+	}
 	float** victimas = nullptr;
 
 	// -------- Jugador
@@ -144,39 +147,61 @@ int main(int argc, char *argv[]) {
 	
 		//Manejo de la coloccacion de bombas
 		if (ponerBomba) {
-			posAct = player->getPosicionEnMapa();
-			dirAct = round(player->getAnguloActualEnMapa());
-			dirAct = dirAct % 360;
-			bomb = new bomba(posAct.y, posAct.x, 1, dirAct);
-			hayBomba = map->agregarBomba(bomb->getXenMapa(), bomb->getYenMapa());
+			int n = 0;
+			while (n < 4 && ponerBomba) {
+				if (bombs[n] == nullptr && ponerBomba) {
+					posAct = player->getPosicionEnMapa();
+					dirAct = round(player->getAnguloActualEnMapa());
+					dirAct = dirAct % 360;
+					bombs[n] = new bomba(posAct.y, posAct.x, 1, dirAct);
+					sePuso = map->agregarBomba(bombs[n]->getXenMapa(), bombs[n]->getYenMapa());
+					if (!sePuso) {
+						delete bombs[n];
+						bombs[n] = nullptr;
+					}
+					ponerBomba = false;
+				}
+				n++;
+			}
 			ponerBomba = false;
 		}
 
 		/*if (hayBomba && timer) {
-			victimas = bomb->explosion_trigg(victimas, tiempoTranscurridoUltimoFrame);
-			if (victimas != nullptr) {
-				map->eliminarDestructibles(victimas, 1);
-				delete victimas;
-				victimas = nullptr;
-				delete bomb;
-				bomb = nullptr;
-				hayBomba = false;
+			for (int i = 0; i < 4; i++) {
+				if (bombs[i] != nullptr) {
+					victimas = bombs[i]->explosion_trigg(victimas);
+					if (victimas != nullptr) {
+						map->eliminarDestructibles(victimas, 1);
+						delete victimas;
+						victimas = nullptr;
+						delete bomb;
+						bomb = nullptr;
+						hayBomba = false;
+					}
+				}
 			}
 		}*/
-		if (hayBomba && explotarBomba) {
-			victimas = bomb->explosion_trigg(victimas);
-			map->eliminarDestructibles(victimas, 1);
-			delete victimas;
-			victimas = nullptr;
-			delete bomb;
-			bomb = nullptr;
-			hayBomba = false;
+		if (explotarBomba) {
+			int i = 0;
+			while (i < 4 && explotarBomba) {
+				if (bombs[i] != nullptr) {
+					victimas = bombs[i]->explosion_trigg(victimas);
+					map->eliminarDestructibles(victimas, 1);
+					delete victimas;
+					victimas = nullptr;
+					delete bombs[i];
+					bombs[i] = nullptr;
+					explotarBomba = false;
+				}
+				i++;
+			}
 			explotarBomba = false;
 		}
 		
 
 	
 		map->render();
+		map->renderBombas(bombs);
 		map->renderEnemigos(deltaTiempo,map);
 
 
