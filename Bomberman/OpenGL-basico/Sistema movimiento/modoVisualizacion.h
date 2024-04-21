@@ -13,6 +13,7 @@ class modoVisualizacion {
 private:
 
 	const mathVector UBICACION_CAMARA_PRIMERA_PERSONA = { 0.0f, 0.0f, 13.0f };
+	const mathVector UBICACION_CAMARA_VISTA_ORIGINAL = { 0.0f, 0.0f, 150.0f };
 
 	//Tenemos los datos del jugador para poder aplciarlos a la camara
 	jugador* player;
@@ -26,6 +27,8 @@ public:
 	void aplicarTranformacionesPorModo();
 
 	void cambiarModo(MODOS_VISUALIZACION);
+
+	void rotarCambioModo();
 
 
 };

@@ -243,6 +243,9 @@ int main(int argc, char *argv[]) {
 				case SDLK_n:
 					explotarBomba = true;
 					break;
+				case SDLK_v:
+					modoVis->rotarCambioModo();
+					break;
 				}
 				break;
 			case SDL_KEYUP:

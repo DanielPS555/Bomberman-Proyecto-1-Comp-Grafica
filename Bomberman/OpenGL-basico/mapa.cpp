@@ -175,7 +175,7 @@ void mapa::render() {
 	//cargarTextura(this->textura);
 
 	renderRectangulo2d(pisoShape,this->texturapiso);
-	renderRectangulo2d(techoShape, this->texturaTecho);
+	//renderRectangulo2d(techoShape, this->texturaTecho);
 
 	for (int i = 0; i < 4; i++) {
 		renderRectangulo3d(bordesShape[i],this->texturaPared);
