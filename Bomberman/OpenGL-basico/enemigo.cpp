@@ -32,11 +32,11 @@ enemigo::enemigo(mathVector posicionInicial,direccion actual, int i, int j, char
 
 		{{ 0		, 0					, 0 }, {1,1,1} },
 		{{LARGO_UNIDAD / 2	,  0					, 0			    }, {1,1,1}},
-		{{ LARGO_UNIDAD / 2	,  0					, ALTURA_PARED /2 }, {1.1,1,1}},
+		{{ LARGO_UNIDAD / 2	,  0					, ALTURA_PARED /2 }, {0.1,0.1,0.1}},
 		{{0	        , 0					, ALTURA_PARED / 2 }, {1,1,1}},
-		{{ 0	        , LARGO_UNIDAD / 2	    , ALTURA_PARED / 2}, {1,1,1}},
+		{{ 0	        , LARGO_UNIDAD / 2	    , ALTURA_PARED / 2}, {0.1,0.1,0.1}},
 		{{ 0        , LARGO_UNIDAD / 2		, 0			    }, {1,1,1}},
-		{{  LARGO_UNIDAD / 2	, LARGO_UNIDAD / 2		, 0				}, {1,1,1}},
+		{{  LARGO_UNIDAD / 2	, LARGO_UNIDAD / 2		, 0				}, {0.1,0.1,0.1}},
 		{{  LARGO_UNIDAD / 2	, LARGO_UNIDAD / 2		, ALTURA_PARED / 2	}, {1,1,1}}
 
 	};
@@ -46,6 +46,7 @@ enemigo::enemigo(mathVector posicionInicial,direccion actual, int i, int j, char
 	this->vertices = createRetangulo3d(verticesEnemigo);
 }
 void enemigo::trasladar(float t, mapa * map) {
+	float deltax = 20.f * t / (1000);
 	mapaItem *** estructuraMapa = map->getEstructuraMapa();
 	mapaItem* item = new mapaItem();
 	
@@ -54,7 +55,7 @@ void enemigo::trasladar(float t, mapa * map) {
 	estructuraMapa[y][x] = NULL;
 
 	if (direccionActual == DERECHA) {
-		this->posicion.x = this->posicion.x + t / 50;
+		this->posicion.x = this->posicion.x +  deltax;
 		int coordenada_sig_centro = (x + 1) * LARGO_UNIDAD + LARGO_UNIDAD/2;
 		if (abs(posicion.x - coordenada_sig_centro) < 0.1 && !this->cambio) {
 			this->posicion.x = coordenada_sig_centro;
@@ -67,7 +68,7 @@ void enemigo::trasladar(float t, mapa * map) {
 		}
 	}
 	else if (direccionActual == ABAJO) {
-		this->posicion.y = this->posicion.y - t / 50;
+		this->posicion.y = this->posicion.y - deltax;
 
 		int coordenada_sig_centro = (y - 1) * LARGO_UNIDAD + LARGO_UNIDAD / 2;
 
@@ -83,7 +84,7 @@ void enemigo::trasladar(float t, mapa * map) {
 
 	}
 	else if (direccionActual == ARRIBA) {
-		this->posicion.y = this->posicion.y + t / 50;
+		this->posicion.y = this->posicion.y + deltax;
 
 		int coordenada_sig_centro = (y + 1) * LARGO_UNIDAD + LARGO_UNIDAD / 2;
 
@@ -100,7 +101,7 @@ void enemigo::trasladar(float t, mapa * map) {
 	}
 
 	else if (direccionActual == IZQUIERDA) {
-		this->posicion.x = this->posicion.x - t / 50;
+		this->posicion.x = this->posicion.x - deltax;
 
 		int coordenada_sig_centro = (x - 1) * LARGO_UNIDAD + LARGO_UNIDAD / 2;
 

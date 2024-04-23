@@ -10,6 +10,8 @@
 #ifndef RENDER_UTILS
 #define RENDER_UTILS
 
+extern bool mostrarTexturas;
+
 void iniciliarRenderVertexArray();
 void finalizarRenderVertexArray();
 void renderRectangulo2d(retangulo2d rec, GLuint textura);

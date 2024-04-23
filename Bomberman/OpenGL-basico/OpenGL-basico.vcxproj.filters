@@ -11,6 +11,7 @@
     <ClCompile Include="util.cpp" />
     <ClCompile Include="enemigo.cpp" />
     <ClCompile Include="configuraciones.cpp" />
+    <ClCompile Include="menu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bomb.h" />
@@ -22,5 +23,6 @@
     <ClInclude Include="util.h" />
     <ClInclude Include="enemigo.h" />
     <ClInclude Include="configuraciones.h" />
+    <ClInclude Include="menu.h" />
   </ItemGroup>
 </Project>

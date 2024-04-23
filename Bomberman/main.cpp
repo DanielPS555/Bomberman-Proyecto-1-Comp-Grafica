@@ -16,6 +16,12 @@
 #include <Assimp/scene.h>
 #include <Assimp/Importer.hpp>
 #include <Assimp/postprocess.h>
+#include <SDL_ttf.h>
+#include "OpenGL-basico/menu.h"
+
+
+const float SCREEN_WIDTH = 1600;
+const float SCREEN_HEIGHT = 900;
 
 using namespace std;
 
@@ -27,22 +33,31 @@ using chrono::milliseconds;
 using chrono::seconds;
 
 bool fin = false;
-
-
-
+bool mostrar_menu = true;
 
 int main(int argc, char *argv[]) {
-	if (SDL_Init(SDL_INIT_VIDEO)<0) {
+	
+
+	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		cerr << "No se pudo iniciar SDL: " << SDL_GetError() << endl;
-		exit(1);
+		return 1;
 	}
 
+	if (TTF_Init() == -1) {
+		std::cerr << "SDL_ttf no pudo inicializarse! SDL_ttf Error: " << TTF_GetError() << std::endl;
+		SDL_Quit();
+		return -1;
+	}
+
+	// Creación de la ventana y el renderer de SDL
 	SDL_Window* win = SDL_CreateWindow("Bomberman - Obligatorio 1 - Comp Graf ",
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
-		1600, 900, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
-	SDL_GLContext context = SDL_GL_CreateContext(win);
+		SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
 
+
+	menu mnu = menu(SCREEN_WIDTH, SCREEN_HEIGHT, win);
+	SDL_GLContext context = SDL_GL_CreateContext(win);
 
 	glMatrixMode(GL_PROJECTION);
 
@@ -50,16 +65,16 @@ int main(int argc, char *argv[]) {
 	glClearColor(color, color, color, 1);
 
 	gluPerspective(45, 1600 / 900.f, 0.1, 1000);
+
 	glEnable(GL_DEPTH_TEST);
 	glMatrixMode(GL_MODELVIEW);
 
 
-
+	
 	//FIN TEXTURA
 
 	//----DECLARACION DE OBJETOS CREADOS------------
 
-	
 	
 	// --------- Manejo y carga del mapa
 	mapa* map = new mapa(11, 11);
@@ -117,177 +132,200 @@ int main(int argc, char *argv[]) {
 
 	time_point<Clock> beginLastFrame = Clock::now();
 	milliseconds tiempoTranscurridoUltimoFrame;
+	
+	// Cargar imagen de fondo
+	SDL_Surface* backgroundSurface = SDL_LoadBMP("bomberman.bmp");
+	if (!backgroundSurface) {
+		cerr << "Error al cargar la imagen de fondo: " << SDL_GetError() << endl;
+		TTF_Quit();
+		SDL_Quit();
+		return 1;
+	}
+
+	int cursorIndex = 0;
+
 	do {
-
-		//Medir tiempo desde el ultimo frame hasta este
-		tiempoTranscurridoUltimoFrame = duration_cast<milliseconds>(Clock::now() - beginLastFrame);
-		float deltaTiempo = (float)tiempoTranscurridoUltimoFrame.count();
-		beginLastFrame = Clock::now();
-		
-		//Inicializar el frame
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glLoadIdentity();
-
-		//Preparar la camara
-		gluLookAt(0, 0, 0, 0, 0.1f, 0, 0, 0, 1);
-
-		
-		// ---- Sistema de movimiento, debe ser lo ultimo que se haga
-
-		if (isRotando) {
-			player->rotarVerticalJugador(deltaRotacionY);
-			player->rotarJugador(deltaRotacionX);
-		}		
-
-		player->trasladar(deltaTiempo, isMoviendoArriba, isMoviendoDerecha, isMoviendoAbajo, isMoviendoIsquierda);
-
-		glRotatef(-player->getAnguloActualVertical(), 1.0, 0.0, 0.0);
-		glRotatef(-player->getAnguloActualEnMapa(), 0.0, 0.0, 1.0);
-
-		mathVector posicionEnMapaJugador = player->getPosicionEnMapa();
-		glTranslatef(-posicionEnMapaJugador.x, -posicionEnMapaJugador.y, -posicionEnMapaJugador.z);	
-		//En la vista primera persona, es importante que cuando la camara rota, lo haga teniendo el que centro de rotacion
-		// Es la propia camara, es por eso que se coloca el mapa y resto de las cosas en la dirrecion contraria de donde deberia estar la camara
-		glTranslatef(-posicion_camara_x, -posicion_camara_y, -posicion_camara_z);
-
-
-
-
-		//Manejo de la coloccacion de bombas
-		if (ponerBomba) {
-			posAct = player->getPosicionEnMapa();
-			dirAct = round(player->getAnguloActualEnMapa());
-			dirAct = dirAct % 360;
-			bomb = new bomba(posAct.y, posAct.x, 1, dirAct);
-			hayBomba = map->agregarBomba(bomb->getXenMapa(), bomb->getYenMapa());
-			ponerBomba = false;
+		if (mostrar_menu) {
+			mnu.render();
 		}
+		
+		else {
+			//Medir tiempo desde el ultimo frame hasta este
+			tiempoTranscurridoUltimoFrame = duration_cast<milliseconds>(Clock::now() - beginLastFrame);
+			float deltaTiempo = conf->getVelocidadJuego()*(float)tiempoTranscurridoUltimoFrame.count();
+			std::cout << deltaTiempo << endl;
+			beginLastFrame = Clock::now();
 
-		/*if (hayBomba && timer) {
-			victimas = bomb->explosion_trigg(victimas, tiempoTranscurridoUltimoFrame);
-			if (victimas != nullptr) {
+			//Inicializar el frame
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			glLoadIdentity();
+
+			//Preparar la camara
+			gluLookAt(0, 0, 0, 0, 0.1f, 0, 0, 0, 1);
+
+
+			// ---- Sistema de movimiento, debe ser lo ultimo que se haga
+
+			if (isRotando) {
+				player->rotarVerticalJugador(deltaRotacionY);
+				player->rotarJugador(deltaRotacionX);
+			}
+
+			player->trasladar(deltaTiempo, isMoviendoArriba, isMoviendoDerecha, isMoviendoAbajo, isMoviendoIsquierda);
+
+			glRotatef(-player->getAnguloActualVertical(), 1.0, 0.0, 0.0);
+			glRotatef(-player->getAnguloActualEnMapa(), 0.0, 0.0, 1.0);
+
+			mathVector posicionEnMapaJugador = player->getPosicionEnMapa();
+			glTranslatef(-posicionEnMapaJugador.x, -posicionEnMapaJugador.y, -posicionEnMapaJugador.z);
+			//En la vista primera persona, es importante que cuando la camara rota, lo haga teniendo el que centro de rotacion
+			// Es la propia camara, es por eso que se coloca el mapa y resto de las cosas en la dirrecion contraria de donde deberia estar la camara
+			glTranslatef(-posicion_camara_x, -posicion_camara_y, -posicion_camara_z);
+
+
+
+
+			//Manejo de la coloccacion de bombas
+			if (ponerBomba) {
+				posAct = player->getPosicionEnMapa();
+				dirAct = round(player->getAnguloActualEnMapa());
+				dirAct = dirAct % 360;
+				bomb = new bomba(posAct.y, posAct.x, 1, dirAct);
+				hayBomba = map->agregarBomba(bomb->getXenMapa(), bomb->getYenMapa());
+				ponerBomba = false;
+			}
+
+			/*if (hayBomba && timer) {
+				victimas = bomb->explosion_trigg(victimas, tiempoTranscurridoUltimoFrame);
+				if (victimas != nullptr) {
+					map->eliminarDestructibles(victimas, 1);
+					delete victimas;
+					victimas = nullptr;
+					delete bomb;
+					bomb = nullptr;
+					hayBomba = false;
+				}
+			}*/
+			if (hayBomba && explotarBomba) {
+				victimas = bomb->explosion_trigg(victimas);
 				map->eliminarDestructibles(victimas, 1);
 				delete victimas;
 				victimas = nullptr;
 				delete bomb;
 				bomb = nullptr;
 				hayBomba = false;
+				explotarBomba = false;
 			}
-		}*/
-		if (hayBomba && explotarBomba) {
-			victimas = bomb->explosion_trigg(victimas);
-			map->eliminarDestructibles(victimas, 1);
-			delete victimas;
-			victimas = nullptr;
-			delete bomb;
-			bomb = nullptr;
-			hayBomba = false;
-			explotarBomba = false;
+
+
+			map->render();
+			map->renderEnemigos(deltaTiempo, map);
+
+
+			deltaRotacionX = 0.0f;
+			deltaRotacionY = 0.0f;
+
+			milliseconds tiempoDuranteFrame = duration_cast<milliseconds>(Clock::now() - beginLastFrame);
+			if (tiempoDuranteFrame < milliseconds(2)) {
+				sleep_for(2ms);
+			}
+
+			SDL_GL_SwapWindow(win);
 		}
-		
 
-	
-		map->render();
-		map->renderEnemigos(deltaTiempo,map);
+		//----------MANEJO DE EVENTOS-------------
 
+		while (SDL_PollEvent(&evento)) {
+			
+			
+			if (mostrar_menu) {
+				mostrar_menu = mnu.eventHandler(evento);
+				beginLastFrame = Clock::now();
+			}
+			else {
+				switch (evento.type){
+					case SDL_MOUSEMOTION:
+						deltaRotacionX = (-1.0f) * evento.motion.xrel + 0.0f;
+						deltaRotacionY = (-1.0f) * evento.motion.yrel + 0.0f;
 
+					case SDL_MOUSEBUTTONDOWN:
+						switch (evento.button.button) {
+						case SDL_BUTTON_LEFT:
+							isRotando = true;
+							break;
+						}
+						break;
+					case SDL_MOUSEBUTTONUP:
+						switch (evento.button.button) {
+						case SDL_BUTTON_LEFT:
+							isRotando = false;
+							break;
+						}
+						break;
+					case SDL_QUIT:
+						fin = true;
+						break;
+					case SDL_KEYDOWN:
+						switch (evento.key.keysym.sym) {
+						case SDLK_ESCAPE:
+							mostrar_menu = !mostrar_menu;
+							SDL_GL_SwapWindow(win);
+							break;
 
-		deltaRotacionX = 0.0f;
-		deltaRotacionY = 0.0f;
-	
-		//MANEJO DE EVENTOS
-		while (SDL_PollEvent(&evento)){
-			switch (evento.type) {
+						case SDLK_UP:
+						case SDLK_w:
+							isMoviendoArriba = true;
+							break;
 
-			case SDL_MOUSEMOTION:
-				deltaRotacionX = (-1.0f) * evento.motion.xrel + 0.0f;
-				deltaRotacionY = (-1.0f) * evento.motion.yrel + 0.0f;
+						case SDLK_DOWN:
+						case SDLK_s:
+							isMoviendoAbajo = true;
+							break;
 
-			case SDL_MOUSEBUTTONDOWN:
+						case SDLK_RIGHT:
+						case SDLK_d:
+							isMoviendoDerecha = true;
+							break;
 
-				switch (evento.button.button) {
-				case SDL_BUTTON_LEFT:
-					isRotando= true;
-					break;
-				}
-				break;
-			case SDL_MOUSEBUTTONUP:
-				switch (evento.button.button) {
-				case SDL_BUTTON_LEFT:
-					isRotando = false;
-					break;
-				}
-				break;
-			case SDL_QUIT:
-				fin = true;
-				break;
-			case SDL_KEYDOWN:
-				switch (evento.key.keysym.sym) {
-				case SDLK_ESCAPE:
-					fin = true;
-					break;
+						case SDLK_LEFT:
+						case SDLK_a:
+							isMoviendoIsquierda = true;
+							break;
 
-				case SDLK_UP:
-				case SDLK_w:
-					isMoviendoArriba = true;
-					break;
+						case SDLK_b:
+							ponerBomba = true;
+							break;
 
-				case SDLK_DOWN:
-				case SDLK_s:
-					isMoviendoAbajo = true;
-					break;
+						case SDLK_n:
+							explotarBomba = true;
+							break;
+						}
+						break;
+					case SDL_KEYUP:
+						switch (evento.key.keysym.sym) {
+						case SDLK_UP:
+						case SDLK_w:
+							isMoviendoArriba = false;
+							break;
 
-				case SDLK_RIGHT:
-				case SDLK_d:
-					isMoviendoDerecha = true;
-					break;
+						case SDLK_DOWN:
+						case SDLK_s:
+							isMoviendoAbajo = false;
+							break;
 
-				case SDLK_LEFT:
-				case SDLK_a:
-					isMoviendoIsquierda = true;
-					break;
+						case SDLK_RIGHT:
+						case SDLK_d:
+							isMoviendoDerecha = false;
+							break;
 
-				case SDLK_b:
-					ponerBomba  = true;
-					break;
-
-				case SDLK_n:
-					explotarBomba = true;
-					break;
-				}
-				break;
-			case SDL_KEYUP:
-				switch (evento.key.keysym.sym) {
-				case SDLK_UP:
-				case SDLK_w:
-					isMoviendoArriba = false;
-					break;
-
-				case SDLK_DOWN:
-				case SDLK_s:
-					isMoviendoAbajo = false;
-					break;
-
-				case SDLK_RIGHT:
-				case SDLK_d:
-					isMoviendoDerecha = false;
-					break;
-
-				case SDLK_LEFT:
-				case SDLK_a:
-					isMoviendoIsquierda = false;
-					break;
+						case SDLK_LEFT:
+						case SDLK_a:
+							isMoviendoIsquierda = false;
+							break;
+						}
 				}
 			}
 		}
-		
-
-		milliseconds tiempoDuranteFrame = duration_cast<milliseconds>(Clock::now() - beginLastFrame);
-		if (tiempoDuranteFrame < milliseconds(2)){
-			sleep_for(2ms);
-		}
-
-		SDL_GL_SwapWindow(win);
 	} while (!fin);
 	//FIN LOOP PRINCIPAL
 	// LIMPIEZA
