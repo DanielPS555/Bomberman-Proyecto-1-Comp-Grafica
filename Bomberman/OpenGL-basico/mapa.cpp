@@ -224,18 +224,6 @@ bool mapa::agregarBomba(float posEnXMapa, float posEnYMapa)
 			this->estructuraMapa[i][j] = new mapaItem;
 			this->estructuraMapa[i][j]->tipo = BOMB;
 
-			/*vertice verticesCuboBom[8] = {
-				{{j * LARGO_UNIDAD + (LARGO_UNIDAD / 3)		, i * LARGO_UNIDAD + (LARGO_UNIDAD / 3)		, 0}, {1,1,1}},
-				{{(j + 1) * LARGO_UNIDAD - (LARGO_UNIDAD / 3)	, i * LARGO_UNIDAD + (LARGO_UNIDAD / 3)		, 0			    }, {1,1,1}},
-				{{(j + 1) * LARGO_UNIDAD - (LARGO_UNIDAD / 3)	, i * LARGO_UNIDAD + (LARGO_UNIDAD / 3)		, ALTURA_PARED / 3  }, {1.1,1,1}},
-				{{j * LARGO_UNIDAD + (LARGO_UNIDAD / 3)		, i * LARGO_UNIDAD + (LARGO_UNIDAD / 3)		, ALTURA_PARED / 3}, {1,1,1}},
-				{{j * LARGO_UNIDAD + (LARGO_UNIDAD / 3)		, (i + 1) * LARGO_UNIDAD - (LARGO_UNIDAD / 3)	, ALTURA_PARED / 3}, {1,1,1}},
-				{{j * LARGO_UNIDAD + (LARGO_UNIDAD / 3)		, (i + 1) * LARGO_UNIDAD - (LARGO_UNIDAD / 3)	, 0			    }, {1,1,1}},
-				{{(j + 1) * LARGO_UNIDAD - (LARGO_UNIDAD / 3)	, (i + 1) * LARGO_UNIDAD - (LARGO_UNIDAD / 3)	, 0				}, {1,1,1}},
-				{{(j + 1) * LARGO_UNIDAD - (LARGO_UNIDAD / 3)	, (i + 1) * LARGO_UNIDAD - (LARGO_UNIDAD / 3)	, ALTURA_PARED / 3}, {1,1,1}}
-
-			};
-			*/
 			destructibles.push_back(std::make_tuple(posEnXMapa, posEnYMapa));
 			return true;
 		}
