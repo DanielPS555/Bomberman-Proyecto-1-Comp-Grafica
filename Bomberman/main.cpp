@@ -12,6 +12,7 @@
 #include "OpenGL-basico/bomb.h"
 #include "OpenGL-basico/enemigo.h"
 #include "OpenGL-basico/configuraciones.h"
+#include "OpenGL-basico/Sistema movimiento/modoVisualizacion.h"
 //carga obj
 #include <Assimp/scene.h>
 #include <Assimp/Importer.hpp>
@@ -68,15 +69,6 @@ int main(int argc, char *argv[]) {
 	configuraciones* conf = configuraciones::getInstancia();
 
 
-	// --------- Configuracion de la camara
-	//ToDo: Poner en una clase propia, de forma que hay se puedan tener los modos de vista aparte 
-
-
-	float posicion_camara_x = 0; 
-	float posicion_camara_y = 0;
-	float posicion_camara_z = 13;
-
-
 	// --------- Flags para el manejo de movimiento y Manejo de eventos
 
 	SDL_Event evento;
@@ -110,6 +102,12 @@ int main(int argc, char *argv[]) {
 	
 	jugador* player = new jugador(map->obtenerPosicionInicialJugador(), map->anguloInicialJugador(), map);
 
+	// --------- Configuracion de la camara
+
+
+	modoVisualizacion* modoVis = new modoVisualizacion(player, MODOS_VISUALIZACION_PRIMERA_PERSONA);
+
+
 	// -------- Manejo del tiempo
 
 	//enemigo e = enemigo({ 0.f, 0.f, 0.f }, DERECHA, 2, 2, "assets/enemy2.jpg");
@@ -127,35 +125,26 @@ int main(int argc, char *argv[]) {
 		float deltaTiempo = (float)tiempoTranscurridoUltimoFrame.count();
 		beginLastFrame = Clock::now();
 		
-		//Inicializar el frame
+		// ---- Inicializar el frame
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
 
-		//Preparar la camara
-		gluLookAt(0, 0, 0, 0, 0.1f, 0, 0, 0, 1);
+		// ---- Preparar la camara
+		modoVis->inicializarCamaraPorModo();
 
-		
 		// ---- Sistema de movimiento, debe ser lo ultimo que se haga
-
 		if (isRotando) {
 			player->rotarVerticalJugador(deltaRotacionY);
 			player->rotarJugador(deltaRotacionX);
 		}		
-
 		player->trasladar(deltaTiempo, isMoviendoArriba, isMoviendoDerecha, isMoviendoAbajo, isMoviendoIsquierda);
 
-		glRotatef(-player->getAnguloActualVertical(), 1.0, 0.0, 0.0);
-		glRotatef(-player->getAnguloActualEnMapa(), 0.0, 0.0, 1.0);
 
-		mathVector posicionEnMapaJugador = player->getPosicionEnMapa();
-		glTranslatef(-posicionEnMapaJugador.x, -posicionEnMapaJugador.y, -posicionEnMapaJugador.z);	
-		//En la vista primera persona, es importante que cuando la camara rota, lo haga teniendo el que centro de rotacion
-		// Es la propia camara, es por eso que se coloca el mapa y resto de las cosas en la dirrecion contraria de donde deberia estar la camara
-		glTranslatef(-posicion_camara_x, -posicion_camara_y, -posicion_camara_z);
+		// ---- Aplicamos las configuraciones de rotacion y traslacion dependiendo del modo de camara
+		modoVis->aplicarTranformacionesPorModo();
+		
 
-
-
-
+	
 		//Manejo de la coloccacion de bombas
 		if (ponerBomba) {
 			int n = 0;
@@ -278,6 +267,9 @@ int main(int argc, char *argv[]) {
 
 				case SDLK_n:
 					explotarBomba = true;
+					break;
+				case SDLK_v:
+					modoVis->rotarCambioModo();
 					break;
 				}
 				break;
