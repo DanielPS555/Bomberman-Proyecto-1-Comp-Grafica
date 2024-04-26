@@ -18,6 +18,7 @@
 #include <Assimp/Importer.hpp>
 #include <Assimp/postprocess.h>
 
+
 using namespace std;
 
 using Clock = std::chrono::steady_clock;
@@ -41,7 +42,7 @@ int main(int argc, char *argv[]) {
 	SDL_Window* win = SDL_CreateWindow("Bomberman - Obligatorio 1 - Comp Graf ",
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
-		1600, 900, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
+		SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
 	SDL_GLContext context = SDL_GL_CreateContext(win);
 
 
@@ -104,8 +105,8 @@ int main(int argc, char *argv[]) {
 
 	// --------- Configuracion de la camara
 
-
-	modoVisualizacion* modoVis = new modoVisualizacion(player, MODOS_VISUALIZACION_PRIMERA_PERSONA);
+	Hud* hud = new Hud();
+	modoVisualizacion* modoVis = new modoVisualizacion(player, hud, MODOS_VISUALIZACION_PRIMERA_PERSONA);
 
 
 	// -------- Manejo del tiempo
@@ -129,8 +130,19 @@ int main(int argc, char *argv[]) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
 
-		// ---- Preparar la camara
-		modoVis->inicializarCamaraPorModo();
+		// --- Inicializar camara
+		gluLookAt(0, 0, 0, 0, 0, -0.1f, 0, 1, 0);
+
+
+
+		glPushMatrix();
+		// ---- Ajustar la camara por modo de visualizacion
+		modoVis->ajustarCamaraPorModoVisualizacion();
+		
+
+
+		// #### ----- Inicia el proceso de render del mapa y items sobre el
+		
 
 		// ---- Sistema de movimiento, debe ser lo ultimo que se haga
 		if (isRotando) {
@@ -204,6 +216,19 @@ int main(int argc, char *argv[]) {
 		map->renderBombas(bombs);
 		map->renderEnemigos(deltaTiempo,map);
 
+
+
+		glPopMatrix();
+		// #### ----- Finaliza el proceso de render del mapa y items
+		
+		
+		
+		// #### ----- Render HUD
+
+		glClear(GL_DEPTH_BUFFER_BIT);
+		modoVis->renderHud();
+
+		// #### ----- Fin HUD
 
 
 		deltaRotacionX = 0.0f;
@@ -311,6 +336,7 @@ int main(int argc, char *argv[]) {
 
 	free(map);
 	free(player);
+	free(hud);
 	free(conf);
 
 	SDL_GL_DeleteContext(context);

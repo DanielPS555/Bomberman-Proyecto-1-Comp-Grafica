@@ -13,6 +13,7 @@
 void iniciliarRenderVertexArray();
 void finalizarRenderVertexArray();
 void renderRectangulo2d(retangulo2d rec, GLuint textura);
+void renderRectangulo2d(retangulo2d rec);
 void renderRectangulo3d(retangulo3d rec, GLuint textura);
 
 #endif

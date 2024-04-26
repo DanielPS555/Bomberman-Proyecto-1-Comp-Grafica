@@ -1,4 +1,5 @@
 #include "../jugador.h"
+#include "hud.h"
 
 #ifndef MODO_VISUALZIACION
 #define MODO_VISUALZIACION
@@ -18,13 +19,16 @@ private:
 	//Tenemos los datos del jugador para poder aplciarlos a la camara
 	jugador* player;
 	MODOS_VISUALIZACION modoVisualizacionActual;
+	Hud* hud_player; 
 
 public:	
-	modoVisualizacion(jugador* ply, MODOS_VISUALIZACION modoPorDefecto);
+	modoVisualizacion(jugador* ply, Hud* hud, MODOS_VISUALIZACION modoPorDefecto);
 
-	void inicializarCamaraPorModo();
+	void ajustarCamaraPorModoVisualizacion();
 
 	void aplicarTranformacionesPorModo();
+
+	void renderHud();
 
 	void cambiarModo(MODOS_VISUALIZACION);
 

@@ -4,6 +4,9 @@
 #ifndef CONFIGURACIONES
 #define CONFIGURACIONES
 
+#define SCREEN_WIDTH 1600.0f
+#define SCREEN_HEIGHT 900.0f
+
 #define CAMARA_HORIZONTAL_INVERTIDA false  //Si es false, cuando muevo el mouse a la derecha, la camara rota a la izquierda
 #define CAMARA_VERTICAL_INVERTIDA false    //Si es false, cuando muevo el mouse a la arriba, la camara rota hacia abajo
 #define SENSIBILIDAD_CAMARA 0.3f           //Es la sensibilidad que camara al movimiento del mouse 
