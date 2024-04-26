@@ -12,7 +12,7 @@
 #include "OpenGL-basico/bomb.h"
 #include "OpenGL-basico/enemigo.h"
 #include "OpenGL-basico/configuraciones.h"
-#include "OpenGL-basico/Sistema movimiento/modoVisualizacion.h"
+#include "OpenGL-basico/visualizacion/modoVisualizacion.h"
 //carga obj
 #include <Assimp/scene.h>
 #include <Assimp/Importer.hpp>
