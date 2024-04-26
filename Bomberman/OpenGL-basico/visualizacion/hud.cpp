@@ -2,7 +2,7 @@
 #include "cmath"
 
 float ajustarDim(float tamObjetivo) {
-	return tamObjetivo * 0.275; //ToDo sacar hardcode
+	return tamObjetivo * 0.277; //ToDo sacar hardcode
 }
 
 Hud::Hud() {
@@ -29,20 +29,18 @@ Hud::Hud() {
 
 	std::cout << h_2 << std::endl;
 
-	reloj  = {
+	header = {
 		{
-			-w_2 * 0.15f, h_2 * 0.78f, -PROFUNDIDAD_HUD,
-			 w_2 * 0.15f, h_2 * 0.78f, -PROFUNDIDAD_HUD,
-			 w_2 * 0.15f, h_2 * 0.95f, -PROFUNDIDAD_HUD,
-			-w_2 * 0.15f, h_2 * 0.95f, -PROFUNDIDAD_HUD,
+			-w_2, h_2 * 0.80f, -PROFUNDIDAD_HUD,
+			 w_2, h_2 * 0.80f, -PROFUNDIDAD_HUD,
+			 w_2, h_2		 , -PROFUNDIDAD_HUD,
+			-w_2, h_2		 , -PROFUNDIDAD_HUD,
 		} 
 		,{0,0,1}																						  //Norma
-		,{ 1.,1.,1.,		 1.,1.,1.,              1.,1.,1.,					    1.,1.,1.         }	  // colores	
+		,{ 0.2f,0.2f,0.2f,0.5f,	0.2f,0.2f,0.2f,0.5f,     0.2f,0.2f,0.2f,0.5f,		0.2f,0.2f,0.2f,0.5f   }	  // colores	
 		,{0,1,2,3}																						  // indices
 		,{0.0,0.0,	0.0,1.0,	1.0,1.0,	1.0,0.0}
 	};
-
-	texturaReloj = inicializarTexturaPng("assets/reloj.png");
 
 }
 
@@ -53,7 +51,7 @@ Hud::Hud() {
 void Hud::render() {
 	iniciliarRenderVertexArray();
 
-	renderRectangulo2d(reloj, texturaReloj);
+	renderRectangulo2d(header);
 	//renderRectangulo2d(superfice);
 
 	finalizarRenderVertexArray();

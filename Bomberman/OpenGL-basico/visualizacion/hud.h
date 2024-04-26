@@ -16,10 +16,8 @@ private:
 	float width;
 	float heigth;
 
-	GLuint texturaReloj;
-
-	retangulo2d reloj;
-	retangulo2d superfice;
+	retanguloTransparente2d header;
+	
 
 public:
 	Hud();

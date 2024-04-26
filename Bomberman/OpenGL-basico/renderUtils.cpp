@@ -37,6 +37,14 @@ void renderRectangulo2d(retangulo2d rec) {
 	glDrawElements(GL_QUADS, 4, GL_UNSIGNED_BYTE, rec.indices);
 }
 
+void renderRectangulo2d(retanguloTransparente2d rec) {
+	glBindTexture(GL_TEXTURE_2D, {});
+	glNormalPointer(GL_FLOAT, 0, rec.normales);
+	glColorPointer(4, GL_FLOAT, 0, rec.coloresVertices);
+	glVertexPointer(3, GL_FLOAT, 0, rec.cordeneasVertices);
+	glDrawElements(GL_QUADS, 4, GL_UNSIGNED_BYTE, rec.indices);
+}
+
 void renderRectangulo3d(retangulo3d rec, GLuint textura) {
 	glBindTexture(GL_TEXTURE_2D, textura);
 	glNormalPointer(GL_FLOAT, 0, rec.normales);

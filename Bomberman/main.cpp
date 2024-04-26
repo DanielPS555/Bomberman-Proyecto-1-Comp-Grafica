@@ -119,6 +119,9 @@ int main(int argc, char *argv[]) {
 
 	time_point<Clock> beginLastFrame = Clock::now();
 	milliseconds tiempoTranscurridoUltimoFrame;
+
+
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); //Set blending function.
 	do {
 
 		//Medir tiempo desde el ultimo frame hasta este
@@ -128,6 +131,9 @@ int main(int argc, char *argv[]) {
 		
 		// ---- Inicializar el frame
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glEnable(GL_DEPTH_TEST);
+		glDisable(GL_BLEND); //Enable blending.
+		
 		glLoadIdentity();
 
 		// --- Inicializar camara
@@ -225,6 +231,10 @@ int main(int argc, char *argv[]) {
 		
 		// #### ----- Render HUD
 
+		// Activo transparencia
+		glDisable(GL_DEPTH_TEST);
+		glEnable(GL_BLEND); 
+		
 		glClear(GL_DEPTH_BUFFER_BIT);
 		modoVis->renderHud();
 
