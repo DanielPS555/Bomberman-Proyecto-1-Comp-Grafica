@@ -1,8 +1,11 @@
 #include "renderUtils.h"
 
+bool mostrarTexturas = 1;
 
 void iniciliarRenderVertexArray() {
-	glEnable(GL_TEXTURE_2D);
+	if (mostrarTexturas == 1) {
+		glEnable(GL_TEXTURE_2D);
+	}
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glEnableClientState(GL_COLOR_ARRAY);
 	glEnableClientState(GL_VERTEX_ARRAY);
