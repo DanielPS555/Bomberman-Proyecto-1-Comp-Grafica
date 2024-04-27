@@ -256,96 +256,92 @@ int main(int argc, char *argv[]) {
 				beginLastFrame = Clock::now();
 			}
 			else {
-				switch (evento.type){
-					case SDL_MOUSEMOTION:
-						deltaRotacionX = (-1.0f) * evento.motion.xrel + 0.0f;
-						deltaRotacionY = (-1.0f) * evento.motion.yrel + 0.0f;
+				switch (evento.type) {
+				case SDL_MOUSEMOTION:
+					deltaRotacionX = (-1.0f) * evento.motion.xrel + 0.0f;
+					deltaRotacionY = (-1.0f) * evento.motion.yrel + 0.0f;
 
-					case SDL_MOUSEBUTTONDOWN:
-						switch (evento.button.button) {
-						case SDL_BUTTON_LEFT:
-							isRotando = true;
-							break;
-						}
+				case SDL_MOUSEBUTTONDOWN:
+					switch (evento.button.button) {
+					case SDL_BUTTON_LEFT:
+						isRotando = true;
 						break;
-					case SDL_MOUSEBUTTONUP:
-						switch (evento.button.button) {
-						case SDL_BUTTON_LEFT:
-							isRotando = false;
-							break;
-						}
-						break;
-					case SDL_QUIT:
-						fin = true;
-						break;
-					case SDL_KEYDOWN:
-						switch (evento.key.keysym.sym) {
-						case SDLK_ESCAPE:
-							mostrar_menu = !mostrar_menu;
-							SDL_GL_SwapWindow(win);
-							break;
-
-						case SDLK_UP:
-						case SDLK_w:
-							isMoviendoArriba = true;
-							break;
-
-						case SDLK_DOWN:
-						case SDLK_s:
-							isMoviendoAbajo = true;
-							break;
-
-						case SDLK_RIGHT:
-						case SDLK_d:
-							isMoviendoDerecha = true;
-							break;
-
-				case SDLK_n:
-					explotarBomba = true;
+					}
 					break;
-				case SDLK_v:
-					modoVis->rotarCambioModo();
-					break;
-				}
-				break;
-			case SDL_KEYUP:
-				switch (evento.key.keysym.sym) {
-				case SDLK_UP:
-				case SDLK_w:
-					isMoviendoArriba = false;
-					break;
-
-						case SDLK_b:
-							ponerBomba = true;
-							break;
-
-						case SDLK_n:
-							explotarBomba = true;
-							break;
-						}
+				case SDL_MOUSEBUTTONUP:
+					switch (evento.button.button) {
+					case SDL_BUTTON_LEFT:
+						isRotando = false;
 						break;
-					case SDL_KEYUP:
-						switch (evento.key.keysym.sym) {
-						case SDLK_UP:
-						case SDLK_w:
-							isMoviendoArriba = false;
-							break;
+					}
+					break;
+				case SDL_QUIT:
+					fin = true;
+					break;
+				case SDL_KEYDOWN:
+					switch (evento.key.keysym.sym) {
+					case SDLK_ESCAPE:
+						mostrar_menu = !mostrar_menu;
+						SDL_GL_SwapWindow(win);
+						break;
 
-						case SDLK_DOWN:
-						case SDLK_s:
-							isMoviendoAbajo = false;
-							break;
+					case SDLK_UP:
+					case SDLK_w:
+						isMoviendoArriba = true;
+						break;
 
-						case SDLK_RIGHT:
-						case SDLK_d:
-							isMoviendoDerecha = false;
-							break;
+					case SDLK_DOWN:
+					case SDLK_s:
+						isMoviendoAbajo = true;
+						break;
 
-						case SDLK_LEFT:
-						case SDLK_a:
-							isMoviendoIsquierda = false;
-							break;
-						}
+					case SDLK_RIGHT:
+					case SDLK_d:
+						isMoviendoDerecha = true;
+						break;
+
+					case SDLK_LEFT:
+					case SDLK_a:
+						isMoviendoIsquierda = true;
+						break;
+
+					case SDLK_n:
+						explotarBomba = true;
+						break;
+
+					case SDLK_b:
+						ponerBomba = true;
+						break;
+
+					case SDLK_v:
+						modoVis->rotarCambioModo();
+						break;
+					}
+					break;
+				case SDL_KEYUP:
+					switch (evento.key.keysym.sym) {
+					case SDLK_UP:
+					case SDLK_w:
+						isMoviendoArriba = false;
+						break;
+
+
+					case SDLK_DOWN:
+					case SDLK_s:
+						isMoviendoAbajo = false;
+						break;
+
+					case SDLK_RIGHT:
+					case SDLK_d:
+						isMoviendoDerecha = false;
+						break;
+
+					case SDLK_LEFT:
+					case SDLK_a:
+						isMoviendoIsquierda = false;
+						break;
+
+					}
 				}
 			}
 		}
