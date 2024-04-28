@@ -53,7 +53,10 @@ int main(int argc, char *argv[]) {
 		SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
 
 	SDL_GLContext context = SDL_GL_CreateContext(win);
-	SDL_Renderer* renderer = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);;
+
+	SDL_Renderer* renderer = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+
+	SDL_GL_MakeCurrent(win, context);
 
 	menu mnu = menu(SCREEN_WIDTH, SCREEN_HEIGHT, renderer);
 

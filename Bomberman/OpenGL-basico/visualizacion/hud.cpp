@@ -53,6 +53,8 @@ void Hud::render() {
 
 
 void Hud::renderTextTiempo() {
+	/* CONFICTO ENTRE OPENGL Y EL RENDERER
+	
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0); // Color negro
 	SDL_RenderClear(renderer);
 
@@ -69,8 +71,9 @@ void Hud::renderTextTiempo() {
 	SDL_RenderCopy(renderer, texture, nullptr, &rect);
 
 	SDL_RenderPresent(renderer);
+	*/
 
-	/*
+	
 	float w_2 = width / 2.0f;
 	float h_2 = heigth / 2.0f;
 
@@ -80,21 +83,24 @@ void Hud::renderTextTiempo() {
 
 	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, textSurface);
 
-	bool textureIsNull = texture == NULL;
-	std::cout << textureIsNull << "\n";
+	int access, w, h;
+
+	std::cout << "SDL_QueryTexture " << SDL_QueryTexture(texture, nullptr, &access, &w, &h) << "\n";
+
+	std::cout << "access: " << access << " w: " << w << " h: " << h << "\n";
 	
-	float w;
-	float h;
+	
+	// Paginas de referencia https://cpp.hotexamples.com/site/file?hash=0xa0defdb048609fd9d21dba4777e7ef7190c7db425eac77607db48a7bde23f732&fullName=ext/r2d.c&project=volodymyr-mykhailyk/r2d
+	//						 https://wiki.libsdl.org/SDL2/SDL_GL_BindTexture
+	//						 https://gamedev.ru/code/forum/?id=238842					
+	std::cout << SDL_GL_BindTexture(texture, nullptr, nullptr) << "\n";
+	std::cout <<  SDL_GetError() << "\n";
 
 	iniciliarRenderVertexArray();
 
-	
+	//glBindTexture(GL_TEXTURE_2D, access);
 
-	std::cout << SDL_GL_BindTexture(texture, &w, &h);
-	std::cout << " " << w << " " << h << " " << "\n";
-	//glBindTexture(GL_TEXTURE_2D, id);
-
-	/*glBegin(GL_QUADS);
+	glBegin(GL_QUADS);
 	glTexCoord2f(0.0f, 0.0f);
 	glVertex3f(0.0f, 0.0f, -PROFUNDIDAD_HUD);
 	glTexCoord2f(1.0f, 0.0f);
@@ -105,8 +111,9 @@ void Hud::renderTextTiempo() {
 	glVertex3f(0.0f, 100.0f, -PROFUNDIDAD_HUD);
 	glEnd();
 
-	finalizarRenderVertexArray(); */
+	finalizarRenderVertexArray();
 
+	SDL_GL_UnbindTexture(texture);
 
 
 }
