@@ -5,8 +5,6 @@
 
 
 GLuint inicializarTextura(char * archivo){
-	//char* archivo = new char[20];
-	//archivo = "assets/ladrillo.jpg";
 
 	//CARGAR IMAGEN
 	FREE_IMAGE_FORMAT fif = FreeImage_GetFIFFromFilename(archivo);
@@ -29,10 +27,17 @@ GLuint inicializarTextura(char * archivo){
 	return textura;
 };
 
+TTF_Font* loadFont(const std::string& fontPath, int fontSize) {
+	TTF_Font* font = TTF_OpenFont(fontPath.c_str(), fontSize);
+	if (font == NULL) {
+		std::cerr << "No se pudo cargar la fuente " << fontPath << "! SDL_ttf Error: " << TTF_GetError() << std::endl;
+	}
+	return font;
+
+}
+
 
 GLuint inicializarTexturaPng(char* archivo) {
-	//char* archivo = new char[20];
-	//archivo = "assets/ladrillo.jpg";
 
 	//CARGAR IMAGEN
 	FREE_IMAGE_FORMAT fif = FreeImage_GetFIFFromFilename(archivo);

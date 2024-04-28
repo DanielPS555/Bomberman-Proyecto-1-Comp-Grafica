@@ -1,13 +1,13 @@
 #include "menu.h"
 #include "SDL_opengl.h"
 #include <tuple>
-menu::menu(int w,int h, SDL_Window*win){
+menu::menu(int w,int h, SDL_Renderer* r){
 	this->w = w;
 	this->h = h;
 	cursorIndex = 0;
 	font = loadFont("letra3.ttf", 48);
 
-	renderer = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	renderer = r;
 
 	int p_inicial_x = w / 2 - 350;
 	int p_inicial_y = 550;
@@ -58,15 +58,6 @@ menu::menu(int w,int h, SDL_Window*win){
 
 }
 
-TTF_Font* menu::loadFont(const std::string& fontPath, int fontSize) {
-	TTF_Font* font = TTF_OpenFont(fontPath.c_str(), fontSize);
-	if (font == NULL) {
-		std::cerr << "No se pudo cargar la fuente " << fontPath << "! SDL_ttf Error: " << TTF_GetError() << std::endl;
-	}
-	return font;
-
-}
-
 MenuItem menu::createMenuItem(datos dato) {
 	
 	MenuItem  menuItem;
@@ -110,7 +101,6 @@ void menu::render() {
 
 		}
 	}
-
 	
 
 	SDL_Rect imageRect = { w / 2 - 389, 100, 0, 0 };
@@ -140,17 +130,22 @@ int menu::eventHandler(SDL_Event evento) {
 	switch (evento.type) {
 	case SDL_KEYDOWN:
 		switch (evento.key.keysym.sym) {
+		case SDL_QUIT:
+			//ToDo implementar
+			break;
 		case SDLK_ESCAPE:
 			return 0;
 			break;
 
 		case SDLK_w:
+		case SDLK_UP:
 			if (cursorIndex > 0) {
 				cursorIndex--;
 			}
 			break;
 
 		case SDLK_s:
+		case SDLK_DOWN:
 			if (cursorIndex < 5) {
 				cursorIndex++;
 			}

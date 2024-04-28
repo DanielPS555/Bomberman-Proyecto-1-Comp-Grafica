@@ -51,8 +51,11 @@ int main(int argc, char *argv[]) {
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
 		SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
-	menu mnu = menu(SCREEN_WIDTH, SCREEN_HEIGHT, win);
+
 	SDL_GLContext context = SDL_GL_CreateContext(win);
+	SDL_Renderer* renderer = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);;
+
+	menu mnu = menu(SCREEN_WIDTH, SCREEN_HEIGHT, renderer);
 
 	glMatrixMode(GL_PROJECTION);
 
@@ -113,7 +116,7 @@ int main(int argc, char *argv[]) {
 
 	// --------- Configuracion de la camara
 
-	Hud* hud = new Hud();
+	Hud* hud = new Hud(renderer);
 	modoVisualizacion* modoVis = new modoVisualizacion(player, hud, MODOS_VISUALIZACION_PRIMERA_PERSONA);
 
 
@@ -144,13 +147,14 @@ int main(int argc, char *argv[]) {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); //Set blending function.
 	do {
 		if (mostrar_menu) {
-			mnu.render();
-		}
-		
-		else {
+
+			mnu.render();	
+
+		}else {
 			//Medir tiempo desde el ultimo frame hasta este
 			tiempoTranscurridoUltimoFrame = duration_cast<milliseconds>(Clock::now() - beginLastFrame);
-			float deltaTiempo = conf->getVelocidadJuego()*(float)tiempoTranscurridoUltimoFrame.count();
+			float deltaTiempoReal = (float)tiempoTranscurridoUltimoFrame.count(); //Tiempo usado para el temporizador
+			float deltaTiempo = conf->getVelocidadJuego()* deltaTiempoReal;
 			beginLastFrame = Clock::now();
 			// ---- Inicializar el frame
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

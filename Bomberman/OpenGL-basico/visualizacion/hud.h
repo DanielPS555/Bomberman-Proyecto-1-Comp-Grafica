@@ -1,6 +1,7 @@
 #include "../renderUtils.h"
 #include "../configuraciones.h"
 #include "../util.h"
+#include <SDL_ttf.h>
 
 
 #ifndef HUD
@@ -16,20 +17,23 @@ private:
 	float width;
 	float heigth;
 
-	retanguloTransparente2d header;
-	retanguloTransparente2d toolBox;
+	SDL_Renderer* renderer;
 
-	retanguloTransparente2d hud;
+	TTF_Font* fuente_tiempo;
 
-	GLuint reloj;
+
+	void renderCajaSupIsq();
+	void renderCajaSupCentro();
+	void renderCajaSupDer();
+	void renderTextTiempo();
 	
 
 public:
-	Hud();
+	Hud(SDL_Renderer* r);
 	
 	void render();
 
-
+	~Hud();
 
 };
 

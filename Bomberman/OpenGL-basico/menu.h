@@ -1,8 +1,8 @@
 #pragma once
 #include "SDL.h"
-#include <SDL_ttf.h>
 #include <stdio.h>
 #include <vector>
+#include "util.h"
 #include <iostream>
 #include <SDL_ttf.h>
 #include "renderUtils.h"
@@ -35,9 +35,8 @@ private:
 	int * elecciones;
 
 public:
-	menu(int w,int h, SDL_Window* win);
+	menu(int w,int h, SDL_Renderer* r);
 	MenuItem createMenuItem(datos t);
-	TTF_Font* loadFont(const std::string& fontPath, int fontSize);
 	void drawMenuItem(SDL_Renderer* renderer, const MenuItem& menuItem);
 	void drawTriangleCursor(SDL_Renderer* renderer, int x, int y, int size);
 	void render();
