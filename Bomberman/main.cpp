@@ -20,10 +20,6 @@
 #include <SDL_ttf.h>
 #include "OpenGL-basico/menu.h"
 
-
-const float SCREEN_WIDTH = 1600;
-const float SCREEN_HEIGHT = 900;
-
 using namespace std;
 
 using Clock = std::chrono::steady_clock;
@@ -155,105 +151,104 @@ int main(int argc, char *argv[]) {
 			//Medir tiempo desde el ultimo frame hasta este
 			tiempoTranscurridoUltimoFrame = duration_cast<milliseconds>(Clock::now() - beginLastFrame);
 			float deltaTiempo = conf->getVelocidadJuego()*(float)tiempoTranscurridoUltimoFrame.count();
-			std::cout << deltaTiempo << endl;
 			beginLastFrame = Clock::now();
-		// ---- Inicializar el frame
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glEnable(GL_DEPTH_TEST);
-		glDisable(GL_BLEND); //Enable blending.
+			// ---- Inicializar el frame
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			glEnable(GL_DEPTH_TEST);
+			glDisable(GL_BLEND); //Enable blending.
 		
-		glLoadIdentity();
+			glLoadIdentity();
 
-		// --- Inicializar camara
-		gluLookAt(0, 0, 0, 0, 0, -0.1f, 0, 1, 0);
-
-
-
-		glPushMatrix();
-		// ---- Ajustar la camara por modo de visualizacion
-		modoVis->ajustarCamaraPorModoVisualizacion();
-		
+			// --- Inicializar camara
+			gluLookAt(0, 0, 0, 0, 0, -0.1f, 0, 1, 0);
 
 
-		// #### ----- Inicia el proceso de render del mapa y items sobre el
+
+			glPushMatrix();
+			// ---- Ajustar la camara por modo de visualizacion
+			modoVis->ajustarCamaraPorModoVisualizacion();
 		
 
-		// ---- Sistema de movimiento, debe ser lo ultimo que se haga
-		    if (isRotando) {
-			    player->rotarVerticalJugador(deltaRotacionY);
-			    player->rotarJugador(deltaRotacionX);
-		    }		
-            player->trasladar(deltaTiempo, isMoviendoArriba, isMoviendoDerecha, isMoviendoAbajo, isMoviendoIsquierda);
+
+			// #### ----- Inicia el proceso de render del mapa y items sobre el
+		
+
+			// ---- Sistema de movimiento, debe ser lo ultimo que se haga
+			if (isRotando) {
+				player->rotarVerticalJugador(deltaRotacionY);
+				player->rotarJugador(deltaRotacionX);
+			}		
+			player->trasladar(deltaTiempo, isMoviendoArriba, isMoviendoDerecha, isMoviendoAbajo, isMoviendoIsquierda);
 
 
-		// ---- Aplicamos las configuraciones de rotacion y traslacion dependiendo del modo de camara
-		modoVis->aplicarTranformacionesPorModo();
+			// ---- Aplicamos las configuraciones de rotacion y traslacion dependiendo del modo de camara
+			modoVis->aplicarTranformacionesPorModo();
 		
 
 	
-		//Manejo de la coloccacion de bombas
-		if (ponerBomba) {
-			int n = 0;
-			while (n < 4 && ponerBomba) {
-				if (bombs[n] == nullptr && ponerBomba) {
-					posAct = player->getPosicionEnMapa();
-					dirAct = round(player->getAnguloActualEnMapa());
-					dirAct = dirAct % 360;
-					bombs[n] = new bomba(posAct.y, posAct.x, 1, dirAct);
-					sePuso = map->agregarBomba(bombs[n]->getXenMapa(), bombs[n]->getYenMapa());
-					if (!sePuso) {
-						delete bombs[n];
-						bombs[n] = nullptr;
+			//Manejo de la coloccacion de bombas
+			if (ponerBomba) {
+				int n = 0;
+				while (n < 4 && ponerBomba) {
+					if (bombs[n] == nullptr && ponerBomba) {
+						posAct = player->getPosicionEnMapa();
+						dirAct = round(player->getAnguloActualEnMapa());
+						dirAct = dirAct % 360;
+						bombs[n] = new bomba(posAct.y, posAct.x, 1, dirAct);
+						sePuso = map->agregarBomba(bombs[n]->getXenMapa(), bombs[n]->getYenMapa());
+						if (!sePuso) {
+							delete bombs[n];
+							bombs[n] = nullptr;
+						}
+						ponerBomba = false;
 					}
-					ponerBomba = false;
+					n++;
 				}
-				n++;
+				ponerBomba = false;
 			}
-			ponerBomba = false;
-		}
 
-		/*if (hayBomba && timer) {
-			victimas = bomb->explosion_trigg(victimas, tiempoTranscurridoUltimoFrame);
-			if (victimas != nullptr) {
-				map->eliminarDestructibles(victimas, 1);
-				delete victimas;
-				victimas = nullptr;
-				delete bomb;
-				bomb = nullptr;
-				hayBomba = false;
-			}
-		}*/
-		if (explotarBomba) {
-			int i = 0;
-			while (i < 4 && explotarBomba) {
-				if (bombs[i] != nullptr) {
-					victimas = bombs[i]->explosion_trigg(victimas);
+			/*if (hayBomba && timer) {
+				victimas = bomb->explosion_trigg(victimas, tiempoTranscurridoUltimoFrame);
+				if (victimas != nullptr) {
 					map->eliminarDestructibles(victimas, 1);
 					delete victimas;
 					victimas = nullptr;
-					delete bombs[i];
-					bombs[i] = nullptr;
-					explotarBomba = false;
+					delete bomb;
+					bomb = nullptr;
+					hayBomba = false;
 				}
-				i++;
+			}*/
+			if (explotarBomba) {
+				int i = 0;
+				while (i < 4 && explotarBomba) {
+					if (bombs[i] != nullptr) {
+						victimas = bombs[i]->explosion_trigg(victimas);
+						map->eliminarDestructibles(victimas, 1);
+						delete victimas;
+						victimas = nullptr;
+						delete bombs[i];
+						bombs[i] = nullptr;
+						explotarBomba = false;
+					}
+					i++;
+				}
+				explotarBomba = false;
 			}
-			explotarBomba = false;
-		}
 		
 
 	
-		map->render();
-		map->renderBombas(bombs);
-		map->renderEnemigos(deltaTiempo,map);
+			map->render();
+			map->renderBombas(bombs);
+			map->renderEnemigos(deltaTiempo,map);
 
 
-		glPopMatrix();
-		glDisable(GL_DEPTH_TEST);
-		glEnable(GL_BLEND); 
-		glClear(GL_DEPTH_BUFFER_BIT);
-		modoVis->renderHud();
-		deltaRotacionX = 0.0f;
-		deltaRotacionY = 0.0f;
+			glPopMatrix();
+			glDisable(GL_DEPTH_TEST);
+			glEnable(GL_BLEND); 
+			glClear(GL_DEPTH_BUFFER_BIT);
+			modoVis->renderHud();
+			deltaRotacionX = 0.0f;
+			deltaRotacionY = 0.0f;
 
 			milliseconds tiempoDuranteFrame = duration_cast<milliseconds>(Clock::now() - beginLastFrame);
 			if (tiempoDuranteFrame < milliseconds(2)) {

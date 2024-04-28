@@ -17,6 +17,11 @@ private:
 	float heigth;
 
 	retanguloTransparente2d header;
+	retanguloTransparente2d toolBox;
+
+	retanguloTransparente2d hud;
+
+	GLuint reloj;
 	
 
 public:
