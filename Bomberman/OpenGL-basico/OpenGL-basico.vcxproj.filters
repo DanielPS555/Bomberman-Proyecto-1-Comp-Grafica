@@ -12,6 +12,9 @@
     <ClCompile Include="enemigo.cpp" />
     <ClCompile Include="configuraciones.cpp" />
     <ClCompile Include="Sistema movimiento\modoVisualizacion.cpp" />
+    <ClCompile Include="particulas.cpp" />
+    <ClCompile Include="explocion.cpp" />
+    <ClCompile Include="random.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bomb.h" />
@@ -24,5 +27,8 @@
     <ClInclude Include="enemigo.h" />
     <ClInclude Include="configuraciones.h" />
     <ClInclude Include="Sistema movimiento\modoVisualizacion.h" />
+    <ClInclude Include="particulas.h" />
+    <ClInclude Include="explocion.h" />
+    <ClInclude Include="random.h" />
   </ItemGroup>
 </Project>

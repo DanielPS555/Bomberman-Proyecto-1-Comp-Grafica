@@ -44,6 +44,7 @@ bomba::bomba(float posXEnMapa, float posYEnMapa, float alcanze, float dirAct)
 	this->posXEnMapa = bx;
 	this->posYEnMapa = by;
 
+	this->life = 5000;
 	this->alcanze = alcanze;
 
 	vertice verticesBomba[8] = {
@@ -60,6 +61,17 @@ bomba::bomba(float posXEnMapa, float posYEnMapa, float alcanze, float dirAct)
 	this->vertices = createRetangulo3d(verticesBomba);
 }
 
+
+bool bomba::timer(float deltaT)
+{
+	if (deltaT >= this->life) {
+		return true;
+	}
+	else {
+		this->life = this->life - deltaT;
+		return false;
+	}
+}
 
 float** bomba::explosion_trigg(float** destruct)
 {
@@ -108,5 +120,9 @@ int bomba::getYenMapa()
 int bomba::getXenMapa()
 {
 	return this->posXEnMapa;
+}
+
+int bomba::getAlcanze() {
+	return this->alcanze;
 }
 

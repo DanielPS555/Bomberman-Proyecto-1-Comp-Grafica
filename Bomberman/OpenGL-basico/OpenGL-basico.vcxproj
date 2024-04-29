@@ -84,9 +84,12 @@
     <ClCompile Include="bomb.cpp" />
     <ClCompile Include="configuraciones.cpp" />
     <ClCompile Include="enemigo.cpp" />
+    <ClCompile Include="explocion.cpp" />
     <ClCompile Include="jugador.cpp" />
     <ClCompile Include="mapa.cpp" />
     <ClCompile Include="mathVector.cpp" />
+    <ClCompile Include="particulas.cpp" />
+    <ClCompile Include="random.cpp" />
     <ClCompile Include="Sistema movimiento\modoVisualizacion.cpp" />
     <ClCompile Include="renderUtils.cpp" />
     <ClCompile Include="shapes.cpp" />
@@ -96,9 +99,12 @@
     <ClInclude Include="bomb.h" />
     <ClInclude Include="configuraciones.h" />
     <ClInclude Include="enemigo.h" />
+    <ClInclude Include="explocion.h" />
     <ClInclude Include="jugador.h" />
     <ClInclude Include="mapa.h" />
     <ClInclude Include="mathVector.h" />
+    <ClInclude Include="particulas.h" />
+    <ClInclude Include="random.h" />
     <ClInclude Include="Sistema movimiento\modoVisualizacion.h" />
     <ClInclude Include="renderUtils.h" />
     <ClInclude Include="shapes.h" />

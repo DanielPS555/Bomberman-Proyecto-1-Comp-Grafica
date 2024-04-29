@@ -17,6 +17,8 @@
 #include <Assimp/scene.h>
 #include <Assimp/Importer.hpp>
 #include <Assimp/postprocess.h>
+#include "OpenGL-basico/particulas.h"
+#include "OpenGL-basico/explocion.h"
 
 using namespace std;
 
@@ -86,7 +88,7 @@ int main(int argc, char *argv[]) {
 
 	bool ponerBomba = false;
 	bool explotarBomba = false;
-	bool timer = false;
+	bool timer = true;
 	bool sePuso = false;
 
 	// -------- Bombas
@@ -95,6 +97,13 @@ int main(int argc, char *argv[]) {
 		bombs[b] = nullptr;
 	}
 	float** victimas = nullptr;
+
+	// -------- Exploxion y Particulas
+	particleGenerator* partSist = new particleGenerator(10, 1.0);
+	explocion** explociones = new explocion*[4];
+	for (int l = 0; l < 4; l++) {
+		explociones[l] = nullptr;
+	}
 
 	// -------- Jugador
 	mathVector posAct = {0, 0, 0};
@@ -166,27 +175,41 @@ int main(int argc, char *argv[]) {
 			ponerBomba = false;
 		}
 
-		/*if (hayBomba && timer) {
+		if (timer) {
 			for (int i = 0; i < 4; i++) {
 				if (bombs[i] != nullptr) {
-					victimas = bombs[i]->explosion_trigg(victimas);
-					if (victimas != nullptr) {
-						map->eliminarDestructibles(victimas, 1);
+					if(bombs[i]->timer(deltaTiempo)){
+						victimas = bombs[i]->explosion_trigg(victimas);
+						map->eliminarDestructibles(victimas, bombs[i]->getAlcanze());
+						explocion* exp = new explocion(2000, victimas);
+						exp->generateExplocion(bombs[i]->getAlcanze(), partSist);
+						int e = 0;
+						while (explociones[e] != nullptr) {
+							e++;
+						}
+						explociones[e] = exp;
 						delete victimas;
 						victimas = nullptr;
-						delete bomb;
-						bomb = nullptr;
-						hayBomba = false;
+						delete bombs[i];
+						bombs[i] = nullptr;
 					}
 				}
 			}
-		}*/
-		if (explotarBomba) {
+		}
+
+		if (explotarBomba && !timer) {
 			int i = 0;
 			while (i < 4 && explotarBomba) {
 				if (bombs[i] != nullptr) {
 					victimas = bombs[i]->explosion_trigg(victimas);
-					map->eliminarDestructibles(victimas, 1);
+					map->eliminarDestructibles(victimas, bombs[i]->getAlcanze());
+					explocion* exp = new explocion(2000, victimas);
+					exp->generateExplocion(bombs[i]->getAlcanze(), partSist);
+					int e = 0;
+					while (explociones[e] != nullptr) {
+						e++;
+					}
+					explociones[e] = exp;
 					delete victimas;
 					victimas = nullptr;
 					delete bombs[i];
@@ -197,12 +220,24 @@ int main(int argc, char *argv[]) {
 			}
 			explotarBomba = false;
 		}
+
+		for (int j = 0; j < 4; j++) {
+			if (explociones[j] != nullptr) {
+				if (explociones[j]->timer(deltaTiempo)) {
+					explocion* del = explociones[j];
+					explociones[j] = nullptr;
+					delete del;
+				}
+			}
+		}
 		
 
 	
 		map->render();
 		map->renderBombas(bombs);
 		map->renderEnemigos(deltaTiempo,map);
+		partSist->timer(deltaTiempo);
+		partSist->render();
 
 
 
