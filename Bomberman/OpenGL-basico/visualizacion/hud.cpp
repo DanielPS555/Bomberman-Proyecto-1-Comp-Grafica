@@ -92,7 +92,8 @@ void Hud::renderTextTiempo() {
 	
 	// Paginas de referencia https://cpp.hotexamples.com/site/file?hash=0xa0defdb048609fd9d21dba4777e7ef7190c7db425eac77607db48a7bde23f732&fullName=ext/r2d.c&project=volodymyr-mykhailyk/r2d
 	//						 https://wiki.libsdl.org/SDL2/SDL_GL_BindTexture
-	//						 https://gamedev.ru/code/forum/?id=238842					
+	//						 https://gamedev.ru/code/forum/?id=238842				
+	// 	
 	std::cout << SDL_GL_BindTexture(texture, nullptr, nullptr) << "\n";
 	std::cout <<  SDL_GetError() << "\n";
 

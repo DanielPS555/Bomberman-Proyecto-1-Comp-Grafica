@@ -56,7 +56,7 @@ int main(int argc, char *argv[]) {
 
 	SDL_Renderer* renderer = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
-	SDL_GL_MakeCurrent(win, context);
+	SDL_GL_MakeCurrent(win, context); // Intento de vincular el contexto
 
 	menu mnu = menu(SCREEN_WIDTH, SCREEN_HEIGHT, renderer);
 
