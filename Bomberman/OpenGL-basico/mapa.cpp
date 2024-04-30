@@ -7,9 +7,11 @@
 using namespace std;
 
 
-mapa::mapa(int cant_filas, int cant_columnas) {
+mapa::mapa(int cant_filas, int cant_columnas, int posXPuerta, int posYPuerta) {
 	this->cant_filas = cant_filas;
 	this->cant_columnas = cant_columnas;
+	this->xPuerta = posXPuerta;
+	this->yPuerta = posYPuerta;
 	alturaReal = cant_filas * LARGO_UNIDAD;
 	anchoReal = cant_columnas * LARGO_UNIDAD;
 
@@ -86,6 +88,7 @@ mapa::mapa(int cant_filas, int cant_columnas) {
 	this->texturapiso = inicializarTextura("assets/piso2.jpg");
 	this->texturaIndestructibles = inicializarTextura("assets/pared.jpg");
 	this->texturaTecho = inicializarTextura("assets/nube.jpg");
+	this->texturaPuerta = inicializarTextura("assets/nube.jpg");
 
 	this->estructuraMapa = new mapaItem ** [this->cant_filas];
 	for (int i = 0; i < this->cant_filas; i++) {
@@ -127,6 +130,9 @@ mapa::mapa(int cant_filas, int cant_columnas) {
 	destructibles.push_back(std::make_tuple(6, 5));
 	destructibles.push_back(std::make_tuple(8,6));
 
+	if(!destructEsPuerta()){
+		destructibles.push_back(std::make_tuple(this->yPuerta, this->xPuerta));
+	}
 
 	for (const auto& par : this->destructibles) {
 		int i = std::get<0>(par);
@@ -283,6 +289,10 @@ void mapa::eliminarDestructibles(float** destruir, int alcanze)
 				}
 			}
 		}
+	}
+	if (this->estructuraMapa[this->yPuerta][this->xPuerta] == nullptr) {
+		this->estructuraMapa[this->yPuerta][this->xPuerta] = new mapaItem;
+		this->estructuraMapa[this->yPuerta][this->xPuerta]->tipo = PUERTA;
 	}
 }
 
@@ -453,3 +463,66 @@ mapa::~mapa() {
 	}
 	free(estructuraMapa);
 }
+
+bool mapa::destructEsPuerta()
+{	
+	bool esPuerta = false;
+	auto itP = destructibles.begin();
+	for (const auto& par : this->destructibles) {
+		int i = std::get<0>(par);
+		int j = std::get<1>(par);
+		if (this->yPuerta == i && this->xPuerta == j) {
+			esPuerta = true;
+		}
+	}
+	return esPuerta;
+}
+
+void mapa::renderPuerta()
+{
+	if (!destructEsPuerta()) {
+		glPushMatrix();
+
+		iniciliarRenderVertexArray();
+
+		vertice verticesPuerta[8] = {
+				{{this->xPuerta * LARGO_UNIDAD + (LARGO_UNIDAD / 4)		    , this->yPuerta * LARGO_UNIDAD + (LARGO_UNIDAD / 4)			, 0}			   , {1,1,1}},
+				{{(this->xPuerta + 1) * LARGO_UNIDAD - (LARGO_UNIDAD / 4)	, this->yPuerta * LARGO_UNIDAD + (LARGO_UNIDAD / 4)			, 0			    }  , {1,1,1}},
+				{{(this->xPuerta + 1) * LARGO_UNIDAD - (LARGO_UNIDAD / 4)	, this->yPuerta * LARGO_UNIDAD + (LARGO_UNIDAD / 4)			, ALTURA_PARED / 2}, {1.1,1,1}},
+				{{this->xPuerta * LARGO_UNIDAD + (LARGO_UNIDAD / 4)		    , this->yPuerta * LARGO_UNIDAD + (LARGO_UNIDAD / 4)			, ALTURA_PARED / 2}, {1,1,1}},
+				{{this->xPuerta * LARGO_UNIDAD + (LARGO_UNIDAD / 4)		    , (this->yPuerta + 1) * LARGO_UNIDAD - (LARGO_UNIDAD / 4)	, ALTURA_PARED / 2}, {1,1,1}},
+				{{this->xPuerta * LARGO_UNIDAD + (LARGO_UNIDAD / 4)			, (this->yPuerta + 1) * LARGO_UNIDAD - (LARGO_UNIDAD / 4)	, 0			    }  , {1,1,1}},
+				{{(this->xPuerta + 1) * LARGO_UNIDAD - (LARGO_UNIDAD / 4)	, (this->yPuerta + 1) * LARGO_UNIDAD - (LARGO_UNIDAD / 4)	, 0				}  , {1,1,1}},
+				{{(this->xPuerta + 1) * LARGO_UNIDAD - (LARGO_UNIDAD / 4)	, (this->yPuerta + 1) * LARGO_UNIDAD - (LARGO_UNIDAD / 4)	, ALTURA_PARED / 2}, {1,1,1}}
+		};
+
+		renderRectangulo3d(createRetangulo3d(verticesPuerta), this->texturaPuerta);
+
+		finalizarRenderVertexArray();
+
+		glPopMatrix();
+	}
+}
+
+bool mapa::noHayEnemigos() {
+	for (int i = 0; i < 4; i++) {
+		if (enemigos[i] != nullptr) {
+			return false;
+		}
+	}
+	return true;
+}
+
+bool mapa::victoria(mathVector posJugador)
+{	
+	int xJugador = floor(posJugador.x * LARGO_UNIDAD);
+	int yJugador = floor(posJugador.y * LARGO_UNIDAD);
+	if(noHayEnemigos() && !destructEsPuerta && (xJugador == this->xPuerta) && (yJugador == this->yPuerta)){
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+

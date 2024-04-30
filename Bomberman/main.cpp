@@ -65,7 +65,7 @@ int main(int argc, char *argv[]) {
 	
 	
 	// --------- Manejo y carga del mapa
-	mapa* map = new mapa(11, 11);
+	mapa* map = new mapa(11, 11, 8, 7);
 
 	// --------- Datos Configuracion
 	configuraciones* conf = configuraciones::getInstancia();
@@ -234,6 +234,7 @@ int main(int argc, char *argv[]) {
 
 	
 		map->render();
+		map->renderPuerta();
 		map->renderBombas(bombs);
 		map->renderEnemigos(deltaTiempo,map);
 		partSist->timer(deltaTiempo);
