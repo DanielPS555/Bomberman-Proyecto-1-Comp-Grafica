@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <conio.h>
 #include <GL/glu.h>
+#include "mathVector.h"
 
 #ifndef BOMBA
 #define BOMBA
@@ -28,6 +29,8 @@ class bomba {
 		int getYenMapa();
 		int getXenMapa();
 		int getAlcanze();
+
+		bool dañoBomba(mathVector posJugador, float** destruct);
 };
 
 #endif

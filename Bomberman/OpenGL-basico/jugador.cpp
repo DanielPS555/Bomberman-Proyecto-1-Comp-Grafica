@@ -8,7 +8,7 @@
 #include <GL/glu.h>
 #include "util.h"
 #include <iostream>
-jugador::jugador(mathVector posicionInicial, float anguloInicial, mapa* m) {
+jugador::jugador(mathVector posicionInicial, float anguloInicial, mapa* m, int vidas) {
 
 	conf = configuraciones::getInstancia();
 
@@ -21,6 +21,8 @@ jugador::jugador(mathVector posicionInicial, float anguloInicial, mapa* m) {
 	anguloActualVertical = 0.0f;
 
 	this->textura = inicializarTextura("assets/ladrillo.jpg");
+
+	this->vidas = vidas;
 
 }
 
@@ -164,6 +166,11 @@ void jugador::render() {
 
 float jugador::getAnguloActualVertical() {
 	return anguloActualVertical;
+}
+
+void jugador::recibirDaño()
+{
+	this->vidas = this->vidas - 1;
 }
 
 
