@@ -7,6 +7,7 @@ configuraciones::configuraciones() {
 	isCamaraVerticalInvertida = CAMARA_VERTICAL_INVERTIDA;
 
 	sensibilidadCamara = SENSIBILIDAD_CAMARA;
+	velocidadJuego = VELOCIDAD_JUEGO;
 }
 
 configuraciones::~configuraciones(){}
@@ -33,4 +34,12 @@ void configuraciones::setIsCamaraVerticalInvertida(bool isInvertida) {
 
 void configuraciones::setSensibilidadCamaraa(float s) {
 	sensibilidadCamara = s;
+}
+
+void configuraciones::setVelocidadJuego(float v) {
+	velocidadJuego = v;
+}
+
+float configuraciones::getVelocidadJuego() {
+	return velocidadJuego;
 }

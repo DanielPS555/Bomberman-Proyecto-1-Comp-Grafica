@@ -19,7 +19,7 @@ mapa::mapa(int cant_filas, int cant_columnas, int posXPuerta, int posYPuerta) {
 	pisoShape = {
 		 { 0.,0.,0.			,anchoReal,0.,0.,		anchoReal,alturaReal,0.,		0.,alturaReal,0. }    // vertices
 		,{0,0,1}																						  //Norma
-		,{ 1.,1.,1.,		 1.,1.,1.,              1.,1.,1.,					    1.,1.,1.         }	  // colores	
+		,{ 1.,1.,1.,		0.1,0.1,0.1,              1.,1.,1.,					   0.1,0.1,0.1         }	  // colores	
 		,{0,1,2,3}																						  // indices
 		,{0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.0}
 	};
@@ -35,45 +35,45 @@ mapa::mapa(int cant_filas, int cant_columnas, int posXPuerta, int posYPuerta) {
 
 	vertice verticesBordeInferior[8] = {
 		{{-LARGO_UNIDAD				, -LARGO_UNIDAD			, 0				}, {1,1,1}},
-		{{anchoReal + LARGO_UNIDAD	, -LARGO_UNIDAD			, 0				}, {1,1,1}},
+		{{anchoReal + LARGO_UNIDAD	, -LARGO_UNIDAD			, 0				}, {0.1,0.1,0.1}},
 		{{anchoReal + LARGO_UNIDAD	, -LARGO_UNIDAD			, ALTURA_PARED	}, {1,1,1}},
-		{{-LARGO_UNIDAD				, -LARGO_UNIDAD			, ALTURA_PARED	}, {1,1,1}},
+		{{-LARGO_UNIDAD				, -LARGO_UNIDAD			, ALTURA_PARED	}, {0.1,0.1,0.1}},
 		{{-LARGO_UNIDAD				, 0						, ALTURA_PARED	}, {1,1,1}},
-		{{-LARGO_UNIDAD				, 0						, 0				}, {1,1,1}},
+		{{-LARGO_UNIDAD				, 0						, 0				}, {0.1,0.1,0.1}},
 		{{anchoReal + LARGO_UNIDAD	, 0						, 0				}, {1,1,1}},
-		{{anchoReal + LARGO_UNIDAD	, 0						, ALTURA_PARED  }, {1,1,1}}
+		{{anchoReal + LARGO_UNIDAD	, 0						, ALTURA_PARED  }, {0.1,0.1,0.1}}
 	};
 
 	vertice verticesBordeIzquierdo[8] = {
 		{{ -LARGO_UNIDAD              ,	0					  , 0             }, {1,1,1}},
-		{{0			                  , 0			          , 0             }, {1,1,1}},
+		{{0			                  , 0			          , 0             }, {0.1,0.1,0.1}},
 		{{0				              , 0					  , ALTURA_PARED  }, {1,1,1}},
-		{{ -LARGO_UNIDAD              ,	0					  , ALTURA_PARED  }, {1,1,1}},
+		{{ -LARGO_UNIDAD              ,	0					  , ALTURA_PARED  }, {0.1,0.1,0.1}},
 		{{ -LARGO_UNIDAD              ,	alturaReal			  , ALTURA_PARED  }, {1,1,1}},
-		{{ -LARGO_UNIDAD              ,	alturaReal			  , 0             }, {1,1,1}},
+		{{ -LARGO_UNIDAD              ,	alturaReal			  , 0             }, {0.1,0.1,0.1}},
 		{{0			                  , alturaReal	          , 0             }, {1,1,1}},
-		{{0				              , alturaReal			  , ALTURA_PARED  }, {1,1,1}}
+		{{0				              , alturaReal			  , ALTURA_PARED  }, {0.1,0.1,0.1}}
 	};
 
 	vertice verticesBordeDerecho[8] = {
 		{{anchoReal					, 0					  , 0             }, {1,1,1}},
-		{{anchoReal	+ LARGO_UNIDAD	, 0			          , 0             }, {1,1,1}},
+		{{anchoReal	+ LARGO_UNIDAD	, 0			          , 0             }, {0.1,0.1,0.1}},
 		{{anchoReal + LARGO_UNIDAD 	, 0					  , ALTURA_PARED  }, {1,1,1}},
-		{{anchoReal                 , 0					  , ALTURA_PARED  }, {1,1,1}},
+		{{anchoReal                 , 0					  , ALTURA_PARED  }, {0.1,0.1,0.1}},
 		{{anchoReal                 , anchoReal			  , ALTURA_PARED  }, {1,1,1}},
-		{{anchoReal                 , anchoReal			  , 0             }, {1,1,1}},
+		{{anchoReal                 , anchoReal			  , 0             }, {0.1,0.1,0.1}},
 		{{anchoReal + LARGO_UNIDAD	, anchoReal	          , 0             }, {1,1,1}},
-		{{anchoReal + LARGO_UNIDAD	, anchoReal			  , ALTURA_PARED  }, {1,1,1}}
+		{{anchoReal + LARGO_UNIDAD	, anchoReal			  , ALTURA_PARED  }, {0.1,0.1,0.1}}
 	};
 
 	vertice verticesBordeSuperior[8] = {
-		{{-LARGO_UNIDAD				, alturaReal					, 0				}, {1,1,1}},
+		{{-LARGO_UNIDAD				, alturaReal					, 0				}, {0.1,0.1,0.1}},
 		{{anchoReal + LARGO_UNIDAD	, alturaReal					, 0				}, {1,1,1}},
-		{{anchoReal + LARGO_UNIDAD	, alturaReal					, ALTURA_PARED	}, {1,1,1}},
+		{{anchoReal + LARGO_UNIDAD	, alturaReal					, ALTURA_PARED	}, {0.1,0.1,0.1}},
 		{{-LARGO_UNIDAD				, alturaReal					, ALTURA_PARED	}, {1,1,1}},
-		{{-LARGO_UNIDAD				, alturaReal + LARGO_UNIDAD		, ALTURA_PARED	}, {1,1,1}},
+		{{-LARGO_UNIDAD				, alturaReal + LARGO_UNIDAD		, ALTURA_PARED	}, {0.1,0.1,0.1}},
 		{{-LARGO_UNIDAD				, alturaReal + LARGO_UNIDAD		, 0				}, {1,1,1}},
-		{{anchoReal + LARGO_UNIDAD	, alturaReal + LARGO_UNIDAD		, 0				}, {1,1,1}},
+		{{anchoReal + LARGO_UNIDAD	, alturaReal + LARGO_UNIDAD		, 0				}, {0.1,0.1,0.1}},
 		{{anchoReal + LARGO_UNIDAD	, alturaReal + LARGO_UNIDAD		, ALTURA_PARED  }, {1,1,1}}
 	};
 
@@ -102,13 +102,13 @@ mapa::mapa(int cant_filas, int cant_columnas, int posXPuerta, int posYPuerta) {
 				this->estructuraMapa[i][j]->tipo = PARED_INDESTRUCTIBLE;
 
 				vertice verticesCubo[8] = {
-					{{j * LARGO_UNIDAD			, i * LARGO_UNIDAD					, 0			    }, {1,1,1} },
+					{{j * LARGO_UNIDAD			, i * LARGO_UNIDAD					, 0			    }, {0.1,0.1,0.1} },
 					{{(j + 1) * LARGO_UNIDAD	, i * LARGO_UNIDAD					, 0			    }, {1,1,1} },
-					{{(j + 1) * LARGO_UNIDAD	, i * LARGO_UNIDAD					, ALTURA_PARED  }, {1,1,1} },
+					{{(j + 1) * LARGO_UNIDAD	, i * LARGO_UNIDAD					, ALTURA_PARED  }, {0.1,0.1,0.1} },
 					{{j * LARGO_UNIDAD	        , i * LARGO_UNIDAD					, ALTURA_PARED  }, {1,1,1} },
-					{{j * LARGO_UNIDAD	        , (i + 1 ) * LARGO_UNIDAD		    , ALTURA_PARED	}, {1,1,1} },
+					{{j * LARGO_UNIDAD	        , (i + 1 ) * LARGO_UNIDAD		    , ALTURA_PARED	}, {0.1,0.1,0.1} },
 					{{j  * LARGO_UNIDAD	        , (i + 1) * LARGO_UNIDAD			, 0			    }, {1,1,1} },
-					{{ (j + 1) * LARGO_UNIDAD	, (i + 1) * LARGO_UNIDAD			, 0				}, {1,1,1} },
+					{{ (j + 1) * LARGO_UNIDAD	, (i + 1) * LARGO_UNIDAD			, 0				}, {0.1,0.1,0.1} },
 					{{ (j + 1) * LARGO_UNIDAD	, (i + 1) * LARGO_UNIDAD			, ALTURA_PARED	}, {1,1,1} },
 
 				};

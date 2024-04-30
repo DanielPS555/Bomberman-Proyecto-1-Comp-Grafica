@@ -1,15 +1,18 @@
 #include "modoVisualizacion.h"
 
-modoVisualizacion::modoVisualizacion(jugador* ply, MODOS_VISUALIZACION modoPorDefecto) {
+modoVisualizacion::modoVisualizacion(jugador* ply, Hud* hud, MODOS_VISUALIZACION modoPorDefecto) {
 	player = ply;
 	modoVisualizacionActual = modoPorDefecto;
+	hud_player = hud;
 }
 
-void modoVisualizacion::inicializarCamaraPorModo() {
+void modoVisualizacion::ajustarCamaraPorModoVisualizacion() {
 	switch (modoVisualizacionActual)
 	{
 	case MODOS_VISUALIZACION_PRIMERA_PERSONA:
-		gluLookAt(0, 0, 0, 0, 0.1f, 0, 0, 0, 1);
+		//gluLookAt(0, 0, 0, 0, 0.1f, 0, 0, 0, 1);
+		
+		glRotatef(270, 1, 0, 0);
 		
 
 		break;
@@ -67,6 +70,20 @@ void modoVisualizacion::rotarCambioModo() {
 		break;
 	case MODOS_VISUALIZACION_VISTA_ORGINAL:
 		modoVisualizacionActual = MODOS_VISUALIZACION_PRIMERA_PERSONA;
+		break;
+	default:
+		break;
+	}
+}
+
+void modoVisualizacion::renderHud() {
+	switch (modoVisualizacionActual) {
+	case MODOS_VISUALIZACION_PRIMERA_PERSONA:
+		// Pendiente rotacion de camara
+		hud_player->render();
+		break;
+	case MODOS_VISUALIZACION_VISTA_ORGINAL:
+		hud_player->render();
 		break;
 	default:
 		break;
