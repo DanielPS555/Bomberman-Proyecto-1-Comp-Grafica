@@ -30,6 +30,8 @@ Hud::Hud(SDL_Renderer* r) {
 	fuente = loadFont("letra3.ttf", 50);
 
 	millSec = 0;
+
+	
 }
 
 Hud::~Hud() {
@@ -129,8 +131,8 @@ void Hud::renderText(float resizeFont, std::string texto, float centroX, float c
 	else glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
 
 
-	glGenTextures(1, &ret);
-	glBindTexture(GL_TEXTURE_2D, ret);
+	glGenTextures(1, &idTexturaTiempo);
+	glBindTexture(GL_TEXTURE_2D, idTexturaTiempo);
 
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -175,7 +177,9 @@ void Hud::renderText(float resizeFont, std::string texto, float centroX, float c
 
 	glPopMatrix();
 
-	glBindTexture(GL_TEXTURE_2D, ret);
+	glDeleteTextures(1, &idTexturaTiempo);
+
+	SDL_FreeSurface(textSurface);
 }
 
 

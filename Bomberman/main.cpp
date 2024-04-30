@@ -380,7 +380,7 @@ int main(int argc, char *argv[]) {
 	free(player);
 	free(hud);
 	free(conf);
-
+	SDL_DestroyRenderer(renderer);
 	SDL_GL_DeleteContext(context);
 	SDL_DestroyWindow(win);
 	SDL_Quit();

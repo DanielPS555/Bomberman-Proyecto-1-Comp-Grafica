@@ -29,6 +29,8 @@ private:
 	void renderCajaSupCentro();
 	void renderCajaSupDer();
 	void renderTextTiempo();
+
+	GLuint idTexturaTiempo;
 	
 
 public:
