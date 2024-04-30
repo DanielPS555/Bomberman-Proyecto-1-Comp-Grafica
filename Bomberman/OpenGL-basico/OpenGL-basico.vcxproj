@@ -84,12 +84,16 @@
     <ClCompile Include="bomb.cpp" />
     <ClCompile Include="configuraciones.cpp" />
     <ClCompile Include="enemigo.cpp" />
+
     <ClCompile Include="visualizacion\hud.cpp" />
+    <ClCompile Include="visualizacion\modoVisualizacion.cpp" />
+    <ClCompile Include="menu.cpp" />
+    <ClCompile Include="explocion.cpp" />
     <ClCompile Include="jugador.cpp" />
     <ClCompile Include="mapa.cpp" />
     <ClCompile Include="mathVector.cpp" />
-    <ClCompile Include="visualizacion\modoVisualizacion.cpp" />
-    <ClCompile Include="menu.cpp" />
+    <ClCompile Include="particulas.cpp" />
+    <ClCompile Include="random.cpp" />
     <ClCompile Include="renderUtils.cpp" />
     <ClCompile Include="shapes.cpp" />
     <ClCompile Include="util.cpp" />
@@ -104,6 +108,9 @@
     <ClInclude Include="mathVector.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="visualizacion\modoVisualizacion.h" />
+    <ClInclude Include="explocion.h" />
+    <ClInclude Include="particulas.h" />
+    <ClInclude Include="random.h" />
     <ClInclude Include="renderUtils.h" />
     <ClInclude Include="shapes.h" />
     <ClInclude Include="util.h" />

@@ -17,14 +17,17 @@ class bomba {
 		float alcanze; //tamaño de la explocion
 		retangulo3d vertices;
 		GLuint textura; 
+		float life;
 
 	public:
 		bomba(float posXEnMapa, float posYEnMapa, float alcanze, float dirAct);
 
+		bool timer(float deltaT);
 		float** explosion_trigg(float** destruct);
 		void render();
 		int getYenMapa();
 		int getXenMapa();
+		int getAlcanze();
 };
 
 #endif

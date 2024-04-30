@@ -19,6 +19,8 @@
 #include <Assimp/postprocess.h>
 #include <SDL_ttf.h>
 #include "OpenGL-basico/menu.h"
+#include "OpenGL-basico/particulas.h"
+#include "OpenGL-basico/explocion.h"
 
 using namespace std;
 
@@ -83,7 +85,7 @@ int main(int argc, char *argv[]) {
 
 	
 	// --------- Manejo y carga del mapa
-	mapa* map = new mapa(11, 11);
+	mapa* map = new mapa(11, 11, 8, 7);
 
 	// --------- Datos Configuracion
 	configuraciones* conf = configuraciones::getInstancia();
@@ -106,7 +108,7 @@ int main(int argc, char *argv[]) {
 
 	bool ponerBomba = false;
 	bool explotarBomba = false;
-	bool timer = false;
+	bool timer = true;
 	bool sePuso = false;
 
 	// -------- Bombas
@@ -115,6 +117,13 @@ int main(int argc, char *argv[]) {
 		bombs[b] = nullptr;
 	}
 	float** victimas = nullptr;
+
+	// -------- Exploxion y Particulas
+	particleGenerator* partSist = new particleGenerator(10, 1.0);
+	explocion** explociones = new explocion*[4];
+	for (int l = 0; l < 4; l++) {
+		explociones[l] = nullptr;
+	}
 
 	// -------- Jugador
 	mathVector posAct = {0, 0, 0};
@@ -220,42 +229,77 @@ int main(int argc, char *argv[]) {
 				ponerBomba = false;
 			}
 
-			/*if (hayBomba && timer) {
-				victimas = bomb->explosion_trigg(victimas, tiempoTranscurridoUltimoFrame);
-				if (victimas != nullptr) {
-					map->eliminarDestructibles(victimas, 1);
-					delete victimas;
-					victimas = nullptr;
-					delete bomb;
-					bomb = nullptr;
-					hayBomba = false;
-				}
-			}*/
-			if (explotarBomba) {
-				int i = 0;
-				while (i < 4 && explotarBomba) {
-					if (bombs[i] != nullptr) {
+      
+		if (timer) {
+			for (int i = 0; i < 4; i++) {
+				if (bombs[i] != nullptr) {
+					if(bombs[i]->timer(deltaTiempo)){
 						victimas = bombs[i]->explosion_trigg(victimas);
-						map->eliminarDestructibles(victimas, 1);
+						map->eliminarDestructibles(victimas, bombs[i]->getAlcanze());
+						explocion* exp = new explocion(2000, victimas);
+						exp->generateExplocion(bombs[i]->getAlcanze(), partSist);
+						int e = 0;
+						while (explociones[e] != nullptr) {
+							e++;
+						}
+						explociones[e] = exp;
 						delete victimas;
 						victimas = nullptr;
 						delete bombs[i];
 						bombs[i] = nullptr;
-						explotarBomba = false;
 					}
 					i++;
 				}
 				explotarBomba = false;
 			}
+		}
+
+		if (explotarBomba && !timer) {
+			int i = 0;
+			while (i < 4 && explotarBomba) {
+				if (bombs[i] != nullptr) {
+					victimas = bombs[i]->explosion_trigg(victimas);
+					map->eliminarDestructibles(victimas, bombs[i]->getAlcanze());
+					explocion* exp = new explocion(2000, victimas);
+					exp->generateExplocion(bombs[i]->getAlcanze(), partSist);
+					int e = 0;
+					while (explociones[e] != nullptr) {
+						e++;
+					}
+					explociones[e] = exp;
+					delete victimas;
+					victimas = nullptr;
+					delete bombs[i];
+					bombs[i] = nullptr;
+					explotarBomba = false;
+				}
+				i++;
+			}
+			explotarBomba = false;
+		}
+
+		for (int j = 0; j < 4; j++) {
+			if (explociones[j] != nullptr) {
+				if (explociones[j]->timer(deltaTiempo)) {
+					explocion* del = explociones[j];
+					explociones[j] = nullptr;
+					delete del;
+				}
+			}
+		}
 		
 
 	
-			map->render();
-			map->renderBombas(bombs);
-			map->renderEnemigos(deltaTiempo,map);
+		map->render();
+		map->renderPuerta();
+		map->renderBombas(bombs);
+		map->renderEnemigos(deltaTiempo,map);
+		partSist->timer(deltaTiempo);
+		partSist->render();
 
 
-			glPopMatrix();
+
+		glPopMatrix();
 			glDisable(GL_DEPTH_TEST);
 			glEnable(GL_BLEND); 
 			glClear(GL_DEPTH_BUFFER_BIT);
@@ -268,6 +312,7 @@ int main(int argc, char *argv[]) {
 			if (tiempoDuranteFrame < milliseconds(2)) {
 				sleep_for(2ms);
 			}
+
 
 			SDL_GL_SwapWindow(win);
 			

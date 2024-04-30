@@ -17,7 +17,8 @@ enum tipoMapaItem {
 	PARED_INDESTRUCTIBLE,
 	PARED_DESTRUCTIBLE,
 	BOMB,
-	ENEMY
+	ENEMY,
+	PUERTA
 };
 
 
@@ -47,16 +48,20 @@ private:
 	GLuint texturapiso;
 	GLuint texturaIndestructibles;
 	GLuint texturaTecho;
+	GLuint texturaPuerta;
 	enemigo ** enemigos;
 	//vector<retangulo3d> bordesShapes;
 
+
+	int xPuerta, yPuerta;
+	vertice verticesPuerta;
 
 	//Variuables redundantes (optimizacion)
 	float alturaReal; // cant_filas * LARGO_UNIDAD
 	float anchoReal; // cant_columnas * LARGO_UNIDAD
 
 public:
-	mapa(int cant_filas, int cant_columnas);
+	mapa(int cant_filas, int cant_columnas, int posXPuerta, int posYPuerta);
 	//para el futuro: mapa(XMLFile configuracion)
 
 	// Retorna la altura en el eje z donde debe estar la camara para que se pueda ver todo el mapa
@@ -96,6 +101,14 @@ public:
 		bool& colicionDerecha,
 		bool& colicionAbajo,
 		bool& colicionIsquierda);
+
+	bool destructEsPuerta();
+
+	void renderPuerta();
+
+	bool noHayEnemigos();
+
+	bool victoria(mathVector posJugador);
 
 	~mapa();
 };
