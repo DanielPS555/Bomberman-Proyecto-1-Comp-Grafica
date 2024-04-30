@@ -88,11 +88,7 @@ void Hud::renderTextTiempo() {
 
 	renderText(0.7f, tiempo, 0.0f, h_2 * 0.96f);
 
-	
 
-
-	
-	
 }
 
 
@@ -133,7 +129,7 @@ void Hud::renderText(float resizeFont, std::string texto, float centroX, float c
 		glPixelStorei(GL_UNPACK_ROW_LENGTH, textSurface->pitch / textSurface->format->BytesPerPixel);
 	else glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
 
-
+	GLuint idTexturaTiempo;
 	glGenTextures(1, &idTexturaTiempo);
 	glBindTexture(GL_TEXTURE_2D, idTexturaTiempo);
 

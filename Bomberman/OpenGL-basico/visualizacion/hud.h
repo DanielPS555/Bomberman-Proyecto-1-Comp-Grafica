@@ -30,9 +30,6 @@ private:
 	void renderCajaSupDer();
 	void renderTextTiempo();
 
-	GLuint idTexturaTiempo;
-	
-
 public:
 	Hud(SDL_Renderer* r);
 	
