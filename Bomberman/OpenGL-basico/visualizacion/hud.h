@@ -17,10 +17,13 @@ private:
 	float width;
 	float heigth;
 
+	unsigned long millSec;
+
 	SDL_Renderer* renderer;
 
-	TTF_Font* fuente_tiempo;
+	TTF_Font* fuente;
 
+	void renderText(float resizeFont, std::string texto, float centroX, float centroY);
 
 	void renderCajaSupIsq();
 	void renderCajaSupCentro();
@@ -32,6 +35,8 @@ public:
 	Hud(SDL_Renderer* r);
 	
 	void render();
+
+	void aumentoTiempo(long deltaAumento);
 
 	~Hud();
 

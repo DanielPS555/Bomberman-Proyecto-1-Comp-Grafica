@@ -1,5 +1,6 @@
 #include "hud.h"
 #include "cmath"
+#include "string"
 
 float ajustarDim(float tamObjetivo) {
 	return tamObjetivo * 0.277; //ToDo sacar hardcode
@@ -26,18 +27,20 @@ Hud::Hud(SDL_Renderer* r) {
 
 	renderer = r;
 
-	fuente_tiempo = loadFont("letra3.ttf", 48);
+	fuente = loadFont("letra3.ttf", 50);
 
-
+	millSec = 0;
 }
 
 Hud::~Hud() {
-	TTF_CloseFont(fuente_tiempo);
+	TTF_CloseFont(fuente);
 	free(renderer);
 }
 
 
-
+void Hud::aumentoTiempo(long deltaAumento) {
+	millSec += deltaAumento;
+}
 
 
 void Hud::render() {
@@ -53,69 +56,126 @@ void Hud::render() {
 
 
 void Hud::renderTextTiempo() {
-	/* CONFICTO ENTRE OPENGL Y EL RENDERER
-	
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0); // Color negro
-	SDL_RenderClear(renderer);
-
-	float w_2 = width	/ 2.0f;
-	float h_2 = heigth	/ 2.0f;
-
-	std::string tiempo = "00:00:00";
-
-	SDL_Surface* textSurface = TTF_RenderText_Blended(fuente_tiempo, tiempo.c_str(), {255, 255, 255});
-	SDL_Rect rect = { 0.0f, 0.0f, textSurface->w, textSurface->h };
-	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, textSurface);
-	SDL_FreeSurface(textSurface);
-
-	SDL_RenderCopy(renderer, texture, nullptr, &rect);
-
-	SDL_RenderPresent(renderer);
-	*/
-
+	//CONFICTO ENTRE OPENGL Y EL RENDERER
+		
 	
 	float w_2 = width / 2.0f;
 	float h_2 = heigth / 2.0f;
 
-	std::string tiempo = "00:00:00";
 
-	SDL_Surface* textSurface = TTF_RenderText_Blended(fuente_tiempo, tiempo.c_str(), { 255, 255, 255 });
+	int numeroHoras		= (millSec / 360000) % 100; //Numero de horas
+	int numeroMinutos	= (millSec /  60000) % 60 ; //Numero de minutos
+	int numeroSegundos	= (millSec /   1000) % 60 ; //Numero segundos
 
-	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, textSurface);
+	std::string numeroHorasStr = std::to_string(numeroHoras);
+	if (numeroHoras < 10) {
+		numeroHorasStr = "0" + numeroHorasStr;
+	}
 
-	int access, w, h;
+	std::string numeroMinutosStr = std::to_string(numeroMinutos);
+	if (numeroMinutos < 10) {
+		numeroMinutosStr = "0" + numeroMinutosStr;
+	}
 
-	std::cout << "SDL_QueryTexture " << SDL_QueryTexture(texture, nullptr, &access, &w, &h) << "\n";
+	std::string numeroSegundosStr = std::to_string(numeroSegundos);
+	if (numeroSegundos < 10) {
+		numeroSegundosStr = "0" + numeroSegundosStr;
+	}
 
-	std::cout << "access: " << access << " w: " << w << " h: " << h << "\n";
+	std::string tiempo = numeroHorasStr + " " + numeroMinutosStr + " " + numeroSegundosStr;
+
+	renderText(0.7f, tiempo, 0.0f, h_2 * 0.96f);
+
+	// El siguiente codigo es la escritura de los numeros, todo el credito a este post: https://stackoverflow.com/questions/25771735/creating-opengl-texture-from-sdl2-surface-strange-pixel-values
+
+
 	
 	
-	// Paginas de referencia https://cpp.hotexamples.com/site/file?hash=0xa0defdb048609fd9d21dba4777e7ef7190c7db425eac77607db48a7bde23f732&fullName=ext/r2d.c&project=volodymyr-mykhailyk/r2d
-	//						 https://wiki.libsdl.org/SDL2/SDL_GL_BindTexture
-	//						 https://gamedev.ru/code/forum/?id=238842					
-	std::cout << SDL_GL_BindTexture(texture, nullptr, nullptr) << "\n";
-	std::cout <<  SDL_GetError() << "\n";
+}
+
+
+void Hud::renderText(float resizeFont, std::string texto, float centroX, float centroY) {
+	SDL_Surface* textSurface = TTF_RenderText_Blended(fuente, texto.c_str(), { 255, 255, 255 });
+
+	int w_text = textSurface->w;
+	int h_text = textSurface->h;
+
+
+	GLuint ret;
+
+	GLuint texture_format;
+	Uint8 colors = textSurface->format->BytesPerPixel;
+	if (colors == 4) {   // alpha
+		if (textSurface->format->Rmask == 0x000000ff)
+			texture_format = GL_RGBA;
+		else
+			texture_format = GL_BGRA;
+	}
+	else {             // no alpha
+		if (textSurface->format->Rmask == 0x000000ff)
+			texture_format = GL_RGB;
+		else
+			texture_format = GL_BGR;
+	}
+
+
+	int alignment = 8;
+	while (textSurface->pitch % alignment) alignment >>= 1;
+	glPixelStorei(GL_UNPACK_ALIGNMENT, alignment);
+
+	int expected_pitch = (textSurface->w * textSurface->format->BytesPerPixel + alignment - 1) / alignment * alignment;
+	if (textSurface->pitch - expected_pitch >= alignment)
+		glPixelStorei(GL_UNPACK_ROW_LENGTH, textSurface->pitch / textSurface->format->BytesPerPixel);
+	else glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
+
+
+	glGenTextures(1, &ret);
+	glBindTexture(GL_TEXTURE_2D, ret);
+
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, texture_format, w_text, h_text, 0, texture_format, GL_UNSIGNED_BYTE, textSurface->pixels);
+
+
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
+	glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
+
+
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
+	glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
+
+	glPushMatrix();
+
+	glTranslated(centroX, centroY, 0.0f);
+	glTranslated(0.0f, 0.0f, -PROFUNDIDAD_HUD);
+	glRotatef(180, 1, 0, 0);
+	glScaled(resizeFont, resizeFont, 0.0f);
+
 
 	iniciliarRenderVertexArray();
 
-	//glBindTexture(GL_TEXTURE_2D, access);
+	glColor3f(1.0f, 1.0f, 1.0f);
 
 	glBegin(GL_QUADS);
 	glTexCoord2f(0.0f, 0.0f);
-	glVertex3f(0.0f, 0.0f, -PROFUNDIDAD_HUD);
+	glVertex3f(-w_text / 2, -h_text / 2, 0.0f);
 	glTexCoord2f(1.0f, 0.0f);
-	glVertex3f(100.0f, 0.0f, -PROFUNDIDAD_HUD);
+	glVertex3f(w_text / 2, -h_text / 2, 0.0f);
 	glTexCoord2f(1.0f, 1.0f);
-	glVertex3f(100.0f, 100.0f, -PROFUNDIDAD_HUD);
+	glVertex3f(w_text / 2, h_text / 2, 0.0f);
 	glTexCoord2f(0.0f, 1.0f);
-	glVertex3f(0.0f, 100.0f, -PROFUNDIDAD_HUD);
+	glVertex3f(-w_text / 2, h_text / 2, 0.0f);
 	glEnd();
+
 
 	finalizarRenderVertexArray();
 
-	SDL_GL_UnbindTexture(texture);
+	glPopMatrix();
 
-
+	glBindTexture(GL_TEXTURE_2D, ret);
 }
 
 

@@ -13,7 +13,11 @@ GLuint inicializarTextura(char * archivo){
 	int w = FreeImage_GetWidth(bitmap);
 	int h = FreeImage_GetHeight(bitmap);
 	void* datos = FreeImage_GetBits(bitmap);
+
 	//FIN CARGAR IMAGEN
+	char* pp = (char*)datos;
+	std::cout << "HH: " << (unsigned char )pp[0] << " | " << (unsigned char)pp[1] << " | " << (unsigned char)pp[2] << " | " << "\n";
+
 
 	GLuint textura;
 	glGenTextures(1, &textura);
@@ -47,6 +51,8 @@ GLuint inicializarTexturaPng(char* archivo) {
 	int h = FreeImage_GetHeight(bitmap);
 	void* datos = FreeImage_GetBits(bitmap);
 	//FIN CARGAR IMAGEN
+
+
 
 	GLuint textura;
 	glGenTextures(1, &textura);

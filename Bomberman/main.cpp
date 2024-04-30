@@ -34,7 +34,7 @@ bool mostrar_menu = true;
 
 int main(int argc, char *argv[]) {
 	
-
+	
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		cerr << "No se pudo iniciar SDL: " << SDL_GetError() << endl;
 		return 1;
@@ -46,15 +46,20 @@ int main(int argc, char *argv[]) {
 		return -1;
 	}
 
+	
+
+
 	// Creaci�n de la ventana y el renderer de SDL
 	SDL_Window* win = SDL_CreateWindow("Bomberman - Obligatorio 1 - Comp Graf ",
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
 		SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
 
-	SDL_GLContext context = SDL_GL_CreateContext(win);
 
-	SDL_Renderer* renderer = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	SDL_GLContext context = SDL_GL_CreateContext(win);
+	//SDL_SetHint(SDL_HINT_RENDER_DRIVER, "opengl");
+	SDL_Renderer* renderer = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );
+	//SDL_Renderer* renderer = SDL_CreateRenderer(win, -1, SDL_RENDERER_SOFTWARE | SDL_RENDERER_PRESENTVSYNC);
 
 	SDL_GL_MakeCurrent(win, context);
 
@@ -152,6 +157,7 @@ int main(int argc, char *argv[]) {
 		if (mostrar_menu) {
 
 			mnu.render();	
+			SDL_RenderClear(renderer);
 
 		}else {
 			//Medir tiempo desde el ultimo frame hasta este
@@ -253,6 +259,7 @@ int main(int argc, char *argv[]) {
 			glDisable(GL_DEPTH_TEST);
 			glEnable(GL_BLEND); 
 			glClear(GL_DEPTH_BUFFER_BIT);
+			hud->aumentoTiempo((long)deltaTiempoReal);
 			modoVis->renderHud();
 			deltaRotacionX = 0.0f;
 			deltaRotacionY = 0.0f;
@@ -263,6 +270,7 @@ int main(int argc, char *argv[]) {
 			}
 
 			SDL_GL_SwapWindow(win);
+			
 		}
 
 		//----------MANEJO DE EVENTOS-------------
