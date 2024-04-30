@@ -88,7 +88,7 @@ void Hud::renderTextTiempo() {
 
 	renderText(0.7f, tiempo, 0.0f, h_2 * 0.96f);
 
-	// El siguiente codigo es la escritura de los numeros, todo el credito a este post: https://stackoverflow.com/questions/25771735/creating-opengl-texture-from-sdl2-surface-strange-pixel-values
+	
 
 
 	
@@ -97,6 +97,9 @@ void Hud::renderTextTiempo() {
 
 
 void Hud::renderText(float resizeFont, std::string texto, float centroX, float centroY) {
+
+	// El siguiente codigo es la escritura de los numeros, todo el credito a este post: https://stackoverflow.com/questions/25771735/creating-opengl-texture-from-sdl2-surface-strange-pixel-values
+
 	SDL_Surface* textSurface = TTF_RenderText_Blended(fuente, texto.c_str(), { 255, 255, 255 });
 
 	int w_text = textSurface->w;
