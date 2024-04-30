@@ -513,11 +513,25 @@ bool mapa::noHayEnemigos() {
 	return true;
 }
 
+bool mapa::dañoPorEnemigo(mathVector posicionActual)
+{
+	bool daño = false;
+	int i = 0;
+	while (i < 4 && !daño) {
+		if (enemigos[i] != nullptr) {
+			mathVector posEn = enemigos[i]->getPosicion();
+			daño = (posicionActual.x <= (posEn.x + 20) && posicionActual.x >= (posEn.x - 20)) && (posicionActual.y <= (posEn.y + 20) && posicionActual.y <= (posEn.y + 20));
+		}
+		i++;
+	}
+	return daño;
+}
+
 bool mapa::victoria(mathVector posJugador)
 {	
 	int xJugador = floor(posJugador.x * LARGO_UNIDAD);
 	int yJugador = floor(posJugador.y * LARGO_UNIDAD);
-	if(noHayEnemigos() && !destructEsPuerta && (xJugador == this->xPuerta) && (yJugador == this->yPuerta)){
+	if(noHayEnemigos() && !destructEsPuerta() && (xJugador == this->xPuerta) && (yJugador == this->yPuerta)) {
 		return true;
 	}
 	else {

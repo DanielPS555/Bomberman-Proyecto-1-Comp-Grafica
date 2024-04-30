@@ -128,8 +128,9 @@ int main(int argc, char *argv[]) {
 	// -------- Jugador
 	mathVector posAct = {0, 0, 0};
 	int dirAct = 0;
-	
-	jugador* player = new jugador(map->obtenerPosicionInicialJugador(), map->anguloInicialJugador(), map);
+	bool muerte = false;
+
+	jugador* player = new jugador(map->obtenerPosicionInicialJugador(), map->anguloInicialJugador(), map, 3);
 
 	// --------- Configuracion de la camara
 
@@ -236,6 +237,7 @@ int main(int argc, char *argv[]) {
 					if(bombs[i]->timer(deltaTiempo)){
 						victimas = bombs[i]->explosion_trigg(victimas);
 						map->eliminarDestructibles(victimas, bombs[i]->getAlcanze());
+						muerte = bombs[i]->dañoBomba(player->getPosicionEnMapa(), victimas);
 						explocion* exp = new explocion(2000, victimas);
 						exp->generateExplocion(bombs[i]->getAlcanze(), partSist);
 						int e = 0;
@@ -260,6 +262,7 @@ int main(int argc, char *argv[]) {
 				if (bombs[i] != nullptr) {
 					victimas = bombs[i]->explosion_trigg(victimas);
 					map->eliminarDestructibles(victimas, bombs[i]->getAlcanze());
+					muerte = bombs[i]->dañoBomba(player->getPosicionEnMapa(), victimas);
 					explocion* exp = new explocion(2000, victimas);
 					exp->generateExplocion(bombs[i]->getAlcanze(), partSist);
 					int e = 0;
@@ -288,6 +291,13 @@ int main(int argc, char *argv[]) {
 			}
 		}
 		
+		if (!muerte) {
+			muerte = map->dañoPorEnemigo(player->getPosicionEnMapa());
+		}
+
+		if (muerte) {
+			player->recibirDaño();
+		}
 
 	
 		map->render();

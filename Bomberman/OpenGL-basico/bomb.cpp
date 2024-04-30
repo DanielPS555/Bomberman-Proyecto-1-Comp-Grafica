@@ -126,3 +126,16 @@ int bomba::getAlcanze() {
 	return this->alcanze;
 }
 
+bool bomba::dañoBomba(mathVector posJugador, float** destruct)
+{
+	int j = 0;
+	bool daño = false;
+	int bx = floor(posJugador.x / 25);
+	int by = floor(posJugador.y / 25);
+	while (j < this->alcanze && !daño) {
+		daño = (bx == destruct[j][1]) && (by == destruct[j][0]);
+		j++;
+	}
+	return daño;
+}
+

@@ -110,6 +110,8 @@ public:
 
 	bool victoria(mathVector posJugador);
 
+	bool dañoPorEnemigo(mathVector posicionActual);
+
 	~mapa();
 };
 
