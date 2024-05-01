@@ -173,6 +173,11 @@ void jugador::recibirDaño()
 	this->vidas = this->vidas - 1;
 }
 
+int jugador::getVidas()
+{
+	return this->vidas;
+}
+
 
 jugador::~jugador() {
 	free(conf);

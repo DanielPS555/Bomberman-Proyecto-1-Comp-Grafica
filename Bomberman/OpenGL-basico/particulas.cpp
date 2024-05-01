@@ -115,11 +115,22 @@ void particleGenerator::render()
 		glScalef(particle.SizeBegin, 0, particle.SizeBegin);
 
 		renderRectangulo2d(rect, particle.textura);
-		//glDepthMask(false);
 		finalizarRenderVertexArray();
 
 		glPopMatrix();
 	}
+}
+
+void particleGenerator::prepareRender()
+{
+	
+	glEnable(GL_BLEND); 
+	glBlendFunc(GL_SRC2_ALPHA, GL_ONE_MINUS_SRC_ALPHA); 
+	glDepthMask(false); 
+}
+
+void particleGenerator::finishRender()
+{
 }
 
 

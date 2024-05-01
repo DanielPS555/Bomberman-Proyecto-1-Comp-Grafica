@@ -74,7 +74,7 @@ public:
 
 	bool agregarBomba(float posEnXMapa, float posEnYMapa);
 
-	void eliminarDestructibles(float** destructibles, int alcanze);
+	int eliminarDestructibles(float** destructibles, int alcanze);
 
 	mapaItem*** getEstructuraMapa();
 

@@ -61,6 +61,8 @@ public:
 
 	void recibirDaño();
 
+	int getVidas();
+
 };
 
 

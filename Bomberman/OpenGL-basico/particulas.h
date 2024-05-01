@@ -62,6 +62,9 @@ class particleGenerator {
 		void Emit(const ParticleProps& particleProps);
 
 		void render();
+
+		void prepareRender();
+		void finishRender();
 };
 
 
