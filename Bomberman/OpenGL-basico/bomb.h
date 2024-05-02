@@ -30,7 +30,7 @@ class bomba {
 		int getXenMapa();
 		int getAlcanze();
 
-		bool dañoBomba(mathVector posJugador, float** destruct);
+		bool danioBomba(mathVector posJugador, float** destruct);
 };
 
 #endif

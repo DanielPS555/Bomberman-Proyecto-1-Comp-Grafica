@@ -126,7 +126,7 @@ int bomba::getAlcanze() {
 	return this->alcanze;
 }
 
-bool bomba::dañoBomba(mathVector posJugador, float** destruct)
+bool bomba::danioBomba(mathVector posJugador, float** destruct)
 {
 	int j = 0;
 	bool daño = false;

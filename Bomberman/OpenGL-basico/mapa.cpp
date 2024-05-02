@@ -240,8 +240,9 @@ bool mapa::agregarBomba(float posEnXMapa, float posEnYMapa)
 	}
 }
 
-void mapa::eliminarDestructibles(float** destruir, int alcanze)
+int mapa::eliminarDestructibles(float** destruir, int alcanze)
 {
+	int puntos = 0;
 	std::tuple<int, int> temp;
 	if (destruir != nullptr) {
 		for (int i = 0; i <= alcanze * 4; i++) {
@@ -258,6 +259,7 @@ void mapa::eliminarDestructibles(float** destruir, int alcanze)
 					this->estructuraMapa[r][f] = nullptr;
 					destructibles.erase(it);
 					it = destructibles.end();
+					puntos += 1500;
 				}
 				else {
 					s++;
@@ -276,6 +278,7 @@ void mapa::eliminarDestructibles(float** destruir, int alcanze)
 						enemigo* en = this->enemigos[p];
 						this->enemigos[p] = nullptr; 
 						delete en;
+						puntos += 5000;
 					}
 					else {
 						if (x == posx && y == posy) {
@@ -284,6 +287,7 @@ void mapa::eliminarDestructibles(float** destruir, int alcanze)
 							enemigo* en = this->enemigos[p];
 							this->enemigos[p] = nullptr;
 							delete en;
+							puntos += 5000; 
 						}
 					}
 				}
@@ -294,6 +298,7 @@ void mapa::eliminarDestructibles(float** destruir, int alcanze)
 		this->estructuraMapa[this->yPuerta][this->xPuerta] = new mapaItem;
 		this->estructuraMapa[this->yPuerta][this->xPuerta]->tipo = PUERTA;
 	}
+	return puntos;
 }
 
 void mapa::renderEnemigos(float deltatiempo, mapa * map) {
@@ -513,7 +518,7 @@ bool mapa::noHayEnemigos() {
 	return true;
 }
 
-bool mapa::dañoPorEnemigo(mathVector posicionActual)
+bool mapa::danioPorEnemigo(mathVector posicionActual)
 {
 	bool daño = false;
 	int i = 0;

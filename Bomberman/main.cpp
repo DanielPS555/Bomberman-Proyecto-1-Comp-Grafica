@@ -129,6 +129,8 @@ int main(int argc, char *argv[]) {
 	mathVector posAct = {0, 0, 0};
 	int dirAct = 0;
 	bool muerte = false;
+	float invTime = 0;
+	int puntaje = 0;
 
 	jugador* player = new jugador(map->obtenerPosicionInicialJugador(), map->anguloInicialJugador(), map, 3);
 
@@ -236,8 +238,8 @@ int main(int argc, char *argv[]) {
 				if (bombs[i] != nullptr) {
 					if(bombs[i]->timer(deltaTiempo)){
 						victimas = bombs[i]->explosion_trigg(victimas);
-						map->eliminarDestructibles(victimas, bombs[i]->getAlcanze());
-						muerte = bombs[i]->dañoBomba(player->getPosicionEnMapa(), victimas);
+						puntaje += map->eliminarDestructibles(victimas, bombs[i]->getAlcanze());
+						muerte = bombs[i]->danioBomba(player->getPosicionEnMapa(), victimas);
 						explocion* exp = new explocion(2000, victimas);
 						exp->generateExplocion(bombs[i]->getAlcanze(), partSist);
 						int e = 0;
@@ -261,8 +263,8 @@ int main(int argc, char *argv[]) {
 			while (i < 4 && explotarBomba) {
 				if (bombs[i] != nullptr) {
 					victimas = bombs[i]->explosion_trigg(victimas);
-					map->eliminarDestructibles(victimas, bombs[i]->getAlcanze());
-					muerte = bombs[i]->dañoBomba(player->getPosicionEnMapa(), victimas);
+					puntaje += map->eliminarDestructibles(victimas, bombs[i]->getAlcanze());
+					muerte = bombs[i]->danioBomba(player->getPosicionEnMapa(), victimas);
 					explocion* exp = new explocion(2000, victimas);
 					exp->generateExplocion(bombs[i]->getAlcanze(), partSist);
 					int e = 0;
@@ -291,12 +293,32 @@ int main(int argc, char *argv[]) {
 			}
 		}
 		
-		if (!muerte) {
-			muerte = map->dañoPorEnemigo(player->getPosicionEnMapa());
+		if (invTime > 0) {
+			invTime = invTime - deltaTiempo;
 		}
 
-		if (muerte) {
-			player->recibirDaño();
+		if (!muerte) {
+			muerte = map->danioPorEnemigo(player->getPosicionEnMapa());
+		}
+
+		if (muerte && (invTime <= 0)) {
+			player->recibirDanio();
+			muerte = false;
+			invTime = 5000;
+			puntaje -= 3000;
+			if (puntaje < 0) {
+				puntaje = 0;
+			}
+			if (player->getVidas() == 0) {
+
+			}
+			else {
+			
+			}
+		}
+
+		if (map->victoria(player->getPosicionEnMapa())) {
+			puntaje += 15000;
 		}
 
 	

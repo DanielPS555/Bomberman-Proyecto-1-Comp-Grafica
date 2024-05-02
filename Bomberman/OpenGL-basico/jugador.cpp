@@ -168,9 +168,14 @@ float jugador::getAnguloActualVertical() {
 	return anguloActualVertical;
 }
 
-void jugador::recibirDaño()
+void jugador::recibirDanio()
 {
 	this->vidas = this->vidas - 1;
+}
+
+int jugador::getVidas()
+{
+	return this->vidas;
 }
 
 
