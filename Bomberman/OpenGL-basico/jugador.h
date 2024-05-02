@@ -59,7 +59,7 @@ public:
 	float getAnguloActualEnMapa();
 	float getAnguloActualVertical();
 
-	void recibirDaño();
+	void recibirDanio();
 
 	int getVidas();
 

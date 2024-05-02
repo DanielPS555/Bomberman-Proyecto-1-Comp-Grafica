@@ -239,7 +239,7 @@ int main(int argc, char *argv[]) {
 					if(bombs[i]->timer(deltaTiempo)){
 						victimas = bombs[i]->explosion_trigg(victimas);
 						puntaje += map->eliminarDestructibles(victimas, bombs[i]->getAlcanze());
-						muerte = bombs[i]->dañoBomba(player->getPosicionEnMapa(), victimas);
+						muerte = bombs[i]->danioBomba(player->getPosicionEnMapa(), victimas);
 						explocion* exp = new explocion(2000, victimas);
 						exp->generateExplocion(bombs[i]->getAlcanze(), partSist);
 						int e = 0;
@@ -264,7 +264,7 @@ int main(int argc, char *argv[]) {
 				if (bombs[i] != nullptr) {
 					victimas = bombs[i]->explosion_trigg(victimas);
 					puntaje += map->eliminarDestructibles(victimas, bombs[i]->getAlcanze());
-					muerte = bombs[i]->dañoBomba(player->getPosicionEnMapa(), victimas);
+					muerte = bombs[i]->danioBomba(player->getPosicionEnMapa(), victimas);
 					explocion* exp = new explocion(2000, victimas);
 					exp->generateExplocion(bombs[i]->getAlcanze(), partSist);
 					int e = 0;
@@ -298,16 +298,22 @@ int main(int argc, char *argv[]) {
 		}
 
 		if (!muerte) {
-			muerte = map->dañoPorEnemigo(player->getPosicionEnMapa());
+			muerte = map->danioPorEnemigo(player->getPosicionEnMapa());
 		}
 
 		if (muerte && (invTime <= 0)) {
-			player->recibirDaño();
+			player->recibirDanio();
 			muerte = false;
 			invTime = 5000;
 			puntaje -= 3000;
 			if (puntaje < 0) {
 				puntaje = 0;
+			}
+			if (player->getVidas() == 0) {
+
+			}
+			else {
+			
 			}
 		}
 

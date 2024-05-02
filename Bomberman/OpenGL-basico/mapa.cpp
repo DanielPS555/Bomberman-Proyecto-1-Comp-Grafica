@@ -518,7 +518,7 @@ bool mapa::noHayEnemigos() {
 	return true;
 }
 
-bool mapa::dañoPorEnemigo(mathVector posicionActual)
+bool mapa::danioPorEnemigo(mathVector posicionActual)
 {
 	bool daño = false;
 	int i = 0;
