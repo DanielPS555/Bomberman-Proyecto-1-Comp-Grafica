@@ -77,3 +77,10 @@ mathVector rotar(mathVector vec, float anguloEnGrado) {
 		vec.z
 	};
 }
+
+mathVector interpolarVectores(mathVector inicio, mathVector fin, float t) {
+	float x_inter = (1 - t) * inicio.x + t * fin.x;
+	float y_inter = (1 - t) * inicio.y + t * fin.y;
+	float z_inter = (1 - t) * inicio.z + t * fin.z;
+	return { x_inter, y_inter, z_inter };
+}

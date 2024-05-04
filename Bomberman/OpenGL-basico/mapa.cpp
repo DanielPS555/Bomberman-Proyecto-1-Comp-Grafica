@@ -19,10 +19,12 @@ mapa::mapa(int cant_filas, int cant_columnas, int posXPuerta, int posYPuerta) {
 	pisoShape = {
 		 { 0.,0.,0.			,anchoReal,0.,0.,		anchoReal,alturaReal,0.,		0.,alturaReal,0. }    // vertices
 		,{0,0,1}																						  //Norma
-		,{ 0.2,0.2,0.2}	  // colores	
+		,{ 0.1,0.1,0.1}	  // colores	
 		,{0,1,2,3}																						  // indices
 		,{0.0,0.0,	0.0,1.0,	1.0,1.0,	1.0,0.0}
 	};
+
+	pisoShape = generarVerticesIntermedios(pisoShape);
 
 
 	vertice verticesBordeInferior[8] = {
@@ -172,7 +174,7 @@ void mapa::render() {
 
 	//cargarTextura(this->textura);
 
-	renderRectangulo2d(pisoShape,this->texturapiso);
+	renderRectangulo2dIntermedios(pisoShape,this->texturapiso);
 	//renderRectangulo2d(techoShape, this->texturaTecho);
 
 	for (int i = 0; i < 4; i++) {
