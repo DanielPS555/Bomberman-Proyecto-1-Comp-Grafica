@@ -75,13 +75,13 @@ void particleGenerator::timer(float deltaT)
 void particleGenerator::render()
 {
 
-	retangulo2d rect = {
+	retangulo2d<1> rect = {
 	 {-0.5f, -0.5f, 0.0f,
 	   0.5f, -0.5f, 0.0f,
 	  -0.5f, 0.5f, 0.0f,
 	   0.5f, 0.5f, 0.0f}    // vertices
 	,{0,0,1}				//Norma
-	,{ 1.,1.,1.,		 1.,1.,1.,              1.,1.,1.,					    1.,1.,1.         }	  // colores	
+	,{ 1.,1.,1.}	  // colores	
 	,{0,1,2,3}																						  // indices
 	,{0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.0}
 	};

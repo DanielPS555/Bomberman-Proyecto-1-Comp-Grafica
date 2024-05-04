@@ -12,6 +12,8 @@ class enemigo;
 #define LARGO_UNIDAD 25  // tama�o de cada item (casilero) del mapa
 #define ALTURA_PARED 30 // Altura de los cubos y paredes
 
+#define NUMERO_PARTICIONES_PISO 1000
+
 enum tipoMapaItem {
 	CAMINO,
 	PARED_INDESTRUCTIBLE,
@@ -38,8 +40,7 @@ private:
 
 	mapaItem*** estructuraMapa;
 
-	retangulo2d techoShape;
-	retangulo2d pisoShape;
+	retangulo2d<NUMERO_PARTICIONES_PISO> pisoShape;
 	retangulo3d bordesShape[4];
 	std::vector<std::tuple<int, int>> destructibles;
 	

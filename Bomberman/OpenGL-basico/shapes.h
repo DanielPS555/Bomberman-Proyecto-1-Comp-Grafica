@@ -13,12 +13,15 @@
 //  |        |
 //  |        |
 //  v0------v1
+template<std::size_t N> // Numero de diviciones por cara
 struct retangulo2d {
-	GLfloat cordeneasVertices[4 * 3];   //Ejemplo: 1,1,1,  -1,1,1,  -1,-1,1,  1,-1,1,  ==> v0-v1-v2-v3
+	GLfloat cordeneasVerticesBordes[4 * 3];   //Ejemplo: 1,1,1,  -1,1,1,  -1,-1,1,  1,-1,1,  ==> v0-v1-v2-v3
 	GLfloat normales[3];
-	GLfloat coloresVertices[4 * 3];   //Ejemplo  1,1,1,  1,1,0,   1,0,0,    1,0,1,   ==> v0-v1-v2-v3
+	GLfloat coloresVertices[3];   
 	GLubyte indices[4];
-	GLfloat texturas[4 * 2];
+	GLfloat corrdenadasTexturasBordes[4 * 2];
+	GLubyte verticesIntermedios[N];
+
 };
 
 struct retanguloTransparente2d {

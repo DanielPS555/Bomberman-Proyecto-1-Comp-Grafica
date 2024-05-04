@@ -65,7 +65,7 @@ Hud::Hud(SDL_Renderer* r, SDL_Window* w) {
 			xIconoHeart, yIconoHeart + wIcono, -PROFUNDIDAD_HUD,
 		}    // vertices
 		,{0,0,1}																						  //Norma
-		,{ 1.,1.,1.,		 1.,1.,1.,               1.,1.,1.,					    1.,1.,1.,         }	  // colores	
+		,{ 1.,1.,1.}	  // colores	
 		//,{ 0.,0.,0.,		 0.,0.,0.,               0.,0.,0.,					    0.,0.,0.,         }	  // colores	
 		,{0,1,2,3}																						  // indices
 		,{0.0,0.0	,1.0,0.0,	1.0,1.0,	0.0,1.0}
@@ -80,7 +80,7 @@ Hud::Hud(SDL_Renderer* r, SDL_Window* w) {
 			xIconoEnemy			, yIconoEnemy + wIcono	 , -PROFUNDIDAD_HUD,
 		}    // vertices
 		,{0,0,1}																						  //Norma
-		,{ 1.,1.,1.,		 1.,1.,1.,               1.,1.,1.,					    1.,1.,1.,         }	  // colores	
+		,{ 1.,1.,1.}	  // colores	
 		,{0,1,2,3}																						  // indices
 		,{0.0,0.0	,1.0,0.0,	1.0,1.0,	0.0,1.0}
 	};

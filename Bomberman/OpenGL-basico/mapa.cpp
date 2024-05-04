@@ -19,17 +19,9 @@ mapa::mapa(int cant_filas, int cant_columnas, int posXPuerta, int posYPuerta) {
 	pisoShape = {
 		 { 0.,0.,0.			,anchoReal,0.,0.,		anchoReal,alturaReal,0.,		0.,alturaReal,0. }    // vertices
 		,{0,0,1}																						  //Norma
-		,{ 0.2,0.2,0.2,		0.2,0.2,0.2,              0.2,0.2,0.2,					   0.2,0.2,0.2,}	  // colores	
+		,{ 0.2,0.2,0.2}	  // colores	
 		,{0,1,2,3}																						  // indices
 		,{0.0,0.0,	0.0,1.0,	1.0,1.0,	1.0,0.0}
-	};
-
-	techoShape = {
-	 { 0.,0.,ALTURA_PARED		,anchoReal,0.,ALTURA_PARED,		anchoReal,alturaReal,ALTURA_PARED,		0.,alturaReal,ALTURA_PARED }    // vertices
-	,{0,0,1}																						  //Norma
-	,{ 1.,1.,1.,		 1.,1.,1.,              1.,1.,1.,					    1.,1.,1.         }	  // colores	
-	,{0,1,2,3}																						  // indices
-	,{0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.0}
 	};
 
 
