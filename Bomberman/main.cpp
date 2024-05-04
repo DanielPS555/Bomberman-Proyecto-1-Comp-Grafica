@@ -136,7 +136,7 @@ int main(int argc, char *argv[]) {
 
 	// --------- Configuracion de la camara
 
-	Hud* hud = new Hud(renderer);
+	Hud* hud = new Hud(renderer, win);
 	modoVisualizacion* modoVis = new modoVisualizacion(player, hud, MODOS_VISUALIZACION_PRIMERA_PERSONA);
 
 
@@ -163,6 +163,8 @@ int main(int argc, char *argv[]) {
 	int cursorIndex = 0;
 
 
+	//glEnable(GL_COLOR_MATERIAL);
+	
 
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); //Set blending function.
 	do {
@@ -172,6 +174,7 @@ int main(int argc, char *argv[]) {
 			SDL_RenderClear(renderer);
 
 		}else {
+			
 			//Medir tiempo desde el ultimo frame hasta este
 			tiempoTranscurridoUltimoFrame = duration_cast<milliseconds>(Clock::now() - beginLastFrame);
 			float deltaTiempoReal = (float)tiempoTranscurridoUltimoFrame.count(); //Tiempo usado para el temporizador
@@ -181,15 +184,27 @@ int main(int argc, char *argv[]) {
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			glEnable(GL_DEPTH_TEST);
 			glDisable(GL_BLEND); //Enable blending.
-		
+
+			glEnable(GL_LIGHTING);
+			glEnable(GL_LIGHT1);
+
 			glLoadIdentity();
 
 			// --- Inicializar camara
-			gluLookAt(0, 0, 0, 0, 0, -0.1f, 0, 1, 0);
+			gluLookAt(0, 0, 0,	 0, 0, -0.1f,	 0, 1, 0);
 
+			GLfloat colorAmbiental[4] = { 70.0f / 255.f, 105.0f / 255.f, 0.f / 88.f, 0.2f };
+			//glLightModelfv(GL_LIGHT_MODEL_AMBIENT, colorAmbiental);
+			
+
+			GLfloat light1Pos[] = { 0.0f, 0.0f, -140.0f, 1.0f };
+			GLfloat light1color[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+			glLightfv(GL_LIGHT1, GL_DIFFUSE, light1color);
+			glLightfv(GL_LIGHT1, GL_POSITION, light1Pos);
 
 
 			glPushMatrix();
+			
 			// ---- Ajustar la camara por modo de visualizacion
 			modoVis->ajustarCamaraPorModoVisualizacion();
 		
@@ -332,21 +347,22 @@ int main(int argc, char *argv[]) {
 
 
 		glPopMatrix();
-			glDisable(GL_DEPTH_TEST);
-			glEnable(GL_BLEND); 
-			glClear(GL_DEPTH_BUFFER_BIT);
-			hud->aumentoTiempo((long)deltaTiempoReal);
-			modoVis->renderHud();
-			deltaRotacionX = 0.0f;
-			deltaRotacionY = 0.0f;
+		glDisable(GL_DEPTH_TEST);
+		glDisable(GL_LIGHTING);
+		glEnable(GL_BLEND); 
+		glClear(GL_DEPTH_BUFFER_BIT);
+		hud->aumentoTiempo((long)deltaTiempoReal);
+		modoVis->renderHud();
+		deltaRotacionX = 0.0f;
+		deltaRotacionY = 0.0f;
 
-			milliseconds tiempoDuranteFrame = duration_cast<milliseconds>(Clock::now() - beginLastFrame);
-			if (tiempoDuranteFrame < milliseconds(2)) {
-				sleep_for(2ms);
-			}
+		milliseconds tiempoDuranteFrame = duration_cast<milliseconds>(Clock::now() - beginLastFrame);
+		if (tiempoDuranteFrame < milliseconds(2)) {
+			sleep_for(2ms);
+		}
 
 
-			SDL_GL_SwapWindow(win);
+		SDL_GL_SwapWindow(win);
 			
 		}
 
@@ -415,6 +431,7 @@ int main(int argc, char *argv[]) {
 
 					case SDLK_b:
 						ponerBomba = true;
+						hud->activarPantallaMuerte();
 						break;
 
 					case SDLK_v:
