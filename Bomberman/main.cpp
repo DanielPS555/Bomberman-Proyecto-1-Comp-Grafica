@@ -193,14 +193,12 @@ int main(int argc, char *argv[]) {
 			// --- Inicializar camara
 			gluLookAt(0, 0, 0,	  0, 0, -0.1f,	0, 1, 0);
 
-			//GLfloat colorAmbiental[4] = { 70.0f / 255.f, 105.0f / 255.f, 0.f / 88.f, 0.f };
-			//GLfloat colorAmbiental[4] = { 70.0f / 255.f, 105.0f / 255.f, 0.f / 88.f, 0.f };
-			//glLightModelfv(GL_LIGHT_MODEL_AMBIENT, colorAmbiental);
+			//GLfloat colorAmbiental[4] = { 7.0f / 255.f, 15.0f / 255.f, 43.f / 255.f, 1.f};
 			
-
+			
 			glEnable(GL_LIGHT1);
 
-			GLfloat light1color[] = { 1.0f, 1.0f, 1.0f, 1.f };
+			GLfloat light1color[] = { 7.0f /255.f,	 15.0f / 255.f,	 43.0f / 255.f, 1.f };
 			glLightfv(GL_LIGHT1, GL_DIFFUSE, light1color);
 			
 			glLightf(GL_LIGHT1, GL_CONSTANT_ATTENUATION, 0.5f);
