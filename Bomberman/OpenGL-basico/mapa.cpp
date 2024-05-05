@@ -69,10 +69,10 @@ mapa::mapa(int cant_filas, int cant_columnas, int posXPuerta, int posYPuerta) {
 	};
 	
 	GLfloat color[3] = { 1.f,1.f,1.f };
-	bordesShape[0] = new Rectangulo3d<NUMERO_PARTICIONES_PARED_LIMITE>(verticesBordeInferior, color);
-	bordesShape[1] = new Rectangulo3d<NUMERO_PARTICIONES_PARED_LIMITE>(verticesBordeIzquierdo, color);
-	bordesShape[2] = new Rectangulo3d<NUMERO_PARTICIONES_PARED_LIMITE>(verticesBordeDerecho, color);
-	bordesShape[3] = new Rectangulo3d<NUMERO_PARTICIONES_PARED_LIMITE>(verticesBordeSuperior, color);
+	bordesShape[0] = new Rectangulo3d<NUMERO_PARTICIONES_PARED_LIMITE>(verticesBordeInferior , color, false, true, true , true , true, false);
+	bordesShape[1] = new Rectangulo3d<NUMERO_PARTICIONES_PARED_LIMITE>(verticesBordeIzquierdo, color, true , true, false, true , true, false);
+	bordesShape[2] = new Rectangulo3d<NUMERO_PARTICIONES_PARED_LIMITE>(verticesBordeDerecho  , color, true , true, true , false, true, false);
+	bordesShape[3] = new Rectangulo3d<NUMERO_PARTICIONES_PARED_LIMITE>(verticesBordeSuperior,  color, true , false ,true ,true , true, false);
 
 	//inicializo texturas
 	this->textura = inicializarTextura("assets/ladrillo.jpg");
@@ -104,7 +104,7 @@ mapa::mapa(int cant_filas, int cant_columnas, int posXPuerta, int posYPuerta) {
 					{ (j + 1) * LARGO_UNIDAD	, (i + 1) * LARGO_UNIDAD			, ALTURA_PARED	},
 				};
 
-				this->estructuraMapa[i][j]->figura = new Rectangulo3d<NUMERO_PARTICIONES_PARED_INTERNA>(verticesCubo, colores);
+				this->estructuraMapa[i][j]->figura = new Rectangulo3d<NUMERO_PARTICIONES_PARED_INTERNA>(verticesCubo, colores, false, false, false, false, true, false);
 			}else {
 				this->estructuraMapa[i][j] = nullptr;
 			}
@@ -143,7 +143,7 @@ mapa::mapa(int cant_filas, int cant_columnas, int posXPuerta, int posYPuerta) {
 			{ (j + 1) * LARGO_UNIDAD	, (i + 1) * LARGO_UNIDAD			, ALTURA_PARED	},
 		};
 
-		this->estructuraMapa[i][j]->figura = new Rectangulo3d<NUMERO_PARTICIONES_PARED_INTERNA>(verticesCubo, colores);
+		this->estructuraMapa[i][j]->figura = new Rectangulo3d<NUMERO_PARTICIONES_PARED_INTERNA>(verticesCubo, colores, false, false, false, false, true, false);
 
 	}
 
