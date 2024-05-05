@@ -55,41 +55,38 @@ Hud::Hud(SDL_Renderer* r, SDL_Window* w) {
 	float w_2 = width / 2.0f;
 	float h_2 = heigth / 2.0f;
 
+
+	
 	float wIcono = 12.0f;
 
 	float xIconoHeart = w_2 * 0.75f, yIconoHeart = h_2 *0.855f;
-	iconoHeart = {
-		 {	xIconoHeart, yIconoHeart , -PROFUNDIDAD_HUD,
-			xIconoHeart + wIcono, yIconoHeart , -PROFUNDIDAD_HUD,
-			xIconoHeart + wIcono, yIconoHeart + wIcono , -PROFUNDIDAD_HUD,
-			xIconoHeart, yIconoHeart + wIcono, -PROFUNDIDAD_HUD,
-		}    // vertices
-		,{0,0,1}																						  //Norma
-		,{ 1.,1.,1.,		 1.,1.,1.,               1.,1.,1.,					    1.,1.,1.,         }	  // colores	
-		//,{ 0.,0.,0.,		 0.,0.,0.,               0.,0.,0.,					    0.,0.,0.,         }	  // colores	
-		,{0,1,2,3}																						  // indices
-		,{0.0,0.0	,1.0,0.0,	1.0,1.0,	0.0,1.0}
+
+	GLfloat posicionesIconoHeart[12] = {xIconoHeart				, yIconoHeart				, -PROFUNDIDAD_HUD,
+										xIconoHeart + wIcono	, yIconoHeart				, -PROFUNDIDAD_HUD,
+										xIconoHeart + wIcono	, yIconoHeart + wIcono		, -PROFUNDIDAD_HUD,
+										xIconoHeart				, yIconoHeart + wIcono		, -PROFUNDIDAD_HUD,
 	};
-
-
+	
+	GLfloat colores[3] = { 1.f,1.f,1.f };
+	GLfloat normal[3]  = { 0.f,0.f,1.f };
+	
+	iconoHeart = new Rectangulo2d<1>(posicionesIconoHeart, normal, colores);
+	
+	
 	float xIconoEnemy = w_2 * 0.92f, yIconoEnemy = h_2 * 0.855f;
-	iconoEnemy = {
-		 {	xIconoEnemy			, yIconoEnemy			 , -PROFUNDIDAD_HUD,
-			xIconoEnemy + wIcono, yIconoEnemy			 , -PROFUNDIDAD_HUD,
-			xIconoEnemy + wIcono, yIconoEnemy + wIcono	 , -PROFUNDIDAD_HUD,
-			xIconoEnemy			, yIconoEnemy + wIcono	 , -PROFUNDIDAD_HUD,
-		}    // vertices
-		,{0,0,1}																						  //Norma
-		,{ 1.,1.,1.,		 1.,1.,1.,               1.,1.,1.,					    1.,1.,1.,         }	  // colores	
-		,{0,1,2,3}																						  // indices
-		,{0.0,0.0	,1.0,0.0,	1.0,1.0,	0.0,1.0}
+	GLfloat posicionesIconoEnemy[12] = { xIconoEnemy			, yIconoEnemy			, -PROFUNDIDAD_HUD,
+										 xIconoEnemy + wIcono	, yIconoEnemy			, -PROFUNDIDAD_HUD,
+										 xIconoEnemy + wIcono	, yIconoEnemy + wIcono  , -PROFUNDIDAD_HUD,
+										 xIconoEnemy			, yIconoEnemy + wIcono	, -PROFUNDIDAD_HUD,
 	};
-
+	iconoEnemy = new Rectangulo2d<1>(posicionesIconoEnemy, normal, colores);
 }
 
 Hud::~Hud() {
 	TTF_CloseFont(fuente);
 	free(renderer);
+	free(iconoEnemy);
+	free(iconoHeart);
 }
 
 
@@ -145,16 +142,15 @@ void Hud::renderTextVidas() {
 	glTranslatef(-0.3f, 0.3f, 0.0f);
 
 	float negro[12] = { 0.0f, 0.0f, 0.0f , 0.0f, 0.0f, 0.0f , 0.0f, 0.0f, 0.0f , 0.0f, 0.0f, 0.0f };
-	renderRectangulo2d(iconoHeart, textureIconoHeart, negro);
-	renderRectangulo2d(iconoEnemy, textureIconoEnemy, negro);
+	
+	iconoHeart->renderConPuntoIntermediosYTexturaYColor(textureIconoHeart, negro);
+	iconoEnemy->renderConPuntoIntermediosYTexturaYColor(textureIconoEnemy, negro);
 
 	glPopMatrix();
 
-	renderRectangulo2d(iconoHeart, textureIconoHeart);
-	renderRectangulo2d(iconoEnemy, textureIconoEnemy);
-
+	iconoHeart->renderConPuntoIntermediosYTextura(textureIconoHeart);
+	iconoEnemy->renderConPuntoIntermediosYTextura(textureIconoEnemy);
 	
-
 	finalizarRenderVertexArray();
 
 }

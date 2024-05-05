@@ -2,6 +2,7 @@
 #include "../configuraciones.h"
 #include "../util.h"
 #include "../renderUtils.h"
+#include "../shapes/Rectangulo2d.h"
 #include <SDL_ttf.h>
 
 
@@ -36,8 +37,8 @@ private:
 	GLuint textureIconoHeart;
 	GLuint textureIconoEnemy;
 
-	retangulo2d iconoHeart;
-	retangulo2d iconoEnemy;
+	Rectangulo2d<1>* iconoHeart;
+	Rectangulo2d<1>* iconoEnemy;
 
 
 	void renderText(float resizeFont, std::string texto, float bordeSupIsqX, 

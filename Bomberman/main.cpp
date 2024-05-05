@@ -357,6 +357,7 @@ int main(int argc, char *argv[]) {
 		deltaRotacionY = 0.0f;
 
 		milliseconds tiempoDuranteFrame = duration_cast<milliseconds>(Clock::now() - beginLastFrame);
+		cout << tiempoDuranteFrame.count() << "ms \n";
 		if (tiempoDuranteFrame < milliseconds(2)) {
 			sleep_for(2ms);
 		}

@@ -74,6 +74,6 @@ enum tipoMapaItem {
 
 struct mapaItem {
 	tipoMapaItem tipo;
-	retangulo3d figura;
+	retangulo3dss figura;
 	//Aca va a haber un puntero cuando hay mas datos del elemento
 };

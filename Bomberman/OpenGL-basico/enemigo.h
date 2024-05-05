@@ -21,7 +21,7 @@ private:
 	direccion direccionActual;
 	
 	//TODO cambiar cuando tengamos obj.
-	retangulo3d vertices; 
+	retangulo3dss vertices; 
 	GLuint textura;
 	int x, y;
 	bool cambio;

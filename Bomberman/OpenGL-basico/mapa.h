@@ -4,6 +4,8 @@
 #include "mathVector.h"
 #include "enemigo.h"
 #include "bomb.h"
+#include "shapes/Rectangulo2d.h"
+#include "shapes/Rectangulo3d.h"
 #ifndef MAPA
 #define MAPA
 
@@ -11,6 +13,10 @@ class enemigo;
 
 #define LARGO_UNIDAD 25  // tama�o de cada item (casilero) del mapa
 #define ALTURA_PARED 30 // Altura de los cubos y paredes
+
+#define NUMERO_PARTICIONES_PISO 50
+#define NUMERO_PARTICIONES_PARED_LIMITE 20
+#define NUMERO_PARTICIONES_PARED_INTERNA 4
 
 enum tipoMapaItem {
 	CAMINO,
@@ -24,7 +30,7 @@ enum tipoMapaItem {
 
 struct mapaItem {
 	tipoMapaItem tipo;
-	retangulo3d figura;
+	Rectangulo3d<NUMERO_PARTICIONES_PARED_INTERNA>* figura;
 	//Aca va a haber un puntero cuando hay mas datos del elemento
 };
 
@@ -38,9 +44,8 @@ private:
 
 	mapaItem*** estructuraMapa;
 
-	retangulo2d techoShape;
-	retangulo2d pisoShape;
-	retangulo3d bordesShape[4];
+	Rectangulo2d<NUMERO_PARTICIONES_PISO>* pisoShape;
+	Rectangulo3d<NUMERO_PARTICIONES_PARED_LIMITE>* bordesShape[4];
 	std::vector<std::tuple<int, int>> destructibles;
 	
 	GLuint textura;
