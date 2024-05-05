@@ -130,9 +130,9 @@ bool bomba::danioBomba(mathVector posJugador, float** destruct)
 {
 	int j = 0;
 	bool daño = false;
-	int bx = floor(posJugador.x / 25);
-	int by = floor(posJugador.y / 25);
-	while (j < this->alcanze && !daño) {
+	int bx = floor(posJugador.x / LARGO_UNIDAD);
+	int by = floor(posJugador.y / LARGO_UNIDAD);
+	while ((j <= this->alcanze * 4) && !daño) {
 		daño = (bx == destruct[j][1]) && (by == destruct[j][0]);
 		j++;
 	}

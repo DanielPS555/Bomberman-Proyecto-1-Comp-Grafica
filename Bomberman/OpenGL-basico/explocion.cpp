@@ -29,7 +29,7 @@ void explocion::generateExplocion(int cant, particleGenerator* pSistem)
 			for (int j = 0; j < 10; j++) {
 				this->expPart.Position.x = x * LARGO_UNIDAD + (Random::Float() * LARGO_UNIDAD);
 				this->expPart.Position.y = y * LARGO_UNIDAD + (Random::Float() * LARGO_UNIDAD);
-				this->expPart.Position.z = (Random::Float() * LARGO_UNIDAD);
+				this->expPart.Position.z = (LARGO_UNIDAD / 5);
 				this->expPart.LifeTime = 1.0;
 				this->expPart.SizeBegin = LARGO_UNIDAD/5;
 				this->expPart.SizeEnd = LARGO_UNIDAD/3;

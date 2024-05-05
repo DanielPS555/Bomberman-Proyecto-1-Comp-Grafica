@@ -78,9 +78,9 @@ void particleGenerator::render()
 	retangulo2d rect = {
 	 {-0.5f, -0.5f, 0.0f,
 	   0.5f, -0.5f, 0.0f,
-	  -0.5f, 0.5f, 0.0f,
-	   0.5f, 0.5f, 0.0f}    // vertices
-	,{0,0,1}				//Norma
+	   0.5f, 0.5f, 0.0f,
+	  -0.5f, 0.5f, 0.0f}    // vertices
+	,{0,1,0}				//Norma
 	,{ 1.,1.,1.,		 1.,1.,1.,              1.,1.,1.,					    1.,1.,1.         }	  // colores	
 	,{0,1,2,3}																						  // indices
 	,{0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.0}
@@ -111,10 +111,15 @@ void particleGenerator::render()
 		glPushMatrix();
 
 		iniciliarRenderVertexArray();
-		glTranslatef(particle.Position.x, particle.Position.y, particle.Position.z);
-		glScalef(particle.SizeBegin, 0, particle.SizeBegin);
 
+		prepareRender();
+
+		glTranslatef(particle.Position.x, particle.Position.y, particle.Position.z);
+		glScalef(particle.SizeBegin, particle.SizeBegin, particle.SizeBegin);
 		renderRectangulo2d(rect, particle.textura);
+		
+		finishRender();
+
 		finalizarRenderVertexArray();
 
 		glPopMatrix();
@@ -123,7 +128,6 @@ void particleGenerator::render()
 
 void particleGenerator::prepareRender()
 {
-	
 	glEnable(GL_BLEND); 
 	glBlendFunc(GL_SRC2_ALPHA, GL_ONE_MINUS_SRC_ALPHA); 
 	glDepthMask(false); 
@@ -131,6 +135,8 @@ void particleGenerator::prepareRender()
 
 void particleGenerator::finishRender()
 {
+	glDepthMask(true);
+	glDisable(GL_BLEND);
 }
 
 
