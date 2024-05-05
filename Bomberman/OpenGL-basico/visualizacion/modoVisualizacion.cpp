@@ -53,7 +53,7 @@ void modoVisualizacion::aplicarTranformacionesPorModo() {
 		break;
 	case MODOS_VISUALIZACION_VISTA_ORGINAL:
 
-		
+		glLightfv(GL_LIGHT1, GL_POSITION, light1PosVistaOriginal);
 
 		glRotatef(-player->getAnguloActualEnMapa(), 0.0, 0.0, 1.0);
 

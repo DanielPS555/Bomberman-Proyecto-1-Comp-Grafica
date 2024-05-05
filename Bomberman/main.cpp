@@ -191,16 +191,24 @@ int main(int argc, char *argv[]) {
 			glLoadIdentity();
 
 			// --- Inicializar camara
-			gluLookAt(0, 0, 0,	 0, 0, -0.1f,	 0, 1, 0);
+			gluLookAt(0, 0, 0,	  0, 0, -0.1f,	0, 1, 0);
 
-			GLfloat colorAmbiental[4] = { 70.0f / 255.f, 105.0f / 255.f, 0.f / 88.f, 0.2f };
+			//GLfloat colorAmbiental[4] = { 70.0f / 255.f, 105.0f / 255.f, 0.f / 88.f, 0.f };
+			//GLfloat colorAmbiental[4] = { 70.0f / 255.f, 105.0f / 255.f, 0.f / 88.f, 0.f };
 			//glLightModelfv(GL_LIGHT_MODEL_AMBIENT, colorAmbiental);
 			
 
-			GLfloat light1Pos[] = { 0.0f, 0.0f, -140.0f, 1.0f };
-			GLfloat light1color[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+			
+			GLfloat light1color[] = { 1.0f, 1.0f, 1.0f, 1.f };
 			glLightfv(GL_LIGHT1, GL_DIFFUSE, light1color);
-			glLightfv(GL_LIGHT1, GL_POSITION, light1Pos);
+			
+
+			glLightf(GL_LIGHT1, GL_CONSTANT_ATTENUATION, 0.5f);
+			glLightf(GL_LIGHT1, GL_LINEAR_ATTENUATION, 0.00f);
+			glLightf(GL_LIGHT1, GL_QUADRATIC_ATTENUATION, 0.0015f);
+
+			
+			
 
 
 			glPushMatrix();
