@@ -16,16 +16,12 @@ mapa::mapa(int cant_filas, int cant_columnas, int posXPuerta, int posYPuerta) {
 	anchoReal = cant_columnas * LARGO_UNIDAD;
 
 
-	pisoShape = {
-		 { 0.,0.,0.			,anchoReal,0.,0.,		anchoReal,alturaReal,0.,		0.,alturaReal,0. }    // vertices
-		,{0,0,1}																						  //Norma
-		,{ 0.1,0.1,0.1}	  // colores	
-		,{0,1,2,3}																						  // indices
-		,{0.0,0.0,	0.0,1.0,	1.0,1.0,	1.0,0.0}
-	};
 
-	pisoShape = generarVerticesIntermedios(pisoShape);
-
+	GLfloat corrPiso[4 * 3] = { 0.,0.,0.	,anchoReal,0.,0.,	anchoReal,alturaReal,0.,		0.,alturaReal,0. };
+	GLfloat coloresPiso[3] = { 0.f, 0.f, 1.f };
+	GLfloat normalPiso[3] = { 1.f,1.f ,1.f };
+	pisoShape = new Rectangulo2d<NUMERO_PARTICIONES_PISO>(corrPiso, coloresPiso, normalPiso);
+	
 
 	vertice verticesBordeInferior[8] = {
 		{{-LARGO_UNIDAD				, -LARGO_UNIDAD			, 0				}, {1,1,1} },
@@ -174,7 +170,7 @@ void mapa::render() {
 
 	//cargarTextura(this->textura);
 
-	renderRectangulo2dIntermedios(pisoShape,this->texturapiso);
+	pisoShape->renderConPuntoIntermediosYTextura(this->texturapiso);
 	//renderRectangulo2d(techoShape, this->texturaTecho);
 
 	for (int i = 0; i < 4; i++) {
@@ -461,6 +457,7 @@ mapa::~mapa() {
 		free(this->estructuraMapa[i]);
 	}
 	free(estructuraMapa);
+	free(pisoShape);
 }
 
 bool mapa::destructEsPuerta()

@@ -14,7 +14,7 @@
 //  |        |
 //  v0------v1
 template<std::size_t N> // Numero de diviciones por cara
-struct retangulo2d {
+struct retangulo2dss {
 	GLfloat cordeneasVerticesBordes[4 * 3];   //Ejemplo: 1,1,1,  -1,1,1,  -1,-1,1,  1,-1,1,  ==> v0-v1-v2-v3
 	GLfloat normales[3];
 	GLfloat color[3];   
@@ -41,7 +41,7 @@ struct retanguloTransparente2d {
 //  | |v5---|-|v6
 //  |/      |/
 //  v0------v1
-struct retangulo3d {
+struct retangulo3dss {
 	GLfloat cordeneasVertices[6 * 4 * 3]; // Idem al ejemplo anterior, pero utilizamos 6 vertices
 	GLfloat normales[6 * 3];
 	GLfloat coloresVertices[6 * 4 * 3];
@@ -56,7 +56,7 @@ struct vertice {
 };
 
 
-retangulo3d createRetangulo3d(vertice vertices[8]);
+retangulo3dss createRetangulo3d(vertice vertices[8]);
 
 
 #endif

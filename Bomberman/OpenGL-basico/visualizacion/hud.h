@@ -36,8 +36,8 @@ private:
 	GLuint textureIconoHeart;
 	GLuint textureIconoEnemy;
 
-	retangulo2d<1> iconoHeart;
-	retangulo2d<1> iconoEnemy;
+	retangulo2dss<1> iconoHeart;
+	retangulo2dss<1> iconoEnemy;
 
 
 	void renderText(float resizeFont, std::string texto, float bordeSupIsqX, 

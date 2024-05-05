@@ -16,7 +16,7 @@ class bomba {
 	private:
 		int posXEnMapa, posYEnMapa;
 		float alcanze; //tamaño de la explocion
-		retangulo3d vertices;
+		retangulo3dss vertices;
 		GLuint textura; 
 		float life;
 

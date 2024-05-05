@@ -4,6 +4,7 @@
 #include "mathVector.h"
 #include "enemigo.h"
 #include "bomb.h"
+#include "shapes/Rectangulo2d.h"
 #ifndef MAPA
 #define MAPA
 
@@ -26,7 +27,7 @@ enum tipoMapaItem {
 
 struct mapaItem {
 	tipoMapaItem tipo;
-	retangulo3d figura;
+	retangulo3dss figura;
 	//Aca va a haber un puntero cuando hay mas datos del elemento
 };
 
@@ -40,8 +41,8 @@ private:
 
 	mapaItem*** estructuraMapa;
 
-	retangulo2d<NUMERO_PARTICIONES_PISO> * pisoShape;
-	retangulo3d bordesShape[4];
+	Rectangulo2d<NUMERO_PARTICIONES_PISO>* pisoShape;
+	retangulo3dss bordesShape[4];
 	std::vector<std::tuple<int, int>> destructibles;
 	
 	GLuint textura;

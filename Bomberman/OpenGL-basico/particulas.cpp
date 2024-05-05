@@ -75,7 +75,7 @@ void particleGenerator::timer(float deltaT)
 void particleGenerator::render()
 {
 
-	retangulo2d<1> rect = {
+	retangulo2dss<1> rect = {
 	 {-0.5f, -0.5f, 0.0f,
 	   0.5f, -0.5f, 0.0f,
 	  -0.5f, 0.5f, 0.0f,
