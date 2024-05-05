@@ -12,10 +12,13 @@
 // posX, posY representa la posicion del centro del enemigo.
 
 
-enemigo::enemigo(){}
+enemigo::enemigo(short id){
+	idEnemigo = id;
+}
 
 //posicionInicial representa el centro del cuadrante i,j
-enemigo::enemigo(mathVector posicionInicial,direccion actual, int i, int j, char * dir_textura) {
+enemigo::enemigo(short id, mathVector posicionInicial,direccion actual, int i, int j, char * dir_textura) {
+	idEnemigo = id;
 	this->x = i;
 	this->y = j;
 	this->posicion = posicionInicial;
@@ -123,9 +126,40 @@ void enemigo::trasladar(float t, mapa * map) {
 void enemigo::render(){
 	glPushMatrix();
 
+	int idLuz;
+
+	switch (idEnemigo){
+	case 0:
+		idLuz = GL_LIGHT2;
+		break;
+	case 1:
+		idLuz = GL_LIGHT3;
+		break;
+	case 2:
+		idLuz = GL_LIGHT4;
+		break;
+	case 3:
+		idLuz = GL_LIGHT5;
+		break;
+	}
+
+	
+
 	glTranslatef(posicion.x - LARGO_UNIDAD/4 , posicion.y - LARGO_UNIDAD/4, 0);
 
 	iniciliarRenderVertexArray();
+
+	glEnable(idLuz);
+	GLfloat lightColor[] = { 1.0f, .1f, 0.1f, 1.f };
+	glLightfv(idLuz, GL_DIFFUSE, lightColor);
+
+	GLfloat light1PosPrimeraPersona[] = { x, y,  LARGO_UNIDAD / 2, 1.0f };
+	glLightfv(idLuz, GL_POSITION, light1PosPrimeraPersona);
+
+	glLightf(idLuz, GL_CONSTANT_ATTENUATION, 0.5f);
+	glLightf(idLuz, GL_LINEAR_ATTENUATION, 0.00f);
+	glLightf(idLuz, GL_QUADRATIC_ATTENUATION, 0.0040f);
+
 
 	renderRectangulo3d(this->vertices, textura);
 

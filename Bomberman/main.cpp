@@ -186,7 +186,7 @@ int main(int argc, char *argv[]) {
 			glDisable(GL_BLEND); //Enable blending.
 
 			glEnable(GL_LIGHTING);
-			glEnable(GL_LIGHT1);
+			
 
 			glLoadIdentity();
 
@@ -198,11 +198,11 @@ int main(int argc, char *argv[]) {
 			//glLightModelfv(GL_LIGHT_MODEL_AMBIENT, colorAmbiental);
 			
 
-			
+			glEnable(GL_LIGHT1);
+
 			GLfloat light1color[] = { 1.0f, 1.0f, 1.0f, 1.f };
 			glLightfv(GL_LIGHT1, GL_DIFFUSE, light1color);
 			
-
 			glLightf(GL_LIGHT1, GL_CONSTANT_ATTENUATION, 0.5f);
 			glLightf(GL_LIGHT1, GL_LINEAR_ATTENUATION, 0.00f);
 			glLightf(GL_LIGHT1, GL_QUADRATIC_ATTENUATION, 0.0015f);
@@ -345,10 +345,11 @@ int main(int argc, char *argv[]) {
 		}
 
 	
+		map->renderEnemigos(deltaTiempo, map);
 		map->render();
 		map->renderPuerta();
 		map->renderBombas(bombs);
-		map->renderEnemigos(deltaTiempo,map);
+		
 		partSist->timer(deltaTiempo);
 		partSist->render();
 
@@ -356,7 +357,14 @@ int main(int argc, char *argv[]) {
 
 		glPopMatrix();
 		glDisable(GL_DEPTH_TEST);
+
 		glDisable(GL_LIGHTING);
+		glDisable(GL_LIGHT1);
+		glDisable(GL_LIGHT2);
+		glDisable(GL_LIGHT3);
+		glDisable(GL_LIGHT4);
+		glDisable(GL_LIGHT5);
+
 		glEnable(GL_BLEND); 
 		glClear(GL_DEPTH_BUFFER_BIT);
 		hud->aumentoTiempo((long)deltaTiempoReal);
