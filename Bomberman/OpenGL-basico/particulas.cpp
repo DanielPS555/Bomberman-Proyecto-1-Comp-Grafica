@@ -74,6 +74,7 @@ void particleGenerator::timer(float deltaT)
 
 void particleGenerator::render()
 {
+
 	/*
 	GLfloat pos[12] = { -0.5f, -0.5f, 0.0f,
 				         0.5f, -0.5f, 0.0f,
@@ -83,7 +84,6 @@ void particleGenerator::render()
 	GLfloat normal[3] = { 0.f,0.f,1.f };
 
 	Rectangulo2d<1>* rect = new Rectangulo2d<1>(pos, normal, colores);
-	
 
 	for (auto& particle : m_ParticlePool)
 	{
@@ -110,8 +110,7 @@ void particleGenerator::render()
 		glPushMatrix();
 
 		iniciliarRenderVertexArray();
-		glTranslatef(particle.Position.x, particle.Position.y, particle.Position.z);
-		glScalef(particle.SizeBegin, 0, particle.SizeBegin);
+
 
 		rect->renderConPuntoIntermediosYTextura(particle.textura);
 		finalizarRenderVertexArray();
@@ -125,7 +124,6 @@ void particleGenerator::render()
 
 void particleGenerator::prepareRender()
 {
-	
 	glEnable(GL_BLEND); 
 	glBlendFunc(GL_SRC2_ALPHA, GL_ONE_MINUS_SRC_ALPHA); 
 	glDepthMask(false); 
@@ -133,6 +131,8 @@ void particleGenerator::prepareRender()
 
 void particleGenerator::finishRender()
 {
+	glDepthMask(true);
+	glDisable(GL_BLEND);
 }
 
 

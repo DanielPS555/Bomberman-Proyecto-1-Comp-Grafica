@@ -117,6 +117,8 @@ public:
 
 	bool danioPorEnemigo(mathVector posicionActual);
 
+	int cantEnemigosVivos();
+
 	~mapa();
 };
 

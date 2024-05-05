@@ -34,9 +34,9 @@ using chrono::seconds;
 bool fin = false;
 bool mostrar_menu = true;
 
-int main(int argc, char *argv[]) {
-	
-	
+int main(int argc, char* argv[]) {
+
+
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		cerr << "No se pudo iniciar SDL: " << SDL_GetError() << endl;
 		return 1;
@@ -48,7 +48,7 @@ int main(int argc, char *argv[]) {
 		return -1;
 	}
 
-	
+
 
 
 	// Creaci�n de la ventana y el renderer de SDL
@@ -60,7 +60,7 @@ int main(int argc, char *argv[]) {
 
 	SDL_GLContext context = SDL_GL_CreateContext(win);
 	//SDL_SetHint(SDL_HINT_RENDER_DRIVER, "opengl");
-	SDL_Renderer* renderer = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );
+	SDL_Renderer* renderer = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	//SDL_Renderer* renderer = SDL_CreateRenderer(win, -1, SDL_RENDERER_SOFTWARE | SDL_RENDERER_PRESENTVSYNC);
 
 	SDL_GL_MakeCurrent(win, context);
@@ -78,12 +78,12 @@ int main(int argc, char *argv[]) {
 	glMatrixMode(GL_MODELVIEW);
 
 
-	
+
 	//FIN TEXTURA
 
 	//----DECLARACION DE OBJETOS CREADOS------------
 
-	
+
 	// --------- Manejo y carga del mapa
 	mapa* map = new mapa(11, 11, 8, 7);
 
@@ -112,7 +112,7 @@ int main(int argc, char *argv[]) {
 	bool sePuso = false;
 
 	// -------- Bombas
-	bomba** bombs = new bomba*[4];
+	bomba** bombs = new bomba * [4];
 	for (int b = 0; b < 4; b++) {
 		bombs[b] = nullptr;
 	}
@@ -120,19 +120,25 @@ int main(int argc, char *argv[]) {
 
 	// -------- Exploxion y Particulas
 	particleGenerator* partSist = new particleGenerator(10, 1.0);
-	explocion** explociones = new explocion*[4];
+	explocion** explociones = new explocion * [4];
 	for (int l = 0; l < 4; l++) {
 		explociones[l] = nullptr;
 	}
 
 	// -------- Jugador
-	mathVector posAct = {0, 0, 0};
+	mathVector posAct = { 0, 0, 0 };
 	int dirAct = 0;
 	bool muerte = false;
 	float invTime = 0;
 	int puntaje = 0;
 
 	jugador* player = new jugador(map->obtenerPosicionInicialJugador(), map->anguloInicialJugador(), map, 3);
+
+	// -------- Flags Juego
+
+	bool victoria = false;
+	bool gameOver = false;
+	int nivel = 1;
 
 	// --------- Configuracion de la camara
 
@@ -180,6 +186,10 @@ int main(int argc, char *argv[]) {
 			float deltaTiempoReal = (float)tiempoTranscurridoUltimoFrame.count(); //Tiempo usado para el temporizador
 			float deltaTiempo = conf->getVelocidadJuego()* deltaTiempoReal;
 			beginLastFrame = Clock::now();
+
+			if (hud->isPantallaMuerteActivada()) {
+				deltaTiempo = 0;
+			}
 			// ---- Inicializar el frame
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			glEnable(GL_DEPTH_TEST);
@@ -259,7 +269,7 @@ int main(int argc, char *argv[]) {
 				if (bombs[i] != nullptr) {
 					if(bombs[i]->timer(deltaTiempo)){
 						victimas = bombs[i]->explosion_trigg(victimas);
-						puntaje += map->eliminarDestructibles(victimas, bombs[i]->getAlcanze());
+						puntaje = puntaje + map->eliminarDestructibles(victimas, bombs[i]->getAlcanze());
 						muerte = bombs[i]->danioBomba(player->getPosicionEnMapa(), victimas);
 						explocion* exp = new explocion(2000, victimas);
 						exp->generateExplocion(bombs[i]->getAlcanze(), partSist);
@@ -284,7 +294,7 @@ int main(int argc, char *argv[]) {
 			while (i < 4 && explotarBomba) {
 				if (bombs[i] != nullptr) {
 					victimas = bombs[i]->explosion_trigg(victimas);
-					puntaje += map->eliminarDestructibles(victimas, bombs[i]->getAlcanze());
+					puntaje = puntaje + map->eliminarDestructibles(victimas, bombs[i]->getAlcanze());
 					muerte = bombs[i]->danioBomba(player->getPosicionEnMapa(), victimas);
 					explocion* exp = new explocion(2000, victimas);
 					exp->generateExplocion(bombs[i]->getAlcanze(), partSist);
@@ -318,29 +328,37 @@ int main(int argc, char *argv[]) {
 			invTime = invTime - deltaTiempo;
 		}
 
-		if (!muerte) {
-			muerte = map->danioPorEnemigo(player->getPosicionEnMapa());
+		if (!muerte) { 
+			muerte = map->danioPorEnemigo(player->getPosicionEnMapa()); 
 		}
 
 		if (muerte && (invTime <= 0)) {
 			player->recibirDanio();
 			muerte = false;
 			invTime = 5000;
-			puntaje -= 3000;
+			puntaje = puntaje - 3000;
 			if (puntaje < 0) {
 				puntaje = 0;
 			}
 			if (player->getVidas() == 0) {
-
-			}
-			else {
-			
+				gameOver = true;
+				player->restart(map->obtenerPosicionInicialJugador(), map->anguloInicialJugador());
+			}else {
+				player->restart(map->obtenerPosicionInicialJugador(), map->anguloInicialJugador());
+				hud->activarPantallaMuerte();
 			}
 		}
 
-		if (map->victoria(player->getPosicionEnMapa())) {
-			puntaje += 15000;
+		if (map->victoria(player->getPosicionEnMapa()) && !victoria) {
+			puntaje = puntaje + 15000;
+			victoria = true;
 		}
+
+
+
+		hud->setPuntosYLevel(puntaje, nivel);
+		hud->setNumeroVidasRestantes(player->getVidas());
+		hud->setNumeroEnemigosRestantes(map->cantEnemigosVivos());
 
 	
 		map->renderEnemigos(deltaTiempo, map);
@@ -446,7 +464,6 @@ int main(int argc, char *argv[]) {
 
 					case SDLK_b:
 						ponerBomba = true;
-						hud->activarPantallaMuerte();
 						break;
 
 					case SDLK_v:

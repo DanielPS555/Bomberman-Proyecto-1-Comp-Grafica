@@ -253,11 +253,15 @@ int mapa::eliminarDestructibles(float** destruir, int alcanze)
 				int r = std::get<0>(temp);
 				int f = std::get<1>(temp);
 				if (y == r && x == f) {
-					delete this->estructuraMapa[r][f];
-					this->estructuraMapa[r][f] = nullptr;
+					if (this->estructuraMapa[r][f] != nullptr) {
+						if (this->estructuraMapa[r][f]->tipo == PARED_DESTRUCTIBLE) {
+							puntos = puntos + 1500;
+						}
+						delete this->estructuraMapa[r][f];
+						this->estructuraMapa[r][f] = nullptr;
+					}
 					destructibles.erase(it);
 					it = destructibles.end();
-					puntos += 1500;
 				}
 				else {
 					s++;
@@ -276,7 +280,7 @@ int mapa::eliminarDestructibles(float** destruir, int alcanze)
 						enemigo* en = this->enemigos[p];
 						this->enemigos[p] = nullptr; 
 						delete en;
-						puntos += 5000;
+						puntos += puntos + 5000;
 					}
 					else {
 						if (x == posx && y == posy) {
@@ -285,7 +289,7 @@ int mapa::eliminarDestructibles(float** destruir, int alcanze)
 							enemigo* en = this->enemigos[p];
 							this->enemigos[p] = nullptr;
 							delete en;
-							puntos += 5000; 
+							puntos = puntos + 5000; 
 						}
 					}
 				}
@@ -460,6 +464,17 @@ int mapa::getCantColumnas() {
 	return this->cant_columnas;
 }
 
+int mapa::cantEnemigosVivos()
+{	
+	int cant = 0;
+	for (int i = 0; i < 4; i++) {
+		if (enemigos[i] != nullptr) {
+			cant = cant + 1;;
+		}
+	}
+	return cant;
+}
+
 mapa::~mapa() {
 	for (int i = 0; i < this->cant_filas ;i++){
 		for (int j = 0; i < this->cant_columnas; j++) {
@@ -530,23 +545,25 @@ bool mapa::noHayEnemigos() {
 
 bool mapa::danioPorEnemigo(mathVector posicionActual)
 {
-	bool daño = false;
+	bool danio = false;
 	int i = 0;
-	while (i < 4 && !daño) {
+	while (i < 4 && !danio) {
 		if (enemigos[i] != nullptr) {
 			mathVector posEn = enemigos[i]->getPosicion();
-			daño = (posicionActual.x <= (posEn.x + 20) && posicionActual.x >= (posEn.x - 20)) && (posicionActual.y <= (posEn.y + 20) && posicionActual.y <= (posEn.y + 20));
+			danio = ((posicionActual.x <= (posEn.x + 12)) && (posicionActual.x >= (posEn.x - 12)) && (posicionActual.y <= (posEn.y + 12)) && (posicionActual.y >= (posEn.y - 12)));
 		}
 		i++;
 	}
-	return daño;
+	return danio;
 }
 
 bool mapa::victoria(mathVector posJugador)
 {	
-	int xJugador = floor(posJugador.x * LARGO_UNIDAD);
-	int yJugador = floor(posJugador.y * LARGO_UNIDAD);
-	if(noHayEnemigos() && !destructEsPuerta() && (xJugador == this->xPuerta) && (yJugador == this->yPuerta)) {
+	int xJugador = floor(posJugador.x / LARGO_UNIDAD);
+	int yJugador = floor(posJugador.y / LARGO_UNIDAD);
+	bool xV = xJugador == this->xPuerta;
+	bool yV = yJugador == this->yPuerta;
+	if(noHayEnemigos() && !destructEsPuerta() && (xV) && (yV)) {
 		return true;
 	}
 	else {

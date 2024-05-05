@@ -178,6 +178,15 @@ int jugador::getVidas()
 	return this->vidas;
 }
 
+void jugador::restart(mathVector posicionInicial, float anguloInicial)
+{
+	posicionEnMapa = posicionInicial;
+
+	anguloActualEnMapa = anguloInicial;
+
+	anguloActualVertical = 0.0f;
+}
+
 
 jugador::~jugador() {
 	free(conf);
