@@ -8,7 +8,7 @@
 //  | |v5---|-|v6
 //  |/      |/
 //  v0------v1
-retangulo3d createRetangulo3d(vertice vertices[8]) 
+retangulo3dss createRetangulo3d(vertice vertices[8]) 
 {
 	return {
 		{ /*Cordenadas*/

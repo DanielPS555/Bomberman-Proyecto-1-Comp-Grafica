@@ -8,6 +8,7 @@
 #include <GL/glu.h>
 #include <vector>
 #include "mathVector.h"
+#include "shapes/Rectangulo2d.h"
 
 
 #ifndef PARTICULAS

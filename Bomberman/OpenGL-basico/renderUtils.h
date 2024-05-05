@@ -4,6 +4,7 @@
 #include <iostream>
 #include <stdio.h>
 #include <GL/glu.h>
+#include "mathVector.h"
 
 
 
@@ -15,12 +16,7 @@ extern bool mostrarTexturas;
 void iniciliarRenderVertexArray();
 void finalizarRenderVertexArray();
 
-void renderRectangulo2d(retangulo2d rec, GLuint textura);
-void renderRectangulo2d(retangulo2d rec);
-void renderRectangulo2d(retanguloTransparente2d rec);
-void renderRectangulo2d(retanguloTransparente2d rec, GLuint textura);
-void renderRectangulo2d(retangulo2d rec, GLuint textura,  float colores[12]);
+void renderRectangulo3d(retangulo3dss rec, GLuint textura);
 
-void renderRectangulo3d(retangulo3d rec, GLuint textura);
 
 #endif

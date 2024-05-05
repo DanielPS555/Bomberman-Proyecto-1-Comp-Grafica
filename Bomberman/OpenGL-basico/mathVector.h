@@ -29,6 +29,9 @@ void print(mathVector);
 
 mathVector rotar(mathVector, float anguloEnGrado);
 
+// El grado de interpolacion entre el inicio de inicio y fin lo `marca t`, donde 0 es el inicio y 1 es el final
+mathVector interpolarVectores(mathVector inicio, mathVector fin, float t);
+
 #endif 
 
 
