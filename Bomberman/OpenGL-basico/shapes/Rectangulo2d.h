@@ -7,7 +7,7 @@
 #ifndef DEF_Rectangulo2d
 #define DEF_Rectangulo2d
 
-template<std:: size_t N> // Numero de particiones por 
+template<std:: size_t N> // Numero de particiones por cara 
 class Rectangulo2d {
 
 
@@ -108,24 +108,28 @@ private:
 
 public:
 
-	Rectangulo2d(GLfloat corr[4 * 3], GLfloat nor[4 * 3], GLfloat color[4 * 3]) {
+	Rectangulo2d(GLfloat corr[4 * 3], GLfloat nor[4 * 3], GLfloat c[4 * 3]) {
 
+		
 		GLfloat corrTextruras[12] = { 0.f, 0.f,	1.f, 0.f,	1.f, 1.f,	0.f,1.f };
-
+		
 		for (int i = 0; i < 12; i++) {
 			cordeneasVerticesBordes[i] = corr[i];
-			corrdenadasTexturasBordes[i] = corrTextruras[i];
+			
 		}
 		
+		for (int i = 0; i < 7; i++) {
+			corrdenadasTexturasBordes[i] = corrTextruras[i];
+		}
 		
 
 		for (int i = 0; i < 4; i++) {
 			normales[i * 3 + 0] = nor[0]    ; normales[i * 3 + 1] = nor[1]	;  normales[i*3 + 2] = nor[2];
-			color	[i * 3 + 0] = color[0]  ; color	[i * 3 + 1] = color[1]	;  color[i * 3 + 2]	 = color[2];
+			color	[i * 3 + 0] = c[0]		; color	[i * 3 + 1] = c[1]		;  color[i * 3 + 2]	 = c[2];
 		}
 		
 		generarVerticesIntermedios();
-
+		
 	}
 	
 	void renderConPuntoIntermediosYTextura( GLuint textura) {
@@ -137,6 +141,19 @@ public:
 			glTexCoordPointer(2, GL_FLOAT, 0, corrdenadasTexturasIntermedias+ i * 8);
 
 			GLubyte indices[4] = {0,1,2,3};
+			glDrawElements(GL_QUADS, 4, GL_UNSIGNED_BYTE, indices);
+		}
+	}
+
+	void renderConPuntoIntermediosYTexturaYColor(GLuint textura, GLfloat coloresL[12]) {
+		glBindTexture(GL_TEXTURE_2D, textura);
+		for (int i = 0; i < N * N; i++) {
+			glNormalPointer(GL_FLOAT, 0, normales);
+			glColorPointer(3, GL_FLOAT, 0, coloresL);
+			glVertexPointer(3, GL_FLOAT, 0, verticesIntermedios + i * 12);
+			glTexCoordPointer(2, GL_FLOAT, 0, corrdenadasTexturasIntermedias + i * 8);
+
+			GLubyte indices[4] = { 0,1,2,3 };
 			glDrawElements(GL_QUADS, 4, GL_UNSIGNED_BYTE, indices);
 		}
 	}

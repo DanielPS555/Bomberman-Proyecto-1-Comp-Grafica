@@ -18,59 +18,61 @@ mapa::mapa(int cant_filas, int cant_columnas, int posXPuerta, int posYPuerta) {
 
 
 	GLfloat corrPiso[4 * 3] = { 0.,0.,0.	,anchoReal,0.,0.,	anchoReal,alturaReal,0.,		0.,alturaReal,0. };
-	GLfloat coloresPiso[3] = { 0.f, 0.f, 1.f };
+	GLfloat coloresPiso[3] = { 1.f, 1.f, 1.f };
 	GLfloat normalPiso[3] = { 1.f,1.f ,1.f };
 	pisoShape = new Rectangulo2d<NUMERO_PARTICIONES_PISO>(corrPiso, coloresPiso, normalPiso);
 	
 
-	vertice verticesBordeInferior[8] = {
-		{{-LARGO_UNIDAD				, -LARGO_UNIDAD			, 0				}, {1,1,1} },
-		{{anchoReal + LARGO_UNIDAD	, -LARGO_UNIDAD			, 0				}, {1,1,1} },
-		{{anchoReal + LARGO_UNIDAD	, -LARGO_UNIDAD			, ALTURA_PARED	}, {1,1,1} },
-		{{-LARGO_UNIDAD				, -LARGO_UNIDAD			, ALTURA_PARED	}, {1,1,1} },
-		{{-LARGO_UNIDAD				, 0						, ALTURA_PARED	}, {1,1,1} },
-		{{-LARGO_UNIDAD				, 0						, 0				}, {1,1,1} },
-		{{anchoReal + LARGO_UNIDAD	, 0						, 0				}, {1,1,1} },
-		{{anchoReal + LARGO_UNIDAD	, 0						, ALTURA_PARED  }, {1,1,1} }
+	GLfloat verticesBordeInferior[8][3] = {
+		{-LARGO_UNIDAD				, -LARGO_UNIDAD			, 0				},
+		{anchoReal + LARGO_UNIDAD	, -LARGO_UNIDAD			, 0				},
+		{anchoReal + LARGO_UNIDAD	, -LARGO_UNIDAD			, ALTURA_PARED	},
+		{-LARGO_UNIDAD				, -LARGO_UNIDAD			, ALTURA_PARED	},
+		{-LARGO_UNIDAD				, 0						, ALTURA_PARED	},
+		{-LARGO_UNIDAD				, 0						, 0				},
+		{anchoReal + LARGO_UNIDAD	, 0						, 0				},
+		{anchoReal + LARGO_UNIDAD	, 0						, ALTURA_PARED  }
 	};
 
-	vertice verticesBordeIzquierdo[8] = {
-		{{ -LARGO_UNIDAD              ,	0					  , 0             }, {0.1,0.1,0.1}},
-		{{0			                  , 0			          , 0             }, {0.1,0.1,0.1}},
-		{{0				              , 0					  , ALTURA_PARED  }, {0.1,0.1,0.1}},
-		{{ -LARGO_UNIDAD              ,	0					  , ALTURA_PARED  }, {0.1,0.1,0.1}},
-		{{ -LARGO_UNIDAD              ,	alturaReal			  , ALTURA_PARED  }, {0.1,0.1,0.1}},
-		{{ -LARGO_UNIDAD              ,	alturaReal			  , 0             }, {0.1,0.1,0.1}},
-		{{0			                  , alturaReal	          , 0             }, {0.1,0.1,0.1}},
-		{{0				              , alturaReal			  , ALTURA_PARED  }, {0.1,0.1,0.1}}
+
+	GLfloat verticesBordeIzquierdo[8][3] = {
+		{ -LARGO_UNIDAD              ,	0					  , 0             },
+		{0			                  , 0			          , 0             },
+		{0				              , 0					  , ALTURA_PARED  },
+		{ -LARGO_UNIDAD              ,	0					  , ALTURA_PARED  },
+		{ -LARGO_UNIDAD              ,	alturaReal			  , ALTURA_PARED  },
+		{ -LARGO_UNIDAD              ,	alturaReal			  , 0             },
+		{0			                  , alturaReal	          , 0             },
+		{0				              , alturaReal			  , ALTURA_PARED  },
 	};
 
-	vertice verticesBordeDerecho[8] = {
-		{{anchoReal					, 0					  , 0             }, {0.1,0.1,0.1}},
-		{{anchoReal	+ LARGO_UNIDAD	, 0			          , 0             }, {0.1,0.1,0.1}},
-		{{anchoReal + LARGO_UNIDAD 	, 0					  , ALTURA_PARED  }, {0.1,0.1,0.1}},
-		{{anchoReal                 , 0					  , ALTURA_PARED  }, {0.1,0.1,0.1}},
-		{{anchoReal                 , anchoReal			  , ALTURA_PARED  }, {0.1,0.1,0.1}},
-		{{anchoReal                 , anchoReal			  , 0             }, {0.1,0.1,0.1}},
-		{{anchoReal + LARGO_UNIDAD	, anchoReal	          , 0             }, {0.1,0.1,0.1}},
-		{{anchoReal + LARGO_UNIDAD	, anchoReal			  , ALTURA_PARED  }, {0.1,0.1,0.1}}
+	GLfloat verticesBordeDerecho[8][3] = {
+		{anchoReal					, 0					  , 0             },
+		{anchoReal	+ LARGO_UNIDAD	, 0			          , 0             },
+		{anchoReal + LARGO_UNIDAD 	, 0					  , ALTURA_PARED  },
+		{anchoReal                  , 0					  , ALTURA_PARED  },
+		{anchoReal                  , anchoReal			  , ALTURA_PARED  },
+		{anchoReal                  , anchoReal			  , 0             },
+		{anchoReal + LARGO_UNIDAD	, anchoReal	          , 0             },
+		{anchoReal + LARGO_UNIDAD	, anchoReal			  , ALTURA_PARED  },
 	};
 
-	vertice verticesBordeSuperior[8] = {
-		{{-LARGO_UNIDAD				, alturaReal					, 0				}, {0.1,0.1,0.1}},
-		{{anchoReal + LARGO_UNIDAD	, alturaReal					, 0				}, {0.1,0.1,0.1}},
-		{{anchoReal + LARGO_UNIDAD	, alturaReal					, ALTURA_PARED	}, {0.1,0.1,0.1}},
-		{{-LARGO_UNIDAD				, alturaReal					, ALTURA_PARED	}, {0.1,0.1,0.1}},
-		{{-LARGO_UNIDAD				, alturaReal + LARGO_UNIDAD		, ALTURA_PARED	}, {0.1,0.1,0.1}},
-		{{-LARGO_UNIDAD				, alturaReal + LARGO_UNIDAD		, 0				}, {0.1,0.1,0.1}},
-		{{anchoReal + LARGO_UNIDAD	, alturaReal + LARGO_UNIDAD		, 0				}, {0.1,0.1,0.1}},
-		{{anchoReal + LARGO_UNIDAD	, alturaReal + LARGO_UNIDAD		, ALTURA_PARED  }, {0.1,0.1,0.1}}
+	GLfloat verticesBordeSuperior[8][3] = {
+		{-LARGO_UNIDAD				, alturaReal					, 0				},
+		{anchoReal + LARGO_UNIDAD	, alturaReal					, 0				},
+		{anchoReal + LARGO_UNIDAD	, alturaReal					, ALTURA_PARED	},
+		{-LARGO_UNIDAD				, alturaReal					, ALTURA_PARED	},
+		{-LARGO_UNIDAD				, alturaReal + LARGO_UNIDAD		, ALTURA_PARED	},
+		{-LARGO_UNIDAD				, alturaReal + LARGO_UNIDAD		, 0				},
+		{anchoReal + LARGO_UNIDAD	, alturaReal + LARGO_UNIDAD		, 0				},
+		{anchoReal + LARGO_UNIDAD	, alturaReal + LARGO_UNIDAD		, ALTURA_PARED  },
 	};
-
-	bordesShape[0] = createRetangulo3d(verticesBordeInferior);
-	bordesShape[1] = createRetangulo3d(verticesBordeIzquierdo);
-	bordesShape[2] = createRetangulo3d(verticesBordeDerecho);
-	bordesShape[3] = createRetangulo3d(verticesBordeSuperior);
+	
+	GLfloat color[3] = { 1.f,1.f,1.f };
+	bordesShape[0] = new Rectangulo3d<NUMERO_PARTICIONES_PARED_LIMITE>(verticesBordeInferior, color);
+	bordesShape[1] = new Rectangulo3d<NUMERO_PARTICIONES_PARED_LIMITE>(verticesBordeIzquierdo, color);
+	bordesShape[2] = new Rectangulo3d<NUMERO_PARTICIONES_PARED_LIMITE>(verticesBordeDerecho, color);
+	bordesShape[3] = new Rectangulo3d<NUMERO_PARTICIONES_PARED_LIMITE>(verticesBordeSuperior, color);
 
 	//inicializo texturas
 	this->textura = inicializarTextura("assets/ladrillo.jpg");
@@ -90,20 +92,19 @@ mapa::mapa(int cant_filas, int cant_columnas, int posXPuerta, int posYPuerta) {
 			if (i >= 1 && j >= 1 && i < cant_filas - 1 && j < cant_filas - 1 && i % 2 == 1 && j % 2 == 1) {
 				this->estructuraMapa[i][j] = new mapaItem;
 				this->estructuraMapa[i][j]->tipo = PARED_INDESTRUCTIBLE;
-
-				vertice verticesCubo[8] = {
-					{{j * LARGO_UNIDAD			, i * LARGO_UNIDAD					, 0			    }, {0.1,0.1,0.1} },
-					{{(j + 1) * LARGO_UNIDAD	, i * LARGO_UNIDAD					, 0			    }, {0.1,0.1,0.1} },
-					{{(j + 1) * LARGO_UNIDAD	, i * LARGO_UNIDAD					, ALTURA_PARED  }, {0.1,0.1,0.1} },
-					{{j * LARGO_UNIDAD	        , i * LARGO_UNIDAD					, ALTURA_PARED  }, {0.1,0.1,0.1} },
-					{{j * LARGO_UNIDAD	        , (i + 1 ) * LARGO_UNIDAD		    , ALTURA_PARED	}, {0.1,0.1,0.1} },
-					{{j  * LARGO_UNIDAD	        , (i + 1) * LARGO_UNIDAD			, 0			    }, {0.1,0.1,0.1} },
-					{{ (j + 1) * LARGO_UNIDAD	, (i + 1) * LARGO_UNIDAD			, 0				}, {0.1,0.1,0.1} },
-					{{ (j + 1) * LARGO_UNIDAD	, (i + 1) * LARGO_UNIDAD			, ALTURA_PARED	}, {0.1,0.1,0.1} },
-
+				GLfloat colores[3] = { 1.f, 1.f, 1.f };
+				GLfloat verticesCubo[8][3]{
+					{j * LARGO_UNIDAD			, i * LARGO_UNIDAD					, 0			    },
+					{(j + 1) * LARGO_UNIDAD		, i * LARGO_UNIDAD					, 0			    },
+					{(j + 1) * LARGO_UNIDAD		, i * LARGO_UNIDAD					, ALTURA_PARED  },
+					{j * LARGO_UNIDAD	        , i * LARGO_UNIDAD					, ALTURA_PARED  },
+					{j * LARGO_UNIDAD	        , (i + 1 ) * LARGO_UNIDAD		    , ALTURA_PARED	},
+					{j  * LARGO_UNIDAD	        , (i + 1) * LARGO_UNIDAD			, 0			    },
+					{ (j + 1) * LARGO_UNIDAD	, (i + 1) * LARGO_UNIDAD			, 0				},
+					{ (j + 1) * LARGO_UNIDAD	, (i + 1) * LARGO_UNIDAD			, ALTURA_PARED	},
 				};
 
-				this->estructuraMapa[i][j]->figura = createRetangulo3d(verticesCubo);
+				this->estructuraMapa[i][j]->figura = new Rectangulo3d<NUMERO_PARTICIONES_PARED_INTERNA>(verticesCubo, colores);
 			}else {
 				this->estructuraMapa[i][j] = nullptr;
 			}
@@ -130,19 +131,19 @@ mapa::mapa(int cant_filas, int cant_columnas, int posXPuerta, int posYPuerta) {
 
 		this->estructuraMapa[i][j] = new mapaItem;
 		this->estructuraMapa[i][j]->tipo = PARED_DESTRUCTIBLE;
-
-		vertice verticesCubo[8] = {
-			{{j * LARGO_UNIDAD			, i * LARGO_UNIDAD					, 0			    }, {1,1,1}},
-			{{(j + 1) * LARGO_UNIDAD	, i * LARGO_UNIDAD					, 0			    }, {1,1,1}},
-			{{(j + 1) * LARGO_UNIDAD	, i * LARGO_UNIDAD					, ALTURA_PARED  }, {1.1,1,1}},
-			{{j * LARGO_UNIDAD	        , i * LARGO_UNIDAD					, ALTURA_PARED  }, {1,1,1}},
-			{{j * LARGO_UNIDAD	        , (i + 1) * LARGO_UNIDAD		    , ALTURA_PARED	}, {1,1,1}},
-			{{j * LARGO_UNIDAD	        , (i + 1) * LARGO_UNIDAD			, 0			    }, {1,1,1}},
-			{{ (j + 1) * LARGO_UNIDAD	, (i + 1) * LARGO_UNIDAD			, 0				}, {1,1,1}},
-			{{ (j + 1) * LARGO_UNIDAD	, (i + 1) * LARGO_UNIDAD			, ALTURA_PARED	}, {1,1,1}}
+		GLfloat colores[3] = { 1.f, 1.f, 1.f };
+		GLfloat verticesCubo[8][3] = {
+			{j * LARGO_UNIDAD			, i * LARGO_UNIDAD					, 0			    },
+			{(j + 1) * LARGO_UNIDAD		, i * LARGO_UNIDAD					, 0			    },
+			{(j + 1) * LARGO_UNIDAD		, i * LARGO_UNIDAD					, ALTURA_PARED  },
+			{j * LARGO_UNIDAD	        , i * LARGO_UNIDAD					, ALTURA_PARED  },
+			{j * LARGO_UNIDAD	        , (i + 1) * LARGO_UNIDAD		    , ALTURA_PARED	},
+			{j * LARGO_UNIDAD	        , (i + 1) * LARGO_UNIDAD			, 0			    },
+			{ (j + 1) * LARGO_UNIDAD	, (i + 1) * LARGO_UNIDAD			, 0				},
+			{ (j + 1) * LARGO_UNIDAD	, (i + 1) * LARGO_UNIDAD			, ALTURA_PARED	},
 		};
 
-		this->estructuraMapa[i][j]->figura = createRetangulo3d(verticesCubo);
+		this->estructuraMapa[i][j]->figura = new Rectangulo3d<NUMERO_PARTICIONES_PARED_INTERNA>(verticesCubo, colores);
 
 	}
 
@@ -174,7 +175,7 @@ void mapa::render() {
 	//renderRectangulo2d(techoShape, this->texturaTecho);
 
 	for (int i = 0; i < 4; i++) {
-		renderRectangulo3d(bordesShape[i],this->texturaPared);
+		bordesShape[i]->render(texturaPared);
 	}
 
 
@@ -188,7 +189,10 @@ void mapa::render() {
 				else {
 					textura = this->textura;
 				}
-				renderRectangulo3d(this->estructuraMapa[i][j]->figura, textura);
+				if (this->estructuraMapa[i][j]->figura != nullptr) {
+					this->estructuraMapa[i][j]->figura->render(textura);
+				}
+				
 			}
 		}
 	}
@@ -454,8 +458,19 @@ int mapa::getCantColumnas() {
 
 mapa::~mapa() {
 	for (int i = 0; i < this->cant_filas ;i++){
+		for (int j = 0; i < this->cant_columnas; j++) {
+			if (this->estructuraMapa[i][j] != nullptr) {
+				free(this->estructuraMapa[i][j]->figura);
+				
+			}			
+		}
 		free(this->estructuraMapa[i]);
 	}
+
+	for (int i = 0; i < 4; i++) {
+		free(bordesShape[i]);
+	}
+
 	free(estructuraMapa);
 	free(pisoShape);
 }
