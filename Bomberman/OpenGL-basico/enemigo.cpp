@@ -141,6 +141,13 @@ void enemigo::render(){
 	case 3:
 		idLuz = GL_LIGHT5;
 		break;
+	case 4:
+		idLuz = GL_LIGHT6;
+		break;
+	case 5:
+		idLuz = GL_LIGHT7;
+		break;
+
 	}
 
 	
