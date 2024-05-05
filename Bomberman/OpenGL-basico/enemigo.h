@@ -17,18 +17,19 @@ enum direccion {
 class enemigo
 {
 private:
+	short idEnemigo;
 	mathVector posicion;
 	direccion direccionActual;
 	
 	//TODO cambiar cuando tengamos obj.
-	retangulo3d vertices; 
+	retangulo3dss vertices; 
 	GLuint textura;
 	int x, y;
 	bool cambio;
 
 public:
-	enemigo();
-	enemigo(mathVector posicionInicial, direccion actual, int i, int j, char * dir_textura);
+	enemigo(short idEnemigo);
+	enemigo(short idEnemigo, mathVector posicionInicial, direccion actual, int i, int j, char * dir_textura);
 	void trasladar(float t, mapa * map);
 	void render();
 	direccion siguienteDireccion(mapa *  map);

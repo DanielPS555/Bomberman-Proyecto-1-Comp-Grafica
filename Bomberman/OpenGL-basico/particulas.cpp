@@ -75,16 +75,15 @@ void particleGenerator::timer(float deltaT)
 void particleGenerator::render()
 {
 
-	retangulo2d rect = {
-	 {-0.5f, -0.5f, 0.0f,
-	   0.5f, -0.5f, 0.0f,
-	   0.5f, 0.5f, 0.0f,
-	  -0.5f, 0.5f, 0.0f}    // vertices
-	,{0,1,0}				//Norma
-	,{ 1.,1.,1.,		 1.,1.,1.,              1.,1.,1.,					    1.,1.,1.         }	  // colores	
-	,{0,1,2,3}																						  // indices
-	,{0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.0}
-	};
+	/*
+	GLfloat pos[12] = { -0.5f, -0.5f, 0.0f,
+				         0.5f, -0.5f, 0.0f,
+					    -0.5f,  0.5f, 0.0f,
+						 0.5f,  0.5f, 0.0f };
+	GLfloat colores[3] = { 1.f,1.f,1.f };
+	GLfloat normal[3] = { 0.f,0.f,1.f };
+
+	Rectangulo2d<1>* rect = new Rectangulo2d<1>(pos, normal, colores);
 
 	for (auto& particle : m_ParticlePool)
 	{
@@ -112,18 +111,15 @@ void particleGenerator::render()
 
 		iniciliarRenderVertexArray();
 
-		prepareRender();
 
-		glTranslatef(particle.Position.x, particle.Position.y, particle.Position.z);
-		glScalef(particle.SizeBegin, particle.SizeBegin, particle.SizeBegin);
-		renderRectangulo2d(rect, particle.textura);
-		
-		finishRender();
-
+		rect->renderConPuntoIntermediosYTextura(particle.textura);
 		finalizarRenderVertexArray();
 
 		glPopMatrix();
+
+		free(rect);
 	}
+	*/
 }
 
 void particleGenerator::prepareRender()
