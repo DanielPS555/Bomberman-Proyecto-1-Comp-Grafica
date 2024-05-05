@@ -83,12 +83,12 @@ public:
 		};
 		GLfloat normalInferior[3] = { 0.0f, 0.0f, -1.0f };
 
-		caraSuperior = new Rectangulo2d<N>(posCaraSuperior, color, normalSuperior);
-		caraInferior = new Rectangulo2d<N>(posCaraInferior, color, normalInferior);
-		caraEste	 = new Rectangulo2d<N>(posCaraEste, color, normalEste);
-		caraOeste	 = new Rectangulo2d<N>(posCaraOeste, color, normalOeste);
-		caraNorte	 = new Rectangulo2d<N>(posCaraNorte, color, normalNorte);
-		caraSur		 = new Rectangulo2d<N>(posCaraSur, color, normalSur);
+		caraSuperior = new Rectangulo2d<N>(posCaraSuperior, normalSuperior, color);
+		caraInferior = new Rectangulo2d<N>(posCaraInferior, normalInferior, color);
+		caraEste	 = new Rectangulo2d<N>(posCaraEste, normalEste, color);
+		caraOeste	 = new Rectangulo2d<N>(posCaraOeste, normalOeste, color );
+		caraNorte	 = new Rectangulo2d<N>(posCaraNorte, normalNorte, color );
+		caraSur		 = new Rectangulo2d<N>(posCaraSur, normalSur, color );
 	}
 
 	~Rectangulo3d() {

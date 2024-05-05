@@ -14,7 +14,7 @@ class enemigo;
 #define LARGO_UNIDAD 25  // tama�o de cada item (casilero) del mapa
 #define ALTURA_PARED 30 // Altura de los cubos y paredes
 
-#define NUMERO_PARTICIONES_PISO 50
+#define NUMERO_PARTICIONES_PISO 30
 #define NUMERO_PARTICIONES_PARED_LIMITE 20
 #define NUMERO_PARTICIONES_PARED_INTERNA 4
 

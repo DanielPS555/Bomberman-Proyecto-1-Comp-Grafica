@@ -19,8 +19,8 @@ mapa::mapa(int cant_filas, int cant_columnas, int posXPuerta, int posYPuerta) {
 
 	GLfloat corrPiso[4 * 3] = { 0.,0.,0.	,anchoReal,0.,0.,	anchoReal,alturaReal,0.,		0.,alturaReal,0. };
 	GLfloat coloresPiso[3] = { 1.f, 1.f, 1.f };
-	GLfloat normalPiso[3] = { 1.f,1.f ,1.f };
-	pisoShape = new Rectangulo2d<NUMERO_PARTICIONES_PISO>(corrPiso, coloresPiso, normalPiso);
+	GLfloat normalPiso[3] = { 0.f,0.f ,1.f };
+	pisoShape = new Rectangulo2d<NUMERO_PARTICIONES_PISO>(corrPiso, normalPiso, coloresPiso);
 	
 
 	GLfloat verticesBordeInferior[8][3] = {
@@ -169,10 +169,12 @@ void mapa::render() {
 
 	iniciliarRenderVertexArray();
 
-	//cargarTextura(this->textura);
+	
 
 	pisoShape->renderConPuntoIntermediosYTextura(this->texturapiso);
-	//renderRectangulo2d(techoShape, this->texturaTecho);
+	
+
+	
 
 	for (int i = 0; i < 4; i++) {
 		bordesShape[i]->render(texturaPared);
@@ -196,6 +198,8 @@ void mapa::render() {
 			}
 		}
 	}
+
+	
 	
 	finalizarRenderVertexArray();
 
