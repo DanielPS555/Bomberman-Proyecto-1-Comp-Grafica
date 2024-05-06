@@ -1,18 +1,27 @@
-﻿  menu.cpp
+﻿  main.cpp
+D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\main.cpp(61,17): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\main.cpp(61,3): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\main.cpp(71,32): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\main.cpp(71,18): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\main.cpp(73,51): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\main.cpp(73,37): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\main.cpp(75,50): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\main.cpp(75,36): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\main.cpp(356,22): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\main.cpp(359,51): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\main.cpp(360,78): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+D:\FING\Proyectos\Comp Grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\main.cpp(360,54): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
 x64\Release\menuGameOver.obj : warning LNK4042: objeto especificado más de una vez; omitidos los sobrantes
   Generando código
-  2 of 755 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
+  1 of 755 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
     4 functions had inline decision re-evaluated but remain unchanged
   Generación de código finalizada
 bomb.obj : warning LNK4099: no se encontró PDB '' con 'bomb.obj' o en ''; se vinculará el objeto sin tener en cuenta información de depuración
 configuraciones.obj : warning LNK4099: no se encontró PDB '' con 'configuraciones.obj' o en ''; se vinculará el objeto sin tener en cuenta información de depuración
-enemigo.obj : warning LNK4099: no se encontró PDB '' con 'enemigo.obj' o en ''; se vinculará el objeto sin tener en cuenta información de depuración
 objloader.obj : warning LNK4099: no se encontró PDB '' con 'objloader.obj' o en ''; se vinculará el objeto sin tener en cuenta información de depuración
 Rectangulo3d.obj : warning LNK4099: no se encontró PDB '' con 'Rectangulo3d.obj' o en ''; se vinculará el objeto sin tener en cuenta información de depuración
 Rectangulo2d.obj : warning LNK4099: no se encontró PDB '' con 'Rectangulo2d.obj' o en ''; se vinculará el objeto sin tener en cuenta información de depuración
-hud.obj : warning LNK4099: no se encontró PDB '' con 'hud.obj' o en ''; se vinculará el objeto sin tener en cuenta información de depuración
-modoVisualizacion.obj : warning LNK4099: no se encontró PDB '' con 'modoVisualizacion.obj' o en ''; se vinculará el objeto sin tener en cuenta información de depuración
 explocion.obj : warning LNK4099: no se encontró PDB '' con 'explocion.obj' o en ''; se vinculará el objeto sin tener en cuenta información de depuración
 jugador.obj : warning LNK4099: no se encontró PDB '' con 'jugador.obj' o en ''; se vinculará el objeto sin tener en cuenta información de depuración
 mapa.obj : warning LNK4099: no se encontró PDB '' con 'mapa.obj' o en ''; se vinculará el objeto sin tener en cuenta información de depuración

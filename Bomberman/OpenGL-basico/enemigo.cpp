@@ -52,7 +52,7 @@ enemigo::enemigo(short id, mathVector posicionInicial,direccion actual, int i, i
 void enemigo::trasladar(float t, mapa * map) {
 	float radio = 1;
 	float deltax = 20.f * t / (1000);
-	std::cout << "deltax:" << deltax << std::endl;
+	//std::cout << "deltax:" << deltax << std::endl;
 	mapaItem *** estructuraMapa = map->getEstructuraMapa();
 	mapaItem* item = new mapaItem();
 	

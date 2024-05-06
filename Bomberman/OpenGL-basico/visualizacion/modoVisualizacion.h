@@ -13,6 +13,8 @@ class modoVisualizacion {
 
 private:
 
+	unsigned long tiempo = 0;
+
 	const mathVector UBICACION_CAMARA_PRIMERA_PERSONA = { 0.0f, 0.0f, 13.0f };
 	const mathVector UBICACION_CAMARA_VISTA_ORIGINAL = { 0.0f, 0.0f, 150.0f };
 
@@ -26,7 +28,7 @@ public:
 
 	void ajustarCamaraPorModoVisualizacion();
 
-	void aplicarTranformacionesPorModo();
+	void aplicarTranformacionesPorModo(float deltaTiempo, bool estaMoviendose);
 
 	void renderHud();
 

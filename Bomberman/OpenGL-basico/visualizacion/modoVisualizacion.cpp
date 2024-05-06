@@ -26,10 +26,17 @@ void modoVisualizacion::ajustarCamaraPorModoVisualizacion() {
 	}
 }
 
-void modoVisualizacion::aplicarTranformacionesPorModo() {
+void modoVisualizacion::aplicarTranformacionesPorModo(float deltaTiempo, bool estaMoviendose) {
+
+	if (estaMoviendose) {
+		tiempo += deltaTiempo;
+	}
+	
 
 	GLfloat light1PosPrimeraPersona[] = { 0.0f, 0.0f, 0.0f, 1.0f };
 	GLfloat light1PosVistaOriginal[] = { 0.0f, 0.0f, -140.0f, 1.0f };
+
+	int altura = 0;
 
 	switch (modoVisualizacionActual) {
 	case MODOS_VISUALIZACION_PRIMERA_PERSONA:
@@ -38,6 +45,9 @@ void modoVisualizacion::aplicarTranformacionesPorModo() {
 		glLightfv(GL_LIGHT1, GL_POSITION, light1PosPrimeraPersona);
 
 		glRotatef(-player->getAnguloActualVertical(), 1.0, 0.0, 0.0);
+
+		
+		glTranslatef(0.0f, 0.0f, cos((float)tiempo / 80) * 0.5f);
 
 		glTranslatef(-UBICACION_CAMARA_PRIMERA_PERSONA.x, -UBICACION_CAMARA_PRIMERA_PERSONA.y, -UBICACION_CAMARA_PRIMERA_PERSONA.z);
 

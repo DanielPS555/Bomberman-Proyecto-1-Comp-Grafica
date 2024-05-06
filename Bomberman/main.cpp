@@ -321,7 +321,7 @@ int main(int argc, char* argv[]) {
 
 
 			// ---- Aplicamos las configuraciones de rotacion y traslacion dependiendo del modo de camara
-			modoVis->aplicarTranformacionesPorModo();
+			modoVis->aplicarTranformacionesPorModo(deltaTiempoReal, isMoviendoArriba || isMoviendoDerecha || isMoviendoAbajo || isMoviendoIsquierda);
 
 			if (modoVis->getModoVis() != MODOS_VISUALIZACION_PRIMERA_PERSONA) {
 				player->render(isMoviendoArriba, isMoviendoAbajo, isMoviendoDerecha, isMoviendoIsquierda);
@@ -501,7 +501,7 @@ int main(int argc, char* argv[]) {
 		deltaRotacionY = 0.0f;
 
 		milliseconds tiempoDuranteFrame = duration_cast<milliseconds>(Clock::now() - beginLastFrame);
-		cout << tiempoDuranteFrame.count() << "ms \n";
+		//cout << tiempoDuranteFrame.count() << "ms \n";
 		if (tiempoDuranteFrame < milliseconds(2)) {
 			sleep_for(2ms);
 		}
