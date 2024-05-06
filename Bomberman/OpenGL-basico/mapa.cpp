@@ -591,23 +591,23 @@ void mapa::resetDestructibles() {
 	for (const auto& par : this->destructibles) {
 		int i = std::get<0>(par);
 		int j = std::get<1>(par);
+		if (this->estructuraMapa[i][j] == nullptr) {
+			this->estructuraMapa[i][j] = new mapaItem;
+			this->estructuraMapa[i][j]->tipo = PARED_DESTRUCTIBLE;
+			GLfloat colores[3] = { 1.f, 1.f, 1.f };
+			GLfloat verticesCubo[8][3] = {
+				{j * LARGO_UNIDAD			, i * LARGO_UNIDAD					, 0			    },
+				{(j + 1) * LARGO_UNIDAD		, i * LARGO_UNIDAD					, 0			    },
+				{(j + 1) * LARGO_UNIDAD		, i * LARGO_UNIDAD					, ALTURA_PARED  },
+				{j * LARGO_UNIDAD	        , i * LARGO_UNIDAD					, ALTURA_PARED  },
+				{j * LARGO_UNIDAD	        , (i + 1) * LARGO_UNIDAD		    , ALTURA_PARED	},
+				{j * LARGO_UNIDAD	        , (i + 1) * LARGO_UNIDAD			, 0			    },
+				{ (j + 1) * LARGO_UNIDAD	, (i + 1) * LARGO_UNIDAD			, 0				},
+				{ (j + 1) * LARGO_UNIDAD	, (i + 1) * LARGO_UNIDAD			, ALTURA_PARED	},
+			};
 
-		this->estructuraMapa[i][j] = new mapaItem;
-		this->estructuraMapa[i][j]->tipo = PARED_DESTRUCTIBLE;
-		GLfloat colores[3] = { 1.f, 1.f, 1.f };
-		GLfloat verticesCubo[8][3] = {
-			{j * LARGO_UNIDAD			, i * LARGO_UNIDAD					, 0			    },
-			{(j + 1) * LARGO_UNIDAD		, i * LARGO_UNIDAD					, 0			    },
-			{(j + 1) * LARGO_UNIDAD		, i * LARGO_UNIDAD					, ALTURA_PARED  },
-			{j * LARGO_UNIDAD	        , i * LARGO_UNIDAD					, ALTURA_PARED  },
-			{j * LARGO_UNIDAD	        , (i + 1) * LARGO_UNIDAD		    , ALTURA_PARED	},
-			{j * LARGO_UNIDAD	        , (i + 1) * LARGO_UNIDAD			, 0			    },
-			{ (j + 1) * LARGO_UNIDAD	, (i + 1) * LARGO_UNIDAD			, 0				},
-			{ (j + 1) * LARGO_UNIDAD	, (i + 1) * LARGO_UNIDAD			, ALTURA_PARED	},
-		};
-
-		this->estructuraMapa[i][j]->figura = new Rectangulo3d<NUMERO_PARTICIONES_PARED_INTERNA>(verticesCubo, colores, false, false, false, false, true, false);
-
+			this->estructuraMapa[i][j]->figura = new Rectangulo3d<NUMERO_PARTICIONES_PARED_INTERNA>(verticesCubo, colores, false, false, false, false, true, false);
+		}
 	}
 }
 
