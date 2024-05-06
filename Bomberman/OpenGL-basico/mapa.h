@@ -119,6 +119,10 @@ public:
 
 	int cantEnemigosVivos();
 
+	void resetDestructibles();
+
+	void resetEnemies();
+
 	~mapa();
 };
 

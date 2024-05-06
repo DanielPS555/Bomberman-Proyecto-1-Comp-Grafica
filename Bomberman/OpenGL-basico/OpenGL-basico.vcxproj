@@ -84,6 +84,9 @@
     <ClCompile Include="bomb.cpp" />
     <ClCompile Include="configuraciones.cpp" />
     <ClCompile Include="enemigo.cpp" />
+    <ClCompile Include="menuGameOver.cpp" />
+    <ClCompile Include="menuGameOver.h" />
+    <ClCompile Include="menuVictoria.cpp" />
     <ClCompile Include="shapes\Rectangulo3d.cpp" />
     <ClCompile Include="shapes\Rectangulo2d.cpp" />
     <ClCompile Include="visualizacion\hud.cpp" />
@@ -103,6 +106,7 @@
     <ClInclude Include="bomb.h" />
     <ClInclude Include="configuraciones.h" />
     <ClInclude Include="enemigo.h" />
+    <ClInclude Include="menuVictoria.h" />
     <ClInclude Include="shapes\Rectangulo3d.h" />
     <ClInclude Include="shapes\Rectangulo2d.h" />
     <ClInclude Include="visualizacion\hud.h" />

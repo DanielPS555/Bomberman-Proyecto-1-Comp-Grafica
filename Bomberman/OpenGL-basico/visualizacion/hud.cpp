@@ -179,6 +179,9 @@ void Hud::renderPantallaMuerte() {
 
 	cout << millSec << " " << tiempoInicioAnimacionMuerte + TIEMPO_ANIMACION_MUERTE << " " << opacidad << "\n";
 
+	renderTextConSombra(0.8f, "HAS MUERTO", 0.0f, 0.0f, true, {25, 25, 255});
+
+
 	glColor4f(1, 0, 0, opacidad);
 	glBegin(GL_QUADS);
 	glVertex3f(-w_2, -h_2, -PROFUNDIDAD_HUD);
