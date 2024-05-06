@@ -13,7 +13,11 @@
 
 
 bomba::bomba(float posXEnMapa, float posYEnMapa, float alcanze, float dirAct)
-{
+{	
+	scale = 0;
+	isAumentando = true;
+
+	bool res = loadAssImp("assets/b.obj", indices, verticess, uvs, normals);
 	int bx, by;
 	if ((45 <= dirAct && dirAct < 135) || (-315 <= dirAct && dirAct < -225)) {
 		// sumar x
@@ -47,18 +51,8 @@ bomba::bomba(float posXEnMapa, float posYEnMapa, float alcanze, float dirAct)
 	this->life = 5000;
 	this->alcanze = alcanze;
 
-	vertice verticesBomba[8] = {
-			{{by * LARGO_UNIDAD	+ (LARGO_UNIDAD / 3)		, bx * LARGO_UNIDAD + (LARGO_UNIDAD / 3)		, 0}			   , {1,1,1}},
-			{{(by + 1) * LARGO_UNIDAD - (LARGO_UNIDAD / 3)	, bx * LARGO_UNIDAD + (LARGO_UNIDAD / 3)		, 0			    }  , {1,1,1}},
-			{{(by + 1) * LARGO_UNIDAD - (LARGO_UNIDAD / 3)	, bx * LARGO_UNIDAD + (LARGO_UNIDAD / 3)		, ALTURA_PARED / 3}, {1.1,1,1}},
-			{{by * LARGO_UNIDAD + (LARGO_UNIDAD / 3)		, bx * LARGO_UNIDAD + (LARGO_UNIDAD / 3)		, ALTURA_PARED / 3}, {1,1,1}},
-			{{by * LARGO_UNIDAD + (LARGO_UNIDAD / 3)		, (bx + 1) * LARGO_UNIDAD - (LARGO_UNIDAD / 3)	, ALTURA_PARED / 3}, {1,1,1}},
-			{{by * LARGO_UNIDAD + (LARGO_UNIDAD / 3)		, (bx + 1) * LARGO_UNIDAD - (LARGO_UNIDAD / 3)	, 0			    }  , {1,1,1}},
-			{{(by + 1) * LARGO_UNIDAD - (LARGO_UNIDAD / 3)	, (bx + 1) * LARGO_UNIDAD - (LARGO_UNIDAD / 3)	, 0				}  , {1,1,1}},
-			{{(by + 1) * LARGO_UNIDAD - (LARGO_UNIDAD / 3)	, (bx + 1) * LARGO_UNIDAD - (LARGO_UNIDAD / 3)	, ALTURA_PARED / 3}, {1,1,1}}
-	};
-	this->textura = inicializarTextura("assets/canon.png");
-	this->vertices = createRetangulo3d(verticesBomba);
+	this->textura = inicializarTextura("assets/b.png");
+	//this->vertices = createRetangulo3d(verticesBomba);
 }
 
 
@@ -101,15 +95,31 @@ float** bomba::explosion_trigg(float** destruct)
 
 void bomba::render()
 {
+
 	glPushMatrix();
+	//renderRectangulo3d(this->vertices, this->textura);
 
-	iniciliarRenderVertexArray();
+	glTranslatef(this->posYEnMapa * LARGO_UNIDAD + LARGO_UNIDAD/2, this->posXEnMapa * LARGO_UNIDAD + LARGO_UNIDAD/2, 0);
+	glRotatef(90, 1, 0, 0);
 
-	renderRectangulo3d(this->vertices, this->textura);
+	if (scale < 2 && isAumentando) {
+		this->scale += 0.01;
+	}
+	else if (scale > 0 && !isAumentando) {
+		this->scale -= 0.01;
+	}
+	else if (scale > 2 && isAumentando) {
+		isAumentando = false;
+	}
+	else if (scale < 0 && !isAumentando) {
+		isAumentando = true;
+	}
 
-	finalizarRenderVertexArray();
-
+	glScalef(scale + 4,scale + 4, scale + 4);
+	render3dObject(verticess, uvs, normals, indices, textura);
 	glPopMatrix();
+
+
 }
 
 int bomba::getYenMapa()

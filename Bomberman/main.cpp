@@ -23,6 +23,7 @@
 #include "OpenGL-basico/menuVictoria.h"
 #include "OpenGL-basico/particulas.h"
 #include "OpenGL-basico/explocion.h"
+#include "OpenGL-basico/util.h"
 
 using namespace std;
 
@@ -83,6 +84,36 @@ int main(int argc, char* argv[]) {
 	glEnable(GL_DEPTH_TEST);
 	glMatrixMode(GL_MODELVIEW);
 
+	//FIN TEXTURA
+	std::vector<glm::vec3> vertices;
+	std::vector<glm::vec2> uvs;
+	std::vector<glm::vec3> normals; // Won't be used at the moment.
+	std::vector<unsigned short> indices;
+	bool res = loadAssImp("assets/bomber.obj", indices, vertices, uvs, normals);
+
+
+	//TEXTURA
+	char* archivo = new char[20];
+	archivo = "assets/bombertexture.png";
+
+	//CARGAR IMAGEN
+	FREE_IMAGE_FORMAT fif = FreeImage_GetFIFFromFilename(archivo);
+	FIBITMAP* bitmap = FreeImage_Load(fif, archivo);
+	bitmap = FreeImage_ConvertTo24Bits(bitmap);
+	int w = FreeImage_GetWidth(bitmap);
+	int h = FreeImage_GetHeight(bitmap);
+	void* datos = FreeImage_GetBits(bitmap);
+	//FIN CARGAR IMAGEN
+
+	GLuint textura;
+	glGenTextures(1, &textura);
+	glBindTexture(GL_TEXTURE_2D, textura);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, w, h, 0, GL_BGR, GL_UNSIGNED_BYTE, datos);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
 
 	//FIN TEXTURA
@@ -247,7 +278,7 @@ int main(int argc, char* argv[]) {
 			glEnable(GL_DEPTH_TEST);
 			glDisable(GL_BLEND); //Enable blending.
 
-			glEnable(GL_LIGHTING);
+			//glEnable(GL_LIGHTING);
 			
 
 			glLoadIdentity();
@@ -282,15 +313,20 @@ int main(int argc, char* argv[]) {
 		
 
 			// ---- Sistema de movimiento, debe ser lo ultimo que se haga
-			if (isRotando) {
+			if (isRotando && modoVis->getModoVis() == MODOS_VISUALIZACION_PRIMERA_PERSONA) {
 				player->rotarVerticalJugador(deltaRotacionY);
 				player->rotarJugador(deltaRotacionX);
-			}		
+			}
 			player->trasladar(deltaTiempo, isMoviendoArriba, isMoviendoDerecha, isMoviendoAbajo, isMoviendoIsquierda);
 
 
 			// ---- Aplicamos las configuraciones de rotacion y traslacion dependiendo del modo de camara
 			modoVis->aplicarTranformacionesPorModo();
+
+			if (modoVis->getModoVis() != MODOS_VISUALIZACION_PRIMERA_PERSONA) {
+				player->render(isMoviendoArriba, isMoviendoAbajo, isMoviendoDerecha, isMoviendoIsquierda);
+			}
+			modoVis->aplicarTransformacionPorCamara();
 		
 
 	
@@ -300,7 +336,25 @@ int main(int argc, char* argv[]) {
 				while (n < 4 && ponerBomba) {
 					if (bombs[n] == nullptr && ponerBomba) {
 						posAct = player->getPosicionEnMapa();
-						dirAct = round(player->getAnguloActualEnMapa());
+						if (modoVis->getModoVis() == MODOS_VISUALIZACION_VISTA_ORGINAL) {
+							switch (player->getCara()) {
+							case ARRIBA:
+								dirAct = 0;
+								break;
+							case ABAJO:
+								dirAct = 180;
+								break;
+							case IZQUIERDA:
+								dirAct = 90;
+								break;
+							case DERECHA:
+								dirAct = 270;
+								break;
+							}
+						}
+						else {
+							dirAct = round(player->getAnguloActualEnMapa());
+						}
 						dirAct = dirAct % 360;
 						bombs[n] = new bomba(posAct.y, posAct.x, 1, dirAct);
 						sePuso = map->agregarBomba(bombs[n]->getXenMapa(), bombs[n]->getYenMapa());
@@ -543,6 +597,9 @@ int main(int argc, char* argv[]) {
 
 					case SDLK_v:
 						modoVis->rotarCambioModo();
+						if (modoVis->getModoVis() == MODOS_VISUALIZACION_VISTA_ORGINAL) {
+							player->restart(player->getPosicionEnMapa(), 0);
+						}
 						break;
 					}
 					break;

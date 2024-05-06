@@ -34,6 +34,9 @@ public:
 
 	void rotarCambioModo();
 
+	void aplicarTransformacionPorCamara();
+
+	MODOS_VISUALIZACION getModoVis();
 
 };
 

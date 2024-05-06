@@ -8,14 +8,27 @@
 #include "mathVector.h"
 #include "configuraciones.h"
 #include "mapa.h"
+#include "util.h"
 
 #ifndef JUGADOR
 #define JUGADOR
 
 #define AVANCE_POR_SEGUNDO 30.0f
 #define MARGEN_SEGURIDAD_COLICION 0.5f //Distancia minima que puede tener el jugador y el objeto con el coliciona
+
+
 class jugador{
 private:
+
+	std::vector<glm::vec3> vertices;
+	std::vector<glm::vec2> uvs;
+	std::vector<glm::vec3> normals; // Won't be used at the moment.
+	std::vector<unsigned short> indices;
+
+	direccion cara;
+	float paso1;
+	GLuint textura;
+
 	mathVector posicionEnMapa;
 
 	mapa* map;
@@ -38,7 +51,6 @@ private:
 public:
 	jugador(mathVector posicionInicial, float anguloInicial, mapa* m, int vidas);
 
-	GLuint textura;
 
 	~jugador();
 
@@ -53,7 +65,6 @@ public:
 
 	void rotarVerticalJugador(float deltaVerticalRotacion);
 
-	void render();
 
 	mathVector getPosicionEnMapa();
 	float getAnguloActualEnMapa();
@@ -67,6 +78,9 @@ public:
 
 	void restart(mathVector posicionInicial, float anguloInicial);
 
+	void render(bool isMoviendoArriba, bool isMoviendoAbajo, bool isMoviendoDerecha, bool isMoviendoIsquierda);
+
+	direccion getCara();
 };
 
 

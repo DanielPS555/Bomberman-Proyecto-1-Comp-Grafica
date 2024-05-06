@@ -11,9 +11,9 @@ void modoVisualizacion::ajustarCamaraPorModoVisualizacion() {
 	{
 	case MODOS_VISUALIZACION_PRIMERA_PERSONA:
 		//gluLookAt(0, 0, 0, 0, 0.1f, 0, 0, 0, 1);
-		
+
 		glRotatef(270, 1, 0, 0);
-		
+
 
 		break;
 	case MODOS_VISUALIZACION_VISTA_ORGINAL:
@@ -28,41 +28,53 @@ void modoVisualizacion::ajustarCamaraPorModoVisualizacion() {
 
 void modoVisualizacion::aplicarTranformacionesPorModo() {
 
-	mathVector posicionEnMapaJugador;
 	GLfloat light1PosPrimeraPersona[] = { 0.0f, 0.0f, 0.0f, 1.0f };
 	GLfloat light1PosVistaOriginal[] = { 0.0f, 0.0f, -140.0f, 1.0f };
 
-	switch (modoVisualizacionActual){
+	switch (modoVisualizacionActual) {
 	case MODOS_VISUALIZACION_PRIMERA_PERSONA:
 
-		
+
 		glLightfv(GL_LIGHT1, GL_POSITION, light1PosPrimeraPersona);
 
 		glRotatef(-player->getAnguloActualVertical(), 1.0, 0.0, 0.0);
-		glRotatef(-player->getAnguloActualEnMapa(), 0.0, 0.0, 1.0);
 
-		posicionEnMapaJugador = player->getPosicionEnMapa();
-		glTranslatef(-posicionEnMapaJugador.x, -posicionEnMapaJugador.y, -posicionEnMapaJugador.z);
-		
-		//En la vista primera persona, es importante que cuando la camara rota, lo haga teniendo el que centro de rotacion
-		// Es la propia camara, es por eso que se coloca el mapa y resto de las cosas en la dirrecion contraria de donde deberia estar la camara
 		glTranslatef(-UBICACION_CAMARA_PRIMERA_PERSONA.x, -UBICACION_CAMARA_PRIMERA_PERSONA.y, -UBICACION_CAMARA_PRIMERA_PERSONA.z);
-
-		
 
 		break;
 	case MODOS_VISUALIZACION_VISTA_ORGINAL:
 
 		glLightfv(GL_LIGHT1, GL_POSITION, light1PosVistaOriginal);
 
-		glRotatef(-player->getAnguloActualEnMapa(), 0.0, 0.0, 1.0);
+		glTranslatef(-UBICACION_CAMARA_VISTA_ORIGINAL.x, -UBICACION_CAMARA_VISTA_ORIGINAL.y, -UBICACION_CAMARA_VISTA_ORIGINAL.z);
+
+
+		break;
+	default:
+		break;
+	}
+}
+
+MODOS_VISUALIZACION modoVisualizacion::getModoVis() {
+	return this->modoVisualizacionActual;
+}
+
+void modoVisualizacion::aplicarTransformacionPorCamara() {
+	mathVector posicionEnMapaJugador;
+
+	glRotatef(-player->getAnguloActualEnMapa(), 0.0, 0.0, 1.0);
+	switch (modoVisualizacionActual) {
+	case MODOS_VISUALIZACION_PRIMERA_PERSONA:
 
 		posicionEnMapaJugador = player->getPosicionEnMapa();
 		glTranslatef(-posicionEnMapaJugador.x, -posicionEnMapaJugador.y, -posicionEnMapaJugador.z);
 
-		//En la vista primera persona, es importante que cuando la camara rota, lo haga teniendo el que centro de rotacion
-		// Es la propia camara, es por eso que se coloca el mapa y resto de las cosas en la dirrecion contraria de donde deberia estar la camara
-		glTranslatef(-UBICACION_CAMARA_VISTA_ORIGINAL.x, -UBICACION_CAMARA_VISTA_ORIGINAL.y, -UBICACION_CAMARA_VISTA_ORIGINAL.z);
+		break;
+	case MODOS_VISUALIZACION_VISTA_ORGINAL:
+
+		posicionEnMapaJugador = player->getPosicionEnMapa();
+		glTranslatef(-posicionEnMapaJugador.x, -posicionEnMapaJugador.y, -posicionEnMapaJugador.z);
+
 
 		break;
 	default:

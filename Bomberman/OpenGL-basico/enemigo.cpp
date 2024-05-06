@@ -18,6 +18,9 @@ enemigo::enemigo(short id){
 
 //posicionInicial representa el centro del cuadrante i,j
 enemigo::enemigo(short id, mathVector posicionInicial,direccion actual, int i, int j, char * dir_textura) {
+
+	bool res = loadAssImp("assets/Horse.obj", indices, verticess, uvs, normals);
+
 	idEnemigo = id;
 	this->x = i;
 	this->y = j;
@@ -64,7 +67,7 @@ void enemigo::trasladar(float t, mapa * map) {
 			this->cambio = true;
 			this->direccionActual = siguienteDireccion(map);
 		}
-		else if ((cambio && abs(posicion.x - coordenada_sig_centro) > 0.1)) {
+		else if ((cambio && abs(posicion.x - coordenada_sig_centro) > 10)) {
 			cambio = false;
 		}
 	}
@@ -79,7 +82,7 @@ void enemigo::trasladar(float t, mapa * map) {
 			this->cambio = true;
 			this->direccionActual = siguienteDireccion(map);
 		}
-		else if ((cambio && abs(posicion.y - coordenada_sig_centro) > 0.1)) {
+		else if ((cambio && abs(posicion.y - coordenada_sig_centro) > 10)) {
 			cambio = false;
 		}
 
@@ -95,7 +98,7 @@ void enemigo::trasladar(float t, mapa * map) {
 			this->cambio = true;
 			this->direccionActual = siguienteDireccion(map);
 		}
-		else if ((cambio && abs(posicion.y - coordenada_sig_centro) > 0.1)) {
+		else if ((cambio && abs(posicion.y - coordenada_sig_centro) > 10)) {
 			cambio = false;
 		}
 
@@ -112,7 +115,7 @@ void enemigo::trasladar(float t, mapa * map) {
 			this->cambio = true;
 			this->direccionActual = siguienteDireccion(map);
 		}
-		else if ((cambio && abs(posicion.x - coordenada_sig_centro) > 0.1)) {
+		else if ((cambio && abs(posicion.x - coordenada_sig_centro) > 10)) {
 			cambio = false;
 		}
 	}
@@ -152,9 +155,9 @@ void enemigo::render(){
 
 	
 
-	glTranslatef(posicion.x - LARGO_UNIDAD/4 , posicion.y - LARGO_UNIDAD/4, 0);
+	glTranslatef(posicion.x, posicion.y, 0);
 
-	iniciliarRenderVertexArray();
+	//iniciliarRenderVertexArray();
 
 	glEnable(idLuz);
 	GLfloat lightColor[] = { 1.0f, .1f, 0.1f, 1.f };
@@ -168,9 +171,24 @@ void enemigo::render(){
 	glLightf(idLuz, GL_QUADRATIC_ATTENUATION, 0.0040f);
 
 
-	renderRectangulo3d(this->vertices, textura);
+	glScalef(0.2, 0.2, 0.2);
+	glRotatef(90, 1, 0, 0);
+	glRotatef(180, 0, 1, 0);
 
-	finalizarRenderVertexArray();
+	
+
+	//renderRectangulo3d(this->vertices, textura);
+	if (direccionActual == DERECHA) {
+		glRotatef(-90, 0,1,0 );
+	}
+	if (direccionActual == IZQUIERDA) {
+		glRotatef(90, 0, 1, 0);
+	}
+	if (direccionActual == ABAJO) {
+		glRotatef(180, 0, 1, 0);
+	}
+
+	render3dObject(verticess, uvs, normals, indices, textura);
 
 	glPopMatrix();
 	

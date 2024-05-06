@@ -32,4 +32,29 @@ void renderRectangulo3d(retangulo3dss rec, GLuint textura) {
 	
 }
 
+void render3dObject(std::vector<glm::vec3> vertices, std::vector<glm::vec2> uvs, std::vector<glm::vec3> normals, std::vector<unsigned short> indices, GLuint texture) {
+	if (mostrarTexturas == 1) {
+		glEnable(GL_TEXTURE_2D);
+	}
+	glBindTexture(GL_TEXTURE_2D, texture);
+	glVertexPointer(3, GL_FLOAT, 0, vertices.data());
+	glTexCoordPointer(2, GL_FLOAT, 0, uvs.data());
+	glNormalPointer(GL_FLOAT, 0, normals.data());
+
+	// Habilitar los punteros
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	glEnableClientState(GL_NORMAL_ARRAY);
+
+	// Dibujar el objeto con los índices
+	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_SHORT, indices.data());
+
+	// Deshabilitar los punteros
+	glDisableClientState(GL_VERTEX_ARRAY);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	glDisableClientState(GL_NORMAL_ARRAY);
+	glDisable(GL_TEXTURE_2D);
+}
+
+
 

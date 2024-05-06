@@ -149,10 +149,10 @@ mapa::mapa(int cant_filas, int cant_columnas, int posXPuerta, int posYPuerta) {
 
 	this->enemigos  = new enemigo * [4];
 
-	this->enemigos[0] = new enemigo(0,{ 0.f, 0.f, 0.f }, DERECHA, 2, 2, "assets/enemy.jpg");
-	this->enemigos[1] = new enemigo(1,{ 0.f, 0.f, 0.f }, DERECHA, 4, 4, "assets/enemy2.jpg");
-	this->enemigos[2] = new enemigo(2,{ 0.f, 0.f, 0.f }, DERECHA, 4, 4, "assets/enemigo3.jpg");
-	this->enemigos[3] = new enemigo(3,{ 0.f, 0.f, 0.f }, DERECHA, 4, 4, "assets/enemy4.jpg");
+	this->enemigos[0] = new enemigo(0, { 0.f, 0.f, 0.f }, DERECHA, 2, 2, "assets/horsetexture.png");
+	this->enemigos[1] = new enemigo(1, { 0.f, 0.f, 0.f }, DERECHA, 4, 4, "assets/horsetexture.png");
+	this->enemigos[2] = new enemigo(2, { 0.f, 0.f, 0.f }, DERECHA, 4, 4, "assets/horsetexture.png");
+	this->enemigos[3] = new enemigo(3, { 0.f, 0.f, 0.f }, DERECHA, 4, 4, "assets/horsetexture.png");
 
 }
 
@@ -191,7 +191,7 @@ void mapa::render() {
 				else {
 					textura = this->textura;
 				}
-				if (this->estructuraMapa[i][j]->figura != nullptr) {
+				if (this->estructuraMapa[i][j]->figura != nullptr && this->estructuraMapa[i][j]->tipo != PUERTA) {
 					this->estructuraMapa[i][j]->figura->render(textura);
 				}
 				
