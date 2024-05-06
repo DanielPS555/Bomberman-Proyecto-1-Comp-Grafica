@@ -179,6 +179,9 @@ void Hud::renderPantallaMuerte() {
 
 	cout << millSec << " " << tiempoInicioAnimacionMuerte + TIEMPO_ANIMACION_MUERTE << " " << opacidad << "\n";
 
+	renderTextConSombra(0.8f, "HAS MUERTO", 0.0f, 0.0f, true, {25, 25, 255});
+
+
 	glColor4f(1, 0, 0, opacidad);
 	glBegin(GL_QUADS);
 	glVertex3f(-w_2, -h_2, -PROFUNDIDAD_HUD);
@@ -300,7 +303,7 @@ void Hud::renderText(float resizeFont, std::string texto, float bordeSupIsqX, fl
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-	glTexImage2D(GL_TEXTURE_2D, 0, texture_format, w_text, h_text, 0, texture_format, GL_UNSIGNED_BYTE, textSurface->pixels);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w_text, h_text, 0, GL_RGBA, GL_UNSIGNED_BYTE, textSurface->pixels);
 
 
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 4);

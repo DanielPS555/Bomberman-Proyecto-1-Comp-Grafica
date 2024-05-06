@@ -178,6 +178,11 @@ int jugador::getVidas()
 	return this->vidas;
 }
 
+void jugador::gainVidas(int vids)
+{
+	this->vidas += vids;
+}
+
 void jugador::restart(mathVector posicionInicial, float anguloInicial)
 {
 	posicionEnMapa = posicionInicial;

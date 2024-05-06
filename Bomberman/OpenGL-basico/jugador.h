@@ -63,6 +63,8 @@ public:
 
 	int getVidas();
 
+	void gainVidas(int vidas);
+
 	void restart(mathVector posicionInicial, float anguloInicial);
 
 };

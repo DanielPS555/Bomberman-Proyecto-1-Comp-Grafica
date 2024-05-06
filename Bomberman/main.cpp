@@ -19,6 +19,8 @@
 #include <Assimp/postprocess.h>
 #include <SDL_ttf.h>
 #include "OpenGL-basico/menu.h"
+#include "OpenGL-basico/menuGameOver.h"
+#include "OpenGL-basico/menuVictoria.h"
 #include "OpenGL-basico/particulas.h"
 #include "OpenGL-basico/explocion.h"
 
@@ -66,6 +68,10 @@ int main(int argc, char* argv[]) {
 	SDL_GL_MakeCurrent(win, context);
 
 	menu mnu = menu(SCREEN_WIDTH, SCREEN_HEIGHT, renderer);
+
+	gameOverMenu goMenu = gameOverMenu(SCREEN_WIDTH, SCREEN_HEIGHT, renderer);
+
+	victoryMenu vicMenu = victoryMenu(SCREEN_WIDTH, SCREEN_HEIGHT, renderer);
 
 	glMatrixMode(GL_PROJECTION);
 
@@ -134,11 +140,20 @@ int main(int argc, char* argv[]) {
 
 	jugador* player = new jugador(map->obtenerPosicionInicialJugador(), map->anguloInicialJugador(), map, 3);
 
+	// -------- Mapa
+
+	int xmn = 0;
+	int ymn = 0;
+	int xPuerta = 0;
+	int yPuerta = 0;
+
 	// -------- Flags Juego
 
 	bool victoria = false;
 	bool gameOver = false;
 	int nivel = 1;
+	bool retry = false;
+	bool newLvl = false;
 
 	// --------- Configuracion de la camara
 
@@ -174,11 +189,47 @@ int main(int argc, char* argv[]) {
 
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); //Set blending function.
 	do {
+		if (retry) {
+			glDisable(GL_BLEND);
+			puntaje = 0;
+			map->resetEnemies();
+			map->resetDestructibles();
+			player->gainVidas(3);
+			player->restart(map->obtenerPosicionInicialJugador(), map->anguloInicialJugador());
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			retry = false;
+		}
+		if (newLvl) {
+			/*glDisable(GL_BLEND);
+			xmn = (floor(Random::Float() * 20) + 11);
+			ymn = (floor(Random::Float() * 20) + 11);
+			xPuerta = floor(Random::Float() * xmn);
+			yPuerta = floor(Random::Float() * ymn);
+			free(map);
+			map = new mapa(ymn, xmn, yPuerta, xPuerta);
+			player->gainVidas(3);
+			player->restart(map->obtenerPosicionInicialJugador(), map->anguloInicialJugador());
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);*/
+			newLvl = false;
+		}
 		if (mostrar_menu) {
+			if (mostrar_menu && victoria) {
+				vicMenu.render();
+				SDL_RenderClear(renderer);
+			}
+			else {
+				if (mostrar_menu && gameOver) {
+					goMenu.render();
+					SDL_RenderClear(renderer);
+				}
+				else {
+					mnu.render();
+					SDL_RenderClear(renderer);
 
-			mnu.render();	
-			SDL_RenderClear(renderer);
-
+				}
+			}
 		}else {
 			
 			//Medir tiempo desde el ultimo frame hasta este
@@ -335,6 +386,10 @@ int main(int argc, char* argv[]) {
 		if (muerte && (invTime <= 0)) {
 			player->recibirDanio();
 			muerte = false;
+			isMoviendoAbajo = false;
+			isMoviendoArriba = false;
+			isMoviendoDerecha = false;
+			isMoviendoIsquierda = false;
 			invTime = 5000;
 			puntaje = puntaje - 3000;
 			if (puntaje < 0) {
@@ -342,6 +397,7 @@ int main(int argc, char* argv[]) {
 			}
 			if (player->getVidas() == 0) {
 				gameOver = true;
+				mostrar_menu = true;
 				player->restart(map->obtenerPosicionInicialJugador(), map->anguloInicialJugador());
 			}else {
 				player->restart(map->obtenerPosicionInicialJugador(), map->anguloInicialJugador());
@@ -352,6 +408,7 @@ int main(int argc, char* argv[]) {
 		if (map->victoria(player->getPosicionEnMapa()) && !victoria) {
 			puntaje = puntaje + 15000;
 			victoria = true;
+			mostrar_menu = true;
 		}
 
 
@@ -401,12 +458,29 @@ int main(int argc, char* argv[]) {
 
 		//----------MANEJO DE EVENTOS-------------
 
-		while (SDL_PollEvent(&evento)) {
+		while (SDL_PollEvent(&evento) && !hud->isPantallaMuerteActivada()) {
 			
 			
 			if (mostrar_menu) {
-				mostrar_menu = mnu.eventHandler(evento);
-				beginLastFrame = Clock::now();
+				if (mostrar_menu && victoria) {
+					mostrar_menu = vicMenu.eventHandler(evento);
+					victoria = mostrar_menu;
+					beginLastFrame = Clock::now();
+					fin = vicMenu.isFinal();
+					newLvl = vicMenu.weFight();
+				}
+				else {
+					if (mostrar_menu && gameOver) {
+						gameOver = goMenu.eventHandler(evento);
+						beginLastFrame = Clock::now();
+						fin = goMenu.isFinal();
+						retry = goMenu.weResist();
+					}
+					else {
+						mostrar_menu = mnu.eventHandler(evento);
+						beginLastFrame = Clock::now();
+					}
+				}
 			}
 			else {
 				switch (evento.type) {
