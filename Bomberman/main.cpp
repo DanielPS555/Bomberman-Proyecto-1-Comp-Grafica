@@ -534,6 +534,7 @@ int main(int argc, char* argv[]) {
 					else {
 						mostrar_menu = mnu.eventHandler(evento);
 						beginLastFrame = Clock::now();
+						fin = mnu.isFinal();
 					}
 				}
 			}

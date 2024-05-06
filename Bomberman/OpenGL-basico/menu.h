@@ -33,6 +33,7 @@ private:
 	int cursorIndex;
 	int w, h;
 	int * elecciones;
+	bool fin;
 
 public:
 	menu(int w,int h, SDL_Renderer* r);
@@ -41,6 +42,7 @@ public:
 	void drawTriangleCursor(SDL_Renderer* renderer, int x, int y, int size);
 	void render();
 	int eventHandler(SDL_Event evento);
+	bool isFinal();
 };
 
 
