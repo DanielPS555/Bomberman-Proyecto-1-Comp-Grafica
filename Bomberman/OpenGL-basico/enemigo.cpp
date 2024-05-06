@@ -50,24 +50,26 @@ enemigo::enemigo(short id, mathVector posicionInicial,direccion actual, int i, i
 	this->vertices = createRetangulo3d(verticesEnemigo);
 }
 void enemigo::trasladar(float t, mapa * map) {
+	float radio = 1;
 	float deltax = 20.f * t / (1000);
+	std::cout << "deltax:" << deltax << std::endl;
 	mapaItem *** estructuraMapa = map->getEstructuraMapa();
 	mapaItem* item = new mapaItem();
 	
 	item->tipo = ENEMY;
 	delete estructuraMapa[y][x];
 	estructuraMapa[y][x] = NULL;
-
+	
 	if (direccionActual == DERECHA) {
 		this->posicion.x = this->posicion.x +  deltax;
 		int coordenada_sig_centro = (x + 1) * LARGO_UNIDAD + LARGO_UNIDAD/2;
-		if (abs(posicion.x - coordenada_sig_centro) < 0.1 && !this->cambio) {
+		if (abs(posicion.x - coordenada_sig_centro) < radio && !this->cambio) {
 			this->posicion.x = coordenada_sig_centro;
 			this->x = x + 1;
 			this->cambio = true;
 			this->direccionActual = siguienteDireccion(map);
 		}
-		else if ((cambio && abs(posicion.x - coordenada_sig_centro) > 10)) {
+		else if ((cambio && abs(posicion.x - coordenada_sig_centro) > radio)) {
 			cambio = false;
 		}
 	}
@@ -76,13 +78,13 @@ void enemigo::trasladar(float t, mapa * map) {
 
 		int coordenada_sig_centro = (y - 1) * LARGO_UNIDAD + LARGO_UNIDAD / 2;
 
-		if (abs(posicion.y - coordenada_sig_centro) < 0.1 && !this->cambio) {
+		if (abs(posicion.y - coordenada_sig_centro) < radio && !this->cambio) {
 			this->posicion.y = coordenada_sig_centro;
 			this->y = y - 1;
 			this->cambio = true;
 			this->direccionActual = siguienteDireccion(map);
 		}
-		else if ((cambio && abs(posicion.y - coordenada_sig_centro) > 10)) {
+		else if ((cambio && abs(posicion.y - coordenada_sig_centro) > radio)) {
 			cambio = false;
 		}
 
@@ -92,13 +94,13 @@ void enemigo::trasladar(float t, mapa * map) {
 
 		int coordenada_sig_centro = (y + 1) * LARGO_UNIDAD + LARGO_UNIDAD / 2;
 
-		if (abs(posicion.y - coordenada_sig_centro) < 0.1 && !this->cambio) {
+		if (abs(posicion.y - coordenada_sig_centro) < radio && !this->cambio) {
 			this->posicion.y = coordenada_sig_centro;
 			this->y = y + 1;
 			this->cambio = true;
 			this->direccionActual = siguienteDireccion(map);
 		}
-		else if ((cambio && abs(posicion.y - coordenada_sig_centro) > 10)) {
+		else if ((cambio && abs(posicion.y - coordenada_sig_centro) > radio)) {
 			cambio = false;
 		}
 
@@ -109,13 +111,13 @@ void enemigo::trasladar(float t, mapa * map) {
 
 		int coordenada_sig_centro = (x - 1) * LARGO_UNIDAD + LARGO_UNIDAD / 2;
 
-		if (abs(posicion.x - coordenada_sig_centro) < 0.1 && !this->cambio) {
+		if (abs(posicion.x - coordenada_sig_centro) < radio && !this->cambio) {
 			this->posicion.x = coordenada_sig_centro;
 			this->x = x - 1;
 			this->cambio = true;
 			this->direccionActual = siguienteDireccion(map);
 		}
-		else if ((cambio && abs(posicion.x - coordenada_sig_centro) > 10)) {
+		else if ((cambio && abs(posicion.x - coordenada_sig_centro) > radio)) {
 			cambio = false;
 		}
 	}
