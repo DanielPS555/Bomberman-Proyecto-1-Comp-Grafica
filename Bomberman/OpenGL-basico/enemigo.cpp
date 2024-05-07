@@ -138,44 +138,46 @@ void enemigo::render(){
 
 	//iniciliarRenderVertexArray();
 
-	if (configuraciones::getInstancia()->getModoIluminacion() == MODOS_ILUMINACION_NOCHE) {
+	int idLuz;
 
-		int idLuz;
-
-		switch (idEnemigo) {
-		case 0:
-			idLuz = GL_LIGHT2;
-			break;
-		case 1:
-			idLuz = GL_LIGHT3;
-			break;
-		case 2:
-			idLuz = GL_LIGHT4;
-			break;
-		case 3:
-			idLuz = GL_LIGHT5;
-			break;
-		case 4:
-			idLuz = GL_LIGHT6;
-			break;
-		case 5:
-			idLuz = GL_LIGHT7;
-			break;
-
-		}
-
-		glEnable(idLuz);
-		GLfloat lightColor[] = { 1.0f, .1f, 0.1f, 1.f };
-		glLightfv(idLuz, GL_DIFFUSE, lightColor);
-
-		GLfloat light1PosPrimeraPersona[] = { x, y,  LARGO_UNIDAD / 2, 1.0f };
-		glLightfv(idLuz, GL_POSITION, light1PosPrimeraPersona);
-
-		glLightf(idLuz, GL_CONSTANT_ATTENUATION, 0.5f);
-		glLightf(idLuz, GL_LINEAR_ATTENUATION, 0.00f);
-		glLightf(idLuz, GL_QUADRATIC_ATTENUATION, 0.0040f);
+	switch (idEnemigo) {
+	case 0:
+		idLuz = GL_LIGHT2;
+		break;
+	case 1:
+		idLuz = GL_LIGHT3;
+		break;
+	case 2:
+		idLuz = GL_LIGHT4;
+		break;
+	case 3:
+		idLuz = GL_LIGHT5;
+		break;
+	case 4:
+		idLuz = GL_LIGHT6;
+		break;
+	case 5:
+		idLuz = GL_LIGHT7;
+		break;
 
 	}
+
+	glEnable(idLuz);
+
+
+	GLfloat light1PosPrimeraPersona[] = { x, y,  LARGO_UNIDAD / 2, 1.0f };
+	glLightfv(idLuz, GL_POSITION, light1PosPrimeraPersona);
+
+	glLightf(idLuz, GL_CONSTANT_ATTENUATION, 0.5f);
+	glLightf(idLuz, GL_LINEAR_ATTENUATION, 0.00f);
+	glLightf(idLuz, GL_QUADRATIC_ATTENUATION, 0.0040f);
+
+
+
+	GLfloat lightColor[] = { 1.0f, .1f, 0.1f, 1.f };
+	glLightfv(idLuz, GL_DIFFUSE, lightColor);
+
+
 
 	
 
