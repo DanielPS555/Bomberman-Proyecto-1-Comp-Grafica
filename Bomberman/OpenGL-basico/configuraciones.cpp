@@ -8,6 +8,8 @@ configuraciones::configuraciones() {
 
 	sensibilidadCamara = SENSIBILIDAD_CAMARA;
 	velocidadJuego = VELOCIDAD_JUEGO;
+
+	modoIluminacion = MODOS_ILUMINACION_ATARDESER;
 }
 
 configuraciones::~configuraciones(){}
@@ -42,4 +44,13 @@ void configuraciones::setVelocidadJuego(float v) {
 
 float configuraciones::getVelocidadJuego() {
 	return velocidadJuego;
+}
+
+
+MODOS_ILUMINACION configuraciones::getModoIluminacion() {
+	return modoIluminacion;
+}
+
+void configuraciones::setModoIluminacion(MODOS_ILUMINACION m) {
+	modoIluminacion = m;
 }

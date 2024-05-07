@@ -10,6 +10,8 @@
 #include <iostream>
 jugador::jugador(mathVector posicionInicial, float anguloInicial, mapa* m, int vidas) {
 
+	bool res = loadAssImp("assets/bomber.obj", indices, vertices, uvs, normals);
+
 	conf = configuraciones::getInstancia();
 
 	map = m;
@@ -20,10 +22,11 @@ jugador::jugador(mathVector posicionInicial, float anguloInicial, mapa* m, int v
 
 	anguloActualVertical = 0.0f;
 
-	this->textura = inicializarTextura("assets/ladrillo.jpg");
+	this->textura = inicializarTextura("assets/bombertexture.png");
 
 	this->vidas = vidas;
 
+	cara = ARRIBA;
 }
 
 
@@ -146,21 +149,39 @@ void jugador::rotarVerticalJugador(float deltaVerticalRotacion) {
 }
 
 
-void jugador::render() {
-	glPushMatrix();
-		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, textura);
-		glBegin(GL_TRIANGLES);
-		glColor3f(1.0, 1.0, 1.0);
-		glTexCoord2f(0, 0);
-		glVertex3f(0., 0., 0.);
-		glTexCoord2f(0, 1);
-		glVertex3f(25., 0., 0.);
-		glTexCoord2f(1, 0);
-		glVertex3f(25., 25., 0.);
-		glEnd();
-		glDisable(GL_TEXTURE_2D);
+void jugador::render(bool isMoviendoArriba, bool isMoviendoAbajo, bool isMoviendoDerecha, bool isMoviendoIsquierda) {
+	
+	if (isMoviendoArriba) {
+		cara = ARRIBA;
+	}
+	if (isMoviendoAbajo) {
+		cara = ABAJO;
+	}
+	if (isMoviendoDerecha) {
+		cara = DERECHA;
+	}
+	if (isMoviendoIsquierda) {
+		cara = IZQUIERDA;
+	}
 
+	glPushMatrix();
+	if (cara == ARRIBA) {
+		glRotatef(0, 0, 0, 1);
+	}
+	if (cara == ABAJO) {
+		glRotatef(180, 0, 0, 1);
+	}
+	if (cara == DERECHA) {
+		glRotatef(-90, 0, 0, 1);
+	}
+	if (cara == IZQUIERDA) {
+		glRotatef(90, 0, 0, 1);
+	}
+	glScalef(10, 10, 10);
+	glRotatef(90, 1, 0, 0);
+	glRotatef(180, 0, 1, 0);
+
+	render3dObject(vertices, uvs, normals, indices, textura);
 	glPopMatrix();
 }
 
@@ -192,6 +213,10 @@ void jugador::restart(mathVector posicionInicial, float anguloInicial)
 	anguloActualVertical = 0.0f;
 }
 
+
+direccion jugador::getCara() {
+	return cara;
+}
 
 jugador::~jugador() {
 	free(conf);

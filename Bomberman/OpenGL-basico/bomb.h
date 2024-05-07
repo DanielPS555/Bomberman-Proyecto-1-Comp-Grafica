@@ -20,6 +20,14 @@ class bomba {
 		GLuint textura; 
 		float life;
 
+		std::vector<unsigned short> indices;
+		std::vector<glm::vec3> verticess;
+		std::vector<glm::vec2> uvs;
+		std::vector<glm::vec3> normals;
+
+		float scale;
+		int isAumentando;
+
 	public:
 		bomba(float posXEnMapa, float posYEnMapa, float alcanze, float dirAct);
 

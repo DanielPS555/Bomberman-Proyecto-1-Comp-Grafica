@@ -19,6 +19,10 @@
     <ClCompile Include="visualizacion\modoVisualizacion.cpp" />
     <ClCompile Include="shapes\Rectangulo2d.cpp" />
     <ClCompile Include="shapes\Rectangulo3d.cpp" />
+    <ClCompile Include="menuGameOver.cpp" />
+    <ClCompile Include="menuGameOver.h" />
+    <ClCompile Include="menuVictoria.cpp" />
+    <ClCompile Include="objloader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bomb.h" />
@@ -38,5 +42,7 @@
     <ClInclude Include="visualizacion\modoVisualizacion.h" />
     <ClInclude Include="shapes\Rectangulo2d.h" />
     <ClInclude Include="shapes\Rectangulo3d.h" />
+    <ClInclude Include="menuVictoria.h" />
+    <ClInclude Include="objloader.h" />
   </ItemGroup>
 </Project>

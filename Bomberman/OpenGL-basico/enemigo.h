@@ -1,18 +1,12 @@
 #include "renderUtils.h"
 #include "mathVector.h"
-
-
+#include "objloader.h"
+#include "util.h"
+#include "configuraciones.h"
 class mapa;
 
 #ifndef ENEMIGO
 #define ENEMIGO
-
-enum direccion {
-	ARRIBA,
-	ABAJO,
-	DERECHA,
-	IZQUIERDA
-};
 
 class enemigo
 {
@@ -26,6 +20,11 @@ private:
 	GLuint textura;
 	int x, y;
 	bool cambio;
+
+	std::vector<unsigned short> indices;
+	std::vector<glm::vec3> verticess;
+	std::vector<glm::vec2> uvs;
+	std::vector<glm::vec3> normals;
 
 public:
 	enemigo(short idEnemigo);

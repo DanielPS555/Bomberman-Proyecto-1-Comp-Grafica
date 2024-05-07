@@ -109,11 +109,12 @@ int gameOverMenu::eventHandler(SDL_Event evento)
 {
 	configuraciones* conf = configuraciones::getInstancia();
 	switch (evento.type) {
+	case SDL_QUIT:
+		fin = true;
+		return 0;
+		break;
 	case SDL_KEYDOWN:
 		switch (evento.key.keysym.sym) {
-		case SDL_QUIT:
-			//ToDo implementar
-			break;
 		case SDLK_ESCAPE:
 			return 0;
 			break;

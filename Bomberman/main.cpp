@@ -23,6 +23,7 @@
 #include "OpenGL-basico/menuVictoria.h"
 #include "OpenGL-basico/particulas.h"
 #include "OpenGL-basico/explocion.h"
+#include "OpenGL-basico/util.h"
 
 using namespace std;
 
@@ -83,6 +84,36 @@ int main(int argc, char* argv[]) {
 	glEnable(GL_DEPTH_TEST);
 	glMatrixMode(GL_MODELVIEW);
 
+	//FIN TEXTURA
+	std::vector<glm::vec3> vertices;
+	std::vector<glm::vec2> uvs;
+	std::vector<glm::vec3> normals; // Won't be used at the moment.
+	std::vector<unsigned short> indices;
+	bool res = loadAssImp("assets/bomber.obj", indices, vertices, uvs, normals);
+
+
+	//TEXTURA
+	char* archivo = new char[20];
+	archivo = "assets/bombertexture.png";
+
+	//CARGAR IMAGEN
+	FREE_IMAGE_FORMAT fif = FreeImage_GetFIFFromFilename(archivo);
+	FIBITMAP* bitmap = FreeImage_Load(fif, archivo);
+	bitmap = FreeImage_ConvertTo24Bits(bitmap);
+	int w = FreeImage_GetWidth(bitmap);
+	int h = FreeImage_GetHeight(bitmap);
+	void* datos = FreeImage_GetBits(bitmap);
+	//FIN CARGAR IMAGEN
+
+	GLuint textura;
+	glGenTextures(1, &textura);
+	glBindTexture(GL_TEXTURE_2D, textura);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, w, h, 0, GL_BGR, GL_UNSIGNED_BYTE, datos);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
 
 	//FIN TEXTURA
@@ -182,9 +213,6 @@ int main(int argc, char* argv[]) {
 	}
 
 	int cursorIndex = 0;
-
-
-	//glEnable(GL_COLOR_MATERIAL);
 	
 
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); //Set blending function.
@@ -260,12 +288,23 @@ int main(int argc, char* argv[]) {
 			
 			glEnable(GL_LIGHT1);
 
-			GLfloat light1color[] = { 7.0f /255.f,	 15.0f / 255.f,	 43.0f / 255.f, 1.f };
-			glLightfv(GL_LIGHT1, GL_DIFFUSE, light1color);
+			if ( configuraciones::getInstancia()->getModoIluminacion() == MODOS_ILUMINACION_NOCHE) {
+				GLfloat light1color[] = { 7.0f / 255.f,	 15.0f / 255.f,	 43.0f / 255.f, 1.f };
+				glLightfv(GL_LIGHT1, GL_DIFFUSE, light1color);
+
+				//GLfloat light1colorSpecular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+				//glLightfv(GL_LIGHT1, GL_SPECULAR, light1colorSpecular);
+
+
+
+				glLightf(GL_LIGHT1, GL_CONSTANT_ATTENUATION, 0.05f);
+				glLightf(GL_LIGHT1, GL_LINEAR_ATTENUATION, 0.00f);
+				glLightf(GL_LIGHT1, GL_QUADRATIC_ATTENUATION, 0.0010f);
+
+			}
 			
-			glLightf(GL_LIGHT1, GL_CONSTANT_ATTENUATION, 0.5f);
-			glLightf(GL_LIGHT1, GL_LINEAR_ATTENUATION, 0.00f);
-			glLightf(GL_LIGHT1, GL_QUADRATIC_ATTENUATION, 0.0015f);
+
+			
 
 			
 			
@@ -282,15 +321,20 @@ int main(int argc, char* argv[]) {
 		
 
 			// ---- Sistema de movimiento, debe ser lo ultimo que se haga
-			if (isRotando) {
+			if (isRotando && modoVis->getModoVis() == MODOS_VISUALIZACION_PRIMERA_PERSONA) {
 				player->rotarVerticalJugador(deltaRotacionY);
 				player->rotarJugador(deltaRotacionX);
-			}		
+			}
 			player->trasladar(deltaTiempo, isMoviendoArriba, isMoviendoDerecha, isMoviendoAbajo, isMoviendoIsquierda);
 
 
 			// ---- Aplicamos las configuraciones de rotacion y traslacion dependiendo del modo de camara
-			modoVis->aplicarTranformacionesPorModo();
+			modoVis->aplicarTranformacionesPorModo(deltaTiempoReal, isMoviendoArriba || isMoviendoDerecha || isMoviendoAbajo || isMoviendoIsquierda);
+
+			if (modoVis->getModoVis() != MODOS_VISUALIZACION_PRIMERA_PERSONA) {
+				player->render(isMoviendoArriba, isMoviendoAbajo, isMoviendoDerecha, isMoviendoIsquierda);
+			}
+			modoVis->aplicarTransformacionPorCamara();
 		
 
 	
@@ -300,7 +344,25 @@ int main(int argc, char* argv[]) {
 				while (n < 4 && ponerBomba) {
 					if (bombs[n] == nullptr && ponerBomba) {
 						posAct = player->getPosicionEnMapa();
-						dirAct = round(player->getAnguloActualEnMapa());
+						if (modoVis->getModoVis() == MODOS_VISUALIZACION_VISTA_ORGINAL) {
+							switch (player->getCara()) {
+							case ARRIBA:
+								dirAct = 0;
+								break;
+							case ABAJO:
+								dirAct = 180;
+								break;
+							case IZQUIERDA:
+								dirAct = 90;
+								break;
+							case DERECHA:
+								dirAct = 270;
+								break;
+							}
+						}
+						else {
+							dirAct = round(player->getAnguloActualEnMapa());
+						}
 						dirAct = dirAct % 360;
 						bombs[n] = new bomba(posAct.y, posAct.x, 1, dirAct);
 						sePuso = map->agregarBomba(bombs[n]->getXenMapa(), bombs[n]->getYenMapa());
@@ -420,6 +482,34 @@ int main(int argc, char* argv[]) {
 
 	
 		map->renderEnemigos(deltaTiempo, map);
+
+		if (configuraciones::getInstancia()->getModoIluminacion() == MODOS_ILUMINACION_ATARDESER) {
+
+			GLfloat light1color[] = { 230.0f / 255.f,	 92.0f / 255.f,		25.f / 255.f	, 0.1f };
+			glLightfv(GL_LIGHT1, GL_DIFFUSE, light1color);
+
+			//GLfloat light1Specularcolor[] = { 181.0f / 255.f,	 27.0f / 255.f,		117.f / 255.f	, 1.0f };
+			//glLightfv(GL_LIGHT1, GL_SPECULAR, light1Specularcolor);
+
+			GLfloat posicion[] = { 1.f, 1.f, 1.f, 0.f };
+			glLightfv(GL_LIGHT1, GL_POSITION, posicion);
+
+
+
+			//GLfloat lightAmbientalcolor[] = { 181.0f / 255.f,	 27.0f / 255.f,		117.f / 255.f	, 1.0f };
+			GLfloat lightAmbientalcolor[] = { 248.0f / 255.f,	 208.0f / 255.f,		120.f / 255.f	, 0.1f };
+			glMaterialfv(GL_FRONT, GL_AMBIENT, lightAmbientalcolor);
+
+			
+
+
+			//GLfloat light1colorSpecular[] = { 181.0f, 27.0f, 117.0f, 1.0f };
+			//glLightfv(GL_LIGHT1, GL_SPECULAR, light1colorSpecular);
+
+			glLightf(GL_LIGHT1, GL_CONSTANT_ATTENUATION, 0.05f);
+
+		}
+
 		map->render();
 		map->renderPuerta();
 		map->renderBombas(bombs);
@@ -447,7 +537,7 @@ int main(int argc, char* argv[]) {
 		deltaRotacionY = 0.0f;
 
 		milliseconds tiempoDuranteFrame = duration_cast<milliseconds>(Clock::now() - beginLastFrame);
-		cout << tiempoDuranteFrame.count() << "ms \n";
+		//cout << tiempoDuranteFrame.count() << "ms \n";
 		if (tiempoDuranteFrame < milliseconds(2)) {
 			sleep_for(2ms);
 		}
@@ -480,6 +570,7 @@ int main(int argc, char* argv[]) {
 					else {
 						mostrar_menu = mnu.eventHandler(evento);
 						beginLastFrame = Clock::now();
+						fin = mnu.isFinal();
 					}
 				}
 			}
@@ -543,6 +634,9 @@ int main(int argc, char* argv[]) {
 
 					case SDLK_v:
 						modoVis->rotarCambioModo();
+						if (modoVis->getModoVis() == MODOS_VISUALIZACION_VISTA_ORGINAL) {
+							player->restart(player->getPosicionEnMapa(), 0);
+						}
 						break;
 					}
 					break;

@@ -16,5 +16,11 @@ GLuint inicializarTexturaPng(char* archivo);
 
 TTF_Font* loadFont(const std::string& fontPath, int fontSize);
 
+enum direccion {
+	ARRIBA,
+	ABAJO,
+	DERECHA,
+	IZQUIERDA
+};
 
 #endif // !UTILS

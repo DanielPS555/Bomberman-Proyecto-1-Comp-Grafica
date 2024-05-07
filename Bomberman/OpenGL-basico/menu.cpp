@@ -128,11 +128,13 @@ void menu::render() {
 int menu::eventHandler(SDL_Event evento) {
 	configuraciones* conf = configuraciones::getInstancia();
 	switch (evento.type) {
+	case SDL_QUIT:
+		fin = 1;
+		return 0;
+		break;
 	case SDL_KEYDOWN:
 		switch (evento.key.keysym.sym) {
-		case SDL_QUIT:
-			//ToDo implementar
-			break;
+		
 		case SDLK_ESCAPE:
 			return 0;
 			break;
@@ -211,9 +213,20 @@ int menu::eventHandler(SDL_Event evento) {
 					elecciones[10] = 0;
 				}
 				break;
+			case 5:
+				fin = true;
+				return 0;
+				break;
 			}
 
 		}
 	}
 	return 1;
+}
+
+
+bool menu::isFinal(){
+	bool aux = this->fin;
+	this->fin = false;
+	return aux;
 }
