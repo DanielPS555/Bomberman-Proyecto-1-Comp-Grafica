@@ -18,6 +18,7 @@ enum MODOS_ILUMINACION {
 	MODOS_ILUMINACION_NOCHE
 };
 
+
 class configuraciones{
 private:
 	bool isCamaraHorizontalInvertida;
@@ -26,7 +27,7 @@ private:
 	float sensibilidadCamara;
 	float velocidadJuego;
 
-	//MODOS_ILUMINACION modoIluminacion;
+	MODOS_ILUMINACION modoIluminacion;
 
 	configuraciones();
 	~configuraciones();
@@ -46,7 +47,7 @@ public:
 	bool getIsCamaraVerticalInvertida();
 	float getSensibilidadCamara();
 
-	//MODOS_ILUMINACION getModoIluminacion();
+	MODOS_ILUMINACION getModoIluminacion();
 
 
 	void setIsCamaraHorizontalInvertida(bool);
@@ -55,7 +56,7 @@ public:
 	void setVelocidadJuego(float);
 	float getVelocidadJuego();
 
-	//void setModoIluminacion(MODOS_ILUMINACION);
+	void setModoIluminacion(MODOS_ILUMINACION);
 
 };
 

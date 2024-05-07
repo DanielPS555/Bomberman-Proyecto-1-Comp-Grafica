@@ -42,7 +42,7 @@ void modoVisualizacion::aplicarTranformacionesPorModo(float deltaTiempo, bool es
 	case MODOS_VISUALIZACION_PRIMERA_PERSONA:
 
 
-		if (true /*configuraciones::getInstancia()->getModoIluminacion() == MODOS_ILUMINACION_NOCHE*/) {
+		if (configuraciones::getInstancia()->getModoIluminacion() == MODOS_ILUMINACION_NOCHE) {
 			glLightfv(GL_LIGHT1, GL_POSITION, light1PosPrimeraPersona);
 		}
 		
@@ -57,7 +57,7 @@ void modoVisualizacion::aplicarTranformacionesPorModo(float deltaTiempo, bool es
 		break;
 	case MODOS_VISUALIZACION_VISTA_ORGINAL:
 
-		if (true /*configuraciones::getInstancia()->getModoIluminacion() == MODOS_ILUMINACION_NOCHE*/) {
+		if (configuraciones::getInstancia()->getModoIluminacion() == MODOS_ILUMINACION_NOCHE) {
 			glLightfv(GL_LIGHT1, GL_POSITION, light1PosVistaOriginal);
 		}
 		

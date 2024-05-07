@@ -10,6 +10,8 @@
 #include "menu.h"
 
 
+#ifndef gameOverClass
+#define gameOverClass
 class gameOverMenu {
 
 private:
@@ -33,3 +35,7 @@ public:
 	bool isFinal();
 	bool weResist();
 };
+#endif // !1
+
+
+

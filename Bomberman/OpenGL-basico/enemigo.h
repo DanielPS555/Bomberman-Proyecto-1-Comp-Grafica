@@ -2,6 +2,7 @@
 #include "mathVector.h"
 #include "objloader.h"
 #include "util.h"
+#include "configuraciones.h"
 class mapa;
 
 #ifndef ENEMIGO
