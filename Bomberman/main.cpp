@@ -213,9 +213,6 @@ int main(int argc, char* argv[]) {
 	}
 
 	int cursorIndex = 0;
-
-
-	//glEnable(GL_COLOR_MATERIAL);
 	
 
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); //Set blending function.
@@ -291,12 +288,32 @@ int main(int argc, char* argv[]) {
 			
 			glEnable(GL_LIGHT1);
 
-			GLfloat light1color[] = { 7.0f /255.f,	 15.0f / 255.f,	 43.0f / 255.f, 1.f };
-			glLightfv(GL_LIGHT1, GL_DIFFUSE, light1color);
+			if ( true /*configuraciones::getInstancia()->getModoIluminacion() == MODOS_ILUMINACION_NOCHE*/) {
+				GLfloat light1color[] = { 7.0f / 255.f,	 15.0f / 255.f,	 43.0f / 255.f, 1.f };
+				glLightfv(GL_LIGHT1, GL_DIFFUSE, light1color);
+
+				GLfloat light1colorSpecular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+				glLightfv(GL_LIGHT1, GL_SPECULAR, light1colorSpecular);
+
+
+
+				glLightf(GL_LIGHT1, GL_CONSTANT_ATTENUATION, 0.05f);
+				glLightf(GL_LIGHT1, GL_LINEAR_ATTENUATION, 0.00f);
+				glLightf(GL_LIGHT1, GL_QUADRATIC_ATTENUATION, 0.0010f);
+
+			}
+			else if (false /*configuraciones::getInstancia()->getModoIluminacion() == MODOS_ILUMINACION_ATARDESER*/) {
+
+				GLfloat light1color[] = { 7.0f / 255.f,	 15.0f / 255.f,	 43.0f / 255.f, 1.f };
+				glLightfv(GL_LIGHT1, GL_DIFFUSE, light1color);
+
+				GLfloat light1colorSpecular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+				glLightfv(GL_LIGHT1, GL_SPECULAR, light1colorSpecular);
+
+
+			}
+
 			
-			glLightf(GL_LIGHT1, GL_CONSTANT_ATTENUATION, 0.5f);
-			glLightf(GL_LIGHT1, GL_LINEAR_ATTENUATION, 0.00f);
-			glLightf(GL_LIGHT1, GL_QUADRATIC_ATTENUATION, 0.0015f);
 
 			
 			

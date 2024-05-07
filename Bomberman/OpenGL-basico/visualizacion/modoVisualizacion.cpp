@@ -42,7 +42,10 @@ void modoVisualizacion::aplicarTranformacionesPorModo(float deltaTiempo, bool es
 	case MODOS_VISUALIZACION_PRIMERA_PERSONA:
 
 
-		glLightfv(GL_LIGHT1, GL_POSITION, light1PosPrimeraPersona);
+		if (true /*configuraciones::getInstancia()->getModoIluminacion() == MODOS_ILUMINACION_NOCHE*/) {
+			glLightfv(GL_LIGHT1, GL_POSITION, light1PosPrimeraPersona);
+		}
+		
 
 		glRotatef(-player->getAnguloActualVertical(), 1.0, 0.0, 0.0);
 
@@ -54,7 +57,10 @@ void modoVisualizacion::aplicarTranformacionesPorModo(float deltaTiempo, bool es
 		break;
 	case MODOS_VISUALIZACION_VISTA_ORGINAL:
 
-		glLightfv(GL_LIGHT1, GL_POSITION, light1PosVistaOriginal);
+		if (true /*configuraciones::getInstancia()->getModoIluminacion() == MODOS_ILUMINACION_NOCHE*/) {
+			glLightfv(GL_LIGHT1, GL_POSITION, light1PosVistaOriginal);
+		}
+		
 
 		glTranslatef(-UBICACION_CAMARA_VISTA_ORIGINAL.x, -UBICACION_CAMARA_VISTA_ORIGINAL.y, -UBICACION_CAMARA_VISTA_ORIGINAL.z);
 
