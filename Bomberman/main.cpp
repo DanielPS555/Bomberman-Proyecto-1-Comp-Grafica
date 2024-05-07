@@ -286,9 +286,11 @@ int main(int argc, char* argv[]) {
 			//GLfloat colorAmbiental[4] = { 7.0f / 255.f, 15.0f / 255.f, 43.f / 255.f, 1.f};
 			
 			
-			glEnable(GL_LIGHT1);
+			
 
 			if ( configuraciones::getInstancia()->getModoIluminacion() == MODOS_ILUMINACION_NOCHE) {
+				glEnable(GL_LIGHT1);
+
 				GLfloat light1color[] = { 7.0f / 255.f,	 15.0f / 255.f,	 43.0f / 255.f, 1.f };
 				glLightfv(GL_LIGHT1, GL_DIFFUSE, light1color);
 
@@ -481,34 +483,46 @@ int main(int argc, char* argv[]) {
 		hud->setNumeroEnemigosRestantes(map->cantEnemigosVivos());
 
 	
-		map->renderEnemigos(deltaTiempo, map);
+		
 
 		if (configuraciones::getInstancia()->getModoIluminacion() == MODOS_ILUMINACION_ATARDESER) {
 
-			GLfloat light1color[] = { 230.0f / 255.f,	 92.0f / 255.f,		25.f / 255.f	, 0.1f };
+			glEnable(GL_LIGHT0);
+			glEnable(GL_LIGHT1);
+
+			//GLfloat light1color[] = { 205.0f / 255.f,	16.0f / 255.f,		77.f / 255.f	, 0.1f };
+			GLfloat light1color[] = { 252.0f / 255.f,	147.0f / 255.f,		119.f / 255.f	, 0.1f };
 			glLightfv(GL_LIGHT1, GL_DIFFUSE, light1color);
 
-			//GLfloat light1Specularcolor[] = { 181.0f / 255.f,	 27.0f / 255.f,		117.f / 255.f	, 1.0f };
-			//glLightfv(GL_LIGHT1, GL_SPECULAR, light1Specularcolor);
-
-			GLfloat posicion[] = { 1.f, 1.f, 1.f, 0.f };
+			GLfloat posicion[] = { 10.f, 10.f, 10.f, 0.f };
 			glLightfv(GL_LIGHT1, GL_POSITION, posicion);
 
 
+			
+			GLfloat light0Color[] = { 248.0f / 255.f, 208.0f / 255.f, 130.f / 255.f, 0.1f };
+			glLightfv(GL_LIGHT0, GL_DIFFUSE, light0Color);
+
+			GLfloat posicion0[] = { -1.f, -1.f, 1.f, 0.f };
+			glLightfv(GL_LIGHT0, GL_POSITION, posicion0);
+
 
 			//GLfloat lightAmbientalcolor[] = { 181.0f / 255.f,	 27.0f / 255.f,		117.f / 255.f	, 1.0f };
-			GLfloat lightAmbientalcolor[] = { 248.0f / 255.f,	 208.0f / 255.f,		120.f / 255.f	, 0.1f };
+			//GLfloat lightAmbientalcolor[] = { 253.0f / 255.f,	132.0f / 255.f,		31.f / 255.f	, 0.1f };
+			GLfloat lightAmbientalcolor[] = { 253.0f / 255.f,	132.0f / 255.f,		31.f / 255.f	, 0.1f };// ;
 			glMaterialfv(GL_FRONT, GL_AMBIENT, lightAmbientalcolor);
-
 			
 
+			
+			
 
 			//GLfloat light1colorSpecular[] = { 181.0f, 27.0f, 117.0f, 1.0f };
 			//glLightfv(GL_LIGHT1, GL_SPECULAR, light1colorSpecular);
 
-			glLightf(GL_LIGHT1, GL_CONSTANT_ATTENUATION, 0.05f);
+			
 
 		}
+
+		map->renderEnemigos(deltaTiempo, map);
 
 		map->render();
 		map->renderPuerta();
@@ -523,6 +537,7 @@ int main(int argc, char* argv[]) {
 		glDisable(GL_DEPTH_TEST);
 
 		glDisable(GL_LIGHTING);
+		glDisable(GL_LIGHT0);
 		glDisable(GL_LIGHT1);
 		glDisable(GL_LIGHT2);
 		glDisable(GL_LIGHT3);
