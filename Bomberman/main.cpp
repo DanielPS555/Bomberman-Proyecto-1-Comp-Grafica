@@ -278,7 +278,7 @@ int main(int argc, char* argv[]) {
 			glEnable(GL_DEPTH_TEST);
 			glDisable(GL_BLEND); //Enable blending.
 
-			//glEnable(GL_LIGHTING);
+			glEnable(GL_LIGHTING);
 			
 
 			glLoadIdentity();

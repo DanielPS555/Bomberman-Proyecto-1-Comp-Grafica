@@ -47,7 +47,7 @@ void modoVisualizacion::aplicarTranformacionesPorModo(float deltaTiempo, bool es
 		glRotatef(-player->getAnguloActualVertical(), 1.0, 0.0, 0.0);
 
 		
-		glTranslatef(0.0f, 0.0f, cos((float)tiempo / 80) * 0.5f);
+		glTranslatef(0.0f, 0.0f, cos((float)tiempo / 70) * 0.5f);
 
 		glTranslatef(-UBICACION_CAMARA_PRIMERA_PERSONA.x, -UBICACION_CAMARA_PRIMERA_PERSONA.y, -UBICACION_CAMARA_PRIMERA_PERSONA.z);
 

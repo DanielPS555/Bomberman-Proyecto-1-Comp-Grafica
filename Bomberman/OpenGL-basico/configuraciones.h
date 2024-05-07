@@ -11,6 +11,12 @@
 #define CAMARA_VERTICAL_INVERTIDA false    //Si es false, cuando muevo el mouse a la arriba, la camara rota hacia abajo
 #define SENSIBILIDAD_CAMARA 0.3f           //Es la sensibilidad que camara al movimiento del mouse 
 #define VELOCIDAD_JUEGO 1.0f
+
+enum MODOS_ILUMINACION {
+	MODOS_ILUMINACION_ATARDESER,
+	MODOS_ILUMINACION_NOCHE
+};
+
 class configuraciones{
 private:
 	bool isCamaraHorizontalInvertida;
