@@ -18,7 +18,7 @@ menu::menu(int w,int h, SDL_Renderer* r){
 		{ font, "WIREFRAME ON"		, p_inicial_x		, p_inicial_y + distancia_y			, renderer }, 
 		{ font, "TEXTURES ON"		, p_inicial_x		, p_inicial_y + 2 * distancia_y		, renderer},
 		{ font, "PLAY VELOCITY 1x"	, w / 2				, p_inicial_y						, renderer },
-		{ font, "FACETADO"			, w / 2				, p_inicial_y + distancia_y			, renderer },
+		{ font, "INTERPOLADO"		, w / 2				, p_inicial_y + distancia_y			, renderer },
 		{ font, "LUZ ATARDECER"		, w / 2				, p_inicial_y + 2 * distancia_y		, renderer },
 		{ font, "QUIT"				, w / 2	- 80		, p_inicial_y + 3 * distancia_y		, renderer },
 
@@ -26,7 +26,7 @@ menu::menu(int w,int h, SDL_Renderer* r){
 		{ font, "TEXTURES OFF"		, p_inicial_x		, p_inicial_y + 2 * distancia_y		, renderer},
 		{ font, "PLAY VELOCITY 2x"	, w / 2				, p_inicial_y						, renderer },
 		{ font, "PLAY VELOCITY 3x"	, w / 2				, p_inicial_y						, renderer },
-		{ font, "INTERPOLADO"		, w / 2				, p_inicial_y +  distancia_y		, renderer },
+		{ font, "FACETADO"			, w / 2				, p_inicial_y +  distancia_y		, renderer },
 		{ font, "LUZ NOCHE"			, w / 2				, p_inicial_y + 2 * distancia_y		, renderer },
 
 	};
@@ -206,15 +206,15 @@ int menu::eventHandler(SDL_Event evento) {
 				}
 				break;
 			case 4:
-				if (elecciones[4] == 1) {
+				if (elecciones[11] == 1) {
 					glShadeModel(GL_SMOOTH);
-					elecciones[4] = 0;
-					elecciones[11] = 1;
+					elecciones[11] = 0;
+					elecciones[4] = 1;
 				}
 				else {
 					glShadeModel(GL_FLAT);
-					elecciones[4] = 1;
-					elecciones[11] = 0;
+					elecciones[11] = 1;
+					elecciones[4] = 0;
 				}
 				break;
 			case 5:

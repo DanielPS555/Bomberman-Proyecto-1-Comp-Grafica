@@ -244,6 +244,9 @@ int main(int argc, char* argv[]) {
 			fin = true;
 		}
 		if (mostrar_menu) {
+
+			isMoviendoAbajo = isMoviendoArriba = isMoviendoDerecha = isMoviendoIsquierda = false;
+
 			if (mostrar_menu && victoria) {
 				vicMenu.render();
 				SDL_RenderClear(renderer);
@@ -614,7 +617,11 @@ int main(int argc, char* argv[]) {
 					break;
 				case SDL_KEYDOWN:
 					switch (evento.key.keysym.sym) {
+					case SDLK_q:
+						fin = true;
+						break;
 					case SDLK_ESCAPE:
+					case SDLK_p:
 						mostrar_menu = !mostrar_menu;
 						SDL_GL_SwapWindow(win);
 						break;
