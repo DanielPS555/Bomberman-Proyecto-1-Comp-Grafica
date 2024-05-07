@@ -30,9 +30,9 @@ void particleGenerator::Emit(const ParticleProps& particleProps)
 
 	// Velocity
 	particle.Velocity = particleProps.Velocity;
-	particle.Velocity.x += particleProps.VelocityVariation.x * (Random::Float() - 0.5f);
-	particle.Velocity.y += particleProps.VelocityVariation.y * (Random::Float() - 0.5f);
-	particle.Velocity.z += particleProps.VelocityVariation.z * (Random::Float() - 0.5f);
+	//particle.Velocity.x += particleProps.VelocityVariation.x; //* (Random::Float() - 0.5f);
+	//particle.Velocity.y += particleProps.VelocityVariation.y; //* (Random::Float() - 0.5f);
+	//particle.Velocity.z += particleProps.VelocityVariation.z; //* (Random::Float() - 0.5f);
 
 	// Color
 	particle.ColorBegin[0] = particleProps.ColorBegin[0];
@@ -46,7 +46,7 @@ void particleGenerator::Emit(const ParticleProps& particleProps)
 
 	particle.LifeTime = particleProps.LifeTime;
 	particle.LifeRemaining = particleProps.LifeTime;
-	particle.SizeBegin = particleProps.SizeBegin + particleProps.SizeVariation * (Random::Float() - 0.5f);
+	particle.SizeBegin = particleProps.SizeBegin + particleProps.SizeVariation; //* (Random::Float() - 0.5f);
 	particle.SizeEnd = particleProps.SizeEnd;
 	particle.weight = particleProps.weight;
 
@@ -65,9 +65,10 @@ void particleGenerator::timer(float deltaT)
 			particle.Active = false;
 			continue;
 		}
-		particle.Velocity.z = particle.Velocity.z * particle.weight * this->grav;
+		//particle.Velocity.z = particle.Velocity.z * particle.weight * this->grav;
 		particle.LifeRemaining -= deltaT;
-		particle.Position = sumar(particle.Position ,multiplicarPorEscalar(particle.Velocity, deltaT));
+		particle.Position = sumar(particle.Position, particle.Velocity);//multiplicarPorEscalar(particle.Velocity, deltaT));
+		particle.Velocity = sumar(particle.Velocity, particle.VelocityVariation);
 		particle.Rotation += 0 * deltaT;
 	}
 }
@@ -75,19 +76,19 @@ void particleGenerator::timer(float deltaT)
 void particleGenerator::render()
 {
 
-	/*
-	GLfloat pos[12] = { -0.5f, -0.5f, 0.0f,
-				         0.5f, -0.5f, 0.0f,
-					    -0.5f,  0.5f, 0.0f,
-						 0.5f,  0.5f, 0.0f };
-	GLfloat colores[3] = { 1.f,1.f,1.f };
-	GLfloat normal[3] = { 0.f,0.f,1.f };
-
-	Rectangulo2d<1>* rect = new Rectangulo2d<1>(pos, normal, colores);
-
 	for (auto& particle : m_ParticlePool)
-	{
+	{	
+		GLfloat pos[12] = { -0.5f, -0.5f, 0.0f,
+						 0.5f, -0.5f, 0.0f,
+						 0.5f,  0.5f, 0.0f,
+						-0.5f,  0.5f, 0.0f };
+		GLfloat colores[3] = { 1.f,1.f,1.f };
+		GLfloat normal[3] = { 0.f,0.f,1.f };
+
+		Rectangulo2d<1>* rect = new Rectangulo2d<1>(pos, normal, colores);
+
 		if (!particle.Active) {
+			free(rect);
 			continue;
 		}
 
@@ -110,16 +111,19 @@ void particleGenerator::render()
 		glPushMatrix();
 
 		iniciliarRenderVertexArray();
+		prepareRender();
 
-
+		glTranslatef(particle.Position.x, particle.Position.y, particle.Position.z);
+		glScalef(particle.SizeBegin, particle.SizeBegin, particle.SizeBegin);
 		rect->renderConPuntoIntermediosYTextura(particle.textura);
 		finalizarRenderVertexArray();
 
+		finishRender();
 		glPopMatrix();
 
 		free(rect);
 	}
-	*/
+	
 }
 
 void particleGenerator::prepareRender()

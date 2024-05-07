@@ -36,7 +36,7 @@ class particleGenerator {
 			float SizeBegin, SizeEnd;
 			float weight;
 
-			float LifeTime = 1000;
+			float LifeTime = 2000;
 			float LifeRemaining = 0.0f;
 			GLuint textura;
 			bool Active = false;
