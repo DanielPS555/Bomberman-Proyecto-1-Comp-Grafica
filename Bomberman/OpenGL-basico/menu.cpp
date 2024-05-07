@@ -13,29 +13,31 @@ menu::menu(int w,int h, SDL_Renderer* r){
 	int p_inicial_y = 550;
 	int distancia_y = 50;
 	
-	datos info[11] = {
-		{ font, "START", p_inicial_x , p_inicial_y, renderer }, 
-		{ font, "WIREFRAME ON", p_inicial_x, p_inicial_y + distancia_y, renderer }, 
-		{font, "TEXTURES ON", p_inicial_x, p_inicial_y + 2 * distancia_y, renderer},
-		{ font, "PLAY VELOCITY 1x", w / 2, p_inicial_y, renderer },
-		{ font, "FACETADO", w / 2, p_inicial_y + distancia_y, renderer },
-		{ font, "QUIT", w / 2, p_inicial_y + 2 * distancia_y, renderer },
-		{ font, "WIREFRAME OFF", p_inicial_x, p_inicial_y + distancia_y, renderer },
-		{font, "TEXTURES OFF", p_inicial_x, p_inicial_y + 2 * distancia_y, renderer},
-		{ font, "PLAY VELOCITY 2x", w / 2, p_inicial_y, renderer },
-		{ font, "PLAY VELOCITY 3x", w / 2, p_inicial_y, renderer },
-		{ font, "INTERPOLADO", w / 2, p_inicial_y +  distancia_y, renderer },
+	datos info[13] = {
+		{ font, "START"				, p_inicial_x		, p_inicial_y						, renderer }, 
+		{ font, "WIREFRAME ON"		, p_inicial_x		, p_inicial_y + distancia_y			, renderer }, 
+		{ font, "TEXTURES ON"		, p_inicial_x		, p_inicial_y + 2 * distancia_y		, renderer},
+		{ font, "PLAY VELOCITY 1x"	, w / 2				, p_inicial_y						, renderer },
+		{ font, "INTERPOLADO"		, w / 2				, p_inicial_y + distancia_y			, renderer },
+		{ font, "LUZ ATARDECER"		, w / 2				, p_inicial_y + 2 * distancia_y		, renderer },
+		{ font, "QUIT"				, w / 2	- 80		, p_inicial_y + 3 * distancia_y		, renderer },
 
+		{ font, "WIREFRAME OFF"		, p_inicial_x		, p_inicial_y + distancia_y			, renderer },
+		{ font, "TEXTURES OFF"		, p_inicial_x		, p_inicial_y + 2 * distancia_y		, renderer},
+		{ font, "PLAY VELOCITY 2x"	, w / 2				, p_inicial_y						, renderer },
+		{ font, "PLAY VELOCITY 3x"	, w / 2				, p_inicial_y						, renderer },
+		{ font, "FACETADO"			, w / 2				, p_inicial_y +  distancia_y		, renderer },
+		{ font, "LUZ NOCHE"			, w / 2				, p_inicial_y + 2 * distancia_y		, renderer },
 
 	};
 
-	menuItems = new MenuItem[11];
+	menuItems = new MenuItem[13];
 
-	for (int i = 0; i < 11;i++) {
+	for (int i = 0; i < 13;i++) {
 		menuItems[i] = createMenuItem(info[i]);
 	}
 
-	elecciones = new int[11];
+	elecciones = new int[13];
 	elecciones[0] = 1;
 	elecciones[1] = 0;
 	elecciones[2] = 1;
@@ -43,10 +45,12 @@ menu::menu(int w,int h, SDL_Renderer* r){
 	elecciones[4] = 1;
 	elecciones[5] = 1;
 	elecciones[6] = 1;
-	elecciones[7] = 0;
+	elecciones[7] = 1;
 	elecciones[8] = 0;
 	elecciones[9] = 0;
 	elecciones[10] = 0;
+	elecciones[11] = 0;	
+	elecciones[12] = 0;
 
 	SDL_Surface* backgroundSurface = SDL_LoadBMP("bomberman.bmp");
 	SDL_Surface*manualSurface = SDL_LoadBMP("instrucciones.bmp");
@@ -95,7 +99,7 @@ void menu::render() {
 	SDL_RenderClear(renderer);
 	// Renderizar los items del menú
 
-	for (int i = 0; i < 11; i++) {
+	for (int i = 0; i < 13; i++) {
 		if (elecciones[i]) {
 			drawMenuItem(renderer, menuItems[i]);
 
@@ -148,7 +152,7 @@ int menu::eventHandler(SDL_Event evento) {
 
 		case SDLK_s:
 		case SDLK_DOWN:
-			if (cursorIndex < 5) {
+			if (cursorIndex < 6) {
 				cursorIndex++;
 			}
 			break;
@@ -160,60 +164,72 @@ int menu::eventHandler(SDL_Event evento) {
 			case 1:
 				if (elecciones[1] == 1) {
 					glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-					elecciones[6] = 1;
+					elecciones[7] = 1;
 					elecciones[1] = 0;
 				}
 				else {
 					glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 					elecciones[1] = 1;
-					elecciones[6] = 0;
+					elecciones[7] = 0;
 				}
 				break;
 			case 2:
 				if (elecciones[2] == 1) {
 					mostrarTexturas = false;
-					elecciones[7] = 1;
+					elecciones[8] = 1;
 					elecciones[2] = 0;
 				}
 				else {
 					mostrarTexturas = true;
 					elecciones[2] = 1;
-					elecciones[7] = 0;
+					elecciones[8] = 0;
 				}
 				break;
 			case 3:
 				if (elecciones[3] == 1) {
 					conf->setVelocidadJuego(1.5f);
 					elecciones[3] = 0;
-					elecciones[8] = 1;
-					elecciones[9] = 0;
+					elecciones[9] = 1;
+					elecciones[10] = 0;
 				}
-				else if(elecciones[8]==1){
+				else if(elecciones[9]==1){
 					conf->setVelocidadJuego(2.f);
 					elecciones[3] = 0;
-					elecciones[8] = 0;
-					elecciones[9] = 1;
+					elecciones[9] = 0;
+					elecciones[10] = 1;
 				}
 				else {
 					conf->setVelocidadJuego(1.f);
 					elecciones[3] = 1;
-					elecciones[8] = 0;
 					elecciones[9] = 0;
-				}
-				break;
-			case 4:
-				if (elecciones[4] == 1) {
-					glShadeModel(GL_SMOOTH);
-					elecciones[4] = 0;
-					elecciones[10] = 1;
-				}
-				else {
-					glShadeModel(GL_FLAT);
-					elecciones[4] = 1;
 					elecciones[10] = 0;
 				}
 				break;
+			case 4:
+				if (elecciones[11] == 1) {
+					glShadeModel(GL_SMOOTH);
+					elecciones[11] = 0;
+					elecciones[4] = 1;
+				}
+				else {
+					glShadeModel(GL_FLAT);
+					elecciones[11] = 1;
+					elecciones[4] = 0;
+				}
+				break;
 			case 5:
+				if (elecciones[5] == 1) {
+					elecciones[5] = 0;
+					elecciones[12] = 1;
+					configuraciones::getInstancia()->setModoIluminacion(MODOS_ILUMINACION_NOCHE);
+				}
+				else {
+					elecciones[12] = 0;
+					elecciones[5] = 1;
+					configuraciones::getInstancia()->setModoIluminacion(MODOS_ILUMINACION_ATARDESER);
+				}
+				break;
+			case 6:
 				fin = true;
 				return 0;
 				break;

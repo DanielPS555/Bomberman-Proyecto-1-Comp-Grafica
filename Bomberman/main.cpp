@@ -244,6 +244,9 @@ int main(int argc, char* argv[]) {
 			fin = true;
 		}
 		if (mostrar_menu) {
+
+			isMoviendoAbajo = isMoviendoArriba = isMoviendoDerecha = isMoviendoIsquierda = false;
+
 			if (mostrar_menu && victoria) {
 				vicMenu.render();
 				SDL_RenderClear(renderer);
@@ -294,21 +297,28 @@ int main(int argc, char* argv[]) {
 				GLfloat light1color[] = { 7.0f / 255.f,	 15.0f / 255.f,	 43.0f / 255.f, 1.f };
 				glLightfv(GL_LIGHT1, GL_DIFFUSE, light1color);
 
-				//GLfloat light1colorSpecular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-				//glLightfv(GL_LIGHT1, GL_SPECULAR, light1colorSpecular);
 
+				glLightf(GL_LIGHT1, GL_CONSTANT_ATTENUATION, 0.05f);
+				glLightf(GL_LIGHT1, GL_LINEAR_ATTENUATION, 0.00f);
+				glLightf(GL_LIGHT1, GL_QUADRATIC_ATTENUATION, 0.0010f);
+
+				GLfloat lightAmbientalcolor[] = { 7.0f / 255.f,	15.0f / 255.f,	43.f / 255.f	, 0.1f };// ;
+				glMaterialfv(GL_FRONT, GL_AMBIENT, lightAmbientalcolor);
+
+			}
+			
+			/*else if (configuraciones::getInstancia()->getModoIluminacion() == MODOS_ILUMINACION_ATARDESER) {
+				glEnable(GL_LIGHT1);
+
+				GLfloat light1color[] = { 248.0f / 255.f,	 208.0f / 255.f,	 130.0f / 255.f, 1.f };
+				glLightfv(GL_LIGHT1, GL_DIFFUSE, light1color);
 
 
 				glLightf(GL_LIGHT1, GL_CONSTANT_ATTENUATION, 0.05f);
 				glLightf(GL_LIGHT1, GL_LINEAR_ATTENUATION, 0.00f);
 				glLightf(GL_LIGHT1, GL_QUADRATIC_ATTENUATION, 0.0010f);
 
-			}
-			
-
-			
-
-			
+			}*/
 			
 
 
@@ -488,15 +498,16 @@ int main(int argc, char* argv[]) {
 		if (configuraciones::getInstancia()->getModoIluminacion() == MODOS_ILUMINACION_ATARDESER) {
 
 			glEnable(GL_LIGHT0);
-			glEnable(GL_LIGHT1);
+			glEnable(GL_LIGHT7);
 
 			//GLfloat light1color[] = { 205.0f / 255.f,	16.0f / 255.f,		77.f / 255.f	, 0.1f };
 			GLfloat light1color[] = { 252.0f / 255.f,	147.0f / 255.f,		119.f / 255.f	, 0.1f };
-			glLightfv(GL_LIGHT1, GL_DIFFUSE, light1color);
+			glLightfv(GL_LIGHT7, GL_DIFFUSE, light1color);
+			GLfloat light1colorSpecular[] = { 181.0f / 255.f,	27.0f / 255.f,		127.f / 255.f	, 0.1f };
+			glLightfv(GL_LIGHT7, GL_SPECULAR, light1color);
 
 			GLfloat posicion[] = { 10.f, 10.f, 10.f, 0.f };
-			glLightfv(GL_LIGHT1, GL_POSITION, posicion);
-
+			glLightfv(GL_LIGHT7, GL_POSITION, posicion);
 
 			
 			GLfloat light0Color[] = { 248.0f / 255.f, 208.0f / 255.f, 130.f / 255.f, 0.1f };
@@ -506,19 +517,10 @@ int main(int argc, char* argv[]) {
 			glLightfv(GL_LIGHT0, GL_POSITION, posicion0);
 
 
-			//GLfloat lightAmbientalcolor[] = { 181.0f / 255.f,	 27.0f / 255.f,		117.f / 255.f	, 1.0f };
-			//GLfloat lightAmbientalcolor[] = { 253.0f / 255.f,	132.0f / 255.f,		31.f / 255.f	, 0.1f };
+
 			GLfloat lightAmbientalcolor[] = { 253.0f / 255.f,	132.0f / 255.f,		31.f / 255.f	, 0.1f };// ;
 			glMaterialfv(GL_FRONT, GL_AMBIENT, lightAmbientalcolor);
-			
 
-			
-			
-
-			//GLfloat light1colorSpecular[] = { 181.0f, 27.0f, 117.0f, 1.0f };
-			//glLightfv(GL_LIGHT1, GL_SPECULAR, light1colorSpecular);
-
-			
 
 		}
 
@@ -543,6 +545,7 @@ int main(int argc, char* argv[]) {
 		glDisable(GL_LIGHT3);
 		glDisable(GL_LIGHT4);
 		glDisable(GL_LIGHT5);
+		glDisable(GL_LIGHT7);
 
 		glEnable(GL_BLEND); 
 		glClear(GL_DEPTH_BUFFER_BIT);
@@ -614,7 +617,11 @@ int main(int argc, char* argv[]) {
 					break;
 				case SDL_KEYDOWN:
 					switch (evento.key.keysym.sym) {
+					case SDLK_q:
+						fin = true;
+						break;
 					case SDLK_ESCAPE:
+					case SDLK_p:
 						mostrar_menu = !mostrar_menu;
 						SDL_GL_SwapWindow(win);
 						break;
