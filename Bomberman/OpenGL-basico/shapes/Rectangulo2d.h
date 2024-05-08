@@ -14,7 +14,7 @@ class Rectangulo2d {
 private:
 	GLfloat cordeneasVerticesBordes[4 * 3];   //Ejemplo: 1,1,1,  -1,1,1,  -1,-1,1,  1,-1,1,  ==> v0-v1-v2-v3
 	GLfloat normales[4*3];
-	GLfloat color[4*3];
+	GLfloat color[4 * 4];
 	GLfloat corrdenadasTexturasBordes[4 * 2];
 	GLfloat verticesIntermedios[N * N * 4 * 3];
 	GLfloat corrdenadasTexturasIntermedias[N * N * 4 * 2];
@@ -108,35 +108,36 @@ private:
 
 public:
 
-	Rectangulo2d(GLfloat corr[4 * 3], GLfloat nor[4 * 3], GLfloat c[3]) {
+	Rectangulo2d(GLfloat corr[4 * 3], GLfloat nor[4 * 3], GLfloat c[4]) {
 
-		
+
 		GLfloat corrTextruras[12] = { 0.f, 0.f,	1.f, 0.f,	1.f, 1.f,	0.f,1.f };
-		
+
 		for (int i = 0; i < 12; i++) {
 			cordeneasVerticesBordes[i] = corr[i];
-			
+
 		}
-		
+
 		for (int i = 0; i < 7; i++) {
 			corrdenadasTexturasBordes[i] = corrTextruras[i];
 		}
-		
+
 
 		for (int i = 0; i < 4; i++) {
-			normales[i * 3 + 0] = nor[0]    ; normales[i * 3 + 1] = nor[1]	;  normales[i*3 + 2] = nor[2];
-			color	[i * 3 + 0] = c[0]		; color	[i * 3 + 1] = c[1]		;  color[i * 3 + 2]	 = c[2];
+			normales[i * 3 + 0] = nor[0]; normales[i * 3 + 1] = nor[1];  normales[i * 3 + 2] = nor[2];
+			color[i * 4 + 0] = c[0]; color[i * 4 + 1] = c[1];  color[i * 4 + 2] = c[2]; color[i * 4 + 3] = c[3];
 		}
-		
+
 		generarVerticesIntermedios();
-		
+
 	}
+
 	
 	void renderConPuntoIntermediosYTextura( GLuint textura) {
 		glBindTexture(GL_TEXTURE_2D, textura);
 		for (int i = 0; i < N * N; i++) {
 			glNormalPointer(GL_FLOAT, 0, normales);
-			glColorPointer(3, GL_FLOAT, 0, color);
+			glColorPointer(4, GL_FLOAT, 0, color);
 			glVertexPointer(3, GL_FLOAT, 0, verticesIntermedios+ i * 12);
 			glTexCoordPointer(2, GL_FLOAT, 0, corrdenadasTexturasIntermedias+ i * 8);
 
@@ -145,11 +146,11 @@ public:
 		}
 	}
 
-	void renderConPuntoIntermediosYTexturaYColor(GLuint textura, GLfloat coloresL[12]) {
+	void renderConPuntoIntermediosYTexturaYColor(GLuint textura, GLfloat coloresL[16]) {
 		glBindTexture(GL_TEXTURE_2D, textura);
 		for (int i = 0; i < N * N; i++) {
 			glNormalPointer(GL_FLOAT, 0, normales);
-			glColorPointer(3, GL_FLOAT, 0, coloresL);
+			glColorPointer(4, GL_FLOAT, 0, coloresL);
 			glVertexPointer(3, GL_FLOAT, 0, verticesIntermedios + i * 12);
 			glTexCoordPointer(2, GL_FLOAT, 0, corrdenadasTexturasIntermedias + i * 8);
 

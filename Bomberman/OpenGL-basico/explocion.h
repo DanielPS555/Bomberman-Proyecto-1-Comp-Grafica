@@ -28,7 +28,7 @@ public:
 
 	
 	bool timer(float deltaT);
-	void generateExplocion(int cant, particleGenerator* pSistem);
+	void generateExplocion(int cant, particleGenerator * pSistem);
 };
 
 

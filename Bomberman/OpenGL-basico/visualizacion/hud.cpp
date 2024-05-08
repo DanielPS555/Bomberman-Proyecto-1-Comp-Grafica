@@ -67,7 +67,7 @@ Hud::Hud(SDL_Renderer* r, SDL_Window* w) {
 										xIconoHeart				, yIconoHeart + wIcono		, -PROFUNDIDAD_HUD,
 	};
 	
-	GLfloat colores[3] = { 1.f,1.f,1.f };
+	GLfloat colores[4] = { 1.f,1.f,1.f,1.f };
 	GLfloat normal[3]  = { 0.f,0.f,1.f };
 	
 	iconoHeart = new Rectangulo2d<1>(posicionesIconoHeart, normal, colores);
