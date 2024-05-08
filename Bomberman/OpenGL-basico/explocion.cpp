@@ -29,7 +29,7 @@ void explocion::generateExplocion(int cant, particleGenerator* pSistem)
 			for (int j = 0; j < LARGO_UNIDAD; j++) {
 				for (int k = 0; k < LARGO_UNIDAD; k++) {
 					this->expPart.Position.x = x * LARGO_UNIDAD + j;
-					this->expPart.Position.y = y * LARGO_UNIDAD;
+					this->expPart.Position.y = y * LARGO_UNIDAD + k ;
 					this->expPart.Position.z = (ALTURA_PARED / 5);
 					this->expPart.LifeTime = 2000;
 					this->expPart.SizeBegin = LARGO_UNIDAD;
