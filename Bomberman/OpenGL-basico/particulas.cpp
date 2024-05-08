@@ -14,10 +14,10 @@
 
 particleGenerator::particleGenerator(float grav, float life)
 {
-	m_ParticlePool.resize(10000);
+	m_ParticlePool.resize(1000);
 	this->grav = grav;
 	this->life = life;
-	textura = inicializarTextura("assets/explosion.jpg");
+	textura = inicializarTextura("assets/f2.png");
 }
 
 
@@ -50,6 +50,7 @@ void particleGenerator::Emit(const ParticleProps& particleProps)
 	particle.SizeBegin = particleProps.SizeBegin + particleProps.SizeVariation; //* (Random::Float() - 0.5f);
 	particle.SizeEnd = particleProps.SizeEnd;
 	particle.weight = particleProps.weight;
+	particle.distancia_centro = particleProps.distancia_centro;
 
 	m_PoolIndex = --m_PoolIndex % m_ParticlePool.size();
 }
@@ -79,26 +80,30 @@ void particleGenerator::render()
 
 	for (auto& particle : m_ParticlePool)
 	{	
-		float w = Random::Float() * 0.2;
+		float w = 2;
 		GLfloat pos[12] = { -w, 0, -w,
 						 w, 0, -w,
 						 w,  0, w,
 						-w,  0, w };
-		GLfloat colores[3] = { 249.f /256.f ,182.f /256.f,78.f/176.f };
+		GLfloat colores[4] = { 249.f /256.f ,182.f /256.f,78.f/176.f,0.1f };
 		//GLfloat colores[3] = { 203.f / 256.f ,53.f / 256.f,61.f / 176.f };
 		GLfloat normal[3] = { 0.f,0.f,1.f };
 
 
-		mathVector colorbase = {  249.f / 256.f ,182.f / 256.f,78.f / 176.f };
-		mathVector colorFinal = { 237.f / 256.f ,98.f / 256.f,64.f / 176.f };
-
+		mathVector colorbase = {  255.f / 255.f ,255.f / 255.f,255.f / 255.f };
+		mathVector colorFinal = { 245.f / 256.f ,149.f / 256.f,0.f / 255.f };
 		mathVector gradient = { 203.f / 256.f ,53.f / 256.f,61.f / 176.f };
+
+		//std::cout << particle.distancia_centro << std::endl;
+		float normalized_distance = particle.distancia_centro / 80;
+
 		gradient = multiplicarPorEscalar(gradient, Random::Float() * 0.5);
 
-		mathVector v =  interpolarVectores(colorFinal,colorbase , particle.LifeRemaining / particle.LifeTime);
-		v = sumar(v, gradient);
-		GLfloat  color[4] = { v.x,v.y,v.z,particle.LifeRemaining / particle.LifeTime };
-		Rectangulo2d<1>* rect = new Rectangulo2d<1>(pos, normal, color);
+
+		mathVector v =  interpolarVectores(colorbase, colorFinal,normalized_distance);
+		//v = sumar(v, gradient);
+		GLfloat  color[4] = { v.x,v.y,v.z,0 };
+		Rectangulo2d<1>* rect = new Rectangulo2d<1>(pos, normal, colores);
 
 		if (!particle.Active) {
 			free(rect);
@@ -127,9 +132,11 @@ void particleGenerator::render()
 		prepareRender();
 
 		glTranslatef(particle.Position.x, particle.Position.y, particle.Position.z);
-		glScalef(particle.SizeBegin, particle.SizeBegin, particle.SizeBegin);
+		//glScalef(particle.SizeBegin, particle.SizeBegin, particle.SizeBegin);
+		//int rotacion = (particle.LifeRemaining / particle.LifeTime) * 360;
+		//glRotatef(rotacion, 1, 1, 1);
 		glDisable(GL_LIGHTING);
-		rect->renderConPuntoIntermediosYTextura(0);
+		rect->renderConPuntoIntermediosYTextura(textura);
 		glEnable(GL_LIGHTING);
 		finalizarRenderVertexArray();
 

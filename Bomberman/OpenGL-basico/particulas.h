@@ -23,6 +23,7 @@ struct ParticleProps
 	float LifeTime = 1.0f;
 	float weight;
 	GLuint textura;
+	float distancia_centro;
 };
 
 class particleGenerator {
@@ -40,6 +41,7 @@ class particleGenerator {
 			float LifeRemaining = 0.0f;
 			GLuint textura;
 			bool Active = false;
+			float distancia_centro;
 
 		};
 		
