@@ -49,6 +49,8 @@ class particleGenerator {
 
 		float grav;
 
+		GLuint textura;
+
 
 		//GLuint m_QuadVA = 0;
 

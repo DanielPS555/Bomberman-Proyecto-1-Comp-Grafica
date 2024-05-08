@@ -85,7 +85,7 @@ float** bomba::explosion_trigg(float** destruct)
 		destruct[j + 2][1] = this->posYEnMapa - i - 1;
 		destruct[j + 3] = new float[2];
 		destruct[j + 3][0] = this->posXEnMapa;
-		destruct[j + 3][1] = this->posYEnMapa + 1;
+		destruct[j + 3][1] = this->posYEnMapa + i + 1;
 	}
 	destruct[(alc * 4)] = new float[2];
 	destruct[(alc * 4)][0] = this->posXEnMapa;
