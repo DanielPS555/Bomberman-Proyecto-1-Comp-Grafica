@@ -229,19 +229,23 @@ int main(int argc, char* argv[]) {
 			retry = false;
 		}
 		if (newLvl) {
-			/*glDisable(GL_BLEND);
-			xmn = (floor(Random::Float() * 20) + 11);
-			ymn = (floor(Random::Float() * 20) + 11);
-			xPuerta = floor(Random::Float() * xmn);
-			yPuerta = floor(Random::Float() * ymn);
-			free(map);
-			map = new mapa(ymn, xmn, yPuerta, xPuerta);
+			glDisable(GL_BLEND);
+			xmn = (round(Random::Float() * 9) + 11);
+			ymn = (round(Random::Float() * 9) + 11);
+			xPuerta = 1 + round(Random::Float() * xmn);
+			yPuerta = 1 + round(Random::Float() * ymn);
+			if((yPuerta%2 == 1) && (xPuerta % 2 == 1)){
+				yPuerta = yPuerta - 1;
+			}
+			int cantDes = 4 + round(Random::Float() * ((xmn * ymn) / 3));
+			int cantEnem = 2 + round(Random::Float() * 2);
+			map->newLevel(ymn, xmn, xPuerta, yPuerta, cantDes, cantEnem);
 			player->gainVidas(3);
 			player->restart(map->obtenerPosicionInicialJugador(), map->anguloInicialJugador());
 			glEnable(GL_BLEND);
-			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);*/
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 			newLvl = false;
-			fin = true;
+			nivel = nivel + 1;
 		}
 		if (mostrar_menu) {
 			if (mostrar_menu && victoria) {
@@ -266,6 +270,7 @@ int main(int argc, char* argv[]) {
 			float deltaTiempoReal = (float)tiempoTranscurridoUltimoFrame.count(); //Tiempo usado para el temporizador
 			float deltaTiempo = conf->getVelocidadJuego()* deltaTiempoReal;
 			beginLastFrame = Clock::now();
+			std::cout << deltaTiempoReal << "/n"; 
 
 			if (hud->isPantallaMuerteActivada()) {
 				deltaTiempo = 0;
@@ -569,8 +574,8 @@ int main(int argc, char* argv[]) {
 			
 			if (mostrar_menu) {
 				if (mostrar_menu && victoria) {
-					mostrar_menu = vicMenu.eventHandler(evento);
-					victoria = mostrar_menu;
+					victoria = vicMenu.eventHandler(evento);
+					//mostrar_menu = victoria;
 					beginLastFrame = Clock::now();
 					fin = vicMenu.isFinal();
 					newLvl = vicMenu.weFight();
