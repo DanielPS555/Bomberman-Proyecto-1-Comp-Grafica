@@ -47,6 +47,9 @@ private:
 	Rectangulo2d<NUMERO_PARTICIONES_PISO>* pisoShape;
 	Rectangulo3d<NUMERO_PARTICIONES_PARED_LIMITE>* bordesShape[4];
 	std::vector<std::tuple<int, int>> destructibles;
+	std::vector<std::tuple<int, int>> destructiblesRes;
+	std::vector<std::tuple<int, int>> enemisStart;
+
 	
 	GLuint textura;
 	GLuint texturaPared;
@@ -122,6 +125,10 @@ public:
 	void resetDestructibles();
 
 	void resetEnemies();
+
+	void newLevel(int cant_filas, int cant_columnas, int posXPuerta, int posYPuerta, int cantdestructibles, int cantEnemies);
+
+	bool esEnemStart(int x, int y);
 
 	~mapa();
 };
