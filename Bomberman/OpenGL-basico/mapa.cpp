@@ -721,12 +721,11 @@ void mapa::newLevel(int cant_filas, int cant_columnas, int posXPuerta, int posYP
 	this->texturaIndestructibles = inicializarTextura("assets/pared.jpg");
 	this->texturaTecho = inicializarTextura("assets/nube.jpg");
 	this->texturaPuerta = inicializarTextura("assets/nube.jpg");
-	for (int v = 0; v < sizeof(this->estructuraMapa); v++) {
-		free(this->estructuraMapa[v]);
-	}
+	
 	mapaItem*** auxEM = this->estructuraMapa;
 	this->estructuraMapa = nullptr;
 	free(auxEM);
+	this->estructuraMapa = nullptr;
 	this->estructuraMapa = new mapaItem * *[this->cant_filas];
 	for (int i = 0; i < this->cant_filas; i++) {
 		this->estructuraMapa[i] = new mapaItem * [this->cant_columnas];
@@ -759,16 +758,50 @@ void mapa::newLevel(int cant_filas, int cant_columnas, int posXPuerta, int posYP
 	
 
 	enemisStart.clear();
-	int xE = 0;
-	int yE = 0;
+	int xE = 2;
+	int yE = 2;
 	for (int o = 0; o < cantEnemies; o++) {
-		xE = xE + 2 * round(Random::Float() * (cant_columnas / cantEnemies));
-		yE = yE + 2 * round(Random::Float() * (cant_filas / cantEnemies));
-		if (xE != xPuerta && yE != yPuerta) {
-			enemisStart.push_back(std::make_tuple(yE, xE));
+		xE = xE + (2 * (round(Random::Float() * (cant_columnas / (cantEnemies + 1)))));
+		yE = yE + (2 * (round(Random::Float() * (cant_filas / (cantEnemies + 1)))));
+		if (xE < cant_columnas  && yE < cant_filas) {
+			if (xE != xPuerta && yE != yPuerta) {
+				enemisStart.push_back(std::make_tuple(yE, xE));
+			}
+			else {
+				enemisStart.push_back(std::make_tuple(yE - 2, xE));
+			}
 		}
 		else {
-			enemisStart.push_back(std::make_tuple(yE - 2, xE));
+			if (xE < cant_columnas) {
+				yE = yE - 2;
+				if (xE != xPuerta && yE != yPuerta) {
+					enemisStart.push_back(std::make_tuple(yE, xE));
+				}
+				else {
+					enemisStart.push_back(std::make_tuple(yE - 2, xE));
+				}
+			}
+			else {
+				if (yE < cant_filas) {
+					xE = xE - 2;
+					if (xE != xPuerta && yE != yPuerta) {
+						enemisStart.push_back(std::make_tuple(yE, xE));
+					}
+					else {
+						enemisStart.push_back(std::make_tuple(yE - 2, xE));
+					}
+				}
+				else {
+					xE = xE - 2;
+					yE = yE - 2;
+					if (xE != xPuerta && yE != yPuerta) {
+						enemisStart.push_back(std::make_tuple(yE, xE));
+					}
+					else {
+						enemisStart.push_back(std::make_tuple(yE - 2, xE));
+					}
+				}
+			}
 		}
 	}
 	int g = 0;
