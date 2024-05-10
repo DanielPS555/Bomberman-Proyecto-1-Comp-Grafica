@@ -4,6 +4,7 @@
 #include "util.h"
 #include "renderUtils.h"
 #include "enemigo.h"
+#include "random.h"
 using namespace std;
 
 
@@ -121,6 +122,16 @@ mapa::mapa(int cant_filas, int cant_columnas, int posXPuerta, int posYPuerta) {
 	destructibles.push_back(std::make_tuple(6, 5));
 	destructibles.push_back(std::make_tuple(8,6));
 
+	destructiblesRes.push_back(std::make_tuple(1, 2));
+	destructiblesRes.push_back(std::make_tuple(2, 5));
+	destructiblesRes.push_back(std::make_tuple(3, 4));
+	destructiblesRes.push_back(std::make_tuple(7, 8));
+	destructiblesRes.push_back(std::make_tuple(3, 2));
+	destructiblesRes.push_back(std::make_tuple(3, 2));
+	destructiblesRes.push_back(std::make_tuple(5, 4));
+	destructiblesRes.push_back(std::make_tuple(6, 5));
+	destructiblesRes.push_back(std::make_tuple(8, 6));
+
 	if(!destructEsPuerta()){
 		destructibles.push_back(std::make_tuple(this->yPuerta, this->xPuerta));
 	}
@@ -153,6 +164,11 @@ mapa::mapa(int cant_filas, int cant_columnas, int posXPuerta, int posYPuerta) {
 	this->enemigos[1] = new enemigo(1, { 0.f, 0.f, 0.f }, DERECHA, 4, 4, "assets/horsetexture.png");
 	this->enemigos[2] = new enemigo(2, { 0.f, 0.f, 0.f }, DERECHA, 4, 4, "assets/horsetexture.png");
 	this->enemigos[3] = new enemigo(3, { 0.f, 0.f, 0.f }, DERECHA, 4, 4, "assets/horsetexture.png");
+
+	enemisStart.push_back(std::make_tuple(2, 2));
+	enemisStart.push_back(std::make_tuple(4, 4));
+	enemisStart.push_back(std::make_tuple(4, 4));
+	enemisStart.push_back(std::make_tuple(4, 4));
 
 }
 
@@ -574,15 +590,12 @@ bool mapa::victoria(mathVector posJugador)
 
 void mapa::resetDestructibles() {
 
-	destructibles.push_back(std::make_tuple(1, 2));
-	destructibles.push_back(std::make_tuple(2, 5));
-	destructibles.push_back(std::make_tuple(3, 4));
-	destructibles.push_back(std::make_tuple(7, 8));
-	destructibles.push_back(std::make_tuple(3,2));
-	destructibles.push_back(std::make_tuple(3, 2));
-	destructibles.push_back(std::make_tuple(5, 4));
-	destructibles.push_back(std::make_tuple(6, 5));
-	destructibles.push_back(std::make_tuple(8,6));
+	destructibles.clear();
+	for (const auto& parz : this->destructiblesRes) {
+		int i = std::get<0>(parz);
+		int j = std::get<1>(parz);
+		destructibles.push_back(std::make_tuple(i, j));
+	}
 
 	if(!destructEsPuerta()){
 		destructibles.push_back(std::make_tuple(this->yPuerta, this->xPuerta));
@@ -613,16 +626,251 @@ void mapa::resetDestructibles() {
 
 void mapa::resetEnemies() {
 
-	for (int i = 0; i < 4; i++) {
-		if (this->enemigos[0] != nullptr) {
-			delete this->enemigos[0];
-			this->enemigos[0] == nullptr;
+	/*for (int i = 0; i < sizeof(this->enemigos); i++) {
+		if (this->enemigos[i] != nullptr) {
+			delete this->enemigos[i];
+			this->enemigos[i] == nullptr;
+		}
+	}*/
+	int i = 0;
+	for (const auto& des : this->enemisStart) {
+		int f = std::get<0>(des);
+		int r = std::get<1>(des);
+		if (this->enemigos[i] == nullptr) {
+			this->enemigos[i] = new enemigo(i, { 0.f, 0.f, 0.f }, DERECHA, r, f, "assets/horsetexture.png");
+		}
+		i++;
+	}
+}
+
+void mapa::newLevel(int cant_filas, int cant_columnas, int posXPuerta, int posYPuerta, int cantdestructibles, int cantEnemies) {
+	this->cant_filas = cant_filas;
+	this->cant_columnas = cant_columnas;
+	this->xPuerta = posXPuerta;
+	this->yPuerta = posYPuerta;
+	alturaReal = cant_filas * LARGO_UNIDAD;
+	anchoReal = cant_columnas * LARGO_UNIDAD;
+
+
+
+	GLfloat corrPiso[4 * 3] = { 0.,0.,0.	,anchoReal,0.,0.,	anchoReal,alturaReal,0.,		0.,alturaReal,0. };
+	GLfloat coloresPiso[3] = { 1.f, 1.f, 1.f };
+	GLfloat normalPiso[3] = { 0.f,0.f ,1.f };
+	pisoShape = new Rectangulo2d<NUMERO_PARTICIONES_PISO>(corrPiso, normalPiso, coloresPiso);
+
+
+	GLfloat verticesBordeInferior[8][3] = {
+		{-LARGO_UNIDAD				, -LARGO_UNIDAD			, 0				},
+		{anchoReal + LARGO_UNIDAD	, -LARGO_UNIDAD			, 0				},
+		{anchoReal + LARGO_UNIDAD	, -LARGO_UNIDAD			, ALTURA_PARED	},
+		{-LARGO_UNIDAD				, -LARGO_UNIDAD			, ALTURA_PARED	},
+		{-LARGO_UNIDAD				, 0						, ALTURA_PARED	},
+		{-LARGO_UNIDAD				, 0						, 0				},
+		{anchoReal + LARGO_UNIDAD	, 0						, 0				},
+		{anchoReal + LARGO_UNIDAD	, 0						, ALTURA_PARED  }
+	};
+
+
+	GLfloat verticesBordeIzquierdo[8][3] = {
+		{ -LARGO_UNIDAD              ,	0					  , 0             },
+		{0			                  , 0			          , 0             },
+		{0				              , 0					  , ALTURA_PARED  },
+		{ -LARGO_UNIDAD              ,	0					  , ALTURA_PARED  },
+		{ -LARGO_UNIDAD              ,	alturaReal			  , ALTURA_PARED  },
+		{ -LARGO_UNIDAD              ,	alturaReal			  , 0             },
+		{0			                  , alturaReal	          , 0             },
+		{0				              , alturaReal			  , ALTURA_PARED  },
+	};
+
+	GLfloat verticesBordeDerecho[8][3] = {
+		{anchoReal					, 0					  , 0             },
+		{anchoReal + LARGO_UNIDAD	, 0			          , 0             },
+		{anchoReal + LARGO_UNIDAD 	, 0					  , ALTURA_PARED  },
+		{anchoReal                  , 0					  , ALTURA_PARED  },
+		{anchoReal                  , anchoReal			  , ALTURA_PARED  },
+		{anchoReal                  , anchoReal			  , 0             },
+		{anchoReal + LARGO_UNIDAD	, anchoReal	          , 0             },
+		{anchoReal + LARGO_UNIDAD	, anchoReal			  , ALTURA_PARED  },
+	};
+
+	GLfloat verticesBordeSuperior[8][3] = {
+		{-LARGO_UNIDAD				, alturaReal					, 0				},
+		{anchoReal + LARGO_UNIDAD	, alturaReal					, 0				},
+		{anchoReal + LARGO_UNIDAD	, alturaReal					, ALTURA_PARED	},
+		{-LARGO_UNIDAD				, alturaReal					, ALTURA_PARED	},
+		{-LARGO_UNIDAD				, alturaReal + LARGO_UNIDAD		, ALTURA_PARED	},
+		{-LARGO_UNIDAD				, alturaReal + LARGO_UNIDAD		, 0				},
+		{anchoReal + LARGO_UNIDAD	, alturaReal + LARGO_UNIDAD		, 0				},
+		{anchoReal + LARGO_UNIDAD	, alturaReal + LARGO_UNIDAD		, ALTURA_PARED  },
+	};
+
+	GLfloat color[3] = { 1.f,1.f,1.f };
+	delete bordesShape[0];
+	delete bordesShape[1];
+	delete bordesShape[2];
+	delete bordesShape[3];
+	bordesShape[0] = new Rectangulo3d<NUMERO_PARTICIONES_PARED_LIMITE>(verticesBordeInferior, color, false, true, true, true, true, false);
+	bordesShape[1] = new Rectangulo3d<NUMERO_PARTICIONES_PARED_LIMITE>(verticesBordeIzquierdo, color, true, true, false, true, true, false);
+	bordesShape[2] = new Rectangulo3d<NUMERO_PARTICIONES_PARED_LIMITE>(verticesBordeDerecho, color, true, true, true, false, true, false);
+	bordesShape[3] = new Rectangulo3d<NUMERO_PARTICIONES_PARED_LIMITE>(verticesBordeSuperior, color, true, false, true, true, true, false);
+
+	//inicializo texturas
+	this->textura = inicializarTextura("assets/ladrillo.jpg");
+	this->texturaPared = inicializarTextura("assets/pared.jpg");
+	this->texturapiso = inicializarTextura("assets/piso2.jpg");
+	this->texturaIndestructibles = inicializarTextura("assets/pared.jpg");
+	this->texturaTecho = inicializarTextura("assets/nube.jpg");
+	this->texturaPuerta = inicializarTextura("assets/nube.jpg");
+	
+	mapaItem*** auxEM = this->estructuraMapa;
+	this->estructuraMapa = nullptr;
+	free(auxEM);
+	this->estructuraMapa = nullptr;
+	this->estructuraMapa = new mapaItem * *[this->cant_filas];
+	for (int i = 0; i < this->cant_filas; i++) {
+		this->estructuraMapa[i] = new mapaItem * [this->cant_columnas];
+	}
+
+	for (int i = 0; i < this->cant_filas; i++) {
+		for (int j = 0; j < this->cant_columnas; j++) {
+			if (i >= 1 && j >= 1 && i < cant_filas - 1 && j < cant_columnas - 1 && i % 2 == 1 && j % 2 == 1) {
+				this->estructuraMapa[i][j] = new mapaItem;
+				this->estructuraMapa[i][j]->tipo = PARED_INDESTRUCTIBLE;
+				GLfloat colores[3] = { 1.f, 1.f, 1.f };
+				GLfloat verticesCubo[8][3]{
+					{j * LARGO_UNIDAD			, i * LARGO_UNIDAD					, 0			    },
+					{(j + 1) * LARGO_UNIDAD		, i * LARGO_UNIDAD					, 0			    },
+					{(j + 1) * LARGO_UNIDAD		, i * LARGO_UNIDAD					, ALTURA_PARED  },
+					{j * LARGO_UNIDAD	        , i * LARGO_UNIDAD					, ALTURA_PARED  },
+					{j * LARGO_UNIDAD	        , (i + 1) * LARGO_UNIDAD		    , ALTURA_PARED	},
+					{j * LARGO_UNIDAD	        , (i + 1) * LARGO_UNIDAD			, 0			    },
+					{ (j + 1) * LARGO_UNIDAD	, (i + 1) * LARGO_UNIDAD			, 0				},
+					{ (j + 1) * LARGO_UNIDAD	, (i + 1) * LARGO_UNIDAD			, ALTURA_PARED	},
+				};
+
+				this->estructuraMapa[i][j]->figura = new Rectangulo3d<NUMERO_PARTICIONES_PARED_INTERNA>(verticesCubo, colores, false, false, false, false, true, false);
+			}
+			else {
+				this->estructuraMapa[i][j] = nullptr;
+			}
 		}
 	}
-	this->enemigos[0] = new enemigo(0, { 0.f, 0.f, 0.f }, DERECHA, 2, 2, "assets/enemy.jpg");
-	this->enemigos[1] = new enemigo(1, { 0.f, 0.f, 0.f }, DERECHA, 4, 4, "assets/enemy2.jpg");
-	this->enemigos[2] = new enemigo(2, { 0.f, 0.f, 0.f }, DERECHA, 4, 4, "assets/enemigo3.jpg");
-	this->enemigos[3] = new enemigo(3, { 0.f, 0.f, 0.f }, DERECHA, 4, 4, "assets/enemy4.jpg");
+	
+
+	enemisStart.clear();
+	int xE = 2;
+	int yE = 2;
+	for (int o = 0; o < cantEnemies; o++) {
+		xE = xE + (2 * (round(Random::Float() * (cant_columnas / (cantEnemies + 1)))));
+		yE = yE + (2 * (round(Random::Float() * (cant_filas / (cantEnemies + 1)))));
+		if (xE < cant_columnas  && yE < cant_filas) {
+			if (xE != xPuerta && yE != yPuerta) {
+				enemisStart.push_back(std::make_tuple(yE, xE));
+			}
+			else {
+				enemisStart.push_back(std::make_tuple(yE - 2, xE));
+			}
+		}
+		else {
+			if (xE < cant_columnas) {
+				yE = yE - 2;
+				if (xE != xPuerta && yE != yPuerta) {
+					enemisStart.push_back(std::make_tuple(yE, xE));
+				}
+				else {
+					enemisStart.push_back(std::make_tuple(yE - 2, xE));
+				}
+			}
+			else {
+				if (yE < cant_filas) {
+					xE = xE - 2;
+					if (xE != xPuerta && yE != yPuerta) {
+						enemisStart.push_back(std::make_tuple(yE, xE));
+					}
+					else {
+						enemisStart.push_back(std::make_tuple(yE - 2, xE));
+					}
+				}
+				else {
+					xE = xE - 2;
+					yE = yE - 2;
+					if (xE != xPuerta && yE != yPuerta) {
+						enemisStart.push_back(std::make_tuple(yE, xE));
+					}
+					else {
+						enemisStart.push_back(std::make_tuple(yE - 2, xE));
+					}
+				}
+			}
+		}
+	}
+	int g = 0;
+	for (const auto& des : this->enemisStart) {
+		int f = std::get<0>(des);
+		int r = std::get<1>(des);
+		this->enemigos[g] = new enemigo(g, { 0.f, 0.f, 0.f }, DERECHA, r, f, "assets/horsetexture.png");
+		g++;
+	}
+
+
+	int xD = 1;
+	int yD = 1;
+	destructibles.clear();
+	destructiblesRes.clear();
+	for (int d = 0; d < cantdestructibles; d++) {
+		xD = xD + (round(Random::Float() * this->cant_columnas)/ cantdestructibles);
+		yD = yD + (round(Random::Float() * this->cant_filas) / cantdestructibles);
+		while ((((xD % 2 == 1) && (yD % 2 == 1)) || (esEnemStart(xD, yD))) && (yD > 0)) {
+			yD = yD - 1;
+		}
+		if ((((xD % 2 == 1) && (yD % 2 == 1)) || (esEnemStart(xD, yD))) && (yD == 0)) {
+			yD = round((d * this->cant_columnas) / cantdestructibles);
+		}
+		while ((((xD % 2 == 1) && (yD % 2 == 1)) || (esEnemStart(xD, yD))) && (yD > 0)) {
+			yD = yD - 1;
+		}
+		destructibles.push_back(std::make_tuple(yD, xD));
+		destructiblesRes.push_back(std::make_tuple(yD, xD));
+	}
+
+	if (!destructEsPuerta()) {
+		destructibles.push_back(std::make_tuple(this->yPuerta, this->xPuerta));
+	}
+
+	for (const auto& par : this->destructibles) {
+		int i = std::get<0>(par);
+		int j = std::get<1>(par);
+
+		this->estructuraMapa[i][j] = new mapaItem;
+		this->estructuraMapa[i][j]->tipo = PARED_DESTRUCTIBLE;
+		GLfloat colores[3] = { 1.f, 1.f, 1.f };
+		GLfloat verticesCubo[8][3] = {
+			{j * LARGO_UNIDAD			, i * LARGO_UNIDAD					, 0			    },
+			{(j + 1) * LARGO_UNIDAD		, i * LARGO_UNIDAD					, 0			    },
+			{(j + 1) * LARGO_UNIDAD		, i * LARGO_UNIDAD					, ALTURA_PARED  },
+			{j * LARGO_UNIDAD	        , i * LARGO_UNIDAD					, ALTURA_PARED  },
+			{j * LARGO_UNIDAD	        , (i + 1) * LARGO_UNIDAD		    , ALTURA_PARED	},
+			{j * LARGO_UNIDAD	        , (i + 1) * LARGO_UNIDAD			, 0			    },
+			{ (j + 1) * LARGO_UNIDAD	, (i + 1) * LARGO_UNIDAD			, 0				},
+			{ (j + 1) * LARGO_UNIDAD	, (i + 1) * LARGO_UNIDAD			, ALTURA_PARED	},
+		};
+
+		this->estructuraMapa[i][j]->figura = new Rectangulo3d<NUMERO_PARTICIONES_PARED_INTERNA>(verticesCubo, colores, false, false, false, false, true, false);
+
+	}
+
+}
+
+bool mapa::esEnemStart(int x, int y) {
+	bool es = false;
+	for (const auto& des : this->enemisStart) {
+		int f = std::get<0>(des);
+		int r = std::get<1>(des);
+		if (f == y && r == x) {
+			es == true;
+		}
+	}
+	return es;
 }
 
 
