@@ -12,6 +12,7 @@
 #include "shapes.h"
 #include "renderUtils.h"
 
+
 particleGenerator::particleGenerator(float grav, float life)
 {
 	m_ParticlePool.resize(1000);

@@ -1,6 +1,8 @@
 #include "menu.h"
 #include "SDL_opengl.h"
 #include <tuple>
+#include <SDL_mixer.h>
+
 menu::menu(int w,int h, SDL_Renderer* r){
 	this->w = w;
 	this->h = h;
@@ -222,11 +224,13 @@ int menu::eventHandler(SDL_Event evento) {
 					elecciones[5] = 0;
 					elecciones[12] = 1;
 					configuraciones::getInstancia()->setModoIluminacion(MODOS_ILUMINACION_NOCHE);
+					Mix_PlayMusic(ambiente_nocturno, -1);
 				}
 				else {
 					elecciones[12] = 0;
 					elecciones[5] = 1;
 					configuraciones::getInstancia()->setModoIluminacion(MODOS_ILUMINACION_ATARDESER);
+					Mix_PlayMusic(ambiente_dia, -1);
 				}
 				break;
 			case 6:
@@ -239,6 +243,8 @@ int menu::eventHandler(SDL_Event evento) {
 	}
 	return 1;
 }
+
+
 
 
 bool menu::isFinal(){

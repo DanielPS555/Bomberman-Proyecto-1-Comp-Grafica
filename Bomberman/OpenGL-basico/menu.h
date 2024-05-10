@@ -5,6 +5,7 @@
 #include "util.h"
 #include <iostream>
 #include <SDL_ttf.h>
+#include <SDL_mixer.h>
 #include "renderUtils.h"
 #include "configuraciones.h"
 
@@ -34,6 +35,8 @@ private:
 	int w, h;
 	int * elecciones;
 	bool fin;
+	Mix_Music* ambiente_dia = Mix_LoadMUS("assets/sonido/ambiente_dia.mp3");
+	Mix_Music* ambiente_nocturno = Mix_LoadMUS("assets/sonido/ambiente_nocturno.mp3");
 
 public:
 	menu(int w,int h, SDL_Renderer* r);
