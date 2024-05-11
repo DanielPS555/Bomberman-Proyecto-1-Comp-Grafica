@@ -80,26 +80,39 @@ void particleGenerator::render()
 		GLfloat normal[3] = { 0.f,0.f,1.f };
 
 
-		float totalAplicable = particle.prop.lifeTime - particle.prop.t_inicio;
+		
 
-		float tiempoTranscurido = particle.lifeRemaining - particle.prop.t_inicio;
-		if (tiempoTranscurido < 0.0f) {
-			tiempoTranscurido = 0.0f;
+
+		float t = (particle.prop.lifeTime - particle.lifeRemaining) / particle.prop.lifeTime;
+
+		Rectangulo2d<1>* rect;
+
+		float tiempoTranscurido_real = particle.prop.lifeTime - particle.lifeRemaining;
+
+		if ( tiempoTranscurido_real < particle.prop.t_inicio) {
+			float t_a = (particle.prop.t_inicio - tiempoTranscurido_real) / (particle.prop.t_inicio);
+			GLfloat color[4] = {particle.prop.colorBegin[0], particle.prop.colorBegin[1] , particle.prop.colorBegin[2] , (1-t_a)*particle.prop.colorBegin[3] };
+			rect = new Rectangulo2d<1>(pos, normal, color);
 		}
+		else if(tiempoTranscurido_real >= particle.prop.t_inicio){
 
-		float t = (totalAplicable - tiempoTranscurido) /totalAplicable;
+			float tiempoTranscurido_luegoInicio = particle.prop.lifeTime - particle.lifeRemaining - particle.prop.t_inicio;
 
+			float totalAplicable = particle.prop.lifeTime - particle.prop.t_inicio;
 
-		mathVector colorbase = { particle.prop.colorBegin[0], particle.prop.colorBegin[1], particle.prop.colorBegin[2] };
-		mathVector colorFinal = { particle.prop.colorEnd[0], particle.prop.colorEnd[1], particle.prop.colorEnd[2] };
+			float t_a = (totalAplicable - tiempoTranscurido_luegoInicio) / totalAplicable;
 
+			mathVector colorbase = { particle.prop.colorBegin[0], particle.prop.colorBegin[1], particle.prop.colorBegin[2] };
+			mathVector colorFinal = { particle.prop.colorEnd[0], particle.prop.colorEnd[1], particle.prop.colorEnd[2] };
 
+			mathVector v = interpolarVectores(colorbase, colorFinal, 1-t_a);
 
-		mathVector v =  interpolarVectores(colorbase, colorFinal,t);
-
-		GLfloat  color[4] = { v.x,v.y,v.z, t * particle.prop.colorEnd[3]  + (1 - t) * particle.prop.colorBegin[3]};
-		Rectangulo2d<1>* rect = new Rectangulo2d<1>(pos, normal, color);
-
+			GLfloat color[4] = { v.x,v.y,v.z, (1-t_a) * particle.prop.colorEnd[3] + (t_a) * particle.prop.colorBegin[3] };
+			rect = new Rectangulo2d<1>(pos, normal, color);
+		}
+		else {
+			continue;
+		}
 
 
 		glPushMatrix();
