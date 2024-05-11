@@ -181,12 +181,8 @@ int main(int argc, char* argv[]) {
 	}
 	float** victimas = nullptr;
 
-	// -------- Exploxion y Particulas
-	particleGenerator* partSist = new particleGenerator(10, 1.0);
-	explocion** explociones = new explocion * [4];
-	for (int l = 0; l < 4; l++) {
-		explociones[l] = nullptr;
-	}
+	
+	
 
 	// -------- Jugador
 	mathVector posAct = { 0, 0, 0 };
@@ -196,6 +192,18 @@ int main(int argc, char* argv[]) {
 	int puntaje = 0;
 
 	jugador* player = new jugador(map->obtenerPosicionInicialJugador(), map->anguloInicialJugador(), map, 3);
+
+
+	// --------- Configuracion de la camara
+	Hud* hud = new Hud(renderer, win);
+	modoVisualizacion* modoVis = new modoVisualizacion(player, hud, MODOS_VISUALIZACION_PRIMERA_PERSONA);
+
+	// -------- Exploxion y Particulas
+	particleGenerator* partSist = new particleGenerator(10, 1.0, player, modoVis);
+	explocion** explociones = new explocion * [4];
+	for (int l = 0; l < 4; l++) {
+		explociones[l] = nullptr;
+	}
 
 	// -------- Mapa
 
@@ -212,10 +220,7 @@ int main(int argc, char* argv[]) {
 	bool retry = false;
 	bool newLvl = false;
 
-	// --------- Configuracion de la camara
 
-	Hud* hud = new Hud(renderer, win);
-	modoVisualizacion* modoVis = new modoVisualizacion(player, hud, MODOS_VISUALIZACION_PRIMERA_PERSONA);
 
 
 	// -------- Manejo del tiempo
@@ -337,18 +342,6 @@ int main(int argc, char* argv[]) {
 
 			}
 			
-			/*else if (configuraciones::getInstancia()->getModoIluminacion() == MODOS_ILUMINACION_ATARDESER) {
-				glEnable(GL_LIGHT1);
-
-				GLfloat light1color[] = { 248.0f / 255.f,	 208.0f / 255.f,	 130.0f / 255.f, 1.f };
-				glLightfv(GL_LIGHT1, GL_DIFFUSE, light1color);
-
-
-				glLightf(GL_LIGHT1, GL_CONSTANT_ATTENUATION, 0.05f);
-				glLightf(GL_LIGHT1, GL_LINEAR_ATTENUATION, 0.00f);
-				glLightf(GL_LIGHT1, GL_QUADRATIC_ATTENUATION, 0.0010f);
-
-			}*/
 			
 
 

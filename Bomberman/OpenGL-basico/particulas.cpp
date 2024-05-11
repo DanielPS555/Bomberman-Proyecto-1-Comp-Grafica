@@ -11,14 +11,17 @@
 #include "util.h"
 #include "shapes.h"
 #include "renderUtils.h"
+#include "jugador.h"
 
 
-particleGenerator::particleGenerator(float grav, float life)
+particleGenerator::particleGenerator(float grav, float life, jugador* p, modoVisualizacion* m)
 {
+	modoV = m;
+	player = p;
 	m_ParticlePool.resize(1000);
 	this->grav = grav;
 	this->life = life;
-	textura = inicializarTextura("assets/f2.png");
+	textura = inicializarTexturaPng("assets/f2.png");
 }
 
 
@@ -86,7 +89,7 @@ void particleGenerator::render()
 						 w, 0, -w,
 						 w,  0, w,
 						-w,  0, w };
-		GLfloat colores[4] = { 249.f /256.f ,182.f /256.f,78.f/176.f,0.1f };
+		GLfloat colores[4] = { 249.f /256.f ,182.f /256.f,78.f/176.f,1.0f };
 		//GLfloat colores[3] = { 203.f / 256.f ,53.f / 256.f,61.f / 176.f };
 		GLfloat normal[3] = { 0.f,0.f,1.f };
 
@@ -102,7 +105,7 @@ void particleGenerator::render()
 
 		mathVector v =  interpolarVectores(colorbase, colorFinal,normalized_distance);
 		//v = sumar(v, gradient);
-		GLfloat  color[4] = { v.x,v.y,v.z,0 };
+		GLfloat  color[4] = { v.x,v.y,v.z,1 };
 		Rectangulo2d<1>* rect = new Rectangulo2d<1>(pos, normal, colores);
 
 		if (!particle.Active) {
@@ -131,10 +134,42 @@ void particleGenerator::render()
 		iniciliarRenderVertexArray();
 		prepareRender();
 
-		glTranslatef(particle.Position.x, particle.Position.y, particle.Position.z);
-		//glScalef(particle.SizeBegin, particle.SizeBegin, particle.SizeBegin);
-		//int rotacion = (particle.LifeRemaining / particle.LifeTime) * 360;
-		//glRotatef(rotacion, 1, 1, 1);
+		
+
+		mathVector posicionParticularAbsoluta = { particle.Position.x, particle.Position.y, particle.Position.z };
+		mathVector posicionJugadorAbsoluta = player->getPosicionEnMapa();
+		posicionParticularAbsoluta.z = ALTURA_CAMARA_PRIMERA_PERSONA;
+		
+
+
+		if (modoV->getModoVis() == MODOS_VISUALIZACION_PRIMERA_PERSONA) {
+			posicionJugadorAbsoluta = { posicionJugadorAbsoluta.x, posicionJugadorAbsoluta.y, ALTURA_CAMARA_PRIMERA_PERSONA };
+		}
+		else {
+			posicionJugadorAbsoluta = { posicionJugadorAbsoluta.x, posicionJugadorAbsoluta.y, ALTURA_CAMARA_VISTA_ORIGINAL };
+		}
+		
+
+
+		mathVector posicionJugadorRelativoAParticula = restar(posicionJugadorAbsoluta, posicionParticularAbsoluta);
+
+		
+
+
+		mathVector normaActualParticula = { 0.0f,	1.0f,	0.0f };
+
+		mathVector pv = productoVectorial(normaActualParticula, posicionJugadorRelativoAParticula);
+
+
+		float anguloRotacion = angulo(normaActualParticula, posicionJugadorRelativoAParticula);
+
+		float grad = (anguloRotacion / M_PI) * 180.0f;
+		
+
+		glTranslatef(posicionParticularAbsoluta.x, posicionParticularAbsoluta.y, posicionParticularAbsoluta.z);		
+		glRotatef(grad, pv.x, pv.y, pv.z);
+ 
+
 		glDisable(GL_LIGHTING);
 		rect->renderConPuntoIntermediosYTextura(textura);
 		glEnable(GL_LIGHTING);

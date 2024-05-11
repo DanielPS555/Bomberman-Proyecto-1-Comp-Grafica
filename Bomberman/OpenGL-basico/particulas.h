@@ -9,6 +9,8 @@
 #include <vector>
 #include "mathVector.h"
 #include "shapes/Rectangulo2d.h"
+#include "jugador.h"
+#include "visualizacion/modoVisualizacion.h"
 
 
 #ifndef PARTICULAS
@@ -18,6 +20,7 @@ struct ParticleProps
 {
 	mathVector Position;
 	mathVector Velocity, VelocityVariation;
+
 	float ColorBegin[4], ColorEnd[4];
 	float SizeBegin, SizeEnd, SizeVariation;
 	float LifeTime = 1.0f;
@@ -45,11 +48,15 @@ class particleGenerator {
 
 		};
 		
+
 		std::vector<Particle> m_ParticlePool;
 		uint32_t m_PoolIndex = 999;
 		float life;
 
 		float grav;
+
+		jugador* player;
+		modoVisualizacion* modoV;
 
 		GLuint textura;
 
@@ -61,7 +68,7 @@ class particleGenerator {
 
 		 
 	public:
-		particleGenerator(float grav, float life);
+		particleGenerator(float grav, float life, jugador* play, modoVisualizacion* m);
 
 		void timer(float deltaT);
 		void Emit(const ParticleProps& particleProps);
