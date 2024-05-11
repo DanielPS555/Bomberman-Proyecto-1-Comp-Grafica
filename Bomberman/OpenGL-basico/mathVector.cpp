@@ -21,6 +21,15 @@ mathVector sumar(mathVector vec1, mathVector vec2) {
 	};	
 }
 
+mathVector multiplicar(mathVector vec1, mathVector vec2) {
+	return {
+		vec1.x * vec2.x,
+		vec1.y * vec2.y,
+		vec1.z * vec2.z
+	};
+}
+
+
 mathVector restar(mathVector vec1, mathVector vec2) {
 	return {
 		vec1.x - vec2.x,

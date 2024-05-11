@@ -20,7 +20,8 @@ class explocion {
 private:
 	float life; // Remaining life of the particle. if < 0 : dead and unused.
 	float** rango;
-	GLuint textura;
+	GLuint texturaFuego;
+	GLuint texturaHumo;
 	ParticleProps expPart;
 
 public:

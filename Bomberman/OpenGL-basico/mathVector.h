@@ -11,6 +11,7 @@ struct mathVector {
 
 
 mathVector sumar(mathVector, mathVector);
+mathVector multiplicar(mathVector vec1, mathVector vec2);
 mathVector restar(mathVector, mathVector);
 mathVector multiplicarPorEscalar(mathVector, float);
 

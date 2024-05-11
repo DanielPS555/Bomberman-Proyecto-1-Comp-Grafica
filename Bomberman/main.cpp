@@ -303,6 +303,7 @@ int main(int argc, char* argv[]) {
 			tiempoTranscurridoUltimoFrame = duration_cast<milliseconds>(Clock::now() - beginLastFrame);
 			float deltaTiempoReal = (float)tiempoTranscurridoUltimoFrame.count(); //Tiempo usado para el temporizador
 			float deltaTiempo = conf->getVelocidadJuego()* deltaTiempoReal;
+			//cout << deltaTiempoReal << "\n";
 			beginLastFrame = Clock::now();
 
 			if (hud->isPantallaMuerteActivada()) {

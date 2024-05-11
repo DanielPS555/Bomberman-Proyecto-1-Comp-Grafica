@@ -18,34 +18,27 @@
 
 struct ParticleProps
 {
-	mathVector Position;
-	mathVector Velocity, VelocityVariation;
+	mathVector position;
+	mathVector velocity, velocityVariation;
 
-	float ColorBegin[4], ColorEnd[4];
-	float SizeBegin, SizeEnd, SizeVariation;
-	float LifeTime = 1.0f;
-	float weight;
+	GLfloat colorBegin[4], colorEnd[4];
+	float sizeBegin, sizeEnd;
+	float lifeTime;
+	mathVector origen;
 	GLuint textura;
-	float distancia_centro;
+	
+	float t_inicio; //Inicio de la interpolacion para el color y el size
+
 };
 
 class particleGenerator {
 	private:	
 		struct Particle
 		{
-			mathVector Position;
-			mathVector Velocity, VelocityVariation;
-			float ColorBegin[4], ColorEnd[4];
-			float Rotation;
-			float SizeBegin, SizeEnd;
-			float weight;
+			ParticleProps prop;
 
-			float LifeTime = 2000;
-			float LifeRemaining = 0.0f;
-			GLuint textura;
-			bool Active = false;
-			float distancia_centro;
-
+			float lifeRemaining = 0.0f;
+			bool active = false;
 		};
 		
 
@@ -57,8 +50,6 @@ class particleGenerator {
 
 		jugador* player;
 		modoVisualizacion* modoV;
-
-		GLuint textura;
 
 
 		//GLuint m_QuadVA = 0;

@@ -19,9 +19,6 @@ particleGenerator::particleGenerator(float grav, float life, jugador* p, modoVis
 	modoV = m;
 	player = p;
 	m_ParticlePool.resize(1000);
-	this->grav = grav;
-	this->life = life;
-	textura = inicializarTexturaPng("assets/f2.png");
 }
 
 
@@ -29,53 +26,37 @@ particleGenerator::particleGenerator(float grav, float life, jugador* p, modoVis
 void particleGenerator::Emit(const ParticleProps& particleProps)
 {
 	Particle& particle = m_ParticlePool[m_PoolIndex];
-	particle.Active = true;
-	particle.Position = particleProps.Position;
-	particle.Rotation = 0;
 
-	// Velocity
-	particle.Velocity = particleProps.Velocity;
-	//particle.Velocity.x += particleProps.VelocityVariation.x; //* (Random::Float() - 0.5f);
-	//particle.Velocity.y += particleProps.VelocityVariation.y; //* (Random::Float() - 0.5f);
-	//particle.Velocity.z += particleProps.VelocityVariation.z; //* (Random::Float() - 0.5f);
-
-	// Color
-	particle.ColorBegin[0] = particleProps.ColorBegin[0];
-	particle.ColorBegin[1] = particleProps.ColorBegin[1];
-	particle.ColorBegin[2] = particleProps.ColorBegin[2];
-	particle.ColorBegin[3] = particleProps.ColorBegin[3];
-	particle.ColorEnd[0] = particleProps.ColorEnd[0];
-	particle.ColorEnd[1] = particleProps.ColorEnd[1];
-	particle.ColorEnd[2] = particleProps.ColorEnd[2];
-	particle.ColorEnd[3] = particleProps.ColorEnd[3];
-
-	particle.LifeTime = particleProps.LifeTime;
-	particle.LifeRemaining = particleProps.LifeTime;
-	particle.SizeBegin = particleProps.SizeBegin + particleProps.SizeVariation; //* (Random::Float() - 0.5f);
-	particle.SizeEnd = particleProps.SizeEnd;
-	particle.weight = particleProps.weight;
-	particle.distancia_centro = particleProps.distancia_centro;
-
+	particle.prop = particleProps;
+	particle.active = true;
+	particle.lifeRemaining= particleProps.lifeTime;
+	
 	m_PoolIndex = --m_PoolIndex % m_ParticlePool.size();
+	
 }
 
 void particleGenerator::timer(float deltaT)
 {	
 	for (auto& particle : m_ParticlePool)
 	{
-		if (!particle.Active)
+		if (!particle.active)
 			continue;
 
-		if (particle.LifeRemaining <= 0.0f)
+		if (particle.lifeRemaining<= 0.0f)
 		{
-			particle.Active = false;
+			particle.active = false;
 			continue;
 		}
-		//particle.Velocity.z = particle.Velocity.z * particle.weight * this->grav;
-		particle.LifeRemaining -= deltaT;
-		particle.Position = sumar(particle.Position, particle.Velocity);//multiplicarPorEscalar(particle.Velocity, deltaT));
-		particle.Velocity = sumar(particle.Velocity, particle.VelocityVariation);
-		particle.Rotation += 0 * deltaT;
+		
+		particle.lifeRemaining -= deltaT;
+		particle.prop.position = sumar(particle.prop.position, multiplicarPorEscalar(particle.prop.velocity, deltaT / 1000.f)); // 1000ms aplicar completamente
+
+
+		mathVector parteVelocidadDisminuida = multiplicarPorEscalar(particle.prop.velocity, deltaT / 1000.f);
+		mathVector parteVelocidadNoAfectada = multiplicarPorEscalar(particle.prop.velocity, 1 - deltaT / 1000.f);
+		parteVelocidadDisminuida = multiplicar(parteVelocidadDisminuida, particle.prop.velocityVariation);
+
+		particle.prop.velocity = sumar(parteVelocidadDisminuida, parteVelocidadNoAfectada); // 1000ms aplicar completamente
 	}
 }
 
@@ -84,64 +65,51 @@ void particleGenerator::render()
 
 	for (auto& particle : m_ParticlePool)
 	{	
-		float w = 2;
+
+		if (!particle.active) {
+			continue;
+		}
+
+		float w = 1;
 		GLfloat pos[12] = { -w, 0, -w,
 							 w, 0, -w,
 							 w,  0, w,
 							-w,  0, w 
 		};
-		GLfloat colores[4] = { 249.f /256.f ,182.f /256.f,78.f/176.f,1.0f };
-		//GLfloat colores[3] = { 203.f / 256.f ,53.f / 256.f,61.f / 176.f };
+		
 		GLfloat normal[3] = { 0.f,0.f,1.f };
 
 
-		mathVector colorbase = {  255.f / 255.f ,255.f / 255.f,255.f / 255.f };
-		mathVector colorFinal = { 245.f / 256.f ,149.f / 256.f,0.f / 255.f };
-		mathVector gradient = { 203.f / 256.f ,53.f / 256.f,61.f / 176.f };
+		float totalAplicable = particle.prop.lifeTime - particle.prop.t_inicio;
 
-		float normalized_distance = particle.distancia_centro / 80;
-
-		gradient = multiplicarPorEscalar(gradient, Random::Float() * 0.5);
-
-
-		mathVector v =  interpolarVectores(colorbase, colorFinal,normalized_distance);
-		//v = sumar(v, gradient);
-		GLfloat  color[4] = { v.x,v.y,v.z,1 };
-		Rectangulo2d<1>* rect = new Rectangulo2d<1>(pos, normal, colores);
-
-		if (!particle.Active) {
-			free(rect);
-			continue;
+		float tiempoTranscurido = particle.lifeRemaining - particle.prop.t_inicio;
+		if (tiempoTranscurido < 0.0f) {
+			tiempoTranscurido = 0.0f;
 		}
 
-		// Fade away particles
-		//float life = particle.LifeRemaining / particle.LifeTime;
-		//glm::vec4 color = glm::lerp(particle.ColorEnd, particle.ColorBegin, life);
-		//color.a = color.a * life;
+		float t = (totalAplicable - tiempoTranscurido) /totalAplicable;
 
-		//float size = glm::lerp(particle.SizeEnd, particle.SizeBegin, life);
 
-		// Render
-		//glm::mat4 transform = glm::translate(glm::mat4(1.0f), { particle.Position.x, particle.Position.y, particle.position.z })
-		//	* glm::rotate(glm::mat4(1.0f), particle.Rotation, { 0.0f, 0.0f, 1.0f })
-		//	* glm::scale(glm::mat4(1.0f), { size, size, 1.0f });
-		//glUniformMatrix4fv(m_ParticleShaderTransform, 1, GL_FALSE, glm::value_ptr(transform));
-		//glUniform4fv(m_ParticleShaderColor, 1, glm::value_ptr(color));
-		//glBindVertexArray(m_QuadVA);
-		//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+		mathVector colorbase = { particle.prop.colorBegin[0], particle.prop.colorBegin[1], particle.prop.colorBegin[2] };
+		mathVector colorFinal = { particle.prop.colorEnd[0], particle.prop.colorEnd[1], particle.prop.colorEnd[2] };
+
+
+
+		mathVector v =  interpolarVectores(colorbase, colorFinal,t);
+
+		GLfloat  color[4] = { v.x,v.y,v.z, t * particle.prop.colorEnd[3]  + (1 - t) * particle.prop.colorBegin[3]};
+		Rectangulo2d<1>* rect = new Rectangulo2d<1>(pos, normal, color);
+
+
 
 		glPushMatrix();
 
 		iniciliarRenderVertexArray();
 		prepareRender();
 
-		
-
-		mathVector posicionParticularAbsoluta = { particle.Position.x, particle.Position.y, particle.Position.z };
+		mathVector posicionParticularAbsoluta = { particle.prop.position.x, particle.prop.position.y, particle.prop.position.z };
 		mathVector posicionJugadorAbsoluta = player->getPosicionEnMapa();
-		//posicionParticularAbsoluta.z = ALTURA_CAMARA_PRIMERA_PERSONA;
 		
-
 		if (modoV->getModoVis() == MODOS_VISUALIZACION_PRIMERA_PERSONA) {
 			posicionJugadorAbsoluta = { posicionJugadorAbsoluta.x, posicionJugadorAbsoluta.y, ALTURA_CAMARA_PRIMERA_PERSONA };
 		}
@@ -157,12 +125,15 @@ void particleGenerator::render()
 		float grad = (anguloRotacion / M_PI) * 180.0f;
 		
 
+		float aumento = t * particle.prop.sizeEnd + (1 - t) * particle.prop.sizeBegin;
+
 		glTranslatef(posicionParticularAbsoluta.x, posicionParticularAbsoluta.y, posicionParticularAbsoluta.z);		
 		glRotatef(grad, pv.x, pv.y, pv.z);
- 
+		glScalef(aumento, aumento, aumento);
+
 
 		glDisable(GL_LIGHTING);
-		rect->renderConPuntoIntermediosYTextura(textura);
+		rect->renderConPuntoIntermediosYTextura(particle.prop.textura);
 		glEnable(GL_LIGHTING);
 		finalizarRenderVertexArray();
 
