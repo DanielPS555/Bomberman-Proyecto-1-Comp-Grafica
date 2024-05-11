@@ -421,7 +421,7 @@ int main(int argc, char* argv[]) {
 						victimas = bombs[i]->explosion_trigg(victimas);
 						puntaje = puntaje + map->eliminarDestructibles(victimas, bombs[i]->getAlcanze());
 						muerte = bombs[i]->danioBomba(player->getPosicionEnMapa(), victimas);
-						explocion* exp = new explocion(2000, victimas);
+						explocion* exp = new explocion(3000, victimas);
 						exp->generateExplocion(bombs[i]->getAlcanze(), partSist);
 						
 						int e = 0;

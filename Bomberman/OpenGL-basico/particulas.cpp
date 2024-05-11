@@ -86,9 +86,10 @@ void particleGenerator::render()
 	{	
 		float w = 2;
 		GLfloat pos[12] = { -w, 0, -w,
-						 w, 0, -w,
-						 w,  0, w,
-						-w,  0, w };
+							 w, 0, -w,
+							 w,  0, w,
+							-w,  0, w 
+		};
 		GLfloat colores[4] = { 249.f /256.f ,182.f /256.f,78.f/176.f,1.0f };
 		//GLfloat colores[3] = { 203.f / 256.f ,53.f / 256.f,61.f / 176.f };
 		GLfloat normal[3] = { 0.f,0.f,1.f };
@@ -138,9 +139,8 @@ void particleGenerator::render()
 
 		mathVector posicionParticularAbsoluta = { particle.Position.x, particle.Position.y, particle.Position.z };
 		mathVector posicionJugadorAbsoluta = player->getPosicionEnMapa();
-		posicionParticularAbsoluta.z = ALTURA_CAMARA_PRIMERA_PERSONA;
+		//posicionParticularAbsoluta.z = ALTURA_CAMARA_PRIMERA_PERSONA;
 		
-
 
 		if (modoV->getModoVis() == MODOS_VISUALIZACION_PRIMERA_PERSONA) {
 			posicionJugadorAbsoluta = { posicionJugadorAbsoluta.x, posicionJugadorAbsoluta.y, ALTURA_CAMARA_PRIMERA_PERSONA };
@@ -149,20 +149,11 @@ void particleGenerator::render()
 			posicionJugadorAbsoluta = { posicionJugadorAbsoluta.x, posicionJugadorAbsoluta.y, ALTURA_CAMARA_VISTA_ORIGINAL };
 		}
 		
-
-
 		mathVector posicionJugadorRelativoAParticula = restar(posicionJugadorAbsoluta, posicionParticularAbsoluta);
-
-		
-
-
 		mathVector normaActualParticula = { 0.0f,	1.0f,	0.0f };
-
 		mathVector pv = productoVectorial(normaActualParticula, posicionJugadorRelativoAParticula);
 
-
 		float anguloRotacion = angulo(normaActualParticula, posicionJugadorRelativoAParticula);
-
 		float grad = (anguloRotacion / M_PI) * 180.0f;
 		
 
