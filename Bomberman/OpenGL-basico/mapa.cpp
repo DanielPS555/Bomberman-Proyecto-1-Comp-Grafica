@@ -773,7 +773,7 @@ void mapa::newLevel(int cant_filas, int cant_columnas, int posXPuerta, int posYP
 		}
 		else {
 			if (xE < cant_columnas) {
-				yE = yE - 2;
+				yE = yE - ((yE - cant_filas) - 2);
 				if (xE != xPuerta && yE != yPuerta) {
 					enemisStart.push_back(std::make_tuple(yE, xE));
 				}
@@ -783,7 +783,7 @@ void mapa::newLevel(int cant_filas, int cant_columnas, int posXPuerta, int posYP
 			}
 			else {
 				if (yE < cant_filas) {
-					xE = xE - 2;
+					xE = xE - ((xE - cant_filas) - 2);
 					if (xE != xPuerta && yE != yPuerta) {
 						enemisStart.push_back(std::make_tuple(yE, xE));
 					}
@@ -792,8 +792,8 @@ void mapa::newLevel(int cant_filas, int cant_columnas, int posXPuerta, int posYP
 					}
 				}
 				else {
-					xE = xE - 2;
-					yE = yE - 2;
+					xE = xE - ((xE - cant_filas) - 2);
+					yE = yE - ((yE - cant_filas) - 2);
 					if (xE != xPuerta && yE != yPuerta) {
 						enemisStart.push_back(std::make_tuple(yE, xE));
 					}
