@@ -346,7 +346,7 @@ void mapa::isColicion(mathVector posicionActual,
 					  bool& colicionDerecha,
 					  bool& colicionInferior,
 					  bool& colicionIsquierda) {
-	// ---- Etapa 1: ¿Choque contra las paredes del mapa?
+	// ---- Etapa 1: Â¿Choque contra las paredes del mapa?
 	int casilleroNuevolMapaX = floor(nuevaPosicion.x / LARGO_UNIDAD);
 	int casilleroNuevolMapaY = floor(nuevaPosicion.y / LARGO_UNIDAD);
 
@@ -384,7 +384,7 @@ void mapa::isColicion(mathVector posicionActual,
 		return;
 	}
 
-	// ---- Etapa 2: ¿Choque diagonal?
+	// ---- Etapa 2: Â¿Choque diagonal?
 
 	int casilleroActualMapaX = floor(posicionActual.x / LARGO_UNIDAD);
 	int casilleroActualMapaY = floor(posicionActual.y / LARGO_UNIDAD);
@@ -761,8 +761,8 @@ void mapa::newLevel(int cant_filas, int cant_columnas, int posXPuerta, int posYP
 	int xE = 2;
 	int yE = 2;
 	for (int o = 0; o < cantEnemies; o++) {
-		xE = xE + (2 * (round(Random::Float() * (cant_columnas / (cantEnemies + 1)))));
-		yE = yE + (2 * (round(Random::Float() * (cant_filas / (cantEnemies + 1)))));
+		xE = xE + 2; //* (round(Random::Float() * (cant_columnas / (cantEnemies + 1)))));
+		yE = yE + 2; //* (round(Random::Float() * (cant_filas / (cantEnemies + 1)))));
 		if (xE < cant_columnas  && yE < cant_filas) {
 			if (xE != xPuerta && yE != yPuerta) {
 				enemisStart.push_back(std::make_tuple(yE, xE));
