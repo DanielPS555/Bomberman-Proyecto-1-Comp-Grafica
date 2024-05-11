@@ -70,7 +70,7 @@ Hud::Hud(SDL_Renderer* r, SDL_Window* w) {
 	GLfloat colores[4] = { 1.f,1.f,1.f,1.f };
 	GLfloat normal[3]  = { 0.f,0.f,1.f };
 	
-	iconoHeart = new Rectangulo2d<1>(posicionesIconoHeart, normal, colores);
+	iconoHeart = new Rectangulo2d<1>(posicionesIconoHeart, normal, colores, 1, 1);
 	
 	
 	float xIconoEnemy = w_2 * 0.92f, yIconoEnemy = h_2 * 0.855f;
@@ -79,7 +79,7 @@ Hud::Hud(SDL_Renderer* r, SDL_Window* w) {
 										 xIconoEnemy + wIcono	, yIconoEnemy + wIcono  , -PROFUNDIDAD_HUD,
 										 xIconoEnemy			, yIconoEnemy + wIcono	, -PROFUNDIDAD_HUD,
 	};
-	iconoEnemy = new Rectangulo2d<1>(posicionesIconoEnemy, normal, colores);
+	iconoEnemy = new Rectangulo2d<1>(posicionesIconoEnemy, normal, colores, 1, 1);
 }
 
 Hud::~Hud() {

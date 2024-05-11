@@ -202,6 +202,8 @@ int main(int argc, char* argv[]) {
 	Hud* hud = new Hud(renderer, win);
 	modoVisualizacion* modoVis = new modoVisualizacion(player, hud, MODOS_VISUALIZACION_PRIMERA_PERSONA);
 
+	map->setModoVisualizacion(modoVis);
+
 	// -------- Exploxion y Particulas
 	particleGenerator* partSist = new particleGenerator(10, 1.0, player, modoVis);
 	explocion** explociones = new explocion * [4];
@@ -308,7 +310,14 @@ int main(int argc, char* argv[]) {
 			}
 			// ---- Inicializar el frame
 
-
+			if (configuraciones::getInstancia()->getModoIluminacion() == MODOS_ILUMINACION_NOCHE) {
+				glClearColor(3.f / 256.f, 0.f / 256.f, 6.f / 256.f, 1);
+			}
+			else {
+				glClearColor(243.f / 256.f, 187.f / 256.f, 75.f / 256.f, 1);
+				//glClearColor(245.f / 256.f, 206.f / 256.f, 127.f / 256.f, 1);
+			}
+			
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 

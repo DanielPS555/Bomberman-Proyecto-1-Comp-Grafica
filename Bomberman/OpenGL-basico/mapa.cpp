@@ -5,10 +5,12 @@
 #include "renderUtils.h"
 #include "enemigo.h"
 #include "random.h"
+#include "visualizacion/modoVisualizacion.h"
 using namespace std;
 
 
 mapa::mapa(int cant_filas, int cant_columnas, int posXPuerta, int posYPuerta) {
+
 	this->cant_filas = cant_filas;
 	this->cant_columnas = cant_columnas;
 	this->xPuerta = posXPuerta;
@@ -21,64 +23,98 @@ mapa::mapa(int cant_filas, int cant_columnas, int posXPuerta, int posYPuerta) {
 	GLfloat corrPiso[4 * 3] = { 0.,0.,0.	,anchoReal,0.,0.,	anchoReal,alturaReal,0.,		0.,alturaReal,0. };
 	GLfloat coloresPiso[3] = { 1.f, 1.f, 1.f };
 	GLfloat normalPiso[3] = { 0.f,0.f ,1.f };
-	pisoShape = new Rectangulo2d<NUMERO_PARTICIONES_PISO>(corrPiso, normalPiso, coloresPiso);
+	pisoShape = new Rectangulo2d<NUMERO_PARTICIONES_PISO>(corrPiso, normalPiso, coloresPiso, 8, 8);
+
+
+	float continuacionPiso = 7 * LARGO_UNIDAD;
+
+	GLfloat corrPisoExterior[4 * 3] = {
+		-continuacionPiso, -continuacionPiso , -10.0	
+		,anchoReal + continuacionPiso, -continuacionPiso, -10.,	
+		anchoReal + continuacionPiso,alturaReal + continuacionPiso,-10.,		
+		-continuacionPiso,alturaReal+ continuacionPiso,-10. 
+	};
+	pisoExterior = new Rectangulo2d<NUMERO_PARTICIONES_PISO>(corrPisoExterior, coloresPiso, normalPiso, 20, 20);
+
+	float tamCielo = 1000;
+	float medioMapaX = anchoReal / 2;
+	float medioMapaY = alturaReal / 2;
+
+	GLfloat corrCielo[4 * 3] = {
+		 medioMapaX - tamCielo, medioMapaY - tamCielo, 60,
+		 medioMapaX + tamCielo, medioMapaY - tamCielo, 60,
+		 medioMapaX + tamCielo, medioMapaY + tamCielo, 60,
+		 medioMapaX - tamCielo, medioMapaY + tamCielo, 60
+	};
+
+
+	
+	GLfloat coloresCieloII[4] = { 255.f / 256.f,	182.f / 256.f,	0.f / 256.f,  1.f };
+	GLfloat coloresCieloID[4] = { 255.f / 256.f,	 84.f / 256.f,	0.f / 256.f,  1.f };
+	GLfloat coloresCieloSD[4] = { 242.f / 256.f,	 92.f / 256.f,	84.f / 256.f,  1.f };
+	GLfloat coloresCieloSI[4] = { 255.f / 256.f,	 84.f / 256.f,	0.f / 256.f,  1.f };
+	
+
+	cielo = new Rectangulo2d<1>(corrCielo, normalPiso, coloresCieloII, coloresCieloID, coloresCieloSD, coloresCieloSI, 1, 1);
 	
 
 	GLfloat verticesBordeInferior[8][3] = {
 		{-LARGO_UNIDAD				, -LARGO_UNIDAD			, 0				},
 		{anchoReal + LARGO_UNIDAD	, -LARGO_UNIDAD			, 0				},
-		{anchoReal + LARGO_UNIDAD	, -LARGO_UNIDAD			, ALTURA_PARED	},
-		{-LARGO_UNIDAD				, -LARGO_UNIDAD			, ALTURA_PARED	},
-		{-LARGO_UNIDAD				, 0						, ALTURA_PARED	},
+		{anchoReal + LARGO_UNIDAD	, -LARGO_UNIDAD			, ALTURA_EXTERIOR	},
+		{-LARGO_UNIDAD				, -LARGO_UNIDAD			, ALTURA_EXTERIOR	},
+		{-LARGO_UNIDAD				, 0						, ALTURA_EXTERIOR	},
 		{-LARGO_UNIDAD				, 0						, 0				},
 		{anchoReal + LARGO_UNIDAD	, 0						, 0				},
-		{anchoReal + LARGO_UNIDAD	, 0						, ALTURA_PARED  }
+		{anchoReal + LARGO_UNIDAD	, 0						, ALTURA_EXTERIOR  }
 	};
 
 
 	GLfloat verticesBordeIzquierdo[8][3] = {
 		{ -LARGO_UNIDAD              ,	0					  , 0             },
 		{0			                  , 0			          , 0             },
-		{0				              , 0					  , ALTURA_PARED  },
-		{ -LARGO_UNIDAD              ,	0					  , ALTURA_PARED  },
-		{ -LARGO_UNIDAD              ,	alturaReal			  , ALTURA_PARED  },
+		{0				              , 0					  , ALTURA_EXTERIOR  },
+		{ -LARGO_UNIDAD              ,	0					  , ALTURA_EXTERIOR  },
+		{ -LARGO_UNIDAD              ,	alturaReal			  , ALTURA_EXTERIOR  },
 		{ -LARGO_UNIDAD              ,	alturaReal			  , 0             },
 		{0			                  , alturaReal	          , 0             },
-		{0				              , alturaReal			  , ALTURA_PARED  },
+		{0				              , alturaReal			  , ALTURA_EXTERIOR  },
 	};
 
 	GLfloat verticesBordeDerecho[8][3] = {
 		{anchoReal					, 0					  , 0             },
 		{anchoReal	+ LARGO_UNIDAD	, 0			          , 0             },
-		{anchoReal + LARGO_UNIDAD 	, 0					  , ALTURA_PARED  },
-		{anchoReal                  , 0					  , ALTURA_PARED  },
-		{anchoReal                  , anchoReal			  , ALTURA_PARED  },
+		{anchoReal + LARGO_UNIDAD 	, 0					  , ALTURA_EXTERIOR  },
+		{anchoReal                  , 0					  , ALTURA_EXTERIOR  },
+		{anchoReal                  , anchoReal			  , ALTURA_EXTERIOR  },
 		{anchoReal                  , anchoReal			  , 0             },
 		{anchoReal + LARGO_UNIDAD	, anchoReal	          , 0             },
-		{anchoReal + LARGO_UNIDAD	, anchoReal			  , ALTURA_PARED  },
+		{anchoReal + LARGO_UNIDAD	, anchoReal			  , ALTURA_EXTERIOR  },
 	};
 
 	GLfloat verticesBordeSuperior[8][3] = {
 		{-LARGO_UNIDAD				, alturaReal					, 0				},
 		{anchoReal + LARGO_UNIDAD	, alturaReal					, 0				},
-		{anchoReal + LARGO_UNIDAD	, alturaReal					, ALTURA_PARED	},
-		{-LARGO_UNIDAD				, alturaReal					, ALTURA_PARED	},
-		{-LARGO_UNIDAD				, alturaReal + LARGO_UNIDAD		, ALTURA_PARED	},
+		{anchoReal + LARGO_UNIDAD	, alturaReal					, ALTURA_EXTERIOR	},
+		{-LARGO_UNIDAD				, alturaReal					, ALTURA_EXTERIOR	},
+		{-LARGO_UNIDAD				, alturaReal + LARGO_UNIDAD		, ALTURA_EXTERIOR	},
 		{-LARGO_UNIDAD				, alturaReal + LARGO_UNIDAD		, 0				},
 		{anchoReal + LARGO_UNIDAD	, alturaReal + LARGO_UNIDAD		, 0				},
-		{anchoReal + LARGO_UNIDAD	, alturaReal + LARGO_UNIDAD		, ALTURA_PARED  },
+		{anchoReal + LARGO_UNIDAD	, alturaReal + LARGO_UNIDAD		, ALTURA_EXTERIOR  },
 	};
 	
 	GLfloat color[3] = { 1.f,1.f,1.f };
-	bordesShape[0] = new Rectangulo3d<NUMERO_PARTICIONES_PARED_LIMITE>(verticesBordeInferior , color, false, true, true , true , true, false);
-	bordesShape[1] = new Rectangulo3d<NUMERO_PARTICIONES_PARED_LIMITE>(verticesBordeIzquierdo, color, true , true, false, true , true, false);
-	bordesShape[2] = new Rectangulo3d<NUMERO_PARTICIONES_PARED_LIMITE>(verticesBordeDerecho  , color, true , true, true , false, true, false);
-	bordesShape[3] = new Rectangulo3d<NUMERO_PARTICIONES_PARED_LIMITE>(verticesBordeSuperior,  color, true , false ,true ,true , true, false);
+	bordesShape[0] = new Rectangulo3d<NUMERO_PARTICIONES_PARED_LIMITE>(verticesBordeInferior , color, false, true, true , true , true, false, 10, 2, 2);
+	bordesShape[1] = new Rectangulo3d<NUMERO_PARTICIONES_PARED_LIMITE>(verticesBordeIzquierdo, color, true , true, false, true , true, false, 2, 2, 10);
+	bordesShape[2] = new Rectangulo3d<NUMERO_PARTICIONES_PARED_LIMITE>(verticesBordeDerecho  , color, true , true, true , false, true, false, 2, 2, 10);
+	bordesShape[3] = new Rectangulo3d<NUMERO_PARTICIONES_PARED_LIMITE>(verticesBordeSuperior,  color, true , false ,true ,true , true, false, 10, 2, 2);
 
 	//inicializo texturas
 	this->textura = inicializarTextura("assets/ladrillo.jpg");
-	this->texturaPared = inicializarTextura("assets/pared.jpg");
-	this->texturapiso = inicializarTextura("assets/piso2.jpg");
+	this->texturaPared = inicializarTextura("assets/paredExterior.jpg");
+	this->texturaParedExterior = inicializarTextura("assets/pared.jpg");
+	this->texturapisoExterior = inicializarTextura("assets/sueloExterior.jpg");
+	this->texturapiso = inicializarTextura("assets/piso.jpg");
 	this->texturaIndestructibles = inicializarTextura("assets/pared.jpg");
 	this->texturaTecho = inicializarTextura("assets/nube.jpg");
 	this->texturaPuerta = inicializarTextura("assets/nube.jpg");
@@ -105,7 +141,7 @@ mapa::mapa(int cant_filas, int cant_columnas, int posXPuerta, int posYPuerta) {
 					{ (j + 1) * LARGO_UNIDAD	, (i + 1) * LARGO_UNIDAD			, ALTURA_PARED	},
 				};
 
-				this->estructuraMapa[i][j]->figura = new Rectangulo3d<NUMERO_PARTICIONES_PARED_INTERNA>(verticesCubo, colores, false, false, false, false, true, false);
+				this->estructuraMapa[i][j]->figura = new Rectangulo3d<NUMERO_PARTICIONES_PARED_INTERNA>(verticesCubo, colores, false, false, false, false, true, false, 2, 2, 2);
 			}else {
 				this->estructuraMapa[i][j] = nullptr;
 			}
@@ -154,7 +190,7 @@ mapa::mapa(int cant_filas, int cant_columnas, int posXPuerta, int posYPuerta) {
 			{ (j + 1) * LARGO_UNIDAD	, (i + 1) * LARGO_UNIDAD			, ALTURA_PARED	},
 		};
 
-		this->estructuraMapa[i][j]->figura = new Rectangulo3d<NUMERO_PARTICIONES_PARED_INTERNA>(verticesCubo, colores, false, false, false, false, true, false);
+		this->estructuraMapa[i][j]->figura = new Rectangulo3d<NUMERO_PARTICIONES_PARED_INTERNA>(verticesCubo, colores, false, false, false, false, true, false, 1, 1, 1);
 
 	}
 
@@ -188,6 +224,24 @@ void mapa::render() {
 	
 
 	pisoShape->renderConPuntoIntermediosYTextura(this->texturapiso);
+	pisoExterior->renderConPuntoIntermediosYTextura(this->texturapisoExterior);
+
+
+	
+	if (modV != nullptr) {
+		
+		if (modV->getModoVis() == MODOS_VISUALIZACION_PRIMERA_PERSONA && 
+			!configuraciones::getInstancia()->getModoIluminacion() == MODOS_ILUMINACION_NOCHE) {
+
+			glDisable(GL_LIGHTING);
+			cielo->renderConPuntoIntermediosYTextura(0);
+			glEnable(GL_LIGHTING);
+		}
+	}
+
+	
+
+	
 	
 
 	
@@ -509,6 +563,8 @@ mapa::~mapa() {
 
 	free(estructuraMapa);
 	free(pisoShape);
+	free(pisoExterior);
+	free(cielo);
 }
 
 bool mapa::destructEsPuerta()
@@ -619,7 +675,7 @@ void mapa::resetDestructibles() {
 				{ (j + 1) * LARGO_UNIDAD	, (i + 1) * LARGO_UNIDAD			, ALTURA_PARED	},
 			};
 
-			this->estructuraMapa[i][j]->figura = new Rectangulo3d<NUMERO_PARTICIONES_PARED_INTERNA>(verticesCubo, colores, false, false, false, false, true, false);
+			this->estructuraMapa[i][j]->figura = new Rectangulo3d<NUMERO_PARTICIONES_PARED_INTERNA>(verticesCubo, colores, false, false, false, false, true, false, 1, 1, 1);
 		}
 	}
 }
@@ -652,11 +708,41 @@ void mapa::newLevel(int cant_filas, int cant_columnas, int posXPuerta, int posYP
 	anchoReal = cant_columnas * LARGO_UNIDAD;
 
 
-
 	GLfloat corrPiso[4 * 3] = { 0.,0.,0.	,anchoReal,0.,0.,	anchoReal,alturaReal,0.,		0.,alturaReal,0. };
 	GLfloat coloresPiso[3] = { 1.f, 1.f, 1.f };
 	GLfloat normalPiso[3] = { 0.f,0.f ,1.f };
-	pisoShape = new Rectangulo2d<NUMERO_PARTICIONES_PISO>(corrPiso, normalPiso, coloresPiso);
+	pisoShape = new Rectangulo2d<NUMERO_PARTICIONES_PISO>(corrPiso, normalPiso, coloresPiso, 8, 8);
+
+	float continuacionPiso = 7 * LARGO_UNIDAD;
+
+	GLfloat corrPisoExterior[4 * 3] = {
+		-continuacionPiso, -continuacionPiso , -10.0
+		,anchoReal + continuacionPiso, -continuacionPiso, -10.,
+		anchoReal + continuacionPiso,alturaReal + continuacionPiso,-10.,
+		-continuacionPiso,alturaReal + continuacionPiso,-10.
+	};
+	pisoExterior = new Rectangulo2d<NUMERO_PARTICIONES_PISO>(corrPisoExterior, coloresPiso, normalPiso, 20, 20);
+
+	float tamCielo = 500;
+	float medioMapaX = anchoReal / 2;
+	float medioMapaY = alturaReal / 2;
+
+	GLfloat corrCielo[4 * 3] = {
+		 medioMapaX - tamCielo, medioMapaY - tamCielo, ALTURA_EXTERIOR,
+		 medioMapaX + tamCielo, medioMapaY - tamCielo, ALTURA_EXTERIOR,
+		 medioMapaX + tamCielo, medioMapaY + tamCielo, ALTURA_EXTERIOR,
+		 medioMapaX - tamCielo, medioMapaY + tamCielo, ALTURA_EXTERIOR
+	};
+
+
+
+	GLfloat coloresCieloII[4] = { 196.f / 256.f,	 64.f / 256.f,	0.f / 256.f,  1.f };
+	GLfloat coloresCieloID[4] = { 255.f / 256.f,	 84.f / 256.f,	0.f / 256.f,  1.f };
+	GLfloat coloresCieloSD[4] = { 242.f / 256.f,	 92.f / 256.f,	84.f / 256.f,  1.f };
+	GLfloat coloresCieloSI[4] = { 255.f / 256.f,	 84.f / 256.f,	0.f / 256.f,  1.f };
+
+
+	cielo = new Rectangulo2d<1>(corrCielo, normalPiso, coloresCieloII, coloresCieloID, coloresCieloSD, coloresCieloSI, 1, 1);
 
 
 	GLfloat verticesBordeInferior[8][3] = {
@@ -709,15 +795,19 @@ void mapa::newLevel(int cant_filas, int cant_columnas, int posXPuerta, int posYP
 	delete bordesShape[1];
 	delete bordesShape[2];
 	delete bordesShape[3];
-	bordesShape[0] = new Rectangulo3d<NUMERO_PARTICIONES_PARED_LIMITE>(verticesBordeInferior, color, false, true, true, true, true, false);
-	bordesShape[1] = new Rectangulo3d<NUMERO_PARTICIONES_PARED_LIMITE>(verticesBordeIzquierdo, color, true, true, false, true, true, false);
-	bordesShape[2] = new Rectangulo3d<NUMERO_PARTICIONES_PARED_LIMITE>(verticesBordeDerecho, color, true, true, true, false, true, false);
-	bordesShape[3] = new Rectangulo3d<NUMERO_PARTICIONES_PARED_LIMITE>(verticesBordeSuperior, color, true, false, true, true, true, false);
+
+	bordesShape[0] = new Rectangulo3d<NUMERO_PARTICIONES_PARED_LIMITE>(verticesBordeInferior, color, false, true, true, true, true, false, 10, 2, 2);
+	bordesShape[1] = new Rectangulo3d<NUMERO_PARTICIONES_PARED_LIMITE>(verticesBordeIzquierdo, color, true, true, false, true, true, false, 2, 2, 10);
+	bordesShape[2] = new Rectangulo3d<NUMERO_PARTICIONES_PARED_LIMITE>(verticesBordeDerecho, color, true, true, true, false, true, false, 2, 2, 10);
+	bordesShape[3] = new Rectangulo3d<NUMERO_PARTICIONES_PARED_LIMITE>(verticesBordeSuperior, color, true, false, true, true, true, false, 10, 2, 2);
+	
 
 	//inicializo texturas
 	this->textura = inicializarTextura("assets/ladrillo.jpg");
-	this->texturaPared = inicializarTextura("assets/pared.jpg");
-	this->texturapiso = inicializarTextura("assets/piso2.jpg");
+	this->texturaPared = inicializarTextura("assets/paredExterior.jpg");
+	this->texturaParedExterior = inicializarTextura("assets/pared.jpg");
+	this->texturapisoExterior = inicializarTextura("assets/sueloExterior.jpg");
+	this->texturapiso = inicializarTextura("assets/piso.jpg");
 	this->texturaIndestructibles = inicializarTextura("assets/pared.jpg");
 	this->texturaTecho = inicializarTextura("assets/nube.jpg");
 	this->texturaPuerta = inicializarTextura("assets/nube.jpg");
@@ -748,7 +838,7 @@ void mapa::newLevel(int cant_filas, int cant_columnas, int posXPuerta, int posYP
 					{ (j + 1) * LARGO_UNIDAD	, (i + 1) * LARGO_UNIDAD			, ALTURA_PARED	},
 				};
 
-				this->estructuraMapa[i][j]->figura = new Rectangulo3d<NUMERO_PARTICIONES_PARED_INTERNA>(verticesCubo, colores, false, false, false, false, true, false);
+				this->estructuraMapa[i][j]->figura = new Rectangulo3d<NUMERO_PARTICIONES_PARED_INTERNA>(verticesCubo, colores, false, false, false, false, true, false, 2, 2, 2);
 			}
 			else {
 				this->estructuraMapa[i][j] = nullptr;
@@ -855,7 +945,7 @@ void mapa::newLevel(int cant_filas, int cant_columnas, int posXPuerta, int posYP
 			{ (j + 1) * LARGO_UNIDAD	, (i + 1) * LARGO_UNIDAD			, ALTURA_PARED	},
 		};
 
-		this->estructuraMapa[i][j]->figura = new Rectangulo3d<NUMERO_PARTICIONES_PARED_INTERNA>(verticesCubo, colores, false, false, false, false, true, false);
+		this->estructuraMapa[i][j]->figura = new Rectangulo3d<NUMERO_PARTICIONES_PARED_INTERNA>(verticesCubo, colores, false, false, false, false, true, false, 1, 1, 1);
 
 	}
 

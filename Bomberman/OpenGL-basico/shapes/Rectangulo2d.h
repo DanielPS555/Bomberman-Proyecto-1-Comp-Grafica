@@ -12,6 +12,8 @@ class Rectangulo2d {
 
 
 private:
+	float repeticionesTexturaX;
+	float repeticionesTexturaY;
 	GLfloat cordeneasVerticesBordes[4 * 3];   //Ejemplo: 1,1,1,  -1,1,1,  -1,-1,1,  1,-1,1,  ==> v0-v1-v2-v3
 	GLfloat normales[4*3];
 	GLfloat color[4 * 4];
@@ -88,17 +90,17 @@ private:
 				verticesIntermedios[contadorGeneral * 12 + 11] = b_sup_isq.z;
 
 
-				corrdenadasTexturasIntermedias[contadorGeneral * 8 + 0] = iterx;
-				corrdenadasTexturasIntermedias[contadorGeneral * 8 + 1] = itery;
+				corrdenadasTexturasIntermedias[contadorGeneral * 8 + 0] = (iterx) *repeticionesTexturaX;
+				corrdenadasTexturasIntermedias[contadorGeneral * 8 + 1] = itery * repeticionesTexturaY;
 
-				corrdenadasTexturasIntermedias[contadorGeneral * 8 + 2] = iterx + delta;
-				corrdenadasTexturasIntermedias[contadorGeneral * 8 + 3] = itery;
+				corrdenadasTexturasIntermedias[contadorGeneral * 8 + 2] = (iterx + delta) * repeticionesTexturaX;
+				corrdenadasTexturasIntermedias[contadorGeneral * 8 + 3] = (itery) *repeticionesTexturaY;
 
-				corrdenadasTexturasIntermedias[contadorGeneral * 8 + 4] = iterx + delta;
-				corrdenadasTexturasIntermedias[contadorGeneral * 8 + 5] = itery + delta;
+				corrdenadasTexturasIntermedias[contadorGeneral * 8 + 4] = (iterx + delta) * repeticionesTexturaX;
+				corrdenadasTexturasIntermedias[contadorGeneral * 8 + 5] = (itery + delta) * repeticionesTexturaY;
 
-				corrdenadasTexturasIntermedias[contadorGeneral * 8 + 6] = iterx;
-				corrdenadasTexturasIntermedias[contadorGeneral * 8 + 7] = itery + delta;
+				corrdenadasTexturasIntermedias[contadorGeneral * 8 + 6] = iterx * repeticionesTexturaX;
+				corrdenadasTexturasIntermedias[contadorGeneral * 8 + 7] = (itery + delta) * repeticionesTexturaY;
 
 				contadorGeneral++;
 			}
@@ -108,8 +110,10 @@ private:
 
 public:
 
-	Rectangulo2d(GLfloat corr[4 * 3], GLfloat nor[4 * 3], GLfloat c[4]) {
+	Rectangulo2d(GLfloat corr[4 * 3], GLfloat nor[4 * 3], GLfloat c[4], float repeticionesTexturaX, float repeticionesTexturaY) {
 
+		this->repeticionesTexturaX = repeticionesTexturaX;
+		this->repeticionesTexturaY = repeticionesTexturaY;
 
 		GLfloat corrTextruras[12] = { 0.f, 0.f,	1.f, 0.f,	1.f, 1.f,	0.f,1.f };
 
@@ -127,6 +131,37 @@ public:
 			normales[i * 3 + 0] = nor[0]; normales[i * 3 + 1] = nor[1];  normales[i * 3 + 2] = nor[2];
 			color[i * 4 + 0] = c[0]; color[i * 4 + 1] = c[1];  color[i * 4 + 2] = c[2]; color[i * 4 + 3] = c[3];
 		}
+
+		generarVerticesIntermedios();
+
+	}
+
+	Rectangulo2d(GLfloat corr[4 * 3], GLfloat nor[4 * 3], GLfloat cil[4], GLfloat cir[4], GLfloat csr[4], GLfloat csl[4], float repeticionesTexturaX, float repeticionesTexturaY) {
+
+		this->repeticionesTexturaX = repeticionesTexturaX;
+		this->repeticionesTexturaY = repeticionesTexturaY;
+
+		GLfloat corrTextruras[12] = { 0.f, 0.f,	1.f, 0.f,	1.f, 1.f,	0.f,1.f };
+
+		for (int i = 0; i < 12; i++) {
+			cordeneasVerticesBordes[i] = corr[i];
+
+		}
+
+		for (int i = 0; i < 7; i++) {
+			corrdenadasTexturasBordes[i] = corrTextruras[i];
+		}
+
+
+		for (int i = 0; i < 4; i++) {
+			normales[i * 3 + 0] = nor[0]; normales[i * 3 + 1] = nor[1];  normales[i * 3 + 2] = nor[2];			
+		}
+
+		color[0 * 4 + 0] = cil[0]; color[0 * 4 + 1] = cil[1];  color[0 * 4 + 2] = cil[2]; color[0 * 4 + 3] = cil[3];
+		color[1 * 4 + 0] = cir[0]; color[1 * 4 + 1] = cir[1];  color[1 * 4 + 2] = cir[2]; color[1 * 4 + 3] = cir[3];
+		color[2 * 4 + 0] = csr[0]; color[2 * 4 + 1] = csr[1];  color[2 * 4 + 2] = csr[2]; color[2 * 4 + 3] = csr[3];
+		color[3 * 4 + 0] = csl[0]; color[3 * 4 + 1] = csl[1];  color[3 * 4 + 2] = csl[2]; color[3 * 4 + 3] = csl[3];
+
 
 		generarVerticesIntermedios();
 

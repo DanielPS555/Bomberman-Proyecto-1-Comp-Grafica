@@ -6,13 +6,16 @@
 #include "bomb.h"
 #include "shapes/Rectangulo2d.h"
 #include "shapes/Rectangulo3d.h"
+
 #ifndef MAPA
 #define MAPA
 
+class modoVisualizacion;
 class enemigo;
 
 #define LARGO_UNIDAD 25  // tama�o de cada item (casilero) del mapa
-#define ALTURA_PARED 30 // Altura de los cubos y paredes
+#define ALTURA_PARED 25 // Altura de los cubos y paredes
+#define ALTURA_EXTERIOR 40 // Altura de los cubos y paredes
 
 #define NUMERO_PARTICIONES_PISO 30
 #define NUMERO_PARTICIONES_PARED_LIMITE 25
@@ -42,10 +45,17 @@ private:
 	int cant_filas;
 	int cant_columnas;
 
+	modoVisualizacion* modV;
+
 	mapaItem*** estructuraMapa;
 
 	Rectangulo2d<NUMERO_PARTICIONES_PISO>* pisoShape;
+	Rectangulo2d<NUMERO_PARTICIONES_PISO>* pisoExterior;
+
+	Rectangulo2d<1>* cielo;
+
 	Rectangulo3d<NUMERO_PARTICIONES_PARED_LIMITE>* bordesShape[4];
+
 	std::vector<std::tuple<int, int>> destructibles;
 	std::vector<std::tuple<int, int>> destructiblesRes;
 	std::vector<std::tuple<int, int>> enemisStart;
@@ -57,6 +67,8 @@ private:
 	GLuint texturaIndestructibles;
 	GLuint texturaTecho;
 	GLuint texturaPuerta;
+	GLuint texturaParedExterior;
+	GLuint texturapisoExterior;
 	enemigo ** enemigos;
 	//vector<retangulo3d> bordesShapes;
 
@@ -70,7 +82,11 @@ private:
 
 public:
 	mapa(int cant_filas, int cant_columnas, int posXPuerta, int posYPuerta);
-	//para el futuro: mapa(XMLFile configuracion)
+	
+
+	void setModoVisualizacion(modoVisualizacion* m) {
+		modV = m;
+	}
 
 	// Retorna la altura en el eje z donde debe estar la camara para que se pueda ver todo el mapa
 	float getAlturaVistaPanoramica();

@@ -96,7 +96,7 @@ void particleGenerator::render()
 		if ( tiempoTranscurido_real < particle.prop.t_inicio) {
 			float t_a = (particle.prop.t_inicio - tiempoTranscurido_real) / (particle.prop.t_inicio);
 			GLfloat color[4] = {particle.prop.colorBegin[0], particle.prop.colorBegin[1] , particle.prop.colorBegin[2] , (1-t_a)*particle.prop.colorBegin[3] };
-			rect = new Rectangulo2d<1>(pos, normal, color);
+			rect = new Rectangulo2d<1>(pos, normal, color, 1, 1);
 		}
 		else if(tiempoTranscurido_real >= particle.prop.t_inicio){
 
@@ -112,7 +112,7 @@ void particleGenerator::render()
 			mathVector v = interpolarVectores(colorbase, colorFinal, 1-t_a);
 
 			GLfloat color[4] = { v.x,v.y,v.z, (1-t_a) * particle.prop.colorEnd[3] + (t_a) * particle.prop.colorBegin[3] };
-			rect = new Rectangulo2d<1>(pos, normal, color);
+			rect = new Rectangulo2d<1>(pos, normal, color, 1, 1);
 		}
 		else {
 			continue;
