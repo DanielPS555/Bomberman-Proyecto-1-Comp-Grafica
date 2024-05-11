@@ -150,15 +150,14 @@
     <ClCompile Include="bomb.cpp" />
     <ClCompile Include="configuraciones.cpp" />
     <ClCompile Include="enemigo.cpp" />
-    <ClCompile Include="menuGameOver.cpp" />
-    <ClCompile Include="menuGameOver.h" />
-    <ClCompile Include="menuVictoria.cpp" />
+    <ClCompile Include="Menus\MenuGameOverF.cpp" />
+    <ClCompile Include="Menus\MenuVictoriaF.cpp" />
     <ClCompile Include="objloader.cpp" />
     <ClCompile Include="shapes\Rectangulo3d.cpp" />
     <ClCompile Include="shapes\Rectangulo2d.cpp" />
     <ClCompile Include="visualizacion\hud.cpp" />
     <ClCompile Include="visualizacion\modoVisualizacion.cpp" />
-    <ClCompile Include="menu.cpp" />
+    <ClCompile Include="Menus\menu.cpp" />
     <ClCompile Include="explocion.cpp" />
     <ClCompile Include="jugador.cpp" />
     <ClCompile Include="mapa.cpp" />
@@ -173,7 +172,8 @@
     <ClInclude Include="bomb.h" />
     <ClInclude Include="configuraciones.h" />
     <ClInclude Include="enemigo.h" />
-    <ClInclude Include="menuVictoria.h" />
+    <ClInclude Include="Menus\MenuGameOverF.h" />
+    <ClInclude Include="Menus\MenuVictoriaF.h" />
     <ClInclude Include="objloader.h" />
     <ClInclude Include="shapes\Rectangulo3d.h" />
     <ClInclude Include="shapes\Rectangulo2d.h" />
@@ -181,7 +181,7 @@
     <ClInclude Include="jugador.h" />
     <ClInclude Include="mapa.h" />
     <ClInclude Include="mathVector.h" />
-    <ClInclude Include="menu.h" />
+    <ClInclude Include="Menus\menu.h" />
     <ClInclude Include="visualizacion\modoVisualizacion.h" />
     <ClInclude Include="explocion.h" />
     <ClInclude Include="particulas.h" />

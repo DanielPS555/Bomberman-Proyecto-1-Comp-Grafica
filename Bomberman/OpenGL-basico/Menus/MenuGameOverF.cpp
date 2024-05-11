@@ -1,11 +1,12 @@
-#include "menuVictoria.h"
+#include "MenuGameOverF.h"
 
-victoryMenu::victoryMenu(int w, int h, SDL_Renderer* r)
+
+GameOverMenuF::GameOverMenuF(int w, int h, SDL_Renderer* r)
 {
 	this->w = w;
 	this->h = h;
 	this->fin = false;
-	this->cont = false;
+	this->restart = false;
 	cursorIndex = 0;
 	font = loadFont("letra3.ttf", 48);
 
@@ -16,8 +17,8 @@ victoryMenu::victoryMenu(int w, int h, SDL_Renderer* r)
 	int distancia_y = 50;
 
 	datos info[2] = {
-		{ font, "FIGHT ONWARD", p_inicial_x , p_inicial_y + distancia_y, renderer },
-		{ font, "ESCAPE THIS TORMENT", w / 2 , p_inicial_y + distancia_y, renderer},
+		{ font, "REFUSE DESTINY", p_inicial_x , p_inicial_y + distancia_y, renderer },
+		{ font, "ACCEPT YOUR FATE", w / 2 , p_inicial_y + distancia_y, renderer},
 	};
 
 	menuItems = new MenuItem[2];
@@ -39,12 +40,12 @@ victoryMenu::victoryMenu(int w, int h, SDL_Renderer* r)
 	SDL_FreeSurface(manualSurface);
 }
 
-MenuItem victoryMenu::createMenuItem(datos dato)
+MenuItem GameOverMenuF::createMenuItem(datos dato)
 {
 	MenuItem  menuItem;
 	menuItem.text = dato.text;
 
-	SDL_Surface* textSurface = TTF_RenderText_Blended(font, dato.text.c_str(), { 100, 255, 25 });
+	SDL_Surface* textSurface = TTF_RenderText_Blended(font, dato.text.c_str(), { 255, 10, 25 });
 
 	menuItem.rect = { dato.x, dato.y, textSurface->w, textSurface->h };
 	menuItem.texture = SDL_CreateTextureFromSurface(renderer, textSurface);
@@ -57,12 +58,12 @@ MenuItem victoryMenu::createMenuItem(datos dato)
 	return menuItem;
 }
 
-void victoryMenu::drawMenuItem(SDL_Renderer* renderer, const MenuItem& menuItem)
+void GameOverMenuF::drawMenuItem(SDL_Renderer* renderer, const MenuItem& menuItem)
 {
 	SDL_RenderCopy(renderer, menuItem.texture, nullptr, &menuItem.rect);
 }
 
-void victoryMenu::drawTriangleCursor(SDL_Renderer* renderer, int x, int y, int size)
+void GameOverMenuF::drawTriangleCursor(SDL_Renderer* renderer, int x, int y, int size)
 {
 	int halfSize = size / 2;
 	SDL_RenderDrawLine(renderer, x - halfSize, y - halfSize, x + halfSize, y);
@@ -70,7 +71,7 @@ void victoryMenu::drawTriangleCursor(SDL_Renderer* renderer, int x, int y, int s
 	SDL_RenderDrawLine(renderer, x - halfSize, y + halfSize, x - halfSize, y - halfSize);
 }
 
-void victoryMenu::render()
+void GameOverMenuF::render()
 {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // Color negro
 	SDL_RenderClear(renderer);
@@ -105,7 +106,7 @@ void victoryMenu::render()
 	SDL_RenderPresent(renderer);
 }
 
-int victoryMenu::eventHandler(SDL_Event evento)
+int GameOverMenuF::eventHandler(SDL_Event evento)
 {
 	configuraciones* conf = configuraciones::getInstancia();
 	switch (evento.type) {
@@ -115,7 +116,6 @@ int victoryMenu::eventHandler(SDL_Event evento)
 		break;
 	case SDL_KEYDOWN:
 		switch (evento.key.keysym.sym) {
-		
 		case SDLK_ESCAPE:
 			return 0;
 			break;
@@ -136,7 +136,7 @@ int victoryMenu::eventHandler(SDL_Event evento)
 		case SDLK_RETURN:
 			switch (cursorIndex) {
 			case 0:
-				this->cont = true;
+				this->restart = true;
 				return 0;
 				break;
 			case 1:
@@ -150,16 +150,18 @@ int victoryMenu::eventHandler(SDL_Event evento)
 	}
 }
 
-bool victoryMenu::isFinal()
+bool GameOverMenuF::isFinal()
 {
 	bool aux = this->fin;
 	this->fin = false;
 	return aux;
 }
 
-bool victoryMenu::weFight()
+bool GameOverMenuF::weResist()
 {
-	bool aux = this->cont;
-	this->cont = false;
+	bool aux = this->restart;
+	this->restart = false;
 	return aux;
 }
+
+

@@ -1,17 +1,20 @@
-#pragma once
+
 #include "SDL.h"
 #include <stdio.h>
 #include <vector>
-#include "util.h"
+#include "../util.h"
 #include <iostream>
 #include <SDL_ttf.h>
-#include "renderUtils.h"
-#include "configuraciones.h"
+#include "../renderUtils.h"
+#include "../configuraciones.h"
 #include "menu.h"
 
 
-class victoryMenu {
+#ifndef D_gameOverClass
+#define D_gameOverClass
 
+
+class GameOverMenuF {
 private:
 	MenuItem* menuItems;
 	SDL_Renderer* renderer;
@@ -21,15 +24,20 @@ private:
 	int cursorIndex;
 	int w, h;
 	int* elecciones;
-	bool fin, cont;
+	bool fin, restart;
 
 public:
-	victoryMenu(int w, int h, SDL_Renderer* r);
+	GameOverMenuF(int w, int h, SDL_Renderer* r);
 	MenuItem createMenuItem(datos t);
 	void drawMenuItem(SDL_Renderer* renderer, const MenuItem& menuItem);
 	void drawTriangleCursor(SDL_Renderer* renderer, int x, int y, int size);
 	void render();
 	int eventHandler(SDL_Event evento);
 	bool isFinal();
-	bool weFight();
+	bool weResist();
 };
+#endif // !1
+
+
+
+

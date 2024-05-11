@@ -19,9 +19,9 @@
 #include <Assimp/postprocess.h>
 #include <SDL_ttf.h>
 #include <SDL_mixer.h>
-#include "OpenGL-basico/menu.h"
-#include "OpenGL-basico/menuGameOver.h"
-#include "OpenGL-basico/menuVictoria.h"
+#include "OpenGL-basico/Menus/menu.h"
+#include "OpenGL-basico/Menus/MenuGameOverF.h"
+#include "OpenGL-basico/Menus/MenuVictoriaF.h"
 #include "OpenGL-basico/particulas.h"
 #include "OpenGL-basico/explocion.h"
 #include "OpenGL-basico/util.h"
@@ -92,9 +92,9 @@ int main(int argc, char* argv[]) {
 
 	menu mnu = menu(SCREEN_WIDTH, SCREEN_HEIGHT, renderer);
 
-	gameOverMenu goMenu = gameOverMenu(SCREEN_WIDTH, SCREEN_HEIGHT, renderer);
+	GameOverMenuF goMenu = GameOverMenuF(SCREEN_WIDTH, SCREEN_HEIGHT, renderer);
 
-	victoryMenu vicMenu = victoryMenu(SCREEN_WIDTH, SCREEN_HEIGHT, renderer);
+	MenuVictoriaF vicMenu = MenuVictoriaF(SCREEN_WIDTH, SCREEN_HEIGHT, renderer);
 
 	glMatrixMode(GL_PROJECTION);
 

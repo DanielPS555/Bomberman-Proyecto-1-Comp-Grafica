@@ -2,12 +2,12 @@
 #include "SDL.h"
 #include <stdio.h>
 #include <vector>
-#include "util.h"
+#include "../util.h"
 #include <iostream>
 #include <SDL_ttf.h>
 #include <SDL_mixer.h>
-#include "renderUtils.h"
-#include "configuraciones.h"
+#include "../renderUtils.h"
+#include "../configuraciones.h"
 
 struct MenuItem {
 	std::string text;

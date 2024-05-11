@@ -11,7 +11,7 @@
     <ClCompile Include="util.cpp" />
     <ClCompile Include="enemigo.cpp" />
     <ClCompile Include="configuraciones.cpp" />
-    <ClCompile Include="menu.cpp" />
+    <ClCompile Include="Menus\menu.cpp" />
     <ClCompile Include="particulas.cpp" />
     <ClCompile Include="explocion.cpp" />
     <ClCompile Include="random.cpp" />
@@ -19,10 +19,9 @@
     <ClCompile Include="visualizacion\modoVisualizacion.cpp" />
     <ClCompile Include="shapes\Rectangulo2d.cpp" />
     <ClCompile Include="shapes\Rectangulo3d.cpp" />
-    <ClCompile Include="menuGameOver.cpp" />
-    <ClCompile Include="menuGameOver.h" />
-    <ClCompile Include="menuVictoria.cpp" />
     <ClCompile Include="objloader.cpp" />
+    <ClCompile Include="Menus\MenuGameOverF.cpp" />
+    <ClCompile Include="Menus\MenuVictoriaF.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bomb.h" />
@@ -34,7 +33,7 @@
     <ClInclude Include="util.h" />
     <ClInclude Include="enemigo.h" />
     <ClInclude Include="configuraciones.h" />
-    <ClInclude Include="menu.h" />
+    <ClInclude Include="Menus\menu.h" />
     <ClInclude Include="particulas.h" />
     <ClInclude Include="explocion.h" />
     <ClInclude Include="random.h" />
@@ -42,7 +41,8 @@
     <ClInclude Include="visualizacion\modoVisualizacion.h" />
     <ClInclude Include="shapes\Rectangulo2d.h" />
     <ClInclude Include="shapes\Rectangulo3d.h" />
-    <ClInclude Include="menuVictoria.h" />
     <ClInclude Include="objloader.h" />
+    <ClInclude Include="Menus\MenuGameOverF.h" />
+    <ClInclude Include="Menus\MenuVictoriaF.h" />
   </ItemGroup>
 </Project>
