@@ -18,6 +18,7 @@
 #include <Assimp/Importer.hpp>
 #include <Assimp/postprocess.h>
 #include <SDL_ttf.h>
+#include <SDL_mixer.h>
 #include "OpenGL-basico/menu.h"
 #include "OpenGL-basico/menuGameOver.h"
 #include "OpenGL-basico/menuVictoria.h"
@@ -39,6 +40,27 @@ bool mostrar_menu = true;
 
 int main(int argc, char* argv[]) {
 
+	// Inicializar SDL_mixer
+	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
+		std::cerr << "Error al inicializar SDL_mixer: " << Mix_GetError() << std::endl;
+		SDL_Quit();
+		return 1;
+	}
+
+	Mix_Chunk* efecto_explosion = Mix_LoadWAV("assets/sonido/explosion.mp3");
+	Mix_Chunk* efecto_caminar = Mix_LoadWAV("assets/sonido/pasos.mp3");
+	Mix_Chunk* efecto_muerte = Mix_LoadWAV("assets/sonido/muerte.mp3");
+	Mix_Chunk* efecto_caballo = Mix_LoadWAV("assets/sonido/caballo.mp3");
+	Mix_Chunk* efecto_caballo2 = Mix_LoadWAV("assets/sonido/caballo2.mp3");
+	Mix_Chunk* efecto_caballo3 = Mix_LoadWAV("assets/sonido/caballo3.mp3");
+	int caballo = 1;
+
+	// Cargar el archivo de audio
+	Mix_Music* ambiente_dia = Mix_LoadMUS("assets/sonido/ambiente_dia.mp3");
+	Mix_Music* ambiente_nocturno = Mix_LoadMUS("assets/sonido/ambiente_nocturno.mp3");
+	
+	Mix_PlayMusic(ambiente_dia, -1);
+	Mix_VolumeMusic(10);
 
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		cerr << "No se pudo iniciar SDL: " << SDL_GetError() << endl;
@@ -116,6 +138,9 @@ int main(int argc, char* argv[]) {
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
 
+	Uint32 intervalo = 10000; // 10 segundos en milisegundos
+	Uint32 tiempoSiguienteReproduccion = SDL_GetTicks() + intervalo;
+
 	//FIN TEXTURA
 
 	//----DECLARACION DE OBJETOS CREADOS------------
@@ -140,6 +165,7 @@ int main(int argc, char* argv[]) {
 	bool isMoviendoAbajo = false;
 	bool isMoviendoIsquierda = false;
 	bool isMoviendoDerecha = false;
+	bool isMoviendo = false;
 
 	// -------- Flags para manejo de la bomba
 
@@ -155,12 +181,8 @@ int main(int argc, char* argv[]) {
 	}
 	float** victimas = nullptr;
 
-	// -------- Exploxion y Particulas
-	particleGenerator* partSist = new particleGenerator(10, 1.0);
-	explocion** explociones = new explocion * [4];
-	for (int l = 0; l < 4; l++) {
-		explociones[l] = nullptr;
-	}
+	
+	
 
 	// -------- Jugador
 	mathVector posAct = { 0, 0, 0 };
@@ -170,6 +192,18 @@ int main(int argc, char* argv[]) {
 	int puntaje = 0;
 
 	jugador* player = new jugador(map->obtenerPosicionInicialJugador(), map->anguloInicialJugador(), map, 3);
+
+
+	// --------- Configuracion de la camara
+	Hud* hud = new Hud(renderer, win);
+	modoVisualizacion* modoVis = new modoVisualizacion(player, hud, MODOS_VISUALIZACION_PRIMERA_PERSONA);
+
+	// -------- Exploxion y Particulas
+	particleGenerator* partSist = new particleGenerator(10, 1.0, player, modoVis);
+	explocion** explociones = new explocion * [4];
+	for (int l = 0; l < 4; l++) {
+		explociones[l] = nullptr;
+	}
 
 	// -------- Mapa
 
@@ -186,10 +220,7 @@ int main(int argc, char* argv[]) {
 	bool retry = false;
 	bool newLvl = false;
 
-	// --------- Configuracion de la camara
 
-	Hud* hud = new Hud(renderer, win);
-	modoVisualizacion* modoVis = new modoVisualizacion(player, hud, MODOS_VISUALIZACION_PRIMERA_PERSONA);
 
 
 	// -------- Manejo del tiempo
@@ -249,7 +280,6 @@ int main(int argc, char* argv[]) {
 			nivel = nivel + 1;
 		}
 		if (mostrar_menu) {
-
 			isMoviendoAbajo = isMoviendoArriba = isMoviendoDerecha = isMoviendoIsquierda = false;
 
 			if (mostrar_menu && victoria) {
@@ -274,7 +304,6 @@ int main(int argc, char* argv[]) {
 			float deltaTiempoReal = (float)tiempoTranscurridoUltimoFrame.count(); //Tiempo usado para el temporizador
 			float deltaTiempo = conf->getVelocidadJuego()* deltaTiempoReal;
 			beginLastFrame = Clock::now();
-			std::cout << deltaTiempoReal << "/n"; 
 
 			if (hud->isPantallaMuerteActivada()) {
 				deltaTiempo = 0;
@@ -313,18 +342,6 @@ int main(int argc, char* argv[]) {
 
 			}
 			
-			/*else if (configuraciones::getInstancia()->getModoIluminacion() == MODOS_ILUMINACION_ATARDESER) {
-				glEnable(GL_LIGHT1);
-
-				GLfloat light1color[] = { 248.0f / 255.f,	 208.0f / 255.f,	 130.0f / 255.f, 1.f };
-				glLightfv(GL_LIGHT1, GL_DIFFUSE, light1color);
-
-
-				glLightf(GL_LIGHT1, GL_CONSTANT_ATTENUATION, 0.05f);
-				glLightf(GL_LIGHT1, GL_LINEAR_ATTENUATION, 0.00f);
-				glLightf(GL_LIGHT1, GL_QUADRATIC_ATTENUATION, 0.0010f);
-
-			}*/
 			
 
 
@@ -400,11 +417,13 @@ int main(int argc, char* argv[]) {
 			for (int i = 0; i < 4; i++) {
 				if (bombs[i] != nullptr) {
 					if(bombs[i]->timer(deltaTiempo)){
+						Mix_PlayChannel(-1, efecto_explosion, 0);
 						victimas = bombs[i]->explosion_trigg(victimas);
 						puntaje = puntaje + map->eliminarDestructibles(victimas, bombs[i]->getAlcanze());
 						muerte = bombs[i]->danioBomba(player->getPosicionEnMapa(), victimas);
-						explocion* exp = new explocion(2000, victimas);
+						explocion* exp = new explocion(3000, victimas);
 						exp->generateExplocion(bombs[i]->getAlcanze(), partSist);
+						
 						int e = 0;
 						while (explociones[e] != nullptr) {
 							e++;
@@ -479,10 +498,13 @@ int main(int argc, char* argv[]) {
 			if (player->getVidas() == 0) {
 				gameOver = true;
 				mostrar_menu = true;
+				Mix_PlayChannel(-1, efecto_muerte, 0);
 				player->restart(map->obtenerPosicionInicialJugador(), map->anguloInicialJugador());
 			}else {
+				Mix_PlayChannel(-1, efecto_muerte, 0);
 				player->restart(map->obtenerPosicionInicialJugador(), map->anguloInicialJugador());
 				hud->activarPantallaMuerte();
+
 			}
 		}
 
@@ -561,7 +583,6 @@ int main(int argc, char* argv[]) {
 		deltaRotacionY = 0.0f;
 
 		milliseconds tiempoDuranteFrame = duration_cast<milliseconds>(Clock::now() - beginLastFrame);
-		cout << tiempoDuranteFrame.count() << "ms \n";
 		if (tiempoDuranteFrame < milliseconds(2)) {
 			sleep_for(2ms);
 		}
@@ -599,6 +620,22 @@ int main(int argc, char* argv[]) {
 				}
 			}
 			else {
+
+				if (SDL_GetTicks() >= tiempoSiguienteReproduccion) {
+
+					if (caballo == 1) {
+						Mix_PlayChannel(0, efecto_caballo, 0);
+					}
+					else if (caballo == 2) {
+						Mix_PlayChannel(0, efecto_caballo2, 0);
+					}
+					else {
+						Mix_PlayChannel(0, efecto_caballo3, 0);
+					}
+					caballo = (caballo + 1) % 3;
+					tiempoSiguienteReproduccion += intervalo; // Configurar el próximo tiempo de reproducción
+				}
+
 				switch (evento.type) {
 				case SDL_MOUSEMOTION:
 					deltaRotacionX = (-1.0f) * evento.motion.xrel + 0.0f;
@@ -629,27 +666,44 @@ int main(int argc, char* argv[]) {
 					case SDLK_ESCAPE:
 					case SDLK_p:
 						mostrar_menu = !mostrar_menu;
+						//Mix_PlayMusic(music, -1);
 						SDL_GL_SwapWindow(win);
 						break;
 
 					case SDLK_UP:
 					case SDLK_w:
+						if (isMoviendo == false) {
+							Mix_PlayChannel(2, efecto_caminar, -1);
+						}
 						isMoviendoArriba = true;
+						isMoviendo = true;
 						break;
 
 					case SDLK_DOWN:
 					case SDLK_s:
+						if (isMoviendo == false) {
+							Mix_PlayChannel(2, efecto_caminar, -1);
+						}
 						isMoviendoAbajo = true;
+						isMoviendo = true;
 						break;
 
 					case SDLK_RIGHT:
 					case SDLK_d:
+						if (isMoviendo == false) {
+							Mix_PlayChannel(2, efecto_caminar, -1);
+						}
 						isMoviendoDerecha = true;
+						isMoviendo = true;
 						break;
 
 					case SDLK_LEFT:
 					case SDLK_a:
+						if (isMoviendo == false) {
+							Mix_PlayChannel(2, efecto_caminar, -1);
+						}
 						isMoviendoIsquierda = true;
+						isMoviendo = true;
 						break;
 
 					case SDLK_n:
@@ -672,22 +726,30 @@ int main(int argc, char* argv[]) {
 					switch (evento.key.keysym.sym) {
 					case SDLK_UP:
 					case SDLK_w:
+						Mix_HaltChannel(2);
 						isMoviendoArriba = false;
+						isMoviendo = false;
 						break;
 
 
 					case SDLK_DOWN:
 					case SDLK_s:
+						Mix_HaltChannel(2);
 						isMoviendoAbajo = false;
+						isMoviendo = false;
 						break;
 
 					case SDLK_RIGHT:
 					case SDLK_d:
+						Mix_HaltChannel(2);
+						isMoviendo = false;
 						isMoviendoDerecha = false;
 						break;
 
 					case SDLK_LEFT:
 					case SDLK_a:
+						Mix_HaltChannel(2);
+						isMoviendo = false;
 						isMoviendoIsquierda = false;
 						break;
 
