@@ -15,7 +15,7 @@ using chrono::milliseconds;
 using chrono::seconds;
 
 float ajustarDim(float tamObjetivo) {
-	return tamObjetivo * 0.277; //ToDo sacar hardcode
+	return tamObjetivo * 0.313; //ToDo sacar hardcode
 }
 
 Hud::Hud(SDL_Renderer* r, SDL_Window* w) {

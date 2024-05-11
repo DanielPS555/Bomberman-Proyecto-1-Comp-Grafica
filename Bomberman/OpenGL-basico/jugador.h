@@ -61,7 +61,7 @@ public:
 		bool isMoviendoAbajo,
 		bool isMoviendoIsquierda);
 		
-	void rotarJugador(float deltaRotacion);
+	void rotarJugador(float deltaRotacion, float cotaGrados);
 
 	void rotarVerticalJugador(float deltaVerticalRotacion);
 

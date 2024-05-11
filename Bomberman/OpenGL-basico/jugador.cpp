@@ -123,7 +123,7 @@ void jugador::trasladar(float deltaTiempoMs,
 	
 }
 
-void jugador::rotarJugador(float deltaRotacion) {
+void jugador::rotarJugador(float deltaRotacion, float cotaGrados) {
 	if (conf->getIsCamaraHorizontalInvertida()) {
 		deltaRotacion *= -1;
 	}
@@ -136,6 +136,16 @@ void jugador::rotarJugador(float deltaRotacion) {
 	if (anguloActualEnMapa < 0) {
 		anguloActualEnMapa += 360;
 	}
+
+	if (cotaGrados > 0 && (anguloActualEnMapa > cotaGrados && anguloActualEnMapa < 360 - cotaGrados)) {
+		if (anguloActualEnMapa > 180) {
+			anguloActualEnMapa = 360.f - cotaGrados;
+		}
+		else {
+			anguloActualEnMapa = cotaGrados;
+		}
+	}
+
 }
 
 void jugador::rotarVerticalJugador(float deltaVerticalRotacion) {

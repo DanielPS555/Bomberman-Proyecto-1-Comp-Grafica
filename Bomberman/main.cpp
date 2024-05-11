@@ -102,7 +102,7 @@ int main(int argc, char* argv[]) {
 	float color = 0;
 	glClearColor(color, color, color, 1);
 
-	gluPerspective(45, 1600 / 900.f, 0.1, 1000);
+	gluPerspective(45, SCREEN_WIDTH / SCREEN_HEIGHT, 0.1, 1000);
 
 	glEnable(GL_DEPTH_TEST);
 	glMatrixMode(GL_MODELVIEW);
@@ -359,10 +359,19 @@ int main(int argc, char* argv[]) {
 		
 
 			// ---- Sistema de movimiento, debe ser lo ultimo que se haga
-			if (isRotando && modoVis->getModoVis() == MODOS_VISUALIZACION_PRIMERA_PERSONA) {
-				player->rotarVerticalJugador(deltaRotacionY);
-				player->rotarJugador(deltaRotacionX);
+
+			if (isRotando) {
+				if (modoVis->getModoVis() == MODOS_VISUALIZACION_PRIMERA_PERSONA) {
+					player->rotarVerticalJugador(deltaRotacionY);
+					player->rotarJugador(deltaRotacionX, -1);
+				}
+				else {
+					player->rotarJugador(deltaRotacionX, 30);
+				}
 			}
+			
+			
+
 			player->trasladar(deltaTiempo, isMoviendoArriba, isMoviendoDerecha, isMoviendoAbajo, isMoviendoIsquierda);
 
 
