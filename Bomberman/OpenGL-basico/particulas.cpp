@@ -95,7 +95,6 @@ void particleGenerator::render()
 		mathVector colorFinal = { 245.f / 256.f ,149.f / 256.f,0.f / 255.f };
 		mathVector gradient = { 203.f / 256.f ,53.f / 256.f,61.f / 176.f };
 
-		//std::cout << particle.distancia_centro << std::endl;
 		float normalized_distance = particle.distancia_centro / 80;
 
 		gradient = multiplicarPorEscalar(gradient, Random::Float() * 0.5);

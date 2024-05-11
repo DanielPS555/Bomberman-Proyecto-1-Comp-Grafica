@@ -299,7 +299,6 @@ int main(int argc, char* argv[]) {
 			float deltaTiempoReal = (float)tiempoTranscurridoUltimoFrame.count(); //Tiempo usado para el temporizador
 			float deltaTiempo = conf->getVelocidadJuego()* deltaTiempoReal;
 			beginLastFrame = Clock::now();
-			std::cout << deltaTiempoReal << "/n"; 
 
 			if (hud->isPantallaMuerteActivada()) {
 				deltaTiempo = 0;
@@ -591,7 +590,6 @@ int main(int argc, char* argv[]) {
 		deltaRotacionY = 0.0f;
 
 		milliseconds tiempoDuranteFrame = duration_cast<milliseconds>(Clock::now() - beginLastFrame);
-		//cout << tiempoDuranteFrame.count() << "ms \n";
 		if (tiempoDuranteFrame < milliseconds(2)) {
 			sleep_for(2ms);
 		}
@@ -641,7 +639,6 @@ int main(int argc, char* argv[]) {
 					else {
 						Mix_PlayChannel(0, efecto_caballo3, 0);
 					}
-					std::cout << "caballo " << caballo << std::endl;
 					caballo = (caballo + 1) % 3;
 					tiempoSiguienteReproduccion += intervalo; // Configurar el próximo tiempo de reproducción
 				}
