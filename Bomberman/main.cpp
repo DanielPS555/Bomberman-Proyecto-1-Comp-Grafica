@@ -53,6 +53,7 @@ int main(int argc, char* argv[]) {
 	Mix_Chunk* efecto_caballo = Mix_LoadWAV("assets/sonido/caballo.mp3");
 	Mix_Chunk* efecto_caballo2 = Mix_LoadWAV("assets/sonido/caballo2.mp3");
 	Mix_Chunk* efecto_caballo3 = Mix_LoadWAV("assets/sonido/caballo3.mp3");
+
 	int caballo = 1;
 
 	// Cargar el archivo de audio
@@ -112,6 +113,9 @@ int main(int argc, char* argv[]) {
 	std::vector<glm::vec3> normals; // Won't be used at the moment.
 	std::vector<unsigned short> indices;
 	bool res = loadAssImp("assets/bomber.obj", indices, vertices, uvs, normals);
+
+	GLuint texturaFuego = inicializarTexturaPng("assets/fire.png");
+	GLuint texturaHumo = inicializarTexturaPng("assets/smoke.png");
 
 
 	//TEXTURA
@@ -297,7 +301,6 @@ int main(int argc, char* argv[]) {
 			tiempoTranscurridoUltimoFrame = duration_cast<milliseconds>(Clock::now() - beginLastFrame);
 			float deltaTiempoReal = (float)tiempoTranscurridoUltimoFrame.count(); //Tiempo usado para el temporizador
 			float deltaTiempo = conf->getVelocidadJuego()* deltaTiempoReal;
-			cout << deltaTiempoReal << "\n";
 			beginLastFrame = Clock::now();
 
 			if (hud->isPantallaMuerteActivada()) {
@@ -421,7 +424,7 @@ int main(int argc, char* argv[]) {
 						victimas = bombs[i]->explosion_trigg(victimas);
 						puntaje = puntaje + map->eliminarDestructibles(victimas, bombs[i]->getAlcanze());
 						muerte = bombs[i]->danioBomba(player->getPosicionEnMapa(), victimas);
-						explocion* exp = new explocion(3000, victimas);
+						explocion* exp = new explocion(texturaFuego, texturaHumo, victimas);
 						exp->generateExplocion(bombs[i]->getAlcanze(), partSist);
 						
 						int e = 0;
@@ -447,7 +450,7 @@ int main(int argc, char* argv[]) {
 					victimas = bombs[i]->explosion_trigg(victimas);
 					puntaje = puntaje + map->eliminarDestructibles(victimas, bombs[i]->getAlcanze());
 					muerte = bombs[i]->danioBomba(player->getPosicionEnMapa(), victimas);
-					explocion* exp = new explocion(2000, victimas);
+					explocion* exp = new explocion(texturaFuego, texturaHumo, victimas);
 					exp->generateExplocion(bombs[i]->getAlcanze(), partSist);
 					int e = 0;
 					while (explociones[e] != nullptr) {

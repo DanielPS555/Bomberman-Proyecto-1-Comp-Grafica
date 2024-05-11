@@ -25,8 +25,8 @@ private:
 	ParticleProps expPart;
 
 public:
-	explocion(float life, float** rango);
-
+	explocion(GLuint texturaf, GLuint texturaH, float** rango);
+	~explocion();
 	
 	bool timer(float deltaT);
 	void generateExplocion(int cant, particleGenerator * pSistem);

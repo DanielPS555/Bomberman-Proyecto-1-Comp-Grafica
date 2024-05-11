@@ -2,14 +2,18 @@
 #include "mapa.h"
 #include "util.h"
 
-explocion::explocion(float life, float** rango)
-{
-	this->life = life;	
+explocion::explocion(GLuint texturaf, GLuint texturaH, float** rango){
 	this->rango = rango;
-	this->texturaFuego = inicializarTexturaPng("assets/fire.png");
-	this->texturaHumo = inicializarTexturaPng("assets/smoke.png");
+
+	texturaFuego = texturaf;
+	texturaHumo = texturaH;
 
 
+}
+
+explocion::~explocion() {
+	
+	
 }
 
 bool explocion::timer(float deltaT)
@@ -97,7 +101,7 @@ void explocion::generateExplocion(int cant, particleGenerator* pSistem)
 
 				this->expPart.lifeTime = 8000.f;
 
-				this->expPart.sizeBegin = 6;
+				this->expPart.sizeBegin = 20;
 				this->expPart.sizeEnd = Random::Float() * 40;
 
 				this->expPart.velocity.x = (0.5 - Random::Float()) * 25;
