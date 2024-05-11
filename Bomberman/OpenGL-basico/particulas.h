@@ -21,6 +21,8 @@ struct ParticleProps
 	mathVector position;
 	mathVector velocity, velocityVariation;
 
+	bool useLight7;
+
 	GLfloat colorBegin[4], colorEnd[4];
 	float sizeBegin, sizeEnd;
 	float lifeTime;
@@ -43,7 +45,8 @@ class particleGenerator {
 		
 
 		std::vector<Particle> m_ParticlePool;
-		uint32_t m_PoolIndex = 999;
+		Particle * particuloConLuz;
+		uint32_t m_PoolIndex = 1999;
 		float life;
 
 		float grav;
@@ -65,6 +68,7 @@ class particleGenerator {
 		void Emit(const ParticleProps& particleProps);
 
 		void render();
+		void renderLight();
 
 		void prepareRender();
 		void finishRender();

@@ -35,7 +35,7 @@ void explocion::generateExplocion(int cant, particleGenerator* pSistem)
 
 		
 		//Fuego
-		for (int cont = 0; cont < 80; cont++) {
+		for (int cont = 0; cont < 140; cont++) {
 
 			this->expPart.position.x = cuadrante_bomba_x * LARGO_UNIDAD + LARGO_UNIDAD / 2;
 			this->expPart.position.y = cuadrante_bomba_y * LARGO_UNIDAD + LARGO_UNIDAD / 2;
@@ -63,6 +63,10 @@ void explocion::generateExplocion(int cant, particleGenerator* pSistem)
 				this->expPart.colorBegin[i] = coloresInicio[i];
 			}
 
+			if (cont == 0) {
+				this->expPart.useLight7 = true;
+			}
+
 			GLfloat coloresFinal[4] = { 239.f / 256.f,	 162.f / 256.f,		37.f / 256.f, 0.0f };
 			for (int i = 0; i < 4; i++) {
 				this->expPart.colorEnd[i] = coloresFinal[i];
@@ -73,6 +77,8 @@ void explocion::generateExplocion(int cant, particleGenerator* pSistem)
 		}
 
 
+
+		bool isNoche = configuraciones::getInstancia()->getModoIluminacion() != MODOS_ILUMINACION_ATARDESER;
 		
 		for (int i = 0; i <= cant*4; i++) {
 			int y = this->rango[i][0];
@@ -102,15 +108,33 @@ void explocion::generateExplocion(int cant, particleGenerator* pSistem)
 				this->expPart.velocityVariation.y = ( Random::Float()) * 0.40;
 				this->expPart.velocityVariation.z = ( Random::Float()) * 0.40;
 
-				GLfloat coloresInicio[4] = { 1.f, 1.f, 1.f, 0.5f };
-				for (int i = 0; i < 4; i++) {
-					this->expPart.colorBegin[i] = coloresInicio[i];
+				if (isNoche) {
+					GLfloat coloresInicio[4] = { 255.f / 256.f,	 239.f / 256.f,		186.f / 256.f, 0.5f };
+					for (int i = 0; i < 4; i++) {
+						this->expPart.colorBegin[i] = coloresInicio[i];
+					}
+				}
+				else {
+					GLfloat coloresInicio[4] = { 1.f, 1.f, 1.f, 0.5f };
+					for (int i = 0; i < 4; i++) {
+						this->expPart.colorBegin[i] = coloresInicio[i];
+					}
+				}
+				
+				if (isNoche) {
+					GLfloat coloresFinal[4] = { 45.f / 256.f,	 37.f / 256.f,		111.f / 256.f, 0.0f };
+					for (int i = 0; i < 4; i++) {
+						this->expPart.colorEnd[i] = coloresFinal[i];
+					}
+				}
+				else {
+					GLfloat coloresFinal[4] = { 102.f / 256.f,	 102.f / 256.f,		102.f / 256.f, 0.0f };
+					for (int i = 0; i < 4; i++) {
+						this->expPart.colorEnd[i] = coloresFinal[i];
+					}
 				}
 
-				GLfloat coloresFinal[4] = { 102.f/256.f,	 102.f / 256.f,		102.f / 256.f, 0.0f };
-				for (int i = 0; i < 4; i++) {
-					this->expPart.colorEnd[i] = coloresFinal[i];
-				}
+				
 				
 				this->expPart.textura = this->texturaHumo;
 				pSistem->Emit(this->expPart);

@@ -18,7 +18,7 @@ particleGenerator::particleGenerator(float grav, float life, jugador* p, modoVis
 {
 	modoV = m;
 	player = p;
-	m_ParticlePool.resize(1000);
+	m_ParticlePool.resize(2000);
 }
 
 
@@ -30,6 +30,10 @@ void particleGenerator::Emit(const ParticleProps& particleProps)
 	particle.prop = particleProps;
 	particle.active = true;
 	particle.lifeRemaining= particleProps.lifeTime;
+
+	if (particle.prop.useLight7) {
+		particuloConLuz = &particle;
+	}
 	
 	m_PoolIndex = --m_PoolIndex % m_ParticlePool.size();
 	
@@ -114,6 +118,7 @@ void particleGenerator::render()
 			continue;
 		}
 
+		
 
 		glPushMatrix();
 
@@ -144,7 +149,6 @@ void particleGenerator::render()
 		glRotatef(grad, pv.x, pv.y, pv.z);
 		glScalef(aumento, aumento, aumento);
 
-
 		glDisable(GL_LIGHTING);
 		rect->renderConPuntoIntermediosYTextura(particle.prop.textura);
 		glEnable(GL_LIGHTING);
@@ -156,6 +160,33 @@ void particleGenerator::render()
 		free(rect);
 	}
 	
+}
+
+void particleGenerator::renderLight() {
+	if (particuloConLuz == nullptr || !particuloConLuz->active) {
+		return;
+	}
+
+
+	glPushMatrix();
+
+	glTranslatef(particuloConLuz->prop.position.x, particuloConLuz->prop.position.y, particuloConLuz->prop.position.z);
+	
+	if (particuloConLuz->prop.useLight7) {
+		glEnable(GL_LIGHT7);
+
+		GLfloat light7color[] = { 254.0f / 255.f,	 191.0f / 255.f,	 88.0f / 255.f, 1.f };
+		glLightfv(GL_LIGHT7, GL_DIFFUSE, light7color);
+
+		GLfloat posicionLigth7[4] = { 0.f, 0.f, 0.f, 1.f };
+		glLightfv(GL_LIGHT7, GL_POSITION, posicionLigth7);
+
+		glLightf(GL_LIGHT7, GL_CONSTANT_ATTENUATION, 0.3f);
+		glLightf(GL_LIGHT7, GL_LINEAR_ATTENUATION, 0.05f);
+		
+	}
+
+	glPopMatrix();
 }
 
 void particleGenerator::prepareRender()

@@ -225,12 +225,6 @@ int main(int argc, char* argv[]) {
 
 	// -------- Manejo del tiempo
 
-	//enemigo e = enemigo({ 0.f, 0.f, 0.f }, DERECHA, 2, 2, "assets/enemy2.jpg");
-	//enemigo e2 = enemigo({ 0.f, 0.f, 0.f }, DERECHA, 4, 4, "assets/enemy.jpg");
-	//enemigo e3 = enemigo({ 0.f, 0.f, 0.f }, DERECHA, 6, 6, "assets/enemy4.jpg");
-	//enemigo e4 = enemigo({ 0.f, 0.f, 0.f }, DERECHA, 8, 8, "assets/enemigo3.jpg");
-
-
 	time_point<Clock> beginLastFrame = Clock::now();
 	milliseconds tiempoTranscurridoUltimoFrame;
 	
@@ -246,7 +240,7 @@ int main(int argc, char* argv[]) {
 	int cursorIndex = 0;
 	
 
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); //Set blending function.
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	do {
 		if (retry) {
 			glDisable(GL_BLEND);
@@ -303,14 +297,19 @@ int main(int argc, char* argv[]) {
 			tiempoTranscurridoUltimoFrame = duration_cast<milliseconds>(Clock::now() - beginLastFrame);
 			float deltaTiempoReal = (float)tiempoTranscurridoUltimoFrame.count(); //Tiempo usado para el temporizador
 			float deltaTiempo = conf->getVelocidadJuego()* deltaTiempoReal;
-			//cout << deltaTiempoReal << "\n";
+			cout << deltaTiempoReal << "\n";
 			beginLastFrame = Clock::now();
 
 			if (hud->isPantallaMuerteActivada()) {
 				deltaTiempo = 0;
 			}
 			// ---- Inicializar el frame
+
+
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+
+			
 			glEnable(GL_DEPTH_TEST);
 			glDisable(GL_BLEND); //Enable blending.
 
@@ -322,11 +321,8 @@ int main(int argc, char* argv[]) {
 			// --- Inicializar camara
 			gluLookAt(0, 0, 0,	  0, 0, -0.1f,	0, 1, 0);
 
-			//GLfloat colorAmbiental[4] = { 7.0f / 255.f, 15.0f / 255.f, 43.f / 255.f, 1.f};
 			
-			
-			
-
+			// Luz ambiental en caso de modo noche
 			if ( configuraciones::getInstancia()->getModoIluminacion() == MODOS_ILUMINACION_NOCHE) {
 				glEnable(GL_LIGHT1);
 
@@ -337,6 +333,9 @@ int main(int argc, char* argv[]) {
 				glLightf(GL_LIGHT1, GL_CONSTANT_ATTENUATION, 0.05f);
 				glLightf(GL_LIGHT1, GL_LINEAR_ATTENUATION, 0.00f);
 				glLightf(GL_LIGHT1, GL_QUADRATIC_ATTENUATION, 0.0010f);
+
+				
+
 
 				GLfloat lightAmbientalcolor[] = { 7.0f / 255.f,	15.0f / 255.f,	43.f / 255.f	, 0.1f };// ;
 				glMaterialfv(GL_FRONT, GL_AMBIENT, lightAmbientalcolor);
@@ -527,16 +526,16 @@ int main(int argc, char* argv[]) {
 		if (configuraciones::getInstancia()->getModoIluminacion() == MODOS_ILUMINACION_ATARDESER) {
 
 			glEnable(GL_LIGHT0);
-			glEnable(GL_LIGHT7);
+			glEnable(GL_LIGHT1);
 
 			//GLfloat light1color[] = { 205.0f / 255.f,	16.0f / 255.f,		77.f / 255.f	, 0.1f };
 			GLfloat light1color[] = { 252.0f / 255.f,	147.0f / 255.f,		119.f / 255.f	, 0.1f };
-			glLightfv(GL_LIGHT7, GL_DIFFUSE, light1color);
+			glLightfv(GL_LIGHT1, GL_DIFFUSE, light1color);
 			GLfloat light1colorSpecular[] = { 181.0f / 255.f,	27.0f / 255.f,		127.f / 255.f	, 0.1f };
-			glLightfv(GL_LIGHT7, GL_SPECULAR, light1color);
+			glLightfv(GL_LIGHT1, GL_SPECULAR, light1color);
 
 			GLfloat posicion[] = { 10.f, 10.f, 10.f, 0.f };
-			glLightfv(GL_LIGHT7, GL_POSITION, posicion);
+			glLightfv(GL_LIGHT1, GL_POSITION, posicion);
 
 			
 			GLfloat light0Color[] = { 248.0f / 255.f, 208.0f / 255.f, 130.f / 255.f, 0.1f };
@@ -555,14 +554,15 @@ int main(int argc, char* argv[]) {
 
 		map->renderEnemigos(deltaTiempo, map);
 
+		partSist->timer(deltaTiempo);
+		partSist->renderLight();
+
 		map->render();
 		map->renderPuerta();
 		map->renderBombas(bombs);
+
 		
-		partSist->timer(deltaTiempo);
 		partSist->render();
-
-
 
 		glPopMatrix();
 		glDisable(GL_DEPTH_TEST);
