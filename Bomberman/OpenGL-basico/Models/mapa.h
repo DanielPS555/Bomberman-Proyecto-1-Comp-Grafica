@@ -1,11 +1,11 @@
 #include <vector>
-#include "renderUtils.h"
+#include "../../Utils/renderUtils.h"
 #include <tuple>
-#include "mathVector.h"
+#include "../../Utils/mathVector.h"
 #include "enemigo.h"
 #include "bomb.h"
-#include "shapes/Rectangulo2d.h"
-#include "shapes/Rectangulo3d.h"
+#include "../shapes/Rectangulo2d.h"
+#include "../shapes/Rectangulo3d.h"
 
 #ifndef MAPA
 #define MAPA

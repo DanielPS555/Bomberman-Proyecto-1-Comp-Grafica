@@ -8,7 +8,7 @@ GameOverMenuF::GameOverMenuF(int w, int h, SDL_Renderer* r)
 	this->fin = false;
 	this->restart = false;
 	cursorIndex = 0;
-	font = loadFont("letra3.ttf", 48);
+	font = loadFont("assets/letra3.ttf", 48);
 
 	renderer = r;
 
@@ -31,8 +31,8 @@ GameOverMenuF::GameOverMenuF(int w, int h, SDL_Renderer* r)
 	elecciones[0] = 1;
 	elecciones[1] = 1;
 
-	SDL_Surface* backgroundSurface = SDL_LoadBMP("bomberman.bmp");
-	SDL_Surface* manualSurface = SDL_LoadBMP("instrucciones.bmp");
+	SDL_Surface* backgroundSurface = SDL_LoadBMP("assets/bomberman.bmp");
+	SDL_Surface* manualSurface = SDL_LoadBMP("assets/instrucciones.bmp");
 
 	backgroundImage = SDL_CreateTextureFromSurface(renderer, backgroundSurface);
 	manual = SDL_CreateTextureFromSurface(renderer, manualSurface);

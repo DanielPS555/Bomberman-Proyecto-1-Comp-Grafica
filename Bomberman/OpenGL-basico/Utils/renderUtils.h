@@ -1,4 +1,4 @@
-#include "shapes.h"
+#include "../../shapes/shapes.h"
 #include "SDL.h"
 #include "SDL_opengl.h"
 #include <iostream>

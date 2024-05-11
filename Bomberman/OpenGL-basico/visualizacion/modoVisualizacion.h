@@ -1,4 +1,4 @@
-#include "../jugador.h"
+#include "../../Models/jugador.h"
 #include "hud.h"
 
 #ifndef MODO_VISUALZIACION

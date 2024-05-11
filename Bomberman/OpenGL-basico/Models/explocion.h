@@ -6,12 +6,12 @@
 #include <stdio.h>
 #include <conio.h>
 #include <GL/glu.h>
-#include "mathVector.h"
-#include "particulas.h"
+#include "../../Utils/mathVector.h"
+#include "../../SistemaParticulas/particulas.h"
 #include <vector>
-#include "renderUtils.h"
-#include "random.h"
-#include "shapes.h"
+#include "../../Utils/renderUtils.h"
+#include "../../Utils/random.h"
+#include "../../Shapes/shapes.h"
 
 #ifndef EXPLOCION
 #define EXPLOCION

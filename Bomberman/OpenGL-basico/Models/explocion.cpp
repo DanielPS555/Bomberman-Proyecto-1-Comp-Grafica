@@ -1,6 +1,6 @@
 #include "explocion.h"
 #include "mapa.h"
-#include "util.h"
+#include "../../Utils/util.h"
 
 explocion::explocion(GLuint texturaf, GLuint texturaH, float** rango){
 	this->rango = rango;

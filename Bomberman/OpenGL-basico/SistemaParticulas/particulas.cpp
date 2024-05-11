@@ -1,5 +1,5 @@
 #include "particulas.h"
-#include "random.h"
+#include "../../Utils/random.h"
 #include "SDL.h"
 #include "SDL_opengl.h"
 #include <iostream>
@@ -8,10 +8,10 @@
 #include <stdio.h>
 #include <conio.h>
 #include <GL/glu.h>
-#include "util.h"
-#include "shapes.h"
-#include "renderUtils.h"
-#include "jugador.h"
+#include "../../Utils/util.h"
+#include "../../Shapes/shapes.h"
+#include "../../Utils/renderUtils.h"
+#include "../../Models/jugador.h"
 
 
 particleGenerator::particleGenerator(float grav, float life, jugador* p, modoVisualizacion* m)

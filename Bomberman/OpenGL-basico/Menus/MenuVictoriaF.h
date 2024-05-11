@@ -1,11 +1,11 @@
 #include "SDL.h"
 #include <stdio.h>
 #include <vector>
-#include "../util.h"
+#include "../../Utils/util.h"
 #include <iostream>
 #include <SDL_ttf.h>
-#include "../renderUtils.h"
-#include "../configuraciones.h"
+#include "../../Utils/renderUtils.h"
+#include "../../Configuraciones/configuraciones.h"
 #include "menu.h"
 
 class MenuVictoriaF

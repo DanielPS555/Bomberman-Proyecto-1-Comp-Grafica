@@ -5,13 +5,13 @@
 #include <stdio.h>
 #include <conio.h>
 #include <GL/glu.h>
-#include "OpenGL-basico/mapa.h"
-#include "OpenGL-basico/jugador.h"
+#include "OpenGL-basico/Models/mapa.h"
+#include "OpenGL-basico/Models/jugador.h"
 #include "chrono"
 #include <thread>
-#include "OpenGL-basico/bomb.h"
-#include "OpenGL-basico/enemigo.h"
-#include "OpenGL-basico/configuraciones.h"
+#include "OpenGL-basico/Models/bomb.h"
+#include "OpenGL-basico/Models/enemigo.h"
+#include "OpenGL-basico/Configuraciones/configuraciones.h"
 #include "OpenGL-basico/visualizacion/modoVisualizacion.h"
 //carga obj
 #include <Assimp/scene.h>
@@ -21,10 +21,13 @@
 #include <SDL_mixer.h>
 #include "OpenGL-basico/Menus/menu.h"
 #include "OpenGL-basico/Menus/MenuGameOverF.h"
+#include "OpenGL-basico/Menus/MenuGameOverF.h"
 #include "OpenGL-basico/Menus/MenuVictoriaF.h"
-#include "OpenGL-basico/particulas.h"
-#include "OpenGL-basico/explocion.h"
-#include "OpenGL-basico/util.h"
+#include "OpenGL-basico/SistemaParticulas/particulas.h"
+#include "OpenGL-basico/Models/explocion.h"
+#include "OpenGL-basico/Utils/util.h"
+#include "OpenGL-basico/Utils/objloader.h"
+#include "OpenGL-basico/Utils/random.h"
 
 using namespace std;
 
@@ -235,7 +238,7 @@ int main(int argc, char* argv[]) {
 	milliseconds tiempoTranscurridoUltimoFrame;
 	
 	// Cargar imagen de fondo
-	SDL_Surface* backgroundSurface = SDL_LoadBMP("bomberman.bmp");
+	SDL_Surface* backgroundSurface = SDL_LoadBMP("assets/bomberman.bmp");
 	if (!backgroundSurface) {
 		cerr << "Error al cargar la imagen de fondo: " << SDL_GetError() << endl;
 		TTF_Quit();

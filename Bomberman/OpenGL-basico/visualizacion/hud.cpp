@@ -40,7 +40,7 @@ Hud::Hud(SDL_Renderer* r, SDL_Window* w) {
 	renderer = r;
 	win = w;
 
-	fuente = loadFont("letra3.ttf", 50);
+	fuente = loadFont("assets/letra3.ttf", 50);
 
 	millSec = 0;
 	puntos = 0;

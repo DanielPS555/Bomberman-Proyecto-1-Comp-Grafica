@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <conio.h>
 #include <GL/glu.h>
-#include "util.h"
+#include "../../Utils/util.h"
 #include "mapa.h"
 
 
