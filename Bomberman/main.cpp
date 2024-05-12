@@ -265,7 +265,7 @@ int main(int argc, char* argv[]) {
 		}
 		if (newLvl) {
 			glDisable(GL_BLEND);
-			xmn = (round(Random::Float() * 9) + 11);
+			xmn = ((round(Random::Float() * 5) * 2) + 11);
 			ymn = xmn;
 			//ymn = (round(Random::Float() * 9) + 11);
 			xPuerta = 1 + round(Random::Float() * (xmn - 2));
