@@ -5,29 +5,29 @@
 #include <stdio.h>
 #include <conio.h>
 #include <GL/glu.h>
-#include "OpenGL-basico/Models/mapa.h"
-#include "OpenGL-basico/Models/jugador.h"
+#include "bomberman/Models/mapa.h"
+#include "bomberman/Models/jugador.h"
 #include "chrono"
 #include <thread>
-#include "OpenGL-basico/Models/bomb.h"
-#include "OpenGL-basico/Models/enemigo.h"
-#include "OpenGL-basico/Configuraciones/configuraciones.h"
-#include "OpenGL-basico/visualizacion/modoVisualizacion.h"
+#include "bomberman/Models/bomb.h"
+#include "bomberman/Models/enemigo.h"
+#include "bomberman/Configuraciones/configuraciones.h"
+#include "bomberman/visualizacion/modoVisualizacion.h"
 //carga obj
 #include <Assimp/scene.h>
 #include <Assimp/Importer.hpp>
 #include <Assimp/postprocess.h>
 #include <SDL_ttf.h>
 #include <SDL_mixer.h>
-#include "OpenGL-basico/Menus/menu.h"
-#include "OpenGL-basico/Menus/MenuGameOverF.h"
-#include "OpenGL-basico/Menus/MenuGameOverF.h"
-#include "OpenGL-basico/Menus/MenuVictoriaF.h"
-#include "OpenGL-basico/SistemaParticulas/particulas.h"
-#include "OpenGL-basico/Models/explocion.h"
-#include "OpenGL-basico/Utils/util.h"
-#include "OpenGL-basico/Utils/objloader.h"
-#include "OpenGL-basico/Utils/random.h"
+#include "bomberman/Menus/menu.h"
+#include "bomberman/Menus/MenuGameOverF.h"
+#include "bomberman/Menus/MenuGameOverF.h"
+#include "bomberman/Menus/MenuVictoriaF.h"
+#include "bomberman/SistemaParticulas/particulas.h"
+#include "bomberman/Models/explocion.h"
+#include "bomberman/Utils/util.h"
+#include "bomberman/Utils/objloader.h"
+#include "bomberman/Utils/random.h"
 
 using namespace std;
 
