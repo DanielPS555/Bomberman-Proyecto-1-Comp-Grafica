@@ -273,7 +273,7 @@ int main(int argc, char* argv[]) {
 			if((yPuerta % 2 == 1) && (xPuerta % 2 == 1)){
 				yPuerta = yPuerta - 1;
 			}
-			int cantDes = 4 + round(Random::Float() * ((xmn * ymn) / 2));
+			int cantDes = 10 + round(Random::Float() * ((xmn * ymn) / 2));
 			int cantEnem = 2 + round(Random::Float() * 2);
 			map->newLevel(ymn, xmn, xPuerta, yPuerta, cantDes, cantEnem);
 			player->gainVidas(3);
