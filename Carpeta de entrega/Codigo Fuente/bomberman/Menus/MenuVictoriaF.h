@@ -1,0 +1,36 @@
+#include "SDL.h"
+#include <stdio.h>
+#include <vector>
+#include "../Utils/util.h"
+#include <iostream>
+#include <SDL_ttf.h>
+#include "../Utils/renderUtils.h"
+#include "../Configuraciones/configuraciones.h"
+#include "menu.h"
+
+class MenuVictoriaF
+{
+
+private:
+	MenuItem* menuItems;
+	SDL_Renderer* renderer;
+	SDL_Texture* backgroundImage;
+	SDL_Texture* manual;
+	TTF_Font* font;
+	int cursorIndex;
+	int w, h;
+	int* elecciones;
+	bool fin, cont;
+
+public:
+	MenuVictoriaF(int w, int h, SDL_Renderer* r);
+	MenuItem createMenuItem(datos t);
+	void drawMenuItem(SDL_Renderer* renderer, const MenuItem& menuItem);
+	void drawTriangleCursor(SDL_Renderer* renderer, int x, int y, int size);
+	void render();
+	int eventHandler(SDL_Event evento);
+	bool isFinal();
+	bool weFight();
+
+};
+

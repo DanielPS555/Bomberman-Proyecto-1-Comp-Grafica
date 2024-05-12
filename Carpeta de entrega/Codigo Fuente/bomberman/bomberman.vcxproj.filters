@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\main.cpp" />
+    <ClCompile Include="Models\bomb.cpp" />
+    <ClCompile Include="Models\jugador.cpp" />
+    <ClCompile Include="Models\mapa.cpp" />
+    <ClCompile Include="Utils\mathVector.cpp" />
+    <ClCompile Include="Utils\renderUtils.cpp" />
+    <ClCompile Include="shapes\shapes.cpp" />
+    <ClCompile Include="Utils\util.cpp" />
+    <ClCompile Include="Models\enemigo.cpp" />
+    <ClCompile Include="Configuraciones\configuraciones.cpp" />
+    <ClCompile Include="Menus\menu.cpp" />
+    <ClCompile Include="SistemaParticulas\particulas.cpp" />
+    <ClCompile Include="Models\explocion.cpp" />
+    <ClCompile Include="Utils\random.cpp" />
+    <ClCompile Include="visualizacion\hud.cpp" />
+    <ClCompile Include="visualizacion\modoVisualizacion.cpp" />
+    <ClCompile Include="shapes\Rectangulo2d.cpp" />
+    <ClCompile Include="shapes\Rectangulo3d.cpp" />
+    <ClCompile Include="Utils\objloader.cpp" />
+    <ClCompile Include="Menus\MenuGameOverF.cpp" />
+    <ClCompile Include="Menus\MenuVictoriaF.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Models\bomb.h" />
+    <ClInclude Include="Models\jugador.h" />
+    <ClInclude Include="Models\mapa.h" />
+    <ClInclude Include="Utils\mathVector.h" />
+    <ClInclude Include="Utils\renderUtils.h" />
+    <ClInclude Include="shapes\shapes.h" />
+    <ClInclude Include="Utils\util.h" />
+    <ClInclude Include="Models\enemigo.h" />
+    <ClInclude Include="Configuraciones\configuraciones.h" />
+    <ClInclude Include="Menus\menu.h" />
+    <ClInclude Include="SistemaParticulas\particulas.h" />
+    <ClInclude Include="Models\explocion.h" />
+    <ClInclude Include="Utils\random.h" />
+    <ClInclude Include="visualizacion\hud.h" />
+    <ClInclude Include="visualizacion\modoVisualizacion.h" />
+    <ClInclude Include="shapes\Rectangulo2d.h" />
+    <ClInclude Include="shapes\Rectangulo3d.h" />
+    <ClInclude Include="Utils\objloader.h" />
+    <ClInclude Include="Menus\MenuGameOverF.h" />
+    <ClInclude Include="Menus\MenuVictoriaF.h" />
+  </ItemGroup>
+</Project>
