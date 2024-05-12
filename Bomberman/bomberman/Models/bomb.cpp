@@ -8,9 +8,9 @@
 #include <stdio.h>
 #include <conio.h>
 #include <GL/glu.h>
-#include "../../Utils/util.h"
+#include "../Utils/util.h"
 #include "mapa.h"
-#include "../../Utils/renderUtils.h"
+#include "../Utils/renderUtils.h"
 
 
 bomba::bomba(float posXEnMapa, float posYEnMapa, float alcanze, float dirAct)

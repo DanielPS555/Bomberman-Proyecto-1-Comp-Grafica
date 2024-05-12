@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <conio.h>
 #include <GL/glu.h>
-#include "../../Utils/util.h"
+#include "../Utils/util.h"
 #include <iostream>
 jugador::jugador(mathVector posicionInicial, float anguloInicial, mapa* m, int vidas) {
 

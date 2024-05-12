@@ -3,7 +3,7 @@
 #include <GL/glu.h>
 #include "SDL.h"
 #include "SDL_opengl.h"
-#include "../../Utils/util.h"
+#include "../Utils/util.h"
 #include <cstdlib>
 #include <ctime>   
 #include "mapa.h"

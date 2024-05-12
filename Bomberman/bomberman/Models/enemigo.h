@@ -1,8 +1,9 @@
-#include "../../Utils/renderUtils.h"
-#include "../../Utils/mathVector.h"
-#include "../../Utils/objloader.h"
-#include "../../Utils/util.h"
-#include "../../Configuraciones/configuraciones.h"
+#include "../Utils/renderUtils.h"
+#include "../Utils/mathVector.h"
+#include "../Utils/objloader.h"
+#include "../Utils/util.h"
+#include "../Configuraciones/configuraciones.h"
+#include "../shapes/shapes.h"
 class mapa;
 
 #ifndef ENEMIGO

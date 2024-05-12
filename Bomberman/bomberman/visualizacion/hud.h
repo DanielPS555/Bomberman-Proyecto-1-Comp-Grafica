@@ -1,7 +1,7 @@
-#include "../../Utils/renderUtils.h"
-#include "../../Configuraciones/configuraciones.h"
-#include "../../Utils/util.h"
-#include "../../Utils/renderUtils.h"
+#include "../Utils/renderUtils.h"
+#include "../Configuraciones/configuraciones.h"
+#include "../Utils/util.h"
+#include "../Utils/renderUtils.h"
 #include "../shapes/Rectangulo2d.h"
 #include <SDL_ttf.h>
 

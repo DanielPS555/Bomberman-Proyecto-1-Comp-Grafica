@@ -1,13 +1,13 @@
 
 #include "SDL.h"
 #include "SDL_opengl.h"
-#include "../../Utils/renderUtils.h"
+#include "../Utils/renderUtils.h"
 #include <iostream>
 #include "FreeImage.h"
 #include <stdio.h>
 #include <conio.h>
 #include <GL/glu.h>
-#include "../../Utils/mathVector.h"
+#include "../Utils/mathVector.h"
 
 #ifndef BOMBA
 #define BOMBA

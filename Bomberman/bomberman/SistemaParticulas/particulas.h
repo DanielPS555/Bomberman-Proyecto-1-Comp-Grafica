@@ -7,10 +7,10 @@
 #include <conio.h>
 #include <GL/glu.h>
 #include <vector>
-#include "../../Utils/mathVector.h"
-#include "../../shapes/Rectangulo2d.h"
-#include "../../Models/jugador.h"
-#include "../../visualizacion/modoVisualizacion.h"
+#include "../Utils/mathVector.h"
+#include "../shapes/Rectangulo2d.h"
+#include "../Models/jugador.h"
+#include "../visualizacion/modoVisualizacion.h"
 
 
 #ifndef PARTICULAS

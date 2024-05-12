@@ -1,10 +1,10 @@
 #include "mapa.h"
 #include "stdio.h"
 #include "stdlib.h"
-#include "../../Utils/util.h"
-#include "../../Utils/renderUtils.h"
+#include "../Utils/util.h"
+#include "../Utils/renderUtils.h"
 #include "enemigo.h"
-#include "../../Utils/random.h"
+#include "../Utils/random.h"
 #include "../visualizacion/modoVisualizacion.h"
 using namespace std;
 

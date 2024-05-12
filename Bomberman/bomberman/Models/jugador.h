@@ -5,10 +5,10 @@
 #include <conio.h>
 #include <GL/glu.h>
 #include "SDL.h"
-#include "../../Utils/mathVector.h"
-#include "../../Configuraciones/configuraciones.h"
+#include "../Utils/mathVector.h"
+#include "../Configuraciones/configuraciones.h"
 #include "mapa.h"
-#include "../../Utils/util.h"
+#include "../Utils/util.h"
 
 #ifndef JUGADOR
 #define JUGADOR

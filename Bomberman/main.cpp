@@ -9,12 +9,11 @@
 #include "bomberman/Models/jugador.h"
 #include "chrono"
 #include <thread>
-#include "../../Utils/renderUtils.h"
+#include "bomberman/Utils/renderUtils.h"
 #include "bomberman/Models/bomb.h"
 #include "bomberman/Models/enemigo.h"
 #include "bomberman/Configuraciones/configuraciones.h"
 #include "bomberman/visualizacion/modoVisualizacion.h"
-//carga obj
 #include <Assimp/scene.h>
 #include <Assimp/Importer.hpp>
 #include <Assimp/postprocess.h>
@@ -42,30 +41,43 @@ using chrono::seconds;
 bool fin = false;
 bool mostrar_menu = true;
 
+bool audioReady = true;
+
 int main(int argc, char* argv[]) {
 
 	// Inicializar SDL_mixer
 	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
 		std::cerr << "Error al inicializar SDL_mixer: " << Mix_GetError() << std::endl;
-		SDL_Quit();
-		return 1;
+		audioReady = false;
 	}
 
-	Mix_Chunk* efecto_explosion = Mix_LoadWAV("assets/sonido/explosion.mp3");
-	Mix_Chunk* efecto_caminar = Mix_LoadWAV("assets/sonido/pasos.mp3");
-	Mix_Chunk* efecto_muerte = Mix_LoadWAV("assets/sonido/muerte.mp3");
-	Mix_Chunk* efecto_caballo = Mix_LoadWAV("assets/sonido/caballo.mp3");
-	Mix_Chunk* efecto_caballo2 = Mix_LoadWAV("assets/sonido/caballo2.mp3");
-	Mix_Chunk* efecto_caballo3 = Mix_LoadWAV("assets/sonido/caballo3.mp3");
+	Mix_Chunk* efecto_explosion = nullptr;
+	Mix_Chunk* efecto_caminar = nullptr;
+	Mix_Chunk* efecto_muerte = nullptr;
+	Mix_Chunk* efecto_caballo = nullptr;
+	Mix_Chunk* efecto_caballo2 = nullptr;
+	Mix_Chunk* efecto_caballo3 = nullptr;
+	if (audioReady) {
+		efecto_explosion = Mix_LoadWAV("assets/sonido/explosion.mp3");
+		efecto_caminar = Mix_LoadWAV("assets/sonido/pasos.mp3");
+		efecto_muerte = Mix_LoadWAV("assets/sonido/muerte.mp3");
+		efecto_caballo = Mix_LoadWAV("assets/sonido/caballo.mp3");
+		efecto_caballo2 = Mix_LoadWAV("assets/sonido/caballo2.mp3");
+		efecto_caballo3 = Mix_LoadWAV("assets/sonido/caballo3.mp3");
+	}
+	
 
 	int caballo = 1;
 
 	// Cargar el archivo de audio
-	Mix_Music* ambiente_dia = Mix_LoadMUS("assets/sonido/ambiente_dia.mp3");
-	Mix_Music* ambiente_nocturno = Mix_LoadMUS("assets/sonido/ambiente_nocturno.mp3");
+	if (audioReady) {
+		Mix_Music* ambiente_dia = Mix_LoadMUS("assets/sonido/ambiente_dia.mp3");
+		Mix_Music* ambiente_nocturno = Mix_LoadMUS("assets/sonido/ambiente_nocturno.mp3");
+
+		Mix_PlayMusic(ambiente_dia, -1);
+		Mix_VolumeMusic(10);
+	}
 	
-	Mix_PlayMusic(ambiente_dia, -1);
-	Mix_VolumeMusic(10);
 
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		cerr << "No se pudo iniciar SDL: " << SDL_GetError() << endl;
@@ -523,10 +535,14 @@ int main(int argc, char* argv[]) {
 			if (player->getVidas() == 0) {
 				gameOver = true;
 				mostrar_menu = true;
-				Mix_PlayChannel(-1, efecto_muerte, 0);
+				if (audioReady) {
+					Mix_PlayChannel(-1, efecto_muerte, 0);
+				}				
 				player->restart(map->obtenerPosicionInicialJugador(), map->anguloInicialJugador());
 			}else {
-				Mix_PlayChannel(-1, efecto_muerte, 0);
+				if (audioReady) {
+					Mix_PlayChannel(-1, efecto_muerte, 0);
+				}
 				player->restart(map->obtenerPosicionInicialJugador(), map->anguloInicialJugador());
 				hud->activarPantallaMuerte();
 
@@ -649,15 +665,17 @@ int main(int argc, char* argv[]) {
 
 				if (SDL_GetTicks() >= tiempoSiguienteReproduccion) {
 
-					if (caballo == 1) {
-						Mix_PlayChannel(0, efecto_caballo, 0);
-					}
-					else if (caballo == 2) {
-						Mix_PlayChannel(0, efecto_caballo2, 0);
-					}
-					else {
-						Mix_PlayChannel(0, efecto_caballo3, 0);
-					}
+					if (audioReady) {
+						if (caballo == 1) {
+							Mix_PlayChannel(0, efecto_caballo, 0);
+						}
+						else if (caballo == 2) {
+							Mix_PlayChannel(0, efecto_caballo2, 0);
+						}
+						else {
+							Mix_PlayChannel(0, efecto_caballo3, 0);
+						}
+					}					
 					caballo = (caballo + 1) % 3;
 					tiempoSiguienteReproduccion += intervalo; // Configurar el próximo tiempo de reproducción
 				}
@@ -699,7 +717,10 @@ int main(int argc, char* argv[]) {
 					case SDLK_UP:
 					case SDLK_w:
 						if (isMoviendo == false) {
-							Mix_PlayChannel(2, efecto_caminar, -1);
+							if (audioReady) {
+								Mix_PlayChannel(2, efecto_caminar, -1);
+							}
+							
 						}
 						isMoviendoArriba = true;
 						isMoviendo = true;
@@ -708,7 +729,9 @@ int main(int argc, char* argv[]) {
 					case SDLK_DOWN:
 					case SDLK_s:
 						if (isMoviendo == false) {
-							Mix_PlayChannel(2, efecto_caminar, -1);
+							if (audioReady) {
+								Mix_PlayChannel(2, efecto_caminar, -1);
+							}
 						}
 						isMoviendoAbajo = true;
 						isMoviendo = true;
@@ -717,7 +740,10 @@ int main(int argc, char* argv[]) {
 					case SDLK_RIGHT:
 					case SDLK_d:
 						if (isMoviendo == false) {
-							Mix_PlayChannel(2, efecto_caminar, -1);
+							if (audioReady) {
+
+								Mix_PlayChannel(2, efecto_caminar, -1);
+							}
 						}
 						isMoviendoDerecha = true;
 						isMoviendo = true;
@@ -726,7 +752,9 @@ int main(int argc, char* argv[]) {
 					case SDLK_LEFT:
 					case SDLK_a:
 						if (isMoviendo == false) {
-							Mix_PlayChannel(2, efecto_caminar, -1);
+							if (audioReady) {
+								Mix_PlayChannel(2, efecto_caminar, -1);
+							}
 						}
 						isMoviendoIsquierda = true;
 						isMoviendo = true;
