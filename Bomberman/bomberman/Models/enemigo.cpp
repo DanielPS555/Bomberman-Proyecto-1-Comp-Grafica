@@ -46,11 +46,11 @@ enemigo::enemigo(short id, mathVector posicionInicial,direccion actual, int i, i
 	};
 
 
-	this->textura = inicializarTextura(dir_textura);
+	this->textura = getTexturaCaballo();
 	this->vertices = createRetangulo3d(verticesEnemigo);
 }
 void enemigo::trasladar(float t, mapa * map) {
-	float radio = 1;
+	float radio = 2;
 	float deltax = 20.f * t / (1000);
 	//std::cout << "deltax:" << deltax << std::endl;
 	mapaItem *** estructuraMapa = map->getEstructuraMapa();
@@ -60,6 +60,15 @@ void enemigo::trasladar(float t, mapa * map) {
 	delete estructuraMapa[y][x];
 	estructuraMapa[y][x] = NULL;
 	
+	if (abs(this->posicion.x) > LARGO_UNIDAD * (map->getCantColumnas()) || abs(this->posicion.y) > LARGO_UNIDAD * (map->getCantFilas())) {
+		std::cout << "se salieron del mapa" << std::endl;
+		this->x = map->getCantColumnas() - 3;
+		this->y = map->getCantFilas() - 3;
+		this->posicion.x = LARGO_UNIDAD * (map->getCantColumnas() - 3) + LARGO_UNIDAD / 2;
+		this->posicion.y = LARGO_UNIDAD * (map->getCantFilas() - 3) + LARGO_UNIDAD / 2 ;
+	}
+
+
 	if (direccionActual == DERECHA) {
 		this->posicion.x = this->posicion.x +  deltax;
 		int coordenada_sig_centro = (x + 1) * LARGO_UNIDAD + LARGO_UNIDAD/2;
@@ -196,7 +205,7 @@ void enemigo::render(){
 		glRotatef(180, 0, 1, 0);
 	}
 
-	render3dObject(verticess, uvs, normals, indices, textura);
+	render3dObject(verticess, uvs, normals, indices, *textura);
 
 	glPopMatrix();
 	

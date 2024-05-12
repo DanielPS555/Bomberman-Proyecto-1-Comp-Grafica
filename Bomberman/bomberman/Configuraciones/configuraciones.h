@@ -1,6 +1,7 @@
 
 #include "stdio.h"
 
+
 #ifndef CONFIGURACIONES
 #define CONFIGURACIONES
 

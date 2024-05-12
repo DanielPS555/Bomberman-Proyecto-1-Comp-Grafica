@@ -9,6 +9,7 @@
 #include "bomberman/Models/jugador.h"
 #include "chrono"
 #include <thread>
+#include "../../Utils/renderUtils.h"
 #include "bomberman/Models/bomb.h"
 #include "bomberman/Models/enemigo.h"
 #include "bomberman/Configuraciones/configuraciones.h"
@@ -230,7 +231,7 @@ int main(int argc, char* argv[]) {
 	bool newLvl = false;
 
 
-
+	//inicializarTexturaBomba();
 
 	// -------- Manejo del tiempo
 

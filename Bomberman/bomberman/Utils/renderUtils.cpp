@@ -1,6 +1,32 @@
 #include "renderUtils.h"
+#include "util.h"
 
 bool mostrarTexturas = 1;
+
+bool firstime = 1;
+
+GLuint * texturaBomba = nullptr;
+GLuint* texturaCaballo = nullptr;
+
+GLuint * getTexturaBomba() {
+	if (texturaBomba == nullptr) {
+		texturaBomba = new GLuint(inicializarTextura("assets/b.png"));
+		return texturaBomba;
+	}
+	else {
+		return texturaBomba;
+	}
+}
+
+GLuint* getTexturaCaballo() {
+	if (texturaCaballo == nullptr) {
+		texturaCaballo = new GLuint(inicializarTextura("assets/horsetexture.png"));
+		return texturaCaballo;
+	}
+	else {
+		return texturaCaballo;
+	}
+}
 
 void iniciliarRenderVertexArray() {
 	if (mostrarTexturas == 1) {

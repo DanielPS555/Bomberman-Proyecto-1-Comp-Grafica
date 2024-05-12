@@ -17,7 +17,7 @@ class bomba {
 		int posXEnMapa, posYEnMapa;
 		float alcanze; //tamaño de la explocion
 		retangulo3dss vertices;
-		GLuint textura; 
+		GLuint * textura; 
 		float life;
 
 		std::vector<unsigned short> indices;

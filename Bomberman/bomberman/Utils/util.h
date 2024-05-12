@@ -11,9 +11,9 @@
 #ifndef UTILS
 #define UTILS
 
+
 GLuint inicializarTextura(char * archivo);
 GLuint inicializarTexturaPng(char* archivo);
-
 TTF_Font* loadFont(const std::string& fontPath, int fontSize);
 
 enum direccion {

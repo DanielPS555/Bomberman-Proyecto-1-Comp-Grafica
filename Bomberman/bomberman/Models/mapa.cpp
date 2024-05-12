@@ -116,7 +116,6 @@ mapa::mapa(int cant_filas, int cant_columnas, int posXPuerta, int posYPuerta) {
 	this->texturapisoExterior = inicializarTextura("assets/sueloExterior.jpg");
 	this->texturapiso = inicializarTextura("assets/piso.jpg");
 	this->texturaIndestructibles = inicializarTextura("assets/pared.jpg");
-	this->texturaTecho = inicializarTextura("assets/nube.jpg");
 	this->texturaPuerta = inicializarTextura("assets/nube.jpg");
 
 	this->estructuraMapa = new mapaItem ** [this->cant_filas];

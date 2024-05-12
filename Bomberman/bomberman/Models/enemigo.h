@@ -17,7 +17,7 @@ private:
 	
 	//TODO cambiar cuando tengamos obj.
 	retangulo3dss vertices; 
-	GLuint textura;
+	GLuint * textura;
 	int x, y;
 	bool cambio;
 

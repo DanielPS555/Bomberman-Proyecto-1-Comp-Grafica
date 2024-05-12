@@ -15,11 +15,13 @@
 #define RENDER_UTILS
 
 extern bool mostrarTexturas;
+extern GLuint * texturaBomba;
 
 void iniciliarRenderVertexArray();
 void finalizarRenderVertexArray();
 
 void renderRectangulo3d(retangulo3dss rec, GLuint textura);
 void render3dObject(std::vector<glm::vec3> vertices, std::vector<glm::vec2> uvs, std::vector<glm::vec3> normals, std::vector<unsigned short> indices, GLuint textura);
-
+GLuint * getTexturaBomba();
+GLuint* getTexturaCaballo();
 #endif

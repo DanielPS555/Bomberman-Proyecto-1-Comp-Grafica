@@ -3,7 +3,6 @@
 
 
 
-
 GLuint inicializarTextura(char * archivo){
 
 	//CARGAR IMAGEN

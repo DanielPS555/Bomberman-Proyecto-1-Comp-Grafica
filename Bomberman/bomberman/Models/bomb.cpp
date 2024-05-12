@@ -10,6 +10,7 @@
 #include <GL/glu.h>
 #include "../../Utils/util.h"
 #include "mapa.h"
+#include "../../Utils/renderUtils.h"
 
 
 bomba::bomba(float posXEnMapa, float posYEnMapa, float alcanze, float dirAct)
@@ -17,7 +18,7 @@ bomba::bomba(float posXEnMapa, float posYEnMapa, float alcanze, float dirAct)
 	scale = 0;
 	isAumentando = true;
 
-	bool res = loadAssImp("assets/b.obj", indices, verticess, uvs, normals);
+	loadAssImp("assets/b.obj", indices, verticess, uvs, normals);
 	int bx, by;
 	if ((45 <= dirAct && dirAct < 135) || (-315 <= dirAct && dirAct < -225)) {
 		// sumar x
@@ -51,7 +52,9 @@ bomba::bomba(float posXEnMapa, float posYEnMapa, float alcanze, float dirAct)
 	this->life = 5000;
 	this->alcanze = alcanze;
 
-	this->textura = inicializarTextura("assets/b.png");
+	this->textura = getTexturaBomba();
+	//this->textura = inicializarTextura("assets/b.png");
+	std::cout << "textura:" << textura << std::endl;
 	//this->vertices = createRetangulo3d(verticesBomba);
 }
 
@@ -116,7 +119,7 @@ void bomba::render()
 	}
 
 	glScalef(scale + 4,scale + 4, scale + 4);
-	render3dObject(verticess, uvs, normals, indices, textura);
+	render3dObject(verticess, uvs, normals, indices, *textura);
 	glPopMatrix();
 
 
