@@ -5,26 +5,30 @@
 #include <stdio.h>
 #include <conio.h>
 #include <GL/glu.h>
-#include "OpenGL-basico/mapa.h"
-#include "OpenGL-basico/jugador.h"
+#include "bomberman/Models/mapa.h"
+#include "bomberman/Models/jugador.h"
 #include "chrono"
 #include <thread>
-#include "OpenGL-basico/bomb.h"
-#include "OpenGL-basico/enemigo.h"
-#include "OpenGL-basico/configuraciones.h"
-#include "OpenGL-basico/visualizacion/modoVisualizacion.h"
+#include "../../Utils/renderUtils.h"
+#include "bomberman/Models/bomb.h"
+#include "bomberman/Models/enemigo.h"
+#include "bomberman/Configuraciones/configuraciones.h"
+#include "bomberman/visualizacion/modoVisualizacion.h"
 //carga obj
 #include <Assimp/scene.h>
 #include <Assimp/Importer.hpp>
 #include <Assimp/postprocess.h>
 #include <SDL_ttf.h>
 #include <SDL_mixer.h>
-#include "OpenGL-basico/menu.h"
-#include "OpenGL-basico/menuGameOver.h"
-#include "OpenGL-basico/menuVictoria.h"
-#include "OpenGL-basico/particulas.h"
-#include "OpenGL-basico/explocion.h"
-#include "OpenGL-basico/util.h"
+#include "bomberman/Menus/menu.h"
+#include "bomberman/Menus/MenuGameOverF.h"
+#include "bomberman/Menus/MenuGameOverF.h"
+#include "bomberman/Menus/MenuVictoriaF.h"
+#include "bomberman/SistemaParticulas/particulas.h"
+#include "bomberman/Models/explocion.h"
+#include "bomberman/Utils/util.h"
+#include "bomberman/Utils/objloader.h"
+#include "bomberman/Utils/random.h"
 
 using namespace std;
 
@@ -53,6 +57,7 @@ int main(int argc, char* argv[]) {
 	Mix_Chunk* efecto_caballo = Mix_LoadWAV("assets/sonido/caballo.mp3");
 	Mix_Chunk* efecto_caballo2 = Mix_LoadWAV("assets/sonido/caballo2.mp3");
 	Mix_Chunk* efecto_caballo3 = Mix_LoadWAV("assets/sonido/caballo3.mp3");
+
 	int caballo = 1;
 
 	// Cargar el archivo de audio
@@ -92,16 +97,16 @@ int main(int argc, char* argv[]) {
 
 	menu mnu = menu(SCREEN_WIDTH, SCREEN_HEIGHT, renderer);
 
-	gameOverMenu goMenu = gameOverMenu(SCREEN_WIDTH, SCREEN_HEIGHT, renderer);
+	GameOverMenuF goMenu = GameOverMenuF(SCREEN_WIDTH, SCREEN_HEIGHT, renderer);
 
-	victoryMenu vicMenu = victoryMenu(SCREEN_WIDTH, SCREEN_HEIGHT, renderer);
+	MenuVictoriaF vicMenu = MenuVictoriaF(SCREEN_WIDTH, SCREEN_HEIGHT, renderer);
 
 	glMatrixMode(GL_PROJECTION);
 
 	float color = 0;
 	glClearColor(color, color, color, 1);
 
-	gluPerspective(45, 1600 / 900.f, 0.1, 1000);
+	gluPerspective(45, SCREEN_WIDTH / SCREEN_HEIGHT, 0.1, 1000);
 
 	glEnable(GL_DEPTH_TEST);
 	glMatrixMode(GL_MODELVIEW);
@@ -112,6 +117,9 @@ int main(int argc, char* argv[]) {
 	std::vector<glm::vec3> normals; // Won't be used at the moment.
 	std::vector<unsigned short> indices;
 	bool res = loadAssImp("assets/bomber.obj", indices, vertices, uvs, normals);
+
+	GLuint texturaFuego = inicializarTexturaPng("assets/fire.png");
+	GLuint texturaHumo = inicializarTexturaPng("assets/smoke.png");
 
 
 	//TEXTURA
@@ -198,6 +206,8 @@ int main(int argc, char* argv[]) {
 	Hud* hud = new Hud(renderer, win);
 	modoVisualizacion* modoVis = new modoVisualizacion(player, hud, MODOS_VISUALIZACION_PRIMERA_PERSONA);
 
+	map->setModoVisualizacion(modoVis);
+
 	// -------- Exploxion y Particulas
 	particleGenerator* partSist = new particleGenerator(10, 1.0, player, modoVis);
 	explocion** explociones = new explocion * [4];
@@ -221,21 +231,15 @@ int main(int argc, char* argv[]) {
 	bool newLvl = false;
 
 
-
+	//inicializarTexturaBomba();
 
 	// -------- Manejo del tiempo
-
-	//enemigo e = enemigo({ 0.f, 0.f, 0.f }, DERECHA, 2, 2, "assets/enemy2.jpg");
-	//enemigo e2 = enemigo({ 0.f, 0.f, 0.f }, DERECHA, 4, 4, "assets/enemy.jpg");
-	//enemigo e3 = enemigo({ 0.f, 0.f, 0.f }, DERECHA, 6, 6, "assets/enemy4.jpg");
-	//enemigo e4 = enemigo({ 0.f, 0.f, 0.f }, DERECHA, 8, 8, "assets/enemigo3.jpg");
-
 
 	time_point<Clock> beginLastFrame = Clock::now();
 	milliseconds tiempoTranscurridoUltimoFrame;
 	
 	// Cargar imagen de fondo
-	SDL_Surface* backgroundSurface = SDL_LoadBMP("bomberman.bmp");
+	SDL_Surface* backgroundSurface = SDL_LoadBMP("assets/bomberman.bmp");
 	if (!backgroundSurface) {
 		cerr << "Error al cargar la imagen de fondo: " << SDL_GetError() << endl;
 		TTF_Quit();
@@ -246,7 +250,7 @@ int main(int argc, char* argv[]) {
 	int cursorIndex = 0;
 	
 
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); //Set blending function.
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	do {
 		if (retry) {
 			glDisable(GL_BLEND);
@@ -309,7 +313,19 @@ int main(int argc, char* argv[]) {
 				deltaTiempo = 0;
 			}
 			// ---- Inicializar el frame
+
+			if (configuraciones::getInstancia()->getModoIluminacion() == MODOS_ILUMINACION_NOCHE) {
+				glClearColor(3.f / 256.f, 0.f / 256.f, 6.f / 256.f, 1);
+			}
+			else {
+				glClearColor(243.f / 256.f, 187.f / 256.f, 75.f / 256.f, 1);
+				//glClearColor(245.f / 256.f, 206.f / 256.f, 127.f / 256.f, 1);
+			}
+			
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+
+			
 			glEnable(GL_DEPTH_TEST);
 			glDisable(GL_BLEND); //Enable blending.
 
@@ -321,11 +337,8 @@ int main(int argc, char* argv[]) {
 			// --- Inicializar camara
 			gluLookAt(0, 0, 0,	  0, 0, -0.1f,	0, 1, 0);
 
-			//GLfloat colorAmbiental[4] = { 7.0f / 255.f, 15.0f / 255.f, 43.f / 255.f, 1.f};
 			
-			
-			
-
+			// Luz ambiental en caso de modo noche
 			if ( configuraciones::getInstancia()->getModoIluminacion() == MODOS_ILUMINACION_NOCHE) {
 				glEnable(GL_LIGHT1);
 
@@ -336,6 +349,9 @@ int main(int argc, char* argv[]) {
 				glLightf(GL_LIGHT1, GL_CONSTANT_ATTENUATION, 0.05f);
 				glLightf(GL_LIGHT1, GL_LINEAR_ATTENUATION, 0.00f);
 				glLightf(GL_LIGHT1, GL_QUADRATIC_ATTENUATION, 0.0010f);
+
+				
+
 
 				GLfloat lightAmbientalcolor[] = { 7.0f / 255.f,	15.0f / 255.f,	43.f / 255.f	, 0.1f };// ;
 				glMaterialfv(GL_FRONT, GL_AMBIENT, lightAmbientalcolor);
@@ -356,10 +372,19 @@ int main(int argc, char* argv[]) {
 		
 
 			// ---- Sistema de movimiento, debe ser lo ultimo que se haga
-			if (isRotando && modoVis->getModoVis() == MODOS_VISUALIZACION_PRIMERA_PERSONA) {
-				player->rotarVerticalJugador(deltaRotacionY);
-				player->rotarJugador(deltaRotacionX);
+
+			if (isRotando) {
+				if (modoVis->getModoVis() == MODOS_VISUALIZACION_PRIMERA_PERSONA) {
+					player->rotarVerticalJugador(deltaRotacionY);
+					player->rotarJugador(deltaRotacionX, -1);
+				}
+				else {
+					player->rotarJugador(deltaRotacionX, 30);
+				}
 			}
+			
+			
+
 			player->trasladar(deltaTiempo, isMoviendoArriba, isMoviendoDerecha, isMoviendoAbajo, isMoviendoIsquierda);
 
 
@@ -421,7 +446,7 @@ int main(int argc, char* argv[]) {
 						victimas = bombs[i]->explosion_trigg(victimas);
 						puntaje = puntaje + map->eliminarDestructibles(victimas, bombs[i]->getAlcanze());
 						muerte = bombs[i]->danioBomba(player->getPosicionEnMapa(), victimas);
-						explocion* exp = new explocion(3000, victimas);
+						explocion* exp = new explocion(texturaFuego, texturaHumo, victimas);
 						exp->generateExplocion(bombs[i]->getAlcanze(), partSist);
 						
 						int e = 0;
@@ -447,7 +472,7 @@ int main(int argc, char* argv[]) {
 					victimas = bombs[i]->explosion_trigg(victimas);
 					puntaje = puntaje + map->eliminarDestructibles(victimas, bombs[i]->getAlcanze());
 					muerte = bombs[i]->danioBomba(player->getPosicionEnMapa(), victimas);
-					explocion* exp = new explocion(2000, victimas);
+					explocion* exp = new explocion(texturaFuego, texturaHumo, victimas);
 					exp->generateExplocion(bombs[i]->getAlcanze(), partSist);
 					int e = 0;
 					while (explociones[e] != nullptr) {
@@ -526,16 +551,16 @@ int main(int argc, char* argv[]) {
 		if (configuraciones::getInstancia()->getModoIluminacion() == MODOS_ILUMINACION_ATARDESER) {
 
 			glEnable(GL_LIGHT0);
-			glEnable(GL_LIGHT7);
+			glEnable(GL_LIGHT1);
 
 			//GLfloat light1color[] = { 205.0f / 255.f,	16.0f / 255.f,		77.f / 255.f	, 0.1f };
 			GLfloat light1color[] = { 252.0f / 255.f,	147.0f / 255.f,		119.f / 255.f	, 0.1f };
-			glLightfv(GL_LIGHT7, GL_DIFFUSE, light1color);
+			glLightfv(GL_LIGHT1, GL_DIFFUSE, light1color);
 			GLfloat light1colorSpecular[] = { 181.0f / 255.f,	27.0f / 255.f,		127.f / 255.f	, 0.1f };
-			glLightfv(GL_LIGHT7, GL_SPECULAR, light1color);
+			glLightfv(GL_LIGHT1, GL_SPECULAR, light1color);
 
 			GLfloat posicion[] = { 10.f, 10.f, 10.f, 0.f };
-			glLightfv(GL_LIGHT7, GL_POSITION, posicion);
+			glLightfv(GL_LIGHT1, GL_POSITION, posicion);
 
 			
 			GLfloat light0Color[] = { 248.0f / 255.f, 208.0f / 255.f, 130.f / 255.f, 0.1f };
@@ -554,14 +579,15 @@ int main(int argc, char* argv[]) {
 
 		map->renderEnemigos(deltaTiempo, map);
 
+		partSist->timer(deltaTiempo);
+		partSist->renderLight();
+
 		map->render();
 		map->renderPuerta();
 		map->renderBombas(bombs);
+
 		
-		partSist->timer(deltaTiempo);
 		partSist->render();
-
-
 
 		glPopMatrix();
 		glDisable(GL_DEPTH_TEST);

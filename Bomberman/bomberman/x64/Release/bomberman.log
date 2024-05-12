@@ -1,0 +1,321 @@
+﻿  bomb.cpp
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\bomb.cpp(25,13): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\bomb.cpp(26,31): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\bomb.cpp(31,32): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\bomb.cpp(32,14): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\bomb.cpp(37,15): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\bomb.cpp(38,33): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\bomb.cpp(43,34): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\bomb.cpp(44,16): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\bomb.cpp(75,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\bomb.cpp(81,41): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\bomb.cpp(82,24): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\bomb.cpp(84,45): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\bomb.cpp(85,28): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\bomb.cpp(87,28): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\bomb.cpp(88,45): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\bomb.cpp(90,28): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\bomb.cpp(91,45): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\bomb.cpp(94,31): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\bomb.cpp(95,31): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\bomb.cpp(105,97): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\bomb.cpp(105,47): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\bomb.cpp(109,22): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\bomb.cpp(112,22): warning C4305: '-=': truncation from 'double' to 'float'
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\bomb.cpp(139,13): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\bomb.cpp(146,9): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\bomb.cpp(147,9): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  enemigo.cpp
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\enemigo.cpp(31,11): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\enemigo.cpp(32,11): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\enemigo.cpp(39,54): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\enemigo.cpp(39,58): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\enemigo.cpp(39,62): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\enemigo.cpp(41,61): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\enemigo.cpp(41,65): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\enemigo.cpp(41,69): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\enemigo.cpp(43,55): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\enemigo.cpp(43,59): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\enemigo.cpp(43,63): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\enemigo.cpp(67,66): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\enemigo.cpp(68,63): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\enemigo.cpp(76,23): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\enemigo.cpp(91,23): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\enemigo.cpp(107,23): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\enemigo.cpp(124,23): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\enemigo.cpp(174,40): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\enemigo.cpp(174,40): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\enemigo.cpp(174,43): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\enemigo.cpp(174,43): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\enemigo.cpp(191,21): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\enemigo.cpp(191,16): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\enemigo.cpp(191,11): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+  mapa.cpp
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(18,26): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(19,28): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(133,9): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(133,9): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(133,30): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(133,30): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(134,15): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(134,15): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(134,35): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(134,35): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(135,15): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(135,15): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(135,35): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(135,35): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(136,9): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(136,9): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(136,36): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(136,36): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(137,9): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(137,9): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(137,43): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(137,43): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(138,10): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(138,10): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(138,43): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(138,43): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(139,16): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(139,16): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(139,41): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(139,41): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(140,16): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(140,16): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(140,41): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(140,41): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(182,7): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(182,7): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(182,28): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(182,28): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(183,13): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(183,13): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(183,33): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(183,33): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(184,13): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(184,13): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(184,33): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(184,33): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(185,7): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(185,7): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(185,34): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(185,34): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(186,7): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(186,7): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(186,40): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(186,40): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(187,7): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(187,7): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(187,40): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(187,40): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(188,14): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(188,14): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(188,39): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(188,39): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(189,14): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(189,14): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(189,39): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(189,39): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(293,8): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(294,8): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(317,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(318,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(345,15): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(346,15): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(403,27): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(404,27): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(442,27): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(443,27): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(517,27): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(518,27): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(591,36): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(591,36): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(591,93): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(591,93): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(592,42): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(592,42): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(592,94): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(592,94): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(593,42): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(593,42): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(593,94): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(593,94): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(593,139): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(594,36): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(594,36): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(594,93): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(594,93): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(595,36): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(595,36): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(595,99): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(595,99): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(596,36): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(596,36): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(596,96): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(596,96): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(597,42): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(597,42): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(597,100): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(597,100): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(598,42): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(598,42): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(598,100): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(598,100): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(634,15): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(635,15): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(667,8): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(667,8): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(667,29): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(667,29): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(668,14): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(668,14): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(668,34): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(668,34): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(669,14): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(669,14): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(669,34): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(669,34): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(670,8): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(670,8): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(670,35): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(670,35): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(671,8): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(671,8): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(671,41): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(671,41): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(672,8): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(672,8): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(672,41): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(672,41): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(673,15): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(673,15): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(673,40): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(673,40): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(674,15): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(674,15): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(674,40): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(674,40): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(706,26): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(707,28): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(830,9): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(830,9): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(830,30): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(830,30): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(831,15): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(831,15): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(831,35): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(831,35): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(832,15): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(832,15): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(832,35): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(832,35): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(833,9): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(833,9): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(833,36): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(833,36): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(834,9): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(834,9): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(834,42): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(834,42): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(835,9): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(835,9): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(835,42): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(835,42): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(836,16): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(836,16): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(836,41): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(836,41): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(837,16): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(837,16): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(837,41): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(837,41): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(910,11): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(911,11): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(916,14): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(937,7): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(937,7): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(937,28): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(937,28): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(938,13): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(938,13): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(938,33): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(938,33): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(939,13): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(939,13): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(939,33): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(939,33): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(940,7): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(940,7): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(940,34): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(940,34): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(941,7): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(941,7): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(941,40): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(941,40): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(942,7): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(942,7): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(942,40): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(942,40): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(943,14): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(943,14): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(943,39): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(943,39): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(944,14): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(944,14): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(944,39): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(944,39): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(959,7): warning C4553: '==': result of expression not used; did you intend '='?
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\tuple(143,47): warning C4244: 'initializing': conversion from '_Ty' to '_Ty', possible loss of data
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\tuple(143,47): warning C4244:         with
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\tuple(143,47): warning C4244:         [
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\tuple(143,47): warning C4244:             _Ty=float
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\tuple(143,47): warning C4244:         ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\tuple(143,47): warning C4244:         and
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\tuple(143,47): warning C4244:         [
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\tuple(143,47): warning C4244:             _Ty=int
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\tuple(143,47): warning C4244:         ]
+  (compiling source file 'Models/mapa.cpp')
+  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\tuple(143,47):
+  the template instantiation context (the oldest one first) is
+  	C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(301,43):
+  	see reference to function template instantiation 'std::tuple<int,int>::tuple<float,float,0>(std::tuple<float,float> &&) noexcept' being compiled
+  		C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\bomberman\Models\mapa.cpp(301,27):
+  		see the first reference to 'std::tuple<int,int>::tuple' in 'mapa::agregarBomba'
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\tuple(388,16):
+  	see reference to function template instantiation 'std::tuple<int,int>::tuple<std::_Unpack_tuple_t,std::tuple<float,float>,0>(_Tag,_Tpl &&)' being compiled
+          with
+          [
+              _Tag=std::_Unpack_tuple_t,
+              _Tpl=std::tuple<float,float>
+          ]
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\tuple(322,16):
+  	see reference to function template instantiation 'std::tuple<int,int>::tuple<std::_Unpack_tuple_t,_Ty,0,1,0>(_Tag,_Tpl &&,std::integer_sequence<size_t,0,1>)' being compiled
+          with
+          [
+              _Ty=std::tuple<float,float>,
+              _Tag=std::_Unpack_tuple_t,
+              _Tpl=std::tuple<float,float>
+          ]
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\tuple(1002,12):
+  	see reference to function template instantiation 'std::tuple<int,int>::tuple<std::_Exact_args_t,float,float,0>(_Tag,_This2 &&,float &&)' being compiled
+          with
+          [
+              _Tag=std::_Exact_args_t,
+              _This2=float
+          ]
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\tuple(315,102):
+  	see reference to function template instantiation 'std::_Tuple_val<_This>::_Tuple_val<_Ty>(_Other &&)' being compiled
+          with
+          [
+              _This=int,
+              _Ty=float,
+              _Other=float
+          ]
+  
+  Generating code
+  5 of 779 functions ( 0.6%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    6 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  bomberman.vcxproj -> C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\x64\Release\Bomberman.exe

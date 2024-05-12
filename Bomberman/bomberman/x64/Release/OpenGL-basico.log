@@ -1,0 +1,23 @@
+﻿  hud.cpp
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\visualizacion\hud.cpp(18,21): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\visualizacion\hud.cpp(121,56): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\visualizacion\hud.cpp(132,55): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\visualizacion\hud.cpp(135,58): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\visualizacion\hud.cpp(171,12): warning C4101: 'evento': unreferenced local variable
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\visualizacion\hud.cpp(174,15): warning C4101: 'tiempoTranscurridoUltimoFrame': unreferenced local variable
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\visualizacion\hud.cpp(336,34): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\visualizacion\hud.cpp(336,21): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\visualizacion\hud.cpp(338,33): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\visualizacion\hud.cpp(338,20): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\visualizacion\hud.cpp(340,32): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\visualizacion\hud.cpp(340,20): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\visualizacion\hud.cpp(342,33): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\visualizacion\hud.cpp(342,21): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\visualizacion\hud.cpp(270,9): warning C4101: 'ret': unreferenced local variable
+  Generating code
+  Previous IPDB and IOBJ mismatch, fall back to full compilation.
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\Menus\MenuVictoriaF.cpp(151): warning C4715: 'MenuVictoriaF::eventHandler': not all control paths return a value
+C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\OpenGL-basico\Menus\MenuGameOverF.cpp(151): warning C4715: 'GameOverMenuF::eventHandler': not all control paths return a value
+  All 777 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  OpenGL-basico.vcxproj -> C:\Users\Steven\Documents\facultad\grafica\Bomberman-Proyecto-1-Comp-Grafica\Bomberman\x64\Release\Bomberman.exe
