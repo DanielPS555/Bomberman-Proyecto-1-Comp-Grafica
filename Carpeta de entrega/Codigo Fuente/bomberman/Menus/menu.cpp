@@ -22,7 +22,7 @@ menu::menu(int w,int h, SDL_Renderer* r){
 		{ font, "PLAY VELOCITY 1x"	, w / 2				, p_inicial_y						, renderer },
 		{ font, "INTERPOLADO"		, w / 2				, p_inicial_y + distancia_y			, renderer },
 		{ font, "LUZ ATARDECER"		, w / 2				, p_inicial_y + 2 * distancia_y		, renderer },
-		{ font, "QUIT"				, w / 2	- 80		, p_inicial_y + 3 * distancia_y		, renderer },
+		{ font, "QUIT"				, w / 2 - 80				, p_inicial_y + 3 * distancia_y		, renderer },
 
 		{ font, "WIREFRAME OFF"		, p_inicial_x		, p_inicial_y + distancia_y			, renderer },
 		{ font, "TEXTURES OFF"		, p_inicial_x		, p_inicial_y + 2 * distancia_y		, renderer},
@@ -101,12 +101,7 @@ void menu::render() {
 	SDL_RenderClear(renderer);
 	// Renderizar los items del menú
 
-	for (int i = 0; i < 13; i++) {
-		if (elecciones[i]) {
-			drawMenuItem(renderer, menuItems[i]);
-
-		}
-	}
+	
 	
 
 	SDL_Rect imageRect = { w / 2 - 389, 100, 0, 0 };
@@ -116,6 +111,14 @@ void menu::render() {
 
 	SDL_QueryTexture(manual, NULL, NULL, &manualRect.w, &manualRect.h);
 	SDL_RenderCopy(renderer, manual, NULL, &manualRect); // Dibujar en toda la pantalla
+
+	for (int i = 0; i < 13; i++) {
+		if (elecciones[i]) {
+			drawMenuItem(renderer, menuItems[i]);
+
+		}
+	}
+
 
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	drawTriangleCursor(renderer, menuItems[cursorIndex - 1].rect.x - 30, menuItems[cursorIndex - 1].rect.y + menuItems[cursorIndex - 1].rect.h / 2 + 5, 20);
