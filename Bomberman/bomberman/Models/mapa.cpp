@@ -41,10 +41,10 @@ mapa::mapa(int cant_filas, int cant_columnas, int posXPuerta, int posYPuerta) {
 	float medioMapaY = alturaReal / 2;
 
 	GLfloat corrCielo[4 * 3] = {
-		 medioMapaX - tamCielo, medioMapaY - tamCielo, 60,
-		 medioMapaX + tamCielo, medioMapaY - tamCielo, 60,
-		 medioMapaX + tamCielo, medioMapaY + tamCielo, 60,
-		 medioMapaX - tamCielo, medioMapaY + tamCielo, 60
+		 medioMapaX - tamCielo, medioMapaY - tamCielo, ALTURA_EXTERIOR + 1,
+		 medioMapaX + tamCielo, medioMapaY - tamCielo, ALTURA_EXTERIOR + 1,
+		 medioMapaX + tamCielo, medioMapaY + tamCielo, ALTURA_EXTERIOR + 1,
+		 medioMapaX - tamCielo, medioMapaY + tamCielo, ALTURA_EXTERIOR + 1
 	};
 
 
@@ -727,10 +727,10 @@ void mapa::newLevel(int cant_filas, int cant_columnas, int posXPuerta, int posYP
 	float medioMapaY = alturaReal / 2;
 
 	GLfloat corrCielo[4 * 3] = {
-		 medioMapaX - tamCielo, medioMapaY - tamCielo, ALTURA_EXTERIOR,
-		 medioMapaX + tamCielo, medioMapaY - tamCielo, ALTURA_EXTERIOR,
-		 medioMapaX + tamCielo, medioMapaY + tamCielo, ALTURA_EXTERIOR,
-		 medioMapaX - tamCielo, medioMapaY + tamCielo, ALTURA_EXTERIOR
+		 medioMapaX - tamCielo, medioMapaY - tamCielo, ALTURA_EXTERIOR + 1,
+		 medioMapaX + tamCielo, medioMapaY - tamCielo, ALTURA_EXTERIOR + 1,
+		 medioMapaX + tamCielo, medioMapaY + tamCielo, ALTURA_EXTERIOR + 1,
+		 medioMapaX - tamCielo, medioMapaY + tamCielo, ALTURA_EXTERIOR + 1
 	};
 
 
@@ -747,46 +747,46 @@ void mapa::newLevel(int cant_filas, int cant_columnas, int posXPuerta, int posYP
 	GLfloat verticesBordeInferior[8][3] = {
 		{-LARGO_UNIDAD				, -LARGO_UNIDAD			, 0				},
 		{anchoReal + LARGO_UNIDAD	, -LARGO_UNIDAD			, 0				},
-		{anchoReal + LARGO_UNIDAD	, -LARGO_UNIDAD			, ALTURA_PARED	},
-		{-LARGO_UNIDAD				, -LARGO_UNIDAD			, ALTURA_PARED	},
-		{-LARGO_UNIDAD				, 0						, ALTURA_PARED	},
+		{anchoReal + LARGO_UNIDAD	, -LARGO_UNIDAD			, ALTURA_EXTERIOR	},
+		{-LARGO_UNIDAD				, -LARGO_UNIDAD			, ALTURA_EXTERIOR	},
+		{-LARGO_UNIDAD				, 0						, ALTURA_EXTERIOR	},
 		{-LARGO_UNIDAD				, 0						, 0				},
 		{anchoReal + LARGO_UNIDAD	, 0						, 0				},
-		{anchoReal + LARGO_UNIDAD	, 0						, ALTURA_PARED  }
+		{anchoReal + LARGO_UNIDAD	, 0						, ALTURA_EXTERIOR  }
 	};
 
 
 	GLfloat verticesBordeIzquierdo[8][3] = {
 		{ -LARGO_UNIDAD              ,	0					  , 0             },
 		{0			                  , 0			          , 0             },
-		{0				              , 0					  , ALTURA_PARED  },
-		{ -LARGO_UNIDAD              ,	0					  , ALTURA_PARED  },
-		{ -LARGO_UNIDAD              ,	alturaReal			  , ALTURA_PARED  },
+		{0				              , 0					  , ALTURA_EXTERIOR  },
+		{ -LARGO_UNIDAD              ,	0					  , ALTURA_EXTERIOR  },
+		{ -LARGO_UNIDAD              ,	alturaReal			  , ALTURA_EXTERIOR  },
 		{ -LARGO_UNIDAD              ,	alturaReal			  , 0             },
 		{0			                  , alturaReal	          , 0             },
-		{0				              , alturaReal			  , ALTURA_PARED  },
+		{0				              , alturaReal			  , ALTURA_EXTERIOR  },
 	};
 
 	GLfloat verticesBordeDerecho[8][3] = {
 		{anchoReal					, 0					  , 0             },
 		{anchoReal + LARGO_UNIDAD	, 0			          , 0             },
-		{anchoReal + LARGO_UNIDAD 	, 0					  , ALTURA_PARED  },
-		{anchoReal                  , 0					  , ALTURA_PARED  },
-		{anchoReal                  , anchoReal			  , ALTURA_PARED  },
+		{anchoReal + LARGO_UNIDAD 	, 0					  , ALTURA_EXTERIOR  },
+		{anchoReal                  , 0					  , ALTURA_EXTERIOR  },
+		{anchoReal                  , anchoReal			  , ALTURA_EXTERIOR  },
 		{anchoReal                  , anchoReal			  , 0             },
 		{anchoReal + LARGO_UNIDAD	, anchoReal	          , 0             },
-		{anchoReal + LARGO_UNIDAD	, anchoReal			  , ALTURA_PARED  },
+		{anchoReal + LARGO_UNIDAD	, anchoReal			  , ALTURA_EXTERIOR  },
 	};
 
 	GLfloat verticesBordeSuperior[8][3] = {
 		{-LARGO_UNIDAD				, alturaReal					, 0				},
 		{anchoReal + LARGO_UNIDAD	, alturaReal					, 0				},
-		{anchoReal + LARGO_UNIDAD	, alturaReal					, ALTURA_PARED	},
-		{-LARGO_UNIDAD				, alturaReal					, ALTURA_PARED	},
-		{-LARGO_UNIDAD				, alturaReal + LARGO_UNIDAD		, ALTURA_PARED	},
+		{anchoReal + LARGO_UNIDAD	, alturaReal					, ALTURA_EXTERIOR	},
+		{-LARGO_UNIDAD				, alturaReal					, ALTURA_EXTERIOR	},
+		{-LARGO_UNIDAD				, alturaReal + LARGO_UNIDAD		, ALTURA_EXTERIOR	},
 		{-LARGO_UNIDAD				, alturaReal + LARGO_UNIDAD		, 0				},
 		{anchoReal + LARGO_UNIDAD	, alturaReal + LARGO_UNIDAD		, 0				},
-		{anchoReal + LARGO_UNIDAD	, alturaReal + LARGO_UNIDAD		, ALTURA_PARED  },
+		{anchoReal + LARGO_UNIDAD	, alturaReal + LARGO_UNIDAD		, ALTURA_EXTERIOR  },
 	};
 
 	GLfloat color[3] = { 1.f,1.f,1.f };
